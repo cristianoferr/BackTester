@@ -1,0 +1,1 @@
+{"campoCompra":"C","campoVenda":"C","capitalInicial":100000,"custoOperacao":20,"flagCompra":true,"flagVenda":true,"maxCapitalTrade":100000,"percTrade":25.15,"riscoTrade":1.5,"stopMensal":10}
