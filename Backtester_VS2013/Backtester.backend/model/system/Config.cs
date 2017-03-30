@@ -1,8 +1,5 @@
 ﻿using Backtester.backend.DataManager;
-using Backtester.backend.model.system.condicoes;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 namespace Backtester.backend.model.system
@@ -15,7 +12,7 @@ namespace Backtester.backend.model.system
         {
             flagCompra = true;
             flagVenda = true;
-            variaveis = new List<Variavel>();
+
             capitalInicial = 100000;
             custoOperacao = 20;
             campoVenda = FormulaManager.CLOSE;
@@ -24,19 +21,13 @@ namespace Backtester.backend.model.system
             stopMensal = 10;
             maxCapitalTrade = 100000;
             percTrade = 25; //Isso informa quanto do capital eu posso ter por ativo
+
         }
 
         [DataMember]
         public float riscoTrade { get; set; }
-        IList<Variavel> variaveis;
-        internal float GetVariavelValue(string n)
-        {
-            return GetVariavelValue(int.Parse(n));
-        }
-        public float GetVariavelValue(int id)
-        {
-            return GetVariavel(id).getAtual();
-        }
+
+
 
         [DataMember]
         public bool flagCompra { get; set; }
@@ -47,27 +38,8 @@ namespace Backtester.backend.model.system
         [DataMember]
         public float capitalInicial { get; set; }
 
-        internal void LimpaVariaveis()
-        {
-            variaveis.Clear();
-        }
-
-        internal void AddVariavel(Variavel variavel)
-        {
-            variaveis.Add(variavel);
-        }
 
 
-
-        internal int GetVariaveisSize()
-        {
-            return variaveis.Count;
-        }
-
-        internal Variavel GetVariavel(int id)
-        {
-            return variaveis.Where(x => x.id == id).FirstOrDefault();
-        }
 
         [DataMember]
         public float custoOperacao { get; set; }
@@ -113,5 +85,7 @@ namespace Backtester.backend.model.system
             fileStream.Close();
 
         }
+
+
     }
 }

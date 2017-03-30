@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\resources\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -73,7 +76,10 @@
     <Compile Include="model\ativos\Papel.cs" />
     <Compile Include="model\ativos\Periodo.cs" />
     <Compile Include="model\Posicao.cs" />
+    <Compile Include="model\system\condicoes\CondicaoComplexa.cs" />
     <Compile Include="model\system\condicoes\Condicao.cs" />
+    <Compile Include="model\system\condicoes\ICondicao.cs" />
+    <Compile Include="model\system\condicoes\Node.cs" />
     <Compile Include="model\system\condicoes\Variavel.cs" />
     <Compile Include="model\system\estatistica\DadoEstatistico.cs" />
     <Compile Include="model\system\estatistica\Estatistica.cs" />
@@ -84,6 +90,7 @@
     <Compile Include="model\system\condicoes\Stop.cs" />
     <Compile Include="model\system\Config.cs" />
     <Compile Include="model\system\TradeSystem.cs" />
+    <Compile Include="model\VariavelManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util.cs" />
   </ItemGroup>

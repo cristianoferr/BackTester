@@ -4,6 +4,7 @@ using Backtester.backend.model;
 using Backtester.backend.model.ativos;
 using Backtester.backend.model.formulas;
 using Backtester.backend.model.system;
+using Backtester.backend.model.system.condicoes;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
@@ -14,6 +15,25 @@ namespace Backtester.tests
     {
 
         static FacadeBacktester facade = new FacadeBacktester();
+
+        [AssemblyInitialize]
+        public static void Configure(TestContext tc)
+        {
+            log4net.Config.XmlConfigurator.Configure();
+        }
+        static readonly log4net.ILog log =
+            log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+
+        [TestMethod]
+        public void TestLogs()
+        {
+            Util.Info("log de info");
+            Util.Error("log de erro");
+            Util.Info("log de info");
+
+            log.Info("log direto");
+        }
 
         [TestMethod]
         public void TestInicial()
@@ -140,26 +160,146 @@ namespace Backtester.tests
 
             FormulaManager fm = facade.formulaManager;
 
-            string codigoFormula = "MMS(C,3)";
+
+            Assert.IsNotNull(fm.GetFormula("MME(C,3)"));
+
+            string fonte = "C";
+            int periodos = 3;
+
+            validaFormulaMMS(ativo, fm, fonte, periodos);
+
+            periodos = 6;
+            fonte = "MME(O,6)";
+            validaFormulaMMS(ativo, fm, fonte, periodos);
+        }
+
+        private static void validaFormulaMMS(Ativo ativo, FormulaManager fm, string fonte, int periodos)
+        {
+            string codigoFormula = "MMS(" + fonte + "," + periodos + ")";
             Formula formulaMMS = fm.GetFormula(codigoFormula);
             Assert.IsNotNull(formulaMMS);
-            Assert.IsNotNull(fm.GetFormula("MME(C,3)"));
             Assert.IsTrue(formulaMMS.GetCode() == codigoFormula);
 
             float soma = 0;
-            int valor = 3;
-            string fonte = "C";
             Candle candle = ativo.firstCandle;
-            for (int i = 0; i < valor; i++)
+            for (int i = 0; i < periodos; i++)
             {
                 soma += candle.GetValor(fonte);
                 candle = candle.proximoCandle;
             }
-            soma = soma / valor;
-            Assert.IsTrue(Math.Abs(candle.GetValor(codigoFormula) - soma) > 0.1f, candle.candleAnterior.GetValor(codigoFormula) + "<>" + soma);
+            soma = soma / periodos;
+            Assert.IsTrue(Math.Abs(candle.GetValor(codigoFormula) - soma) < 0.1f, candle.candleAnterior.GetValor(codigoFormula) + "<>" + soma);
+        }
+
+        [TestMethod]
+        public void TestNode()
+        {
+            facade.LoadAtivo("PETR4", 100, Consts.PERIODO_ACAO.DIARIO, "dados/petr4-diario.js");
+            Ativo ativo = facade.GetAtivo("PETR4");
+            Config config = new Config();
+            Candle candle = ativo.firstCandle;
+            candle.SetValor("A", 10);
+            candle.SetValor("B", 20);
+            candle.SetValor("C", 10);
+
+            Condicao cond1 = new Condicao(config, "A>B");
+            Condicao cond2 = new Condicao(config, "B>C");
 
 
 
+            Node nodeOR = new Node(Consts.NODE_TYPE.OR);
+            Node nodeAND = new Node(Consts.NODE_TYPE.AND);
+            Node nodeNOT = new Node(Consts.NODE_TYPE.NOT);
+            nodeOR.AddCondicao(cond1);
+            nodeAND.AddCondicao(cond1);
+            nodeNOT.AddCondicao(cond1);
+
+            Assert.IsFalse(nodeOR.VerificaCondicao(candle));
+            Assert.IsFalse(nodeAND.VerificaCondicao(candle));
+            Assert.IsTrue(nodeNOT.VerificaCondicao(candle));
+            candle.SetValor("A", 30);
+            Assert.IsTrue(nodeOR.VerificaCondicao(candle));
+            Assert.IsTrue(nodeAND.VerificaCondicao(candle));
+            Assert.IsFalse(nodeNOT.VerificaCondicao(candle));
+
+            candle.SetValor("A", 10);
+            nodeOR.AddCondicao(cond2);
+            nodeAND.AddCondicao(cond2);
+            nodeNOT.AddCondicao(cond2);
+            Assert.IsTrue(nodeOR.VerificaCondicao(candle));
+            Assert.IsFalse(nodeAND.VerificaCondicao(candle));
+            Assert.IsTrue(nodeNOT.VerificaCondicao(candle));
+        }
+
+        [TestMethod]
+        public void TestSeparaFormulaEmElementos()
+        {
+            string formula = "A>B && B>C";
+            string[] elementos = Util.SeparaEmElementos(formula);
+            Assert.IsTrue(elementos.Length == 3);
+            Assert.IsTrue(elementos[0] == "A>B");
+            Assert.IsTrue(elementos[1] == "&&");
+            Assert.IsTrue(elementos[2] == "B>C");
+
+            formula = "(A>B && B>C) || A<S";
+            elementos = Util.SeparaEmElementos(formula);
+            Assert.IsTrue(elementos.Length == 3);
+            Assert.IsTrue(elementos[0] == "(A>B && B>C)", elementos[0]);
+            Assert.IsTrue(elementos[1] == "||");
+            Assert.IsTrue(elementos[2] == "A<S");
+
+            formula = "((A>B && B>C) || A<S) && (A(a)>d(d&&c(-1)) && D>A(GH))";
+            elementos = Util.SeparaEmElementos(formula);
+            Assert.IsTrue(elementos.Length == 3);
+            Assert.IsTrue(elementos[0] == "((A>B && B>C) || A<S)", elementos[0]);
+            Assert.IsTrue(elementos[1] == "&&");
+            Assert.IsTrue(elementos[2] == "(A(a)>d(d&&c(-1)) && D>A(GH))");
+
+        }
+
+        [TestMethod]
+        public void TestCondicaoComplexa()
+        {
+            facade.LoadAtivo("PETR4", 100, Consts.PERIODO_ACAO.DIARIO, "dados/petr4-diario.js");
+            Ativo ativo = facade.GetAtivo("PETR4");
+
+            Config config = new Config();
+
+            /*
+             * Exemplos:
+             * C>O
+             * 
+             * !C>O
+             * 
+             * C>O||C<REF(C,1)
+             * 
+             * (C>O||C<REF(C,1))&&RSI(C,9)>7
+             * 
+             *
+             */
+
+            string strFormulaA = "MME(C,9)";
+            string strFormulaB = "MMS(C,9)";
+            string strFormulaC = "MMS(C,3)";
+
+            ICondicao cond1 = new CondicaoComplexa(config, strFormulaA + ">" + strFormulaB);
+            FormulaManager fm = facade.formulaManager;
+            Candle candle = ativo.firstCandle;
+            candle.SetValor(strFormulaA, 10);
+            candle.SetValor(strFormulaB, 20);
+            candle.SetValor(strFormulaC, 5);
+            Assert.IsFalse(cond1.VerificaCondicao(candle));
+            candle.SetValor(strFormulaA, 30);
+            Assert.IsTrue(cond1.VerificaCondicao(candle));
+
+            ICondicao cond2 = new CondicaoComplexa(config, strFormulaA + ">" + strFormulaB + "&&" + strFormulaB + ">" + strFormulaC);
+            Assert.IsTrue(cond2.VerificaCondicao(candle));
+            candle.SetValor(strFormulaC, 30);
+            Assert.IsFalse(cond2.VerificaCondicao(candle));
+            candle.SetValor(strFormulaC, 5);
+            Assert.IsTrue(cond2.VerificaCondicao(candle));
+            candle.SetValor(strFormulaA, 10);
+            Assert.IsFalse(cond2.VerificaCondicao(candle));
         }
 
         [TestMethod]
@@ -187,8 +327,8 @@ namespace Backtester.tests
             Carteira carteira = new Carteira(facade, valorInicial, config, tradeSystem);
             config.custoOperacao = 20f;
 
-            tradeSystem.condicaoEntradaC = new Condicao(config, "MME(C,9)>MME(C,3)");
-            tradeSystem.condicaoSaidaC = new Condicao(config, "MME(C,9)<MME(C,3)");
+            tradeSystem.condicaoEntradaC = new CondicaoComplexa(config, "MME(C,9)>MME(C,3)");
+            tradeSystem.condicaoSaidaC = new CondicaoComplexa(config, "MME(C,9)<MME(C,3)");
 
             Periodo periodo = new Periodo("01-01-2017");
             Ativo ativo = new Ativo(facade, "TESTE", 100);

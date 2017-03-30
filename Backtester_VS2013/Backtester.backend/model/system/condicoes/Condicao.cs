@@ -1,11 +1,10 @@
 ﻿using Backtester.backend.model.ativos;
-using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace Backtester.backend.model.system
+namespace Backtester.backend.model.system.condicoes
 {
     [DataContract]
-    public class Condicao
+    public class Condicao : ICondicao
     {
 
         [DataMember]
@@ -18,20 +17,10 @@ namespace Backtester.backend.model.system
         [DataMember]
         public Consts.Operador operador { get; set; }
 
-        [DataMember]
-        public float v1 { get; set; }
-
-        [DataMember]
-        public float v2 { get; set; }
-
-        [DataMember]
-        public IList<Condicao> subCondicoes { get; set; }//Esse vetor contém as sub-condições que precisam ser atingidas
-
         public Config config { get; set; }
 
         public Condicao()
         {
-            subCondicoes = new List<Condicao>();
         }
 
         public Condicao(Config config)
@@ -69,41 +58,10 @@ namespace Backtester.backend.model.system
             operador = Util.ConverteOperador(oper);
         }
 
-        public void addCondicao(Condicao c)
-        {
-            subCondicoes.Add(c);
-        }
-
-
-        public void addCondicao(string cond1, Consts.Operador oper, string cond2)
-        {
-            Condicao c = new Condicao(config);
-            c.cond1 = cond1;
-            c.cond2 = cond2;
-            c.operador = oper;
-            addCondicao(c);
-        }
 
 
 
 
-        public void AddCondicao(string cond1, Consts.Operador oper, float v2)
-        {
-            Condicao c = new Condicao(config);
-            c.cond1 = cond1;
-            c.v2 = v2;
-            c.operador = oper;
-            addCondicao(c);
-        }
-
-        public void AddCondicao(float v1, Consts.Operador oper, string cond2)
-        {
-            Condicao c = new Condicao(config);
-            c.cond2 = cond2;
-            c.v1 = v1;
-            c.operador = oper;
-            addCondicao(c);
-        }
         public string ReplaceVariavel(string txt)
         {
             txt = txt.ToUpper() + " ";
@@ -127,21 +85,13 @@ namespace Backtester.backend.model.system
             return txt.Trim();
         }
 
-        public bool VerificaCondicao(Candle candle)
+        public virtual bool VerificaCondicao(Candle candle)
         {
-            for (int i = 0; i < subCondicoes.Count; i++)
-            {
-                Condicao c = subCondicoes[i];
-                if (!c.VerificaCondicao(candle)) return false;
-            }
-
             //Se cond1 e cond2 forem null é porque é uma condição pai, logo não há o que verificar (apenas os filhos) 
             if ((cond1 == null) && (cond2 == null)) return true;
 
-            float c1;
-            if (cond1 == null) c1 = v1; else c1 = candle.GetValor(ReplaceVariavel(cond1));
-            float c2;
-            if (cond2 == null) c2 = v2; else c2 = candle.GetValor(ReplaceVariavel(cond2));
+            float c1 = candle.GetValor(ReplaceVariavel(cond1));
+            float c2 = candle.GetValor(ReplaceVariavel(cond2));
             return VerificaCondicao(c1, c2);
         }
 

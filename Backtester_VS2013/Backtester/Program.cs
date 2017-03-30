@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Backtester.backend;
+using System;
 using System.Windows.Forms;
 
 namespace Backtester
@@ -17,6 +15,7 @@ namespace Backtester
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new FrmPrincipal());
+            Util.Info("Log em Program");
         }
     }
 }

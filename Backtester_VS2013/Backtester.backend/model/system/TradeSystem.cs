@@ -1,6 +1,7 @@
 ﻿
 using Backtester.backend.DataManager;
 using Backtester.backend.model.ativos;
+using Backtester.backend.model.system.condicoes;
 using System.Runtime.Serialization;
 namespace Backtester.backend.model.system
 {
@@ -8,21 +9,26 @@ namespace Backtester.backend.model.system
     public class TradeSystem
     {
         /*A diferença entre stopInicial e stopMovel: 
-     a formula stopInicial será usada para determinar o Stop Inicial (dã) e o stopMovel é usado para determinar o stop daquele dia
+     a formula stopInicial será usada para determinar o Stop Inicial  e o stopMovel é usado para determinar o stop daquele dia
      E caso o valor do stopMovel seja menor que o stopInicial então o valor retornado será o stopInicial
      */
 
-        public TradeSystem()
+        [DataMember]
+        public VariavelManager vm { get; private set; }
+
+        public TradeSystem(Config config)
         {
+            vm = new VariavelManager();
             stopMovelC = stopInicialC;
             stopMovelV = stopInicialV;
             stopInicialC = "SUBTRACT(L,MULTIPLY(" + FormulaManager.STDDEV + "(C,10),2))";
             stopInicialV = "SUM(H,MULTIPLY(" + FormulaManager.STDDEV + "(C,10),2))";//"HV(H,6)";
-            stopGapPerc = 0f; //Usado para dar algum espaçamento entre a formula e o valor realmente usado
-            condicaoEntradaC = new Condicao();
-            condicaoEntradaV = new Condicao();
-            condicaoSaidaC = new Condicao();
-            condicaoSaidaV = new Condicao();
+            stopGapPerc = GetVariavel("stopGap", 0, 10, 5); //Usado para dar algum espaçamento entre a formula e o valor realmente usado
+            condicaoEntradaC = new CondicaoComplexa();
+            condicaoEntradaV = new CondicaoComplexa();
+            condicaoSaidaC = new CondicaoComplexa();
+            condicaoSaidaV = new CondicaoComplexa();
+
         }
 
 
@@ -47,7 +53,7 @@ namespace Backtester.backend.model.system
         [DataMember]
         public string stopInicialV { get; set; }
         [DataMember]
-        public float stopGapPerc { get; set; }
+        public Variavel stopGapPerc { get; set; }
         [DataMember]
         public string stopMovelC { get; set; }
         [DataMember]
@@ -55,15 +61,15 @@ namespace Backtester.backend.model.system
 
 
         [DataMember]
-        public Condicao condicaoEntradaC { get; set; }
+        public CondicaoComplexa condicaoEntradaC { get; set; }
 
         [DataMember]
-        public Condicao condicaoSaidaC { get; set; }
+        public CondicaoComplexa condicaoSaidaC { get; set; }
         [DataMember]
-        public Condicao condicaoEntradaV { get; set; }
+        public CondicaoComplexa condicaoEntradaV { get; set; }
 
         [DataMember]
-        public Condicao condicaoSaidaV { get; set; }
+        public CondicaoComplexa condicaoSaidaV { get; set; }
 
         /*
          * Esse método verifica se a entrada foi ativada para o candle atual
@@ -71,13 +77,13 @@ namespace Backtester.backend.model.system
          */
         public float checaCondicaoEntrada(Candle candle, Config config)
         {
-            if ((config.flagCompra) && (condicaoEntradaC != null))
+            if ((config.flagCompra && condicaoEntradaC != null))
                 if (condicaoEntradaC.VerificaCondicao(candle))
-                    return candle.GetValor(stopInicialC) * (1f - stopGapPerc / 100f);
+                    return candle.GetValor(stopInicialC) * (1f - stopGapPerc.vlrAtual / 100f);
 
-            if ((config.flagVenda) && (condicaoEntradaV != null))
+            if ((config.flagVenda && condicaoEntradaV != null))
                 if (condicaoEntradaV.VerificaCondicao(candle))
-                    return -candle.GetValor(stopInicialV) * (1f + stopGapPerc / 100f);
+                    return -candle.GetValor(stopInicialV) * (1f + stopGapPerc.vlrAtual / 100f);
 
             return 0;
         }
@@ -88,6 +94,11 @@ namespace Backtester.backend.model.system
             if (direcao > 0) if (condicaoSaidaC.VerificaCondicao(candle)) return 1;
             if (direcao < 0) if (condicaoSaidaV.VerificaCondicao(candle)) return 1;
             return 0;
+        }
+
+        public Variavel GetVariavel(string name, float vlrInicial, float step, float vlrFinal)
+        {
+            return vm.GetVariavel(name, vlrInicial, step, vlrFinal);
         }
 
 

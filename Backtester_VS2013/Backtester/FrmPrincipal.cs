@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using Backtester.controller;
+using System.Windows.Forms;
 
 namespace Backtester
 {
@@ -27,6 +28,7 @@ namespace Backtester
 
         private void btnSalvaTradeSystems_Click(object sender, System.EventArgs e)
         {
+            tsController.UpdateValuesFromUI();
             tsController.Salva();
         }
 
@@ -50,7 +52,7 @@ namespace Backtester
 
         private void btnAtualizaTradeSystem_Click(object sender, System.EventArgs e)
         {
-            tsController.AtualizaTradeSystem();
+            tsController.UpdateValuesFromUI();
         }
 
     }

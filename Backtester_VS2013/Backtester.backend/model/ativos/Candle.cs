@@ -41,7 +41,7 @@ namespace Backtester.backend.model.ativos
         }
 
 
-        public string ToString()
+        public override string ToString()
         {
             string s = "Ativo:" + ativo.name + " Dia: " + periodo;
             foreach (string key in valores.Keys)
@@ -55,6 +55,7 @@ namespace Backtester.backend.model.ativos
         {
             SetValor(formula.GetCode(), valor);
         }
+
 
         public float GetValor(string name)
         {

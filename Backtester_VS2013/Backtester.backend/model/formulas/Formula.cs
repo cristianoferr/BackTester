@@ -28,5 +28,11 @@ namespace Backtester.backend.model.formulas
         {
             return candle.GetValor(name);
         }
+
+        public override string ToString()
+        {
+            return GetCode();
+        }
     }
+
 }

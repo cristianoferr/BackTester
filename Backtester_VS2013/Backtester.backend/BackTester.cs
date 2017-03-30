@@ -28,9 +28,6 @@ namespace Backtester.backend
             this.config = config;
             this.tradeSystem = tradeSystem;
             this.dataInicial = dataInicial;
-            config.LimpaVariaveis();
-            config.AddVariavel(new Variavel(0, 3, 1, 9));
-            config.AddVariavel(new Variavel(1, 6, 1, 12));
             monteCarlo = new List<MonteCarlo>();
 
             init();
@@ -47,20 +44,29 @@ namespace Backtester.backend
 
         public void runBackTest()
         {
-            if (config.GetVariaveisSize() == 0) { runSingleBackTest(); return; }
+            if (tradeSystem.vm.Count == 0)
+            {
+                runSingleBackTest();
+                return;
+            }
+            if (!useVars)
+            {
+                return;
+            }
+
             if (useVars) loopVariavel(0); else runMonteCarlo("MC Run");
         }
         public void loopVariavel(int id)
         {
             Util.println("init " + id);
-            Variavel v = config.GetVariavel(id);
+            Variavel v = tradeSystem.vm.GetVariavel(id);
             v.reset();
             while (!v.hasEnded())
             {
                 v.getNext();
                 //System.out.println("loop "+id+" atual:"+v.getAtual());
 
-                if (id + 1 < config.GetVariaveisSize())
+                if (id + 1 < tradeSystem.vm.Count)
                     loopVariavel(id + 1);
                 else
                 {
@@ -125,9 +131,10 @@ namespace Backtester.backend
         public String getVarsValues()
         {
             String s = "";
-            for (int i = 0; i < config.GetVariaveisSize(); i++)
+            for (int i = 0; i < tradeSystem.vm.Count; i++)
             {
-                s = s + " v(" + config.GetVariavel(i).id + "):" + config.GetVariavel(i).getAtual();
+                Variavel v = tradeSystem.vm.GetVariavel(i);
+                s = s + " v(" + v.name + "):" + v.vlrAtual;
             }
             return s;
         }

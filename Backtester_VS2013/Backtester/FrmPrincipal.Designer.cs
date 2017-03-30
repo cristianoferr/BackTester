@@ -5,7 +5,7 @@
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        public System.ComponentModel.IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -26,7 +26,7 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
+        public void InitializeComponent()
         {
             this.mainTab = new System.Windows.Forms.TabControl();
             this.tabBackTester = new System.Windows.Forms.TabPage();
@@ -45,50 +45,68 @@
             this.chkFlagVenda = new System.Windows.Forms.CheckBox();
             this.chkFlagCompra = new System.Windows.Forms.CheckBox();
             this.tabTradeSystem = new System.Windows.Forms.TabPage();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btnAtualizaTradeSystem = new System.Windows.Forms.Button();
+            this.btnSalvaTradeSystems = new System.Windows.Forms.Button();
             this.panelTradeSystem = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.txtVendaSaidaDireita = new System.Windows.Forms.TextBox();
-            this.txtVendaSaidaOperador = new System.Windows.Forms.ComboBox();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.textBox6 = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.txtVendaSaidaEsquerda = new System.Windows.Forms.TextBox();
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.txtCondSaidaVDesc = new System.Windows.Forms.TextBox();
+            this.txtCondSaidaV = new System.Windows.Forms.TextBox();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.txtVendaEntradaDireita = new System.Windows.Forms.TextBox();
-            this.txtVendaEntradaOperador = new System.Windows.Forms.ComboBox();
+            this.textBox9 = new System.Windows.Forms.TextBox();
+            this.textBox10 = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
-            this.txtVendaEntradaEsquerda = new System.Windows.Forms.TextBox();
+            this.txtCondEntrVDesc = new System.Windows.Forms.TextBox();
+            this.txtCondEntrV = new System.Windows.Forms.TextBox();
             this.panelCompra = new System.Windows.Forms.GroupBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.txtCompraSaidaDireita = new System.Windows.Forms.TextBox();
-            this.txtCompraSaidaOperador = new System.Windows.Forms.ComboBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.txtCompraSaidaEsquerda = new System.Windows.Forms.TextBox();
+            this.txtCondSaidaCDesc = new System.Windows.Forms.TextBox();
+            this.txtCondSaidaC = new System.Windows.Forms.TextBox();
             this.panelCompraEntrada = new System.Windows.Forms.GroupBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.txtCompraEntradaDireita = new System.Windows.Forms.TextBox();
-            this.txtCompraEntradaOperador = new System.Windows.Forms.ComboBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
-            this.txtCompraEntradaEsquerda = new System.Windows.Forms.TextBox();
+            this.txtCondEntrCDesc = new System.Windows.Forms.TextBox();
+            this.txtCondEntrC = new System.Windows.Forms.TextBox();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.txtNameTs = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
             this.btnRemoveTS = new System.Windows.Forms.Button();
             this.btnAdicionaTS = new System.Windows.Forms.Button();
             this.listTradeSystems = new System.Windows.Forms.ListBox();
-            this.btnSalvaTradeSystems = new System.Windows.Forms.Button();
-            this.btnAtualizaTradeSystem = new System.Windows.Forms.Button();
-            this.label14 = new System.Windows.Forms.Label();
-            this.txtNameTs = new System.Windows.Forms.TextBox();
             this.mainTab.SuspendLayout();
             this.tabConfig.SuspendLayout();
             this.tabTradeSystem.SuspendLayout();
+            this.panel1.SuspendLayout();
             this.panelTradeSystem.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox5.SuspendLayout();
+            this.groupBox6.SuspendLayout();
+            this.groupBox7.SuspendLayout();
+            this.groupBox8.SuspendLayout();
+            this.panelCompra.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
-            this.panelCompra.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.panelCompraEntrada.SuspendLayout();
+            this.groupBox1.SuspendLayout();
+            this.panel3.SuspendLayout();
+            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainTab
@@ -100,7 +118,7 @@
             this.mainTab.Location = new System.Drawing.Point(0, 0);
             this.mainTab.Name = "mainTab";
             this.mainTab.SelectedIndex = 0;
-            this.mainTab.Size = new System.Drawing.Size(1017, 558);
+            this.mainTab.Size = new System.Drawing.Size(1174, 643);
             this.mainTab.TabIndex = 0;
             this.mainTab.SelectedIndexChanged += new System.EventHandler(this.mainTab_SelectedIndexChanged);
             // 
@@ -109,7 +127,7 @@
             this.tabBackTester.Location = new System.Drawing.Point(4, 22);
             this.tabBackTester.Name = "tabBackTester";
             this.tabBackTester.Padding = new System.Windows.Forms.Padding(3);
-            this.tabBackTester.Size = new System.Drawing.Size(1009, 532);
+            this.tabBackTester.Size = new System.Drawing.Size(1166, 617);
             this.tabBackTester.TabIndex = 0;
             this.tabBackTester.Text = "Backtester";
             this.tabBackTester.UseVisualStyleBackColor = true;
@@ -132,7 +150,7 @@
             this.tabConfig.Location = new System.Drawing.Point(4, 22);
             this.tabConfig.Name = "tabConfig";
             this.tabConfig.Padding = new System.Windows.Forms.Padding(3);
-            this.tabConfig.Size = new System.Drawing.Size(1009, 532);
+            this.tabConfig.Size = new System.Drawing.Size(1166, 617);
             this.tabConfig.TabIndex = 1;
             this.tabConfig.Text = "Config";
             this.tabConfig.UseVisualStyleBackColor = true;
@@ -251,321 +269,444 @@
             // 
             // tabTradeSystem
             // 
+            this.tabTradeSystem.Controls.Add(this.panel1);
             this.tabTradeSystem.Controls.Add(this.panelTradeSystem);
-            this.tabTradeSystem.Controls.Add(this.btnRemoveTS);
-            this.tabTradeSystem.Controls.Add(this.btnAdicionaTS);
+            this.tabTradeSystem.Controls.Add(this.panel2);
             this.tabTradeSystem.Controls.Add(this.listTradeSystems);
-            this.tabTradeSystem.Controls.Add(this.btnSalvaTradeSystems);
             this.tabTradeSystem.Location = new System.Drawing.Point(4, 22);
             this.tabTradeSystem.Name = "tabTradeSystem";
-            this.tabTradeSystem.Size = new System.Drawing.Size(1009, 532);
+            this.tabTradeSystem.Size = new System.Drawing.Size(1166, 617);
             this.tabTradeSystem.TabIndex = 2;
             this.tabTradeSystem.Text = "TradeSystem";
             this.tabTradeSystem.UseVisualStyleBackColor = true;
             // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.btnAtualizaTradeSystem);
+            this.panel1.Controls.Add(this.btnSalvaTradeSystems);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel1.Location = new System.Drawing.Point(184, 586);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(982, 31);
+            this.panel1.TabIndex = 11;
+            // 
+            // btnAtualizaTradeSystem
+            // 
+            this.btnAtualizaTradeSystem.Location = new System.Drawing.Point(171, 3);
+            this.btnAtualizaTradeSystem.Name = "btnAtualizaTradeSystem";
+            this.btnAtualizaTradeSystem.Size = new System.Drawing.Size(159, 23);
+            this.btnAtualizaTradeSystem.TabIndex = 12;
+            this.btnAtualizaTradeSystem.Text = "Atualiza Trade System";
+            this.btnAtualizaTradeSystem.UseVisualStyleBackColor = true;
+            // 
+            // btnSalvaTradeSystems
+            // 
+            this.btnSalvaTradeSystems.Location = new System.Drawing.Point(6, 3);
+            this.btnSalvaTradeSystems.Name = "btnSalvaTradeSystems";
+            this.btnSalvaTradeSystems.Size = new System.Drawing.Size(159, 23);
+            this.btnSalvaTradeSystems.TabIndex = 11;
+            this.btnSalvaTradeSystems.Text = "Salva Trade Systems";
+            this.btnSalvaTradeSystems.UseVisualStyleBackColor = true;
+            // 
             // panelTradeSystem
             // 
-            this.panelTradeSystem.Controls.Add(this.txtNameTs);
-            this.panelTradeSystem.Controls.Add(this.label14);
-            this.panelTradeSystem.Controls.Add(this.btnAtualizaTradeSystem);
             this.panelTradeSystem.Controls.Add(this.groupBox2);
-            this.panelTradeSystem.Controls.Add(this.panelCompra);
-            this.panelTradeSystem.Location = new System.Drawing.Point(218, 23);
+            this.panelTradeSystem.Controls.Add(this.panel3);
+            this.panelTradeSystem.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelTradeSystem.Location = new System.Drawing.Point(184, 0);
             this.panelTradeSystem.Name = "panelTradeSystem";
-            this.panelTradeSystem.Size = new System.Drawing.Size(730, 462);
+            this.panelTradeSystem.Size = new System.Drawing.Size(982, 617);
             this.panelTradeSystem.TabIndex = 7;
             this.panelTradeSystem.TabStop = false;
             this.panelTradeSystem.Text = "TradeSystem";
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.groupBox3);
-            this.groupBox2.Controls.Add(this.groupBox4);
-            this.groupBox2.Location = new System.Drawing.Point(6, 253);
+            this.groupBox2.Controls.Add(this.groupBox5);
+            this.groupBox2.Controls.Add(this.groupBox7);
+            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox2.Location = new System.Drawing.Point(3, 52);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(489, 191);
+            this.groupBox2.Size = new System.Drawing.Size(976, 263);
             this.groupBox2.TabIndex = 9;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Condições de Venda";
             // 
-            // groupBox3
+            // groupBox5
             // 
-            this.groupBox3.Controls.Add(this.label10);
-            this.groupBox3.Controls.Add(this.txtVendaSaidaDireita);
-            this.groupBox3.Controls.Add(this.txtVendaSaidaOperador);
-            this.groupBox3.Controls.Add(this.label11);
-            this.groupBox3.Controls.Add(this.txtVendaSaidaEsquerda);
-            this.groupBox3.Location = new System.Drawing.Point(6, 102);
-            this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(472, 71);
-            this.groupBox3.TabIndex = 10;
-            this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "Condição de Saida";
+            this.groupBox5.Controls.Add(this.groupBox6);
+            this.groupBox5.Controls.Add(this.label11);
+            this.groupBox5.Controls.Add(this.txtCondSaidaVDesc);
+            this.groupBox5.Controls.Add(this.txtCondSaidaV);
+            this.groupBox5.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox5.Location = new System.Drawing.Point(3, 131);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(970, 115);
+            this.groupBox5.TabIndex = 12;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Condição de Saida";
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.label10);
+            this.groupBox6.Controls.Add(this.textBox5);
+            this.groupBox6.Controls.Add(this.textBox6);
+            this.groupBox6.Location = new System.Drawing.Point(6, 115);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(706, 115);
+            this.groupBox6.TabIndex = 10;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "Condição de Saida";
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(251, 29);
+            this.label10.Location = new System.Drawing.Point(6, 58);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(77, 13);
-            this.label10.TabIndex = 5;
-            this.label10.Text = "Formula Direita";
+            this.label10.Size = new System.Drawing.Size(58, 13);
+            this.label10.TabIndex = 12;
+            this.label10.Text = "Descrição:";
             // 
-            // txtVendaSaidaDireita
+            // textBox5
             // 
-            this.txtVendaSaidaDireita.Location = new System.Drawing.Point(251, 45);
-            this.txtVendaSaidaDireita.Name = "txtVendaSaidaDireita";
-            this.txtVendaSaidaDireita.Size = new System.Drawing.Size(178, 20);
-            this.txtVendaSaidaDireita.TabIndex = 4;
+            this.textBox5.Location = new System.Drawing.Point(6, 71);
+            this.textBox5.Multiline = true;
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(694, 38);
+            this.textBox5.TabIndex = 1;
             // 
-            // txtVendaSaidaOperador
+            // textBox6
             // 
-            this.txtVendaSaidaOperador.FormattingEnabled = true;
-            this.txtVendaSaidaOperador.Items.AddRange(new object[] {
-            ">",
-            ">=",
-            "<",
-            "<=",
-            "=",
-            "!="});
-            this.txtVendaSaidaOperador.Location = new System.Drawing.Point(190, 45);
-            this.txtVendaSaidaOperador.Name = "txtVendaSaidaOperador";
-            this.txtVendaSaidaOperador.Size = new System.Drawing.Size(55, 21);
-            this.txtVendaSaidaOperador.TabIndex = 3;
-            this.txtVendaSaidaOperador.Text = "=";
+            this.textBox6.Location = new System.Drawing.Point(8, 16);
+            this.textBox6.Multiline = true;
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(692, 38);
+            this.textBox6.TabIndex = 0;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(6, 29);
+            this.label11.Location = new System.Drawing.Point(6, 58);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(92, 13);
-            this.label11.TabIndex = 1;
-            this.label11.Text = "Formula Esquerda";
+            this.label11.Size = new System.Drawing.Size(58, 13);
+            this.label11.TabIndex = 12;
+            this.label11.Text = "Descrição:";
             // 
-            // txtVendaSaidaEsquerda
+            // txtCondSaidaVDesc
             // 
-            this.txtVendaSaidaEsquerda.Location = new System.Drawing.Point(6, 45);
-            this.txtVendaSaidaEsquerda.Name = "txtVendaSaidaEsquerda";
-            this.txtVendaSaidaEsquerda.Size = new System.Drawing.Size(178, 20);
-            this.txtVendaSaidaEsquerda.TabIndex = 0;
+            this.txtCondSaidaVDesc.Location = new System.Drawing.Point(6, 71);
+            this.txtCondSaidaVDesc.Multiline = true;
+            this.txtCondSaidaVDesc.Name = "txtCondSaidaVDesc";
+            this.txtCondSaidaVDesc.Size = new System.Drawing.Size(694, 38);
+            this.txtCondSaidaVDesc.TabIndex = 1;
             // 
-            // groupBox4
+            // txtCondSaidaV
             // 
-            this.groupBox4.Controls.Add(this.label12);
-            this.groupBox4.Controls.Add(this.txtVendaEntradaDireita);
-            this.groupBox4.Controls.Add(this.txtVendaEntradaOperador);
-            this.groupBox4.Controls.Add(this.label13);
-            this.groupBox4.Controls.Add(this.txtVendaEntradaEsquerda);
-            this.groupBox4.Location = new System.Drawing.Point(6, 28);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(472, 71);
-            this.groupBox4.TabIndex = 9;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Condição de Entrada";
+            this.txtCondSaidaV.Location = new System.Drawing.Point(8, 16);
+            this.txtCondSaidaV.Multiline = true;
+            this.txtCondSaidaV.Name = "txtCondSaidaV";
+            this.txtCondSaidaV.Size = new System.Drawing.Size(692, 38);
+            this.txtCondSaidaV.TabIndex = 0;
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.groupBox8);
+            this.groupBox7.Controls.Add(this.panelCompra);
+            this.groupBox7.Controls.Add(this.label13);
+            this.groupBox7.Controls.Add(this.txtCondEntrVDesc);
+            this.groupBox7.Controls.Add(this.txtCondEntrV);
+            this.groupBox7.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox7.Location = new System.Drawing.Point(3, 16);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(970, 115);
+            this.groupBox7.TabIndex = 11;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Condição de Entrada";
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.label12);
+            this.groupBox8.Controls.Add(this.textBox9);
+            this.groupBox8.Controls.Add(this.textBox10);
+            this.groupBox8.Location = new System.Drawing.Point(6, 115);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(706, 115);
+            this.groupBox8.TabIndex = 10;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Condição de Saida";
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(251, 29);
+            this.label12.Location = new System.Drawing.Point(6, 58);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(77, 13);
-            this.label12.TabIndex = 5;
-            this.label12.Text = "Formula Direita";
+            this.label12.Size = new System.Drawing.Size(58, 13);
+            this.label12.TabIndex = 12;
+            this.label12.Text = "Descrição:";
             // 
-            // txtVendaEntradaDireita
+            // textBox9
             // 
-            this.txtVendaEntradaDireita.Location = new System.Drawing.Point(251, 45);
-            this.txtVendaEntradaDireita.Name = "txtVendaEntradaDireita";
-            this.txtVendaEntradaDireita.Size = new System.Drawing.Size(178, 20);
-            this.txtVendaEntradaDireita.TabIndex = 4;
+            this.textBox9.Location = new System.Drawing.Point(6, 71);
+            this.textBox9.Multiline = true;
+            this.textBox9.Name = "textBox9";
+            this.textBox9.Size = new System.Drawing.Size(694, 38);
+            this.textBox9.TabIndex = 1;
             // 
-            // txtVendaEntradaOperador
+            // textBox10
             // 
-            this.txtVendaEntradaOperador.FormattingEnabled = true;
-            this.txtVendaEntradaOperador.Items.AddRange(new object[] {
-            ">",
-            ">=",
-            "<",
-            "<=",
-            "=",
-            "!="});
-            this.txtVendaEntradaOperador.Location = new System.Drawing.Point(190, 45);
-            this.txtVendaEntradaOperador.Name = "txtVendaEntradaOperador";
-            this.txtVendaEntradaOperador.Size = new System.Drawing.Size(55, 21);
-            this.txtVendaEntradaOperador.TabIndex = 3;
-            this.txtVendaEntradaOperador.Text = "=";
+            this.textBox10.Location = new System.Drawing.Point(8, 16);
+            this.textBox10.Multiline = true;
+            this.textBox10.Name = "textBox10";
+            this.textBox10.Size = new System.Drawing.Size(692, 38);
+            this.textBox10.TabIndex = 0;
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(6, 29);
+            this.label13.Location = new System.Drawing.Point(6, 58);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(92, 13);
-            this.label13.TabIndex = 1;
-            this.label13.Text = "Formula Esquerda";
+            this.label13.Size = new System.Drawing.Size(58, 13);
+            this.label13.TabIndex = 12;
+            this.label13.Text = "Descrição:";
             // 
-            // txtVendaEntradaEsquerda
+            // txtCondEntrVDesc
             // 
-            this.txtVendaEntradaEsquerda.Location = new System.Drawing.Point(6, 45);
-            this.txtVendaEntradaEsquerda.Name = "txtVendaEntradaEsquerda";
-            this.txtVendaEntradaEsquerda.Size = new System.Drawing.Size(178, 20);
-            this.txtVendaEntradaEsquerda.TabIndex = 0;
+            this.txtCondEntrVDesc.Location = new System.Drawing.Point(6, 71);
+            this.txtCondEntrVDesc.Multiline = true;
+            this.txtCondEntrVDesc.Name = "txtCondEntrVDesc";
+            this.txtCondEntrVDesc.Size = new System.Drawing.Size(694, 38);
+            this.txtCondEntrVDesc.TabIndex = 1;
+            // 
+            // txtCondEntrV
+            // 
+            this.txtCondEntrV.Location = new System.Drawing.Point(8, 16);
+            this.txtCondEntrV.Multiline = true;
+            this.txtCondEntrV.Name = "txtCondEntrV";
+            this.txtCondEntrV.Size = new System.Drawing.Size(692, 38);
+            this.txtCondEntrV.TabIndex = 0;
             // 
             // panelCompra
             // 
-            this.panelCompra.Controls.Add(this.groupBox1);
+            this.panelCompra.Controls.Add(this.groupBox3);
             this.panelCompra.Controls.Add(this.panelCompraEntrada);
-            this.panelCompra.Location = new System.Drawing.Point(6, 56);
+            this.panelCompra.Location = new System.Drawing.Point(188, 16);
             this.panelCompra.Name = "panelCompra";
-            this.panelCompra.Size = new System.Drawing.Size(489, 191);
+            this.panelCompra.Size = new System.Drawing.Size(976, 262);
             this.panelCompra.TabIndex = 8;
             this.panelCompra.TabStop = false;
             this.panelCompra.Text = "Condições de Compra";
             // 
-            // groupBox1
+            // groupBox3
             // 
-            this.groupBox1.Controls.Add(this.label8);
-            this.groupBox1.Controls.Add(this.txtCompraSaidaDireita);
-            this.groupBox1.Controls.Add(this.txtCompraSaidaOperador);
-            this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Controls.Add(this.txtCompraSaidaEsquerda);
-            this.groupBox1.Location = new System.Drawing.Point(6, 102);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(472, 71);
-            this.groupBox1.TabIndex = 10;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Condição de Saida";
+            this.groupBox3.Controls.Add(this.groupBox4);
+            this.groupBox3.Controls.Add(this.label9);
+            this.groupBox3.Controls.Add(this.txtCondSaidaCDesc);
+            this.groupBox3.Controls.Add(this.txtCondSaidaC);
+            this.groupBox3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.groupBox3.Location = new System.Drawing.Point(3, 131);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(970, 115);
+            this.groupBox3.TabIndex = 10;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Condição de Saida";
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.label8);
+            this.groupBox4.Controls.Add(this.textBox3);
+            this.groupBox4.Controls.Add(this.textBox4);
+            this.groupBox4.Location = new System.Drawing.Point(6, 115);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(706, 115);
+            this.groupBox4.TabIndex = 10;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Condição de Saida";
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(251, 29);
+            this.label8.Location = new System.Drawing.Point(6, 58);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(77, 13);
-            this.label8.TabIndex = 5;
-            this.label8.Text = "Formula Direita";
+            this.label8.Size = new System.Drawing.Size(58, 13);
+            this.label8.TabIndex = 12;
+            this.label8.Text = "Descrição:";
             // 
-            // txtCompraSaidaDireita
+            // textBox3
             // 
-            this.txtCompraSaidaDireita.Location = new System.Drawing.Point(251, 45);
-            this.txtCompraSaidaDireita.Name = "txtCompraSaidaDireita";
-            this.txtCompraSaidaDireita.Size = new System.Drawing.Size(178, 20);
-            this.txtCompraSaidaDireita.TabIndex = 4;
+            this.textBox3.Location = new System.Drawing.Point(6, 71);
+            this.textBox3.Multiline = true;
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(694, 38);
+            this.textBox3.TabIndex = 1;
             // 
-            // txtCompraSaidaOperador
+            // textBox4
             // 
-            this.txtCompraSaidaOperador.FormattingEnabled = true;
-            this.txtCompraSaidaOperador.Items.AddRange(new object[] {
-            ">",
-            ">=",
-            "<",
-            "<=",
-            "=",
-            "!="});
-            this.txtCompraSaidaOperador.Location = new System.Drawing.Point(190, 45);
-            this.txtCompraSaidaOperador.Name = "txtCompraSaidaOperador";
-            this.txtCompraSaidaOperador.Size = new System.Drawing.Size(55, 21);
-            this.txtCompraSaidaOperador.TabIndex = 3;
-            this.txtCompraSaidaOperador.Text = "=";
+            this.textBox4.Location = new System.Drawing.Point(8, 16);
+            this.textBox4.Multiline = true;
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(692, 38);
+            this.textBox4.TabIndex = 0;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(6, 29);
+            this.label9.Location = new System.Drawing.Point(6, 58);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(92, 13);
-            this.label9.TabIndex = 1;
-            this.label9.Text = "Formula Esquerda";
+            this.label9.Size = new System.Drawing.Size(58, 13);
+            this.label9.TabIndex = 12;
+            this.label9.Text = "Descrição:";
             // 
-            // txtCompraSaidaEsquerda
+            // txtCondSaidaCDesc
             // 
-            this.txtCompraSaidaEsquerda.Location = new System.Drawing.Point(6, 45);
-            this.txtCompraSaidaEsquerda.Name = "txtCompraSaidaEsquerda";
-            this.txtCompraSaidaEsquerda.Size = new System.Drawing.Size(178, 20);
-            this.txtCompraSaidaEsquerda.TabIndex = 0;
+            this.txtCondSaidaCDesc.Location = new System.Drawing.Point(6, 71);
+            this.txtCondSaidaCDesc.Multiline = true;
+            this.txtCondSaidaCDesc.Name = "txtCondSaidaCDesc";
+            this.txtCondSaidaCDesc.Size = new System.Drawing.Size(694, 38);
+            this.txtCondSaidaCDesc.TabIndex = 1;
+            // 
+            // txtCondSaidaC
+            // 
+            this.txtCondSaidaC.Location = new System.Drawing.Point(8, 16);
+            this.txtCondSaidaC.Multiline = true;
+            this.txtCondSaidaC.Name = "txtCondSaidaC";
+            this.txtCondSaidaC.Size = new System.Drawing.Size(692, 38);
+            this.txtCondSaidaC.TabIndex = 0;
             // 
             // panelCompraEntrada
             // 
-            this.panelCompraEntrada.Controls.Add(this.label7);
-            this.panelCompraEntrada.Controls.Add(this.txtCompraEntradaDireita);
-            this.panelCompraEntrada.Controls.Add(this.txtCompraEntradaOperador);
+            this.panelCompraEntrada.Controls.Add(this.groupBox1);
             this.panelCompraEntrada.Controls.Add(this.label2);
-            this.panelCompraEntrada.Controls.Add(this.txtCompraEntradaEsquerda);
-            this.panelCompraEntrada.Location = new System.Drawing.Point(6, 28);
+            this.panelCompraEntrada.Controls.Add(this.txtCondEntrCDesc);
+            this.panelCompraEntrada.Controls.Add(this.txtCondEntrC);
+            this.panelCompraEntrada.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelCompraEntrada.Location = new System.Drawing.Point(3, 16);
             this.panelCompraEntrada.Name = "panelCompraEntrada";
-            this.panelCompraEntrada.Size = new System.Drawing.Size(472, 71);
+            this.panelCompraEntrada.Size = new System.Drawing.Size(970, 115);
             this.panelCompraEntrada.TabIndex = 9;
             this.panelCompraEntrada.TabStop = false;
             this.panelCompraEntrada.Text = "Condição de Entrada";
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.textBox1);
+            this.groupBox1.Controls.Add(this.textBox2);
+            this.groupBox1.Location = new System.Drawing.Point(6, 115);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(706, 115);
+            this.groupBox1.TabIndex = 10;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Condição de Saida";
+            // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(251, 29);
+            this.label7.Location = new System.Drawing.Point(6, 58);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(77, 13);
-            this.label7.TabIndex = 5;
-            this.label7.Text = "Formula Direita";
+            this.label7.Size = new System.Drawing.Size(58, 13);
+            this.label7.TabIndex = 12;
+            this.label7.Text = "Descrição:";
             // 
-            // txtCompraEntradaDireita
+            // textBox1
             // 
-            this.txtCompraEntradaDireita.Location = new System.Drawing.Point(251, 45);
-            this.txtCompraEntradaDireita.Name = "txtCompraEntradaDireita";
-            this.txtCompraEntradaDireita.Size = new System.Drawing.Size(178, 20);
-            this.txtCompraEntradaDireita.TabIndex = 4;
+            this.textBox1.Location = new System.Drawing.Point(6, 71);
+            this.textBox1.Multiline = true;
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(694, 38);
+            this.textBox1.TabIndex = 1;
             // 
-            // txtCompraEntradaOperador
+            // textBox2
             // 
-            this.txtCompraEntradaOperador.FormattingEnabled = true;
-            this.txtCompraEntradaOperador.Items.AddRange(new object[] {
-            ">",
-            ">=",
-            "<",
-            "<=",
-            "=",
-            "!="});
-            this.txtCompraEntradaOperador.Location = new System.Drawing.Point(190, 45);
-            this.txtCompraEntradaOperador.Name = "txtCompraEntradaOperador";
-            this.txtCompraEntradaOperador.Size = new System.Drawing.Size(55, 21);
-            this.txtCompraEntradaOperador.TabIndex = 3;
-            this.txtCompraEntradaOperador.Text = "=";
+            this.textBox2.Location = new System.Drawing.Point(8, 16);
+            this.textBox2.Multiline = true;
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(692, 38);
+            this.textBox2.TabIndex = 0;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(6, 29);
+            this.label2.Location = new System.Drawing.Point(6, 58);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(92, 13);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "Formula Esquerda";
+            this.label2.Size = new System.Drawing.Size(58, 13);
+            this.label2.TabIndex = 12;
+            this.label2.Text = "Descrição:";
             // 
-            // txtCompraEntradaEsquerda
+            // txtCondEntrCDesc
             // 
-            this.txtCompraEntradaEsquerda.Location = new System.Drawing.Point(6, 45);
-            this.txtCompraEntradaEsquerda.Name = "txtCompraEntradaEsquerda";
-            this.txtCompraEntradaEsquerda.Size = new System.Drawing.Size(178, 20);
-            this.txtCompraEntradaEsquerda.TabIndex = 0;
+            this.txtCondEntrCDesc.Location = new System.Drawing.Point(6, 71);
+            this.txtCondEntrCDesc.Multiline = true;
+            this.txtCondEntrCDesc.Name = "txtCondEntrCDesc";
+            this.txtCondEntrCDesc.Size = new System.Drawing.Size(694, 38);
+            this.txtCondEntrCDesc.TabIndex = 1;
+            // 
+            // txtCondEntrC
+            // 
+            this.txtCondEntrC.Location = new System.Drawing.Point(8, 16);
+            this.txtCondEntrC.Multiline = true;
+            this.txtCondEntrC.Name = "txtCondEntrC";
+            this.txtCondEntrC.Size = new System.Drawing.Size(692, 38);
+            this.txtCondEntrC.TabIndex = 0;
+            // 
+            // panel3
+            // 
+            this.panel3.BackColor = System.Drawing.Color.Transparent;
+            this.panel3.Controls.Add(this.txtNameTs);
+            this.panel3.Controls.Add(this.label14);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel3.Location = new System.Drawing.Point(3, 16);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(976, 36);
+            this.panel3.TabIndex = 13;
+            // 
+            // txtNameTs
+            // 
+            this.txtNameTs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtNameTs.Location = new System.Drawing.Point(48, 0);
+            this.txtNameTs.Multiline = true;
+            this.txtNameTs.Name = "txtNameTs";
+            this.txtNameTs.Size = new System.Drawing.Size(928, 36);
+            this.txtNameTs.TabIndex = 14;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label14.Location = new System.Drawing.Point(0, 0);
+            this.label14.Margin = new System.Windows.Forms.Padding(50, 30, 50, 50);
+            this.label14.Name = "label14";
+            this.label14.Padding = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.label14.Size = new System.Drawing.Size(48, 23);
+            this.label14.TabIndex = 13;
+            this.label14.Text = "Name:";
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.btnRemoveTS);
+            this.panel2.Controls.Add(this.btnAdicionaTS);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel2.Location = new System.Drawing.Point(150, 0);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(34, 617);
+            this.panel2.TabIndex = 12;
             // 
             // btnRemoveTS
             // 
-            this.btnRemoveTS.Location = new System.Drawing.Point(156, 32);
+            this.btnRemoveTS.Location = new System.Drawing.Point(1, 32);
             this.btnRemoveTS.Name = "btnRemoveTS";
             this.btnRemoveTS.Size = new System.Drawing.Size(32, 23);
-            this.btnRemoveTS.TabIndex = 6;
+            this.btnRemoveTS.TabIndex = 8;
             this.btnRemoveTS.Text = "-";
             this.btnRemoveTS.UseVisualStyleBackColor = true;
-            this.btnRemoveTS.Click += new System.EventHandler(this.btnRemoveTS_Click);
             // 
             // btnAdicionaTS
             // 
-            this.btnAdicionaTS.Location = new System.Drawing.Point(156, 3);
+            this.btnAdicionaTS.Location = new System.Drawing.Point(1, 3);
             this.btnAdicionaTS.Name = "btnAdicionaTS";
             this.btnAdicionaTS.Size = new System.Drawing.Size(32, 23);
-            this.btnAdicionaTS.TabIndex = 5;
+            this.btnAdicionaTS.TabIndex = 7;
             this.btnAdicionaTS.Text = "+";
             this.btnAdicionaTS.UseVisualStyleBackColor = true;
-            this.btnAdicionaTS.Click += new System.EventHandler(this.btnAdicionaTS_Click);
             // 
             // listTradeSystems
             // 
@@ -573,51 +714,15 @@
             this.listTradeSystems.FormattingEnabled = true;
             this.listTradeSystems.Location = new System.Drawing.Point(0, 0);
             this.listTradeSystems.Name = "listTradeSystems";
-            this.listTradeSystems.Size = new System.Drawing.Size(150, 532);
+            this.listTradeSystems.Size = new System.Drawing.Size(150, 617);
             this.listTradeSystems.TabIndex = 4;
             this.listTradeSystems.SelectedIndexChanged += new System.EventHandler(this.listTradeSystems_SelectedIndexChanged);
-            // 
-            // btnSalvaTradeSystems
-            // 
-            this.btnSalvaTradeSystems.Location = new System.Drawing.Point(156, 501);
-            this.btnSalvaTradeSystems.Name = "btnSalvaTradeSystems";
-            this.btnSalvaTradeSystems.Size = new System.Drawing.Size(159, 23);
-            this.btnSalvaTradeSystems.TabIndex = 3;
-            this.btnSalvaTradeSystems.Text = "Salva Trade Systems";
-            this.btnSalvaTradeSystems.UseVisualStyleBackColor = true;
-            this.btnSalvaTradeSystems.Click += new System.EventHandler(this.btnSalvaTradeSystems_Click);
-            // 
-            // btnAtualizaTradeSystem
-            // 
-            this.btnAtualizaTradeSystem.Location = new System.Drawing.Point(571, 9);
-            this.btnAtualizaTradeSystem.Name = "btnAtualizaTradeSystem";
-            this.btnAtualizaTradeSystem.Size = new System.Drawing.Size(159, 23);
-            this.btnAtualizaTradeSystem.TabIndex = 10;
-            this.btnAtualizaTradeSystem.Text = "Atualiza Trade System";
-            this.btnAtualizaTradeSystem.UseVisualStyleBackColor = true;
-            this.btnAtualizaTradeSystem.Click += new System.EventHandler(this.btnAtualizaTradeSystem_Click);
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(9, 24);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(38, 13);
-            this.label14.TabIndex = 11;
-            this.label14.Text = "Name:";
-            // 
-            // txtNameTs
-            // 
-            this.txtNameTs.Location = new System.Drawing.Point(65, 24);
-            this.txtNameTs.Name = "txtNameTs";
-            this.txtNameTs.Size = new System.Drawing.Size(424, 20);
-            this.txtNameTs.TabIndex = 12;
             // 
             // FrmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1017, 558);
+            this.ClientSize = new System.Drawing.Size(1174, 643);
             this.Controls.Add(this.mainTab);
             this.Name = "FrmPrincipal";
             this.Text = "Form1";
@@ -625,75 +730,97 @@
             this.tabConfig.ResumeLayout(false);
             this.tabConfig.PerformLayout();
             this.tabTradeSystem.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
             this.panelTradeSystem.ResumeLayout(false);
-            this.panelTradeSystem.PerformLayout();
             this.groupBox2.ResumeLayout(false);
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
+            this.groupBox7.ResumeLayout(false);
+            this.groupBox7.PerformLayout();
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
+            this.panelCompra.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
-            this.panelCompra.ResumeLayout(false);
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.panelCompraEntrada.ResumeLayout(false);
             this.panelCompraEntrada.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.TabControl mainTab;
-        private System.Windows.Forms.TabPage tabBackTester;
-        private System.Windows.Forms.TabPage tabConfig;
+        public System.Windows.Forms.TabControl mainTab;
+        public System.Windows.Forms.TabPage tabBackTester;
+        public System.Windows.Forms.TabPage tabConfig;
         public System.Windows.Forms.CheckBox chkFlagCompra;
         public System.Windows.Forms.CheckBox chkFlagVenda;
-        private System.Windows.Forms.Button btnSalvaConfig;
+        public System.Windows.Forms.Button btnSalvaConfig;
         public System.Windows.Forms.MaskedTextBox txtRiscoMensal;
         public System.Windows.Forms.MaskedTextBox txtRiscoTrade;
         public System.Windows.Forms.MaskedTextBox txtPercentualTrade;
         public System.Windows.Forms.MaskedTextBox txtCustoOperacao;
         public System.Windows.Forms.MaskedTextBox txtCapitalMaximo;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label1;
+        public System.Windows.Forms.Label label6;
+        public System.Windows.Forms.Label label5;
+        public System.Windows.Forms.Label label4;
+        public System.Windows.Forms.Label label3;
+        public System.Windows.Forms.Label label1;
         public System.Windows.Forms.TabPage tabTradeSystem;
-        public System.Windows.Forms.Button btnSalvaTradeSystems;
-        public System.Windows.Forms.Button btnRemoveTS;
-        public System.Windows.Forms.Button btnAdicionaTS;
         public System.Windows.Forms.ListBox listTradeSystems;
         public System.Windows.Forms.GroupBox panelTradeSystem;
         public System.Windows.Forms.GroupBox panelCompra;
         public System.Windows.Forms.GroupBox panelCompraEntrada;
-        public System.Windows.Forms.Label label2;
-        public System.Windows.Forms.TextBox txtCompraEntradaEsquerda;
-        public System.Windows.Forms.Label label7;
-        public System.Windows.Forms.TextBox txtCompraEntradaDireita;
-        public System.Windows.Forms.ComboBox txtCompraEntradaOperador;
-        public System.Windows.Forms.GroupBox groupBox1;
-        public System.Windows.Forms.Label label8;
-        public System.Windows.Forms.TextBox txtCompraSaidaDireita;
-        public System.Windows.Forms.ComboBox txtCompraSaidaOperador;
-        public System.Windows.Forms.Label label9;
-        public System.Windows.Forms.TextBox txtCompraSaidaEsquerda;
-        public System.Windows.Forms.GroupBox groupBox2;
-        public System.Windows.Forms.GroupBox groupBox3;
-        public System.Windows.Forms.Label label10;
-        public System.Windows.Forms.TextBox txtVendaSaidaDireita;
-        public System.Windows.Forms.ComboBox txtVendaSaidaOperador;
-        public System.Windows.Forms.Label label11;
-        public System.Windows.Forms.TextBox txtVendaSaidaEsquerda;
-        public System.Windows.Forms.GroupBox groupBox4;
-        public System.Windows.Forms.Label label12;
-        public System.Windows.Forms.TextBox txtVendaEntradaDireita;
-        public System.Windows.Forms.ComboBox txtVendaEntradaOperador;
-        public System.Windows.Forms.Label label13;
-        public System.Windows.Forms.TextBox txtVendaEntradaEsquerda;
+        public System.Windows.Forms.Panel panel1;
         public System.Windows.Forms.Button btnAtualizaTradeSystem;
+        public System.Windows.Forms.Button btnSalvaTradeSystems;
+        public System.Windows.Forms.GroupBox groupBox2;
+        public System.Windows.Forms.GroupBox groupBox5;
+        public System.Windows.Forms.GroupBox groupBox6;
+        public System.Windows.Forms.Label label10;
+        public System.Windows.Forms.TextBox textBox5;
+        public System.Windows.Forms.TextBox textBox6;
+        public System.Windows.Forms.Label label11;
+        public System.Windows.Forms.TextBox txtCondSaidaVDesc;
+        public System.Windows.Forms.TextBox txtCondSaidaV;
+        public System.Windows.Forms.GroupBox groupBox7;
+        public System.Windows.Forms.GroupBox groupBox8;
+        public System.Windows.Forms.Label label12;
+        public System.Windows.Forms.TextBox textBox9;
+        public System.Windows.Forms.TextBox textBox10;
+        public System.Windows.Forms.Label label13;
+        public System.Windows.Forms.TextBox txtCondEntrVDesc;
+        public System.Windows.Forms.TextBox txtCondEntrV;
+        public System.Windows.Forms.GroupBox groupBox3;
+        public System.Windows.Forms.GroupBox groupBox4;
+        public System.Windows.Forms.Label label8;
+        public System.Windows.Forms.TextBox textBox3;
+        public System.Windows.Forms.TextBox textBox4;
+        public System.Windows.Forms.Label label9;
+        public System.Windows.Forms.TextBox txtCondSaidaCDesc;
+        public System.Windows.Forms.TextBox txtCondSaidaC;
+        public System.Windows.Forms.GroupBox groupBox1;
+        public System.Windows.Forms.Label label7;
+        public System.Windows.Forms.TextBox textBox1;
+        public System.Windows.Forms.TextBox textBox2;
+        public System.Windows.Forms.Label label2;
+        public System.Windows.Forms.TextBox txtCondEntrCDesc;
+        public System.Windows.Forms.TextBox txtCondEntrC;
+        public System.Windows.Forms.Panel panel3;
         public System.Windows.Forms.TextBox txtNameTs;
-        private System.Windows.Forms.Label label14;
+        public System.Windows.Forms.Label label14;
+        public System.Windows.Forms.Panel panel2;
+        public System.Windows.Forms.Button btnRemoveTS;
+        public System.Windows.Forms.Button btnAdicionaTS;
     }
 }
 

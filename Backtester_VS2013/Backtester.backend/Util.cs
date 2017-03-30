@@ -1,9 +1,24 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Reflection;
 namespace Backtester.backend
 {
     public class Util
     {
 
+
+        static readonly log4net.ILog log =
+            log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+        public static void Info(string msg)
+        {
+            log.Info(msg);
+        }
+
+        public static void Error(string msg)
+        {
+            log.Error(msg);
+        }
 
         internal static string FormatCurrency(float valor)
         {
@@ -36,11 +51,62 @@ namespace Backtester.backend
 
         internal static void println(string p)
         {
-            Console.WriteLine(p);
+            Util.Info(p);
 
         }
 
+        public static string GetEnumDescription(Enum value)
+        {
+            FieldInfo fi = value.GetType().GetField(value.ToString());
 
+            DescriptionAttribute[] attributes =
+                (DescriptionAttribute[])fi.GetCustomAttributes(
+                typeof(DescriptionAttribute),
+                false);
+
+            if (attributes != null &&
+                attributes.Length > 0)
+                return attributes[0].Description;
+            else
+                return value.ToString();
+        }
+
+        public static string[] SeparaEmElementos(string par)
+        {
+            string[] pars = new string[3];
+            int p = 0;
+            int flagParenteses = 0;
+            string s = "";
+            for (int i = 0; i < par.Length; i++)
+            {
+                if (par[i] == '(') flagParenteses++;
+                if (par[i] == ')')
+                {
+                    flagParenteses--;
+                }
+                if (i < par.Length - 1 && flagParenteses == 0 && ((par[i] == '|' && par[i + 1] == '|') || (par[i] == '&' && par[i + 1] == '&')))
+                {
+                    pars[p] = s;
+                    p++;
+                    pars[p] = "" + par[i] + par[i + 1];
+                    p++;
+                    s = "";
+                    i++;
+                }
+                else
+                    s = s + par[i];
+            }
+            pars[p] = s;
+            for (int i = 0; i < pars.Length; i++)
+            {
+                if (pars[i] != null)
+                {
+                    if (pars[i].EndsWith(".0")) pars[i] = pars[i].Replace(".0", "");
+                    pars[i] = pars[i].Trim();
+                }
+            }
+            return pars;
+        }
     }
 
 }

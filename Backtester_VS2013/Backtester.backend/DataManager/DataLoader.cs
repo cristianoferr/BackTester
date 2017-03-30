@@ -14,7 +14,7 @@ namespace Backtester.backend.DataManager
             this.facade = facadeBacktester;
         }
 
-      
+
         internal void LoadAtivo(Ativo ativo, Consts.PERIODO_ACAO periodo, string fileName)
         {
 
@@ -33,7 +33,7 @@ namespace Backtester.backend.DataManager
                         Candle candle = new Candle(facade.GetPeriodo(data.date), ativo, data.open, data.close, data.high, data.low, data.vol);
                         candle.candleAnterior = candleAnterior;
                         candle.periodo.AddCandle(candle);
-                        if (candle.periodo.periodoAnterior == null)
+                        if (candle.periodo.periodoAnterior == null && periodoAnterior != null)
                         {
                             candle.periodo.periodoAnterior = periodoAnterior;
                             periodoAnterior.proximoPeriodo = candle.periodo;

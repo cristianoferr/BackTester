@@ -1,20 +1,20 @@
-﻿using Backtester.backend.model.system;
-using System;
-namespace Backtester
+﻿using Backtester.backend;
+using Backtester.backend.model.system;
+namespace Backtester.controller
 {
-    public class ConfigController
+    public class ConfigController : IController
     {
         private FrmPrincipal frmPrincipal;
-        Config config;
+        public static Config config;
 
         public ConfigController(FrmPrincipal frmPrincipal)
         {
             this.frmPrincipal = frmPrincipal;
             config = Config.LoadSaved();
-            UpdateUIFromConfig();
+            UpdateUI();
         }
 
-        private void UpdateUIFromConfig()
+        public virtual void UpdateUI()
         {
             frmPrincipal.chkFlagCompra.Checked = config.flagCompra;
             frmPrincipal.chkFlagVenda.Checked = config.flagVenda;
@@ -46,7 +46,7 @@ namespace Backtester
             }
             catch (System.Exception e)
             {
-                Console.WriteLine(e.Message);
+                Util.Error(e.Message);
             }
 
         }

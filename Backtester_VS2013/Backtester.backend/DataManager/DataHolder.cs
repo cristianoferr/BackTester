@@ -1,6 +1,5 @@
 ﻿using Backtester.backend.model.ativos;
 using Backtester.backend.model.formulas;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 namespace Backtester.backend.model
@@ -35,7 +34,7 @@ namespace Backtester.backend.model
         public void AddFormula(Formula f)
         {
             if (!f.gravar) return;
-            Console.WriteLine("Carregando formula : " + f.GetCode());
+            Util.Info("Carregando formula : " + f.GetCode());
 
             foreach (Ativo ativo in ativos.Values)
             {

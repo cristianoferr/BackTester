@@ -11,7 +11,7 @@ namespace Backtester.backend.DataManager
     {
 
         [DataMember]
-        public IList<TradeSystem> tradeSystems { get; set; }
+        private IList<TradeSystem> tradeSystems { get; set; }
 
         public TradeSystemHolder()
         {
@@ -26,17 +26,23 @@ namespace Backtester.backend.DataManager
                 DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(TradeSystemHolder));
                 TradeSystemHolder config = (TradeSystemHolder)ser.ReadObject(fileStream);
                 fileStream.Close();
+                if (config.Count == 0)
+                {
+                    return new TradeSystemHolder();
+                }
                 return config;
             }
             catch (System.Exception e)
             {
-
+                Util.Error("Erro ao carregar TradeSystems: " + e.Message);
             }
             return new TradeSystemHolder();
         }
 
         public void SaveToFile()
         {
+            Util.Info("Salvando TradeSystems... qtd:" + tradeSystems.Count);
+            if (tradeSystems.Count == 0) return;
             DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(TradeSystemHolder));
             var fileStream = File.Create("TradeSystems.js");
             ser.WriteObject(fileStream, this);
@@ -46,6 +52,18 @@ namespace Backtester.backend.DataManager
         public TradeSystem GetTS(int index)
         {
             return tradeSystems[index];
+        }
+
+        public void RemoveTradeSystem(int p)
+        {
+            tradeSystems.RemoveAt(p);
+        }
+
+        public int Count { get { return tradeSystems.Count; } }
+
+        public void AddTS(TradeSystem ts)
+        {
+            tradeSystems.Add(ts);
         }
     }
 }

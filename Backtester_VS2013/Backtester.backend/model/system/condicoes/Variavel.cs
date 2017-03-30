@@ -1,17 +1,21 @@
-﻿using System;
-
+﻿
+using System;
 namespace Backtester.backend.model.system.condicoes
 {
     public class Variavel
     {
 
-        float vlrInicial, step, vlrFinal, vlrAtual;
-        public int id { get; private set; }
+        public float vlrInicial { get; private set; }
+        public float step { get; private set; }
+        public float vlrFinal { get; private set; }
+        public float vlrAtual { get; private set; }
 
-        public Variavel(int id, float vlrInicial, float step, float vlrFinal)
+        public string name { get; private set; }
+
+        public Variavel(string name, float vlrInicial, float step, float vlrFinal)
         {
             this.vlrFinal = vlrFinal;
-            this.id = id;
+            this.name = name;
             step = Math.Abs(step);
             if (vlrFinal < vlrInicial) step = -step;
             if (step == 0) step = 1;
@@ -28,10 +32,7 @@ namespace Backtester.backend.model.system.condicoes
         {
             return (int)(Math.Abs(vlrFinal - vlrInicial) / step);
         }
-        public float getAtual()
-        {
-            return vlrAtual;
-        }
+
 
         public float getNext()
         {
@@ -44,22 +45,7 @@ namespace Backtester.backend.model.system.condicoes
         {
             return (vlrAtual == vlrFinal);
         }
-        public float getVlrInicial()
-        {
-            return vlrInicial;
-        }
-        public float getStep()
-        {
-            return step;
-        }
-        public float getVlrFinal()
-        {
-            return vlrFinal;
-        }
-        public float getVlrAtual()
-        {
-            return vlrAtual;
-        }
+
 
     }
 }
