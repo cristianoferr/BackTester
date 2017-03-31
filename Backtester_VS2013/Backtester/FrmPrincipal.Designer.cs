@@ -45,11 +45,20 @@
             this.chkFlagVenda = new System.Windows.Forms.CheckBox();
             this.chkFlagCompra = new System.Windows.Forms.CheckBox();
             this.tabTradeSystem = new System.Windows.Forms.TabPage();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.btnAtualizaTradeSystem = new System.Windows.Forms.Button();
-            this.btnSalvaTradeSystems = new System.Windows.Forms.Button();
             this.panelTradeSystem = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.txtNameTs = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.panelTSLeft = new System.Windows.Forms.Panel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btnRemoveTS = new System.Windows.Forms.Button();
+            this.btnAdicionaTS = new System.Windows.Forms.Button();
+            this.btnSalvaTradeSystems = new System.Windows.Forms.Button();
+            this.tabTSOpcoes = new System.Windows.Forms.TabControl();
+            this.tabTSVars = new System.Windows.Forms.TabPage();
+            this.tabTSCompra = new System.Windows.Forms.TabPage();
+            this.tabTSVenda = new System.Windows.Forms.TabPage();
+            this.groupCondVenda = new System.Windows.Forms.GroupBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.label10 = new System.Windows.Forms.Label();
@@ -83,19 +92,24 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtCondEntrCDesc = new System.Windows.Forms.TextBox();
             this.txtCondEntrC = new System.Windows.Forms.TextBox();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.txtNameTs = new System.Windows.Forms.TextBox();
-            this.label14 = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.btnRemoveTS = new System.Windows.Forms.Button();
-            this.btnAdicionaTS = new System.Windows.Forms.Button();
             this.listTradeSystems = new System.Windows.Forms.ListBox();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
+            this.listTSVars = new System.Windows.Forms.ListBox();
             this.mainTab.SuspendLayout();
             this.tabConfig.SuspendLayout();
             this.tabTradeSystem.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.panelTradeSystem.SuspendLayout();
-            this.groupBox2.SuspendLayout();
+            this.panel3.SuspendLayout();
+            this.panelTSLeft.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.tabTSOpcoes.SuspendLayout();
+            this.tabTSVars.SuspendLayout();
+            this.tabTSCompra.SuspendLayout();
+            this.tabTSVenda.SuspendLayout();
+            this.groupCondVenda.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox7.SuspendLayout();
@@ -105,8 +119,8 @@
             this.groupBox4.SuspendLayout();
             this.panelCompraEntrada.SuspendLayout();
             this.groupBox1.SuspendLayout();
-            this.panel3.SuspendLayout();
             this.panel2.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainTab
@@ -118,7 +132,7 @@
             this.mainTab.Location = new System.Drawing.Point(0, 0);
             this.mainTab.Name = "mainTab";
             this.mainTab.SelectedIndex = 0;
-            this.mainTab.Size = new System.Drawing.Size(1174, 643);
+            this.mainTab.Size = new System.Drawing.Size(1252, 644);
             this.mainTab.TabIndex = 0;
             this.mainTab.SelectedIndexChanged += new System.EventHandler(this.mainTab_SelectedIndexChanged);
             // 
@@ -269,68 +283,160 @@
             // 
             // tabTradeSystem
             // 
-            this.tabTradeSystem.Controls.Add(this.panel1);
             this.tabTradeSystem.Controls.Add(this.panelTradeSystem);
-            this.tabTradeSystem.Controls.Add(this.panel2);
-            this.tabTradeSystem.Controls.Add(this.listTradeSystems);
+            this.tabTradeSystem.Controls.Add(this.panelTSLeft);
             this.tabTradeSystem.Location = new System.Drawing.Point(4, 22);
             this.tabTradeSystem.Name = "tabTradeSystem";
-            this.tabTradeSystem.Size = new System.Drawing.Size(1166, 617);
+            this.tabTradeSystem.Size = new System.Drawing.Size(1244, 618);
             this.tabTradeSystem.TabIndex = 2;
             this.tabTradeSystem.Text = "TradeSystem";
             this.tabTradeSystem.UseVisualStyleBackColor = true;
             // 
-            // panel1
-            // 
-            this.panel1.Controls.Add(this.btnAtualizaTradeSystem);
-            this.panel1.Controls.Add(this.btnSalvaTradeSystems);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(184, 586);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(982, 31);
-            this.panel1.TabIndex = 11;
-            // 
-            // btnAtualizaTradeSystem
-            // 
-            this.btnAtualizaTradeSystem.Location = new System.Drawing.Point(171, 3);
-            this.btnAtualizaTradeSystem.Name = "btnAtualizaTradeSystem";
-            this.btnAtualizaTradeSystem.Size = new System.Drawing.Size(159, 23);
-            this.btnAtualizaTradeSystem.TabIndex = 12;
-            this.btnAtualizaTradeSystem.Text = "Atualiza Trade System";
-            this.btnAtualizaTradeSystem.UseVisualStyleBackColor = true;
-            // 
-            // btnSalvaTradeSystems
-            // 
-            this.btnSalvaTradeSystems.Location = new System.Drawing.Point(6, 3);
-            this.btnSalvaTradeSystems.Name = "btnSalvaTradeSystems";
-            this.btnSalvaTradeSystems.Size = new System.Drawing.Size(159, 23);
-            this.btnSalvaTradeSystems.TabIndex = 11;
-            this.btnSalvaTradeSystems.Text = "Salva Trade Systems";
-            this.btnSalvaTradeSystems.UseVisualStyleBackColor = true;
-            // 
             // panelTradeSystem
             // 
-            this.panelTradeSystem.Controls.Add(this.groupBox2);
+            this.panelTradeSystem.Controls.Add(this.tabTSOpcoes);
             this.panelTradeSystem.Controls.Add(this.panel3);
             this.panelTradeSystem.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelTradeSystem.Location = new System.Drawing.Point(184, 0);
+            this.panelTradeSystem.Location = new System.Drawing.Point(176, 0);
             this.panelTradeSystem.Name = "panelTradeSystem";
-            this.panelTradeSystem.Size = new System.Drawing.Size(982, 617);
+            this.panelTradeSystem.Size = new System.Drawing.Size(1068, 618);
             this.panelTradeSystem.TabIndex = 7;
             this.panelTradeSystem.TabStop = false;
             this.panelTradeSystem.Text = "TradeSystem";
             // 
-            // groupBox2
+            // panel3
             // 
-            this.groupBox2.Controls.Add(this.groupBox5);
-            this.groupBox2.Controls.Add(this.groupBox7);
-            this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
-            this.groupBox2.Location = new System.Drawing.Point(3, 52);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(976, 263);
-            this.groupBox2.TabIndex = 9;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Condições de Venda";
+            this.panel3.BackColor = System.Drawing.Color.Transparent;
+            this.panel3.Controls.Add(this.txtNameTs);
+            this.panel3.Controls.Add(this.label14);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel3.Location = new System.Drawing.Point(3, 16);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(1062, 36);
+            this.panel3.TabIndex = 13;
+            // 
+            // txtNameTs
+            // 
+            this.txtNameTs.Location = new System.Drawing.Point(55, 7);
+            this.txtNameTs.Name = "txtNameTs";
+            this.txtNameTs.Size = new System.Drawing.Size(928, 20);
+            this.txtNameTs.TabIndex = 14;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label14.Location = new System.Drawing.Point(0, 0);
+            this.label14.Margin = new System.Windows.Forms.Padding(50, 30, 50, 50);
+            this.label14.Name = "label14";
+            this.label14.Padding = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.label14.Size = new System.Drawing.Size(48, 23);
+            this.label14.TabIndex = 13;
+            this.label14.Text = "Name:";
+            // 
+            // panelTSLeft
+            // 
+            this.panelTSLeft.Controls.Add(this.panel1);
+            this.panelTSLeft.Controls.Add(this.listTradeSystems);
+            this.panelTSLeft.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panelTSLeft.Location = new System.Drawing.Point(0, 0);
+            this.panelTSLeft.Name = "panelTSLeft";
+            this.panelTSLeft.Size = new System.Drawing.Size(176, 618);
+            this.panelTSLeft.TabIndex = 12;
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.btnRemoveTS);
+            this.panel1.Controls.Add(this.btnAdicionaTS);
+            this.panel1.Controls.Add(this.btnSalvaTradeSystems);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel1.Location = new System.Drawing.Point(0, 587);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(176, 31);
+            this.panel1.TabIndex = 12;
+            // 
+            // btnRemoveTS
+            // 
+            this.btnRemoveTS.Location = new System.Drawing.Point(44, 5);
+            this.btnRemoveTS.Name = "btnRemoveTS";
+            this.btnRemoveTS.Size = new System.Drawing.Size(32, 23);
+            this.btnRemoveTS.TabIndex = 13;
+            this.btnRemoveTS.Text = "-";
+            this.btnRemoveTS.UseVisualStyleBackColor = true;
+            // 
+            // btnAdicionaTS
+            // 
+            this.btnAdicionaTS.Location = new System.Drawing.Point(6, 4);
+            this.btnAdicionaTS.Name = "btnAdicionaTS";
+            this.btnAdicionaTS.Size = new System.Drawing.Size(32, 23);
+            this.btnAdicionaTS.TabIndex = 12;
+            this.btnAdicionaTS.Text = "+";
+            this.btnAdicionaTS.UseVisualStyleBackColor = true;
+            // 
+            // btnSalvaTradeSystems
+            // 
+            this.btnSalvaTradeSystems.Location = new System.Drawing.Point(82, 5);
+            this.btnSalvaTradeSystems.Name = "btnSalvaTradeSystems";
+            this.btnSalvaTradeSystems.Size = new System.Drawing.Size(88, 23);
+            this.btnSalvaTradeSystems.TabIndex = 11;
+            this.btnSalvaTradeSystems.Text = "Salva";
+            this.btnSalvaTradeSystems.UseVisualStyleBackColor = true;
+            // 
+            // tabTSOpcoes
+            // 
+            this.tabTSOpcoes.Controls.Add(this.tabTSVars);
+            this.tabTSOpcoes.Controls.Add(this.tabTSCompra);
+            this.tabTSOpcoes.Controls.Add(this.tabTSVenda);
+            this.tabTSOpcoes.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabTSOpcoes.Location = new System.Drawing.Point(3, 52);
+            this.tabTSOpcoes.Name = "tabTSOpcoes";
+            this.tabTSOpcoes.SelectedIndex = 0;
+            this.tabTSOpcoes.Size = new System.Drawing.Size(1062, 563);
+            this.tabTSOpcoes.TabIndex = 14;
+            // 
+            // tabTSVars
+            // 
+            this.tabTSVars.Controls.Add(this.panel2);
+            this.tabTSVars.Location = new System.Drawing.Point(4, 22);
+            this.tabTSVars.Name = "tabTSVars";
+            this.tabTSVars.Padding = new System.Windows.Forms.Padding(3);
+            this.tabTSVars.Size = new System.Drawing.Size(1054, 537);
+            this.tabTSVars.TabIndex = 0;
+            this.tabTSVars.Text = "Variaveis";
+            this.tabTSVars.UseVisualStyleBackColor = true;
+            // 
+            // tabTSCompra
+            // 
+            this.tabTSCompra.Controls.Add(this.panelCompra);
+            this.tabTSCompra.Location = new System.Drawing.Point(4, 22);
+            this.tabTSCompra.Name = "tabTSCompra";
+            this.tabTSCompra.Padding = new System.Windows.Forms.Padding(3);
+            this.tabTSCompra.Size = new System.Drawing.Size(1054, 537);
+            this.tabTSCompra.TabIndex = 1;
+            this.tabTSCompra.Text = "Compra";
+            this.tabTSCompra.UseVisualStyleBackColor = true;
+            // 
+            // tabTSVenda
+            // 
+            this.tabTSVenda.Controls.Add(this.groupCondVenda);
+            this.tabTSVenda.Location = new System.Drawing.Point(4, 22);
+            this.tabTSVenda.Name = "tabTSVenda";
+            this.tabTSVenda.Size = new System.Drawing.Size(901, 300);
+            this.tabTSVenda.TabIndex = 2;
+            this.tabTSVenda.Text = "Venda";
+            this.tabTSVenda.UseVisualStyleBackColor = true;
+            // 
+            // groupCondVenda
+            // 
+            this.groupCondVenda.Controls.Add(this.groupBox5);
+            this.groupCondVenda.Controls.Add(this.groupBox7);
+            this.groupCondVenda.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupCondVenda.Location = new System.Drawing.Point(0, 0);
+            this.groupCondVenda.Name = "groupCondVenda";
+            this.groupCondVenda.Size = new System.Drawing.Size(901, 300);
+            this.groupCondVenda.TabIndex = 12;
+            this.groupCondVenda.TabStop = false;
+            this.groupCondVenda.Text = "Condições de Venda";
             // 
             // groupBox5
             // 
@@ -341,7 +447,7 @@
             this.groupBox5.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox5.Location = new System.Drawing.Point(3, 131);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(970, 115);
+            this.groupBox5.Size = new System.Drawing.Size(895, 115);
             this.groupBox5.TabIndex = 12;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Condição de Saida";
@@ -411,14 +517,13 @@
             // groupBox7
             // 
             this.groupBox7.Controls.Add(this.groupBox8);
-            this.groupBox7.Controls.Add(this.panelCompra);
             this.groupBox7.Controls.Add(this.label13);
             this.groupBox7.Controls.Add(this.txtCondEntrVDesc);
             this.groupBox7.Controls.Add(this.txtCondEntrV);
             this.groupBox7.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox7.Location = new System.Drawing.Point(3, 16);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(970, 115);
+            this.groupBox7.Size = new System.Drawing.Size(895, 115);
             this.groupBox7.TabIndex = 11;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Condição de Entrada";
@@ -489,10 +594,11 @@
             // 
             this.panelCompra.Controls.Add(this.groupBox3);
             this.panelCompra.Controls.Add(this.panelCompraEntrada);
-            this.panelCompra.Location = new System.Drawing.Point(188, 16);
+            this.panelCompra.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelCompra.Location = new System.Drawing.Point(3, 3);
             this.panelCompra.Name = "panelCompra";
-            this.panelCompra.Size = new System.Drawing.Size(976, 262);
-            this.panelCompra.TabIndex = 8;
+            this.panelCompra.Size = new System.Drawing.Size(1048, 531);
+            this.panelCompra.TabIndex = 9;
             this.panelCompra.TabStop = false;
             this.panelCompra.Text = "Condições de Compra";
             // 
@@ -505,7 +611,7 @@
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox3.Location = new System.Drawing.Point(3, 131);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(970, 115);
+            this.groupBox3.Size = new System.Drawing.Size(1042, 115);
             this.groupBox3.TabIndex = 10;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Condição de Saida";
@@ -581,7 +687,7 @@
             this.panelCompraEntrada.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelCompraEntrada.Location = new System.Drawing.Point(3, 16);
             this.panelCompraEntrada.Name = "panelCompraEntrada";
-            this.panelCompraEntrada.Size = new System.Drawing.Size(970, 115);
+            this.panelCompraEntrada.Size = new System.Drawing.Size(1042, 115);
             this.panelCompraEntrada.TabIndex = 9;
             this.panelCompraEntrada.TabStop = false;
             this.panelCompraEntrada.Text = "Condição de Entrada";
@@ -648,81 +754,67 @@
             this.txtCondEntrC.Size = new System.Drawing.Size(692, 38);
             this.txtCondEntrC.TabIndex = 0;
             // 
-            // panel3
-            // 
-            this.panel3.BackColor = System.Drawing.Color.Transparent;
-            this.panel3.Controls.Add(this.txtNameTs);
-            this.panel3.Controls.Add(this.label14);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel3.Location = new System.Drawing.Point(3, 16);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(976, 36);
-            this.panel3.TabIndex = 13;
-            // 
-            // txtNameTs
-            // 
-            this.txtNameTs.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtNameTs.Location = new System.Drawing.Point(48, 0);
-            this.txtNameTs.Multiline = true;
-            this.txtNameTs.Name = "txtNameTs";
-            this.txtNameTs.Size = new System.Drawing.Size(928, 36);
-            this.txtNameTs.TabIndex = 14;
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label14.Location = new System.Drawing.Point(0, 0);
-            this.label14.Margin = new System.Windows.Forms.Padding(50, 30, 50, 50);
-            this.label14.Name = "label14";
-            this.label14.Padding = new System.Windows.Forms.Padding(10, 10, 0, 0);
-            this.label14.Size = new System.Drawing.Size(48, 23);
-            this.label14.TabIndex = 13;
-            this.label14.Text = "Name:";
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.btnRemoveTS);
-            this.panel2.Controls.Add(this.btnAdicionaTS);
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panel2.Location = new System.Drawing.Point(150, 0);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(34, 617);
-            this.panel2.TabIndex = 12;
-            // 
-            // btnRemoveTS
-            // 
-            this.btnRemoveTS.Location = new System.Drawing.Point(1, 32);
-            this.btnRemoveTS.Name = "btnRemoveTS";
-            this.btnRemoveTS.Size = new System.Drawing.Size(32, 23);
-            this.btnRemoveTS.TabIndex = 8;
-            this.btnRemoveTS.Text = "-";
-            this.btnRemoveTS.UseVisualStyleBackColor = true;
-            // 
-            // btnAdicionaTS
-            // 
-            this.btnAdicionaTS.Location = new System.Drawing.Point(1, 3);
-            this.btnAdicionaTS.Name = "btnAdicionaTS";
-            this.btnAdicionaTS.Size = new System.Drawing.Size(32, 23);
-            this.btnAdicionaTS.TabIndex = 7;
-            this.btnAdicionaTS.Text = "+";
-            this.btnAdicionaTS.UseVisualStyleBackColor = true;
-            // 
             // listTradeSystems
             // 
-            this.listTradeSystems.Dock = System.Windows.Forms.DockStyle.Left;
+            this.listTradeSystems.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listTradeSystems.FormattingEnabled = true;
             this.listTradeSystems.Location = new System.Drawing.Point(0, 0);
             this.listTradeSystems.Name = "listTradeSystems";
-            this.listTradeSystems.Size = new System.Drawing.Size(150, 617);
-            this.listTradeSystems.TabIndex = 4;
-            this.listTradeSystems.SelectedIndexChanged += new System.EventHandler(this.listTradeSystems_SelectedIndexChanged);
+            this.listTradeSystems.Size = new System.Drawing.Size(176, 618);
+            this.listTradeSystems.TabIndex = 5;
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.panel4);
+            this.panel2.Controls.Add(this.listTSVars);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
+            this.panel2.Location = new System.Drawing.Point(3, 3);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(176, 531);
+            this.panel2.TabIndex = 13;
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.button1);
+            this.panel4.Controls.Add(this.button2);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.panel4.Location = new System.Drawing.Point(0, 500);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(176, 31);
+            this.panel4.TabIndex = 12;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(44, 5);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(32, 23);
+            this.button1.TabIndex = 13;
+            this.button1.Text = "-";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(6, 4);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(32, 23);
+            this.button2.TabIndex = 12;
+            this.button2.Text = "+";
+            this.button2.UseVisualStyleBackColor = true;
+            // 
+            // listTSVars
+            // 
+            this.listTSVars.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.listTSVars.FormattingEnabled = true;
+            this.listTSVars.Location = new System.Drawing.Point(0, 0);
+            this.listTSVars.Name = "listTSVars";
+            this.listTSVars.Size = new System.Drawing.Size(176, 531);
+            this.listTSVars.TabIndex = 5;
             // 
             // FrmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1174, 643);
+            this.ClientSize = new System.Drawing.Size(1252, 644);
             this.Controls.Add(this.mainTab);
             this.Name = "FrmPrincipal";
             this.Text = "Form1";
@@ -730,9 +822,16 @@
             this.tabConfig.ResumeLayout(false);
             this.tabConfig.PerformLayout();
             this.tabTradeSystem.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
             this.panelTradeSystem.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
+            this.panel3.ResumeLayout(false);
+            this.panel3.PerformLayout();
+            this.panelTSLeft.ResumeLayout(false);
+            this.panel1.ResumeLayout(false);
+            this.tabTSOpcoes.ResumeLayout(false);
+            this.tabTSVars.ResumeLayout(false);
+            this.tabTSCompra.ResumeLayout(false);
+            this.tabTSVenda.ResumeLayout(false);
+            this.groupCondVenda.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
             this.groupBox6.ResumeLayout(false);
@@ -750,9 +849,8 @@
             this.panelCompraEntrada.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.panel3.ResumeLayout(false);
-            this.panel3.PerformLayout();
             this.panel2.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -776,14 +874,37 @@
         public System.Windows.Forms.Label label3;
         public System.Windows.Forms.Label label1;
         public System.Windows.Forms.TabPage tabTradeSystem;
-        public System.Windows.Forms.ListBox listTradeSystems;
         public System.Windows.Forms.GroupBox panelTradeSystem;
-        public System.Windows.Forms.GroupBox panelCompra;
-        public System.Windows.Forms.GroupBox panelCompraEntrada;
+        public System.Windows.Forms.Panel panel3;
+        public System.Windows.Forms.TextBox txtNameTs;
+        public System.Windows.Forms.Label label14;
+        public System.Windows.Forms.Panel panelTSLeft;
         public System.Windows.Forms.Panel panel1;
-        public System.Windows.Forms.Button btnAtualizaTradeSystem;
+        public System.Windows.Forms.Button btnRemoveTS;
+        public System.Windows.Forms.Button btnAdicionaTS;
         public System.Windows.Forms.Button btnSalvaTradeSystems;
-        public System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.TabControl tabTSOpcoes;
+        private System.Windows.Forms.TabPage tabTSVars;
+        private System.Windows.Forms.TabPage tabTSCompra;
+        public System.Windows.Forms.GroupBox panelCompra;
+        public System.Windows.Forms.GroupBox groupBox3;
+        public System.Windows.Forms.GroupBox groupBox4;
+        public System.Windows.Forms.Label label8;
+        public System.Windows.Forms.TextBox textBox3;
+        public System.Windows.Forms.TextBox textBox4;
+        public System.Windows.Forms.Label label9;
+        public System.Windows.Forms.TextBox txtCondSaidaCDesc;
+        public System.Windows.Forms.TextBox txtCondSaidaC;
+        public System.Windows.Forms.GroupBox panelCompraEntrada;
+        public System.Windows.Forms.GroupBox groupBox1;
+        public System.Windows.Forms.Label label7;
+        public System.Windows.Forms.TextBox textBox1;
+        public System.Windows.Forms.TextBox textBox2;
+        public System.Windows.Forms.Label label2;
+        public System.Windows.Forms.TextBox txtCondEntrCDesc;
+        public System.Windows.Forms.TextBox txtCondEntrC;
+        private System.Windows.Forms.TabPage tabTSVenda;
+        public System.Windows.Forms.GroupBox groupCondVenda;
         public System.Windows.Forms.GroupBox groupBox5;
         public System.Windows.Forms.GroupBox groupBox6;
         public System.Windows.Forms.Label label10;
@@ -800,27 +921,12 @@
         public System.Windows.Forms.Label label13;
         public System.Windows.Forms.TextBox txtCondEntrVDesc;
         public System.Windows.Forms.TextBox txtCondEntrV;
-        public System.Windows.Forms.GroupBox groupBox3;
-        public System.Windows.Forms.GroupBox groupBox4;
-        public System.Windows.Forms.Label label8;
-        public System.Windows.Forms.TextBox textBox3;
-        public System.Windows.Forms.TextBox textBox4;
-        public System.Windows.Forms.Label label9;
-        public System.Windows.Forms.TextBox txtCondSaidaCDesc;
-        public System.Windows.Forms.TextBox txtCondSaidaC;
-        public System.Windows.Forms.GroupBox groupBox1;
-        public System.Windows.Forms.Label label7;
-        public System.Windows.Forms.TextBox textBox1;
-        public System.Windows.Forms.TextBox textBox2;
-        public System.Windows.Forms.Label label2;
-        public System.Windows.Forms.TextBox txtCondEntrCDesc;
-        public System.Windows.Forms.TextBox txtCondEntrC;
-        public System.Windows.Forms.Panel panel3;
-        public System.Windows.Forms.TextBox txtNameTs;
-        public System.Windows.Forms.Label label14;
+        public System.Windows.Forms.ListBox listTradeSystems;
         public System.Windows.Forms.Panel panel2;
-        public System.Windows.Forms.Button btnRemoveTS;
-        public System.Windows.Forms.Button btnAdicionaTS;
+        public System.Windows.Forms.Panel panel4;
+        public System.Windows.Forms.Button button1;
+        public System.Windows.Forms.Button button2;
+        public System.Windows.Forms.ListBox listTSVars;
     }
 }
 

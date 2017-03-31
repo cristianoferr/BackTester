@@ -21,11 +21,11 @@ namespace Backtester.backend.model.system.condicoes
             if (step == 0) step = 1;
             this.step = step;
             this.vlrInicial = vlrInicial;
-            this.vlrAtual = this.vlrInicial - step;
+            this.vlrAtual = this.vlrInicial;
         }
         public void reset()
         {
-            this.vlrAtual = this.vlrInicial - step;
+            this.vlrAtual = this.vlrInicial;
         }
 
         public int getSteps()
@@ -34,11 +34,10 @@ namespace Backtester.backend.model.system.condicoes
         }
 
 
-        public float getNext()
+        public void next()
         {
             vlrAtual += step;
             if (vlrAtual > vlrFinal) vlrAtual = vlrFinal;
-            return vlrAtual;
         }
 
         public bool hasEnded()

@@ -7,8 +7,20 @@ namespace Backtester.backend.model.system.condicoes
     public class CondicaoComplexa : ICondicao
     {
 
+        string formula_ = "";
         [DataMember]
-        public string formula { get; set; }
+        public string formula
+        {
+            get
+            {
+                return formula_;
+            }
+            set
+            {
+                formula_ = value;
+                ChangeCondicao(value);
+            }
+        }
         [DataMember]
         public string descricao { get; set; }
 
@@ -29,10 +41,14 @@ namespace Backtester.backend.model.system.condicoes
         public CondicaoComplexa(Config config, string formula)
             : this(config)
         {
-            this.formula = formula;
-            topNode = new Node(config, formula);
+            ChangeCondicao(formula);
         }
 
+        public void ChangeCondicao(string formula)
+        {
+            this.formula_ = formula;
+            topNode = new Node(config, formula);
+        }
 
 
         public override string ToString()
@@ -41,9 +57,9 @@ namespace Backtester.backend.model.system.condicoes
         }
 
 
-        public bool VerificaCondicao(Candle candle)
+        public bool VerificaCondicao(Candle candle, TradeSystem ts)
         {
-            return topNode.VerificaCondicao(candle);
+            return topNode.VerificaCondicao(candle, ts);
         }
 
 

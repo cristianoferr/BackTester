@@ -63,7 +63,6 @@ namespace Backtester.backend
             v.reset();
             while (!v.hasEnded())
             {
-                v.getNext();
                 //System.out.println("loop "+id+" atual:"+v.getAtual());
 
                 if (id + 1 < tradeSystem.vm.Count)
@@ -73,6 +72,7 @@ namespace Backtester.backend
                     runMonteCarlo(getVarsValues());
                 }
 
+                v.next();
 
 
                 //runSingleBackTest();

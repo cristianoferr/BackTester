@@ -62,36 +62,15 @@ namespace Backtester.backend.model.system.condicoes
 
 
 
-        public string ReplaceVariavel(string txt)
-        {
-            txt = txt.ToUpper() + " ";
-            while (txt.Contains("VAR"))
-            {
-                int pos = txt.IndexOf("VAR") + 3;
-                string n = txt.Substring(pos, pos + 1);
-                while (Util.IsNumber(n))
-                {
-                    pos++;
-                    n = n + txt.Substring(pos, pos + 1);
-                }
-                n = n.Substring(0, n.Length - 1);
 
-                string varValue = config.GetVariavelValue(n) + "";
-                //System.out.println("VAR:"+n+"="+varValue);
-                if (varValue.EndsWith(".0")) varValue = varValue.Replace(".0", "");
 
-                txt = txt.Replace("VAR" + n, varValue + "");
-            }
-            return txt.Trim();
-        }
-
-        public virtual bool VerificaCondicao(Candle candle)
+        public virtual bool VerificaCondicao(Candle candle, TradeSystem ts)
         {
             //Se cond1 e cond2 forem null é porque é uma condição pai, logo não há o que verificar (apenas os filhos) 
             if ((cond1 == null) && (cond2 == null)) return true;
 
-            float c1 = candle.GetValor(ReplaceVariavel(cond1));
-            float c2 = candle.GetValor(ReplaceVariavel(cond2));
+            float c1 = candle.GetValor(ts.vm.ReplaceVariavel(cond1));
+            float c2 = candle.GetValor(ts.vm.ReplaceVariavel(cond2));
             return VerificaCondicao(c1, c2);
         }
 

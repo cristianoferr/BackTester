@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Backtester.backend.DataManager
 {
@@ -38,5 +39,16 @@ namespace Backtester.backend.DataManager
         string ds;
         List<ObjectDTO> objects;
         public List<DataDTO> data;
+    }
+
+    public class CargaADVFN
+    {
+        public List<Int64> t;//time
+        public List<float> o;//open
+        public List<float> h;//high
+        public List<float> l;//low
+        public List<float> c;//close
+        public List<Int64> v;//volume
+        public string s;
     }
 }

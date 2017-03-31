@@ -9,7 +9,7 @@ namespace Backtester.backend.model
     public class VariavelManager
     {
         [DataMember]
-        IList<Variavel> variaveis { get; private set; }
+        private IList<Variavel> variaveis { get; set; }
 
         public VariavelManager()
         {
@@ -48,6 +48,24 @@ namespace Backtester.backend.model
         internal Variavel GetVariavel(int i)
         {
             return variaveis[i];
+        }
+
+        public string ReplaceVariavel(string txt)
+        {
+            txt = txt.ToUpper() + " ";
+            while (txt.Contains("%"))
+            {
+                int posInicial = txt.IndexOf("%");
+                int posFinal = txt.IndexOf("%", posInicial + 1);
+                string var = txt.Substring(posInicial + 1, posFinal - posInicial - 1);
+
+
+                string varValue = GetVariavel(var).vlrAtual.ToString();
+                if (varValue.EndsWith(".0")) varValue = varValue.Replace(".0", "");
+
+                txt = txt.Replace("%" + var + "%", varValue + "");
+            }
+            return txt.Trim();
         }
     }
 }

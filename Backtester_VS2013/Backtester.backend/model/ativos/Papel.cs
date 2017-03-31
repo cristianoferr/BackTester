@@ -23,6 +23,10 @@ namespace Backtester.backend.model.ativos
 
         public Candle GetCandle(Periodo periodo)
         {
+            if (!candles.ContainsKey(periodo))
+            {
+                return null;
+            }
             return candles[periodo];
         }
 

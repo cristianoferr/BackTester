@@ -37,8 +37,13 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="RestSharp">
+      <HintPath>..\packages\RestSharp.105.2.3\lib\net45\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -48,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BackTester.cs" />
+    <Compile Include="DataManager\AcaoService.cs" />
     <Compile Include="DataManager\CargaDTO.cs" />
     <Compile Include="DataManager\DataLoader.cs" />
     <Compile Include="DataManager\FormulaManager.cs" />
@@ -95,34 +101,31 @@
     <Compile Include="Util.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="dados\natu3-diario.js">
+    <Content Include="dados\old\natu3-diario.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="dados\ccro3-diario.js">
+    <Content Include="dados\old\ccro3-diario.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="dados\ciel3-diario.js">
+    <Content Include="dados\old\ciel3-diario.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="dados\bvmf3-diario.js">
+    <Content Include="dados\old\bvmf3-diario.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="dados\abev3-diario.js">
+    <Content Include="dados\old\abev3-diario.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="dados\ggbr4-diario.js">
+    <Content Include="dados\old\ggbr4-diario.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="dados\bbdc4-diario.js">
+    <Content Include="dados\old\bbdc4-diario.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="dados\bbas3-diario.js">
+    <Content Include="dados\old\bbas3-diario.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="dados\vale5-diario.js">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="dados\petr4-diario.js">
+    <Content Include="dados\old\vale5-diario.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

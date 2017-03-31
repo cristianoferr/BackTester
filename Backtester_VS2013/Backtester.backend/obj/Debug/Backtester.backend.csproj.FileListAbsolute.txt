@@ -32,4 +32,6 @@ G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester.backend\bin\
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester.backend\bin\Debug\Newtonsoft.Json.xml
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester.backend\obj\Debug\Backtester.backend.dll
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester.backend\obj\Debug\Backtester.backend.pdb
+G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester.backend\bin\Debug\RestSharp.dll
+G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester.backend\bin\Debug\RestSharp.xml
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester.backend\obj\Debug\Backtester.backend.csprojResolveAssemblyReference.cache

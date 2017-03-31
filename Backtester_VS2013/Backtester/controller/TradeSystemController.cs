@@ -32,31 +32,28 @@ namespace Backtester.controller
 
         internal void AdicionaTS()
         {
-            TradeSystem ts = new TradeSystem();
+            TradeSystem ts = new TradeSystem(ConfigController.config);
             ts.name = "TradeSystem Novo..." + holder.Count;
             holder.AddTS(ts);
             selectedTS = holder.Count - 1;
             UpdateUI();
         }
 
-        internal void SelectTS(int p)
-        {
-            selectedTS = p;
-        }
 
         int selectedTS_ = -1;
-        private int selectedTS
+        public int selectedTS
         {
             get { return selectedTS_; }
             set
             {
                 //panelTradeSystem
                 frmPrincipal.panelTradeSystem.Visible = value >= 0;
+                UpdateValuesFromUI();
                 if (value >= 0)
                 {
                     UpdateUI(value);
                 }
-                //if (value>=)
+
                 selectedTS_ = value;
             }
         }
@@ -66,17 +63,17 @@ namespace Backtester.controller
             if (selectedTS < 0) return;
             TradeSystem ts = holder.GetTS(selectedTS);
             ts.name = frmPrincipal.txtNameTs.Text;
-            ts.condicaoEntradaC = new backend.model.system.condicoes.CondicaoComplexa(ConfigController.config, frmPrincipal.txtCondEntrC.Text);
+            ts.condicaoEntradaC.formula=frmPrincipal.txtCondEntrC.Text;
             ts.condicaoEntradaC.descricao = frmPrincipal.txtCondEntrCDesc.Text;
 
-            ts.condicaoSaidaC = new backend.model.system.condicoes.CondicaoComplexa(ConfigController.config, frmPrincipal.txtCondSaidaC.Text);
+            ts.condicaoSaidaC.formula=frmPrincipal.txtCondSaidaC.Text;
             ts.condicaoSaidaC.descricao = frmPrincipal.txtCondSaidaCDesc.Text;
 
 
-            ts.condicaoEntradaV = new backend.model.system.condicoes.CondicaoComplexa(ConfigController.config, frmPrincipal.txtCondEntrV.Text);
+            ts.condicaoEntradaV.formula=frmPrincipal.txtCondEntrV.Text;
             ts.condicaoEntradaV.descricao = frmPrincipal.txtCondEntrVDesc.Text;
 
-            ts.condicaoSaidaV = new backend.model.system.condicoes.CondicaoComplexa(ConfigController.config, frmPrincipal.txtCondSaidaV.Text);
+            ts.condicaoSaidaV.formula=frmPrincipal.txtCondSaidaV.Text;
             ts.condicaoSaidaV.descricao = frmPrincipal.txtCondSaidaVDesc.Text;
 
 

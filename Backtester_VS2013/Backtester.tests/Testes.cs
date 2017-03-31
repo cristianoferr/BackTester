@@ -16,6 +16,15 @@ namespace Backtester.tests
 
         static FacadeBacktester facade = new FacadeBacktester();
 
+
+        [TestMethod]
+        public void TestWebRequest()
+        {
+            string saida = AcaoService.LoadFromApi("PETR4");
+            Assert.IsNotNull(saida);
+            Assert.IsTrue(saida.Contains("\"descr\":\"PETROBRAS PN   (VST)\""), saida);
+        }
+
         [AssemblyInitialize]
         public static void Configure(TestContext tc)
         {
@@ -80,10 +89,33 @@ namespace Backtester.tests
         }
 
         [TestMethod]
+        public void TestVariaveis()
+        {
+            Config config = new Config();
+            TradeSystem tradeSystem = new TradeSystem(config);
+            VariavelManager vm = tradeSystem.vm;
+            string na = "VAR1";
+            string nb = "NOME_QUALQUER";
+            Variavel va = vm.GetVariavel(na, 1, 2, 3);
+            Variavel vb = vm.GetVariavel(nb, 10, 3, 30);
+
+            string text = "%" + na + "%>%" + nb + "%";
+            Assert.IsTrue(vm.ReplaceVariavel(text) == "1>10", "Erro: " + vm.ReplaceVariavel(text));
+            va.next();
+            vb.next();
+            float vna = va.vlrAtual;
+            float vnb = vb.vlrAtual;
+            Assert.IsTrue(vm.ReplaceVariavel(text) == vna + ">" + vnb, "Erro: " + vm.ReplaceVariavel(text));
+
+            text = "%" + na + "%%" + nb + "%";
+            Assert.IsTrue(vm.ReplaceVariavel(text) == vna + "" + vnb, "Erro: " + vm.ReplaceVariavel(text));
+        }
+
+        [TestMethod]
         public void TestCarteira()
         {
             Config config = new Config();
-            TradeSystem tradeSystem = new TradeSystem();
+            TradeSystem tradeSystem = new TradeSystem(config);
 
             float valorInicial = 100000;
             Carteira carteira = new Carteira(facade, 100000, config, tradeSystem);
@@ -196,7 +228,9 @@ namespace Backtester.tests
         {
             facade.LoadAtivo("PETR4", 100, Consts.PERIODO_ACAO.DIARIO, "dados/petr4-diario.js");
             Ativo ativo = facade.GetAtivo("PETR4");
+
             Config config = new Config();
+            TradeSystem ts = new TradeSystem(config);
             Candle candle = ativo.firstCandle;
             candle.SetValor("A", 10);
             candle.SetValor("B", 20);
@@ -214,21 +248,21 @@ namespace Backtester.tests
             nodeAND.AddCondicao(cond1);
             nodeNOT.AddCondicao(cond1);
 
-            Assert.IsFalse(nodeOR.VerificaCondicao(candle));
-            Assert.IsFalse(nodeAND.VerificaCondicao(candle));
-            Assert.IsTrue(nodeNOT.VerificaCondicao(candle));
+            Assert.IsFalse(nodeOR.VerificaCondicao(candle, ts));
+            Assert.IsFalse(nodeAND.VerificaCondicao(candle, ts));
+            Assert.IsTrue(nodeNOT.VerificaCondicao(candle, ts));
             candle.SetValor("A", 30);
-            Assert.IsTrue(nodeOR.VerificaCondicao(candle));
-            Assert.IsTrue(nodeAND.VerificaCondicao(candle));
-            Assert.IsFalse(nodeNOT.VerificaCondicao(candle));
+            Assert.IsTrue(nodeOR.VerificaCondicao(candle, ts));
+            Assert.IsTrue(nodeAND.VerificaCondicao(candle, ts));
+            Assert.IsFalse(nodeNOT.VerificaCondicao(candle, ts));
 
             candle.SetValor("A", 10);
             nodeOR.AddCondicao(cond2);
             nodeAND.AddCondicao(cond2);
             nodeNOT.AddCondicao(cond2);
-            Assert.IsTrue(nodeOR.VerificaCondicao(candle));
-            Assert.IsFalse(nodeAND.VerificaCondicao(candle));
-            Assert.IsTrue(nodeNOT.VerificaCondicao(candle));
+            Assert.IsTrue(nodeOR.VerificaCondicao(candle, ts));
+            Assert.IsFalse(nodeAND.VerificaCondicao(candle, ts));
+            Assert.IsTrue(nodeNOT.VerificaCondicao(candle, ts));
         }
 
         [TestMethod]
@@ -264,7 +298,7 @@ namespace Backtester.tests
             Ativo ativo = facade.GetAtivo("PETR4");
 
             Config config = new Config();
-
+            TradeSystem ts = new TradeSystem(config);
             /*
              * Exemplos:
              * C>O
@@ -288,18 +322,18 @@ namespace Backtester.tests
             candle.SetValor(strFormulaA, 10);
             candle.SetValor(strFormulaB, 20);
             candle.SetValor(strFormulaC, 5);
-            Assert.IsFalse(cond1.VerificaCondicao(candle));
+            Assert.IsFalse(cond1.VerificaCondicao(candle, ts));
             candle.SetValor(strFormulaA, 30);
-            Assert.IsTrue(cond1.VerificaCondicao(candle));
+            Assert.IsTrue(cond1.VerificaCondicao(candle, ts));
 
             ICondicao cond2 = new CondicaoComplexa(config, strFormulaA + ">" + strFormulaB + "&&" + strFormulaB + ">" + strFormulaC);
-            Assert.IsTrue(cond2.VerificaCondicao(candle));
+            Assert.IsTrue(cond2.VerificaCondicao(candle, ts));
             candle.SetValor(strFormulaC, 30);
-            Assert.IsFalse(cond2.VerificaCondicao(candle));
+            Assert.IsFalse(cond2.VerificaCondicao(candle, ts));
             candle.SetValor(strFormulaC, 5);
-            Assert.IsTrue(cond2.VerificaCondicao(candle));
+            Assert.IsTrue(cond2.VerificaCondicao(candle, ts));
             candle.SetValor(strFormulaA, 10);
-            Assert.IsFalse(cond2.VerificaCondicao(candle));
+            Assert.IsFalse(cond2.VerificaCondicao(candle, ts));
         }
 
         [TestMethod]
@@ -321,14 +355,15 @@ namespace Backtester.tests
         public void TestTradeSystem()
         {
             Config config = new Config();
-            TradeSystem tradeSystem = new TradeSystem();
+            TradeSystem tradeSystem = new TradeSystem(config);
 
             float valorInicial = 100000;
             Carteira carteira = new Carteira(facade, valorInicial, config, tradeSystem);
             config.custoOperacao = 20f;
 
-            tradeSystem.condicaoEntradaC = new CondicaoComplexa(config, "MME(C,9)>MME(C,3)");
-            tradeSystem.condicaoSaidaC = new CondicaoComplexa(config, "MME(C,9)<MME(C,3)");
+            tradeSystem.condicaoEntradaC.formula = "MME(C,9)>MME(C,3)";
+            tradeSystem.condicaoSaidaC.formula = "MME(C,9)<MME(C,3)";
+            tradeSystem.condicaoEntradaV.formula = "MME(C,9)<MME(C,3)";
 
             Periodo periodo = new Periodo("01-01-2017");
             Ativo ativo = new Ativo(facade, "TESTE", 100);

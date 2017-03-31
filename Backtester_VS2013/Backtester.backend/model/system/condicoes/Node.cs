@@ -64,14 +64,14 @@ namespace Backtester.backend.model.system.condicoes
             return formula.Contains("||") || formula.Contains("&&");
         }
 
-        public bool VerificaCondicao(ativos.Candle candle)
+        public bool VerificaCondicao(ativos.Candle candle, TradeSystem ts)
         {
             bool ret = true;
             bool firstLoop = true;
 
             foreach (ICondicao cond in condicoes)
             {
-                bool b = cond.VerificaCondicao(candle);
+                bool b = cond.VerificaCondicao(candle, ts);
                 if (firstLoop)
                 {
                     ret = b;

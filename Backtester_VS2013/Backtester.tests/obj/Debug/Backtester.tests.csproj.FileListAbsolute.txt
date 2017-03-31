@@ -39,3 +39,5 @@ G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester.tests\bin\De
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester.tests\obj\Debug\Backtester.tests.csprojResolveAssemblyReference.cache
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester.tests\obj\Debug\Backtester.tests.dll
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester.tests\obj\Debug\Backtester.tests.pdb
+G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester.tests\bin\Debug\RestSharp.dll
+G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester.tests\bin\Debug\RestSharp.xml

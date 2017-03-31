@@ -47,13 +47,15 @@ namespace Backtester
 
         private void listTradeSystems_SelectedIndexChanged(object sender, System.EventArgs e)
         {
-            tsController.SelectTS(listTradeSystems.SelectedIndex);
+            tsController.selectedTS = listTradeSystems.SelectedIndex;
         }
 
         private void btnAtualizaTradeSystem_Click(object sender, System.EventArgs e)
         {
             tsController.UpdateValuesFromUI();
         }
+
+
 
     }
 }

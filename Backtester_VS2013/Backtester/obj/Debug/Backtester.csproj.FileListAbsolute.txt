@@ -46,3 +46,5 @@ G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester\obj\Debug\Ba
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester\obj\Debug\Backtester.csproj.GenerateResource.Cache
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester\obj\Debug\Backtester.exe
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester\obj\Debug\Backtester.pdb
+G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester\bin\Debug\RestSharp.dll
+G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester\bin\Debug\RestSharp.xml
