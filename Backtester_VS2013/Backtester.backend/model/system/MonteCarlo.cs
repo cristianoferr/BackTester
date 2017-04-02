@@ -5,55 +5,30 @@ namespace Backtester.backend.model.system
 {
     public class MonteCarlo
     {
-        IList<Estatistica> estatisticas;
         string name;
         Estatistica global;
         public MonteCarlo(string name)
         {
             this.name = name;
-            estatisticas = new List<Estatistica>();
             global = new Estatistica(0);
         }
 
-        public void addEstatistica(Estatistica stat)
+        public void setEstatistica(Estatistica stat)
         {
-            estatisticas.Add(stat);
+            global = stat;
 
         }
 
-        /*
-         * Um método para ordenar as estatísticas de acordo com um parâmetro
-         */
-        public void ordernaEstatisticas(Consts.OrdemEstatistica ordem)
+
+        public override string ToString()
         {
-            for (int i = 0; i < estatisticas.Count - 1; i++)
-            {
-
-                for (int j = i + 1; j < estatisticas.Count; j++)
-                {
-                    Estatistica statI = estatisticas[i];
-                    float vI = 0;
-                    Estatistica statJ = estatisticas[j];
-                    float vJ = 0;
-                    if (ordem == Consts.OrdemEstatistica.CAPITAL_FINAL) vI = statI.getCapitalFinal();
-                    if (ordem == Consts.OrdemEstatistica.CAPITAL_FINAL) vJ = statJ.getCapitalFinal();
-                    if (vI > vJ)
-                    {
-                        estatisticas[j] = statI;
-                        estatisticas[i] = statJ;
-                    }
-                }
-
-            }
+            return name;
         }
+      
 
         public void printEstatisticas()
         {
-            for (int i = 0; i < estatisticas.Count; i++)
-            {
-                Estatistica stat = estatisticas[i];
-                Util.println(stat.getDesc() + "=>" + stat.getPerformance());
-            }
+                Util.println(global.getDesc() + "=>" + global.getPerformance());
         }
 
         public void printPerformance(string s)
@@ -70,7 +45,7 @@ namespace Backtester.backend.model.system
             float nDias = 0;
             float dif = 0;
 
-            for (int i = 0; i < estatisticas.Count; i++)
+          /*  for (int i = 0; i < estatisticas.Count; i++)
             {
                 Estatistica stat = estatisticas[i];
 
@@ -84,16 +59,50 @@ namespace Backtester.backend.model.system
 
                 global.getGeral().getAmbasPontas().addOperacao(stat.getGeral().getAmbasPontas().getTodosTrades().getTotal(), stat.getGeral().getAmbasPontas().getTodosTrades().getnTrades(), false);
 
-            }
+            }*/
 
-            nTrades /= estatisticas.Count;
-            dif /= estatisticas.Count;
-            capitalFinal /= estatisticas.Count;
-            global.setCapitalFinal(capitalFinal);
+           /* global.setCapitalFinal(capitalFinal);
             global.setMaxCapital(maxCapital);
-            global.setMinCapital(minCapital);
+            global.setMinCapital(minCapital);*/
 
 
+        }
+
+        public int qtdTrades { get {
+            return global.getGeral().getAmbasPontas().getTodosTrades().getnTrades(); 
+        } 
+        }
+
+        public float winLossRatio
+        {
+            get
+            {
+                return global.getGeral().getAmbasPontas().winLossRatio;
+            }
+        }
+
+        public float percAcerto
+        {
+            get
+            {
+                return global.getGeral().getAmbasPontas().percAcerto;
+            }
+        }
+
+
+        public float totalGanho
+        {
+            get
+            {
+                return global.getGeral().getAmbasPontas().totalGanho;
+            }
+        }
+        public float totalPerdido
+        {
+            get
+            {
+                return global.getGeral().getAmbasPontas().totalPerdido;
+            }
         }
 
         public float getCapitalFinal()
@@ -109,6 +118,11 @@ namespace Backtester.backend.model.system
         public float getMinCapital()
         {
             return global.getMinCapital();
+        }
+
+        public Estatistica getGlobal()
+        {
+            return global;
         }
     }
 }

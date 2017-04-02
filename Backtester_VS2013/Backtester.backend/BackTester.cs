@@ -1,4 +1,5 @@
-﻿using Backtester.backend.model;
+﻿using Backtester.backend.interfaces;
+using Backtester.backend.model;
 using Backtester.backend.model.ativos;
 using Backtester.backend.model.system;
 using Backtester.backend.model.system.condicoes;
@@ -13,22 +14,22 @@ namespace Backtester.backend
         Carteira carteira;
         Config config;
         TradeSystem tradeSystem;
-        String dataInicial;
-        IList<MonteCarlo> monteCarlo;
-        int runs = 1;
+        Periodo periodoInicial;
+
+     //   IList<MonteCarlo> monteCarlo;
         bool useVars = true;
         IList<Ativo> ativos = null;
 
 
-        public BackTester(FacadeBacktester facade, String dataInicial, Config config, TradeSystem tradeSystem)
+        public BackTester(FacadeBacktester facade, Periodo periodoInicial, Config config, TradeSystem tradeSystem)
         {
             this.facade = facade;
             this.ativoManager = facade.dh;
             this.ativos = facade.dh.GetAtivos();
             this.config = config;
             this.tradeSystem = tradeSystem;
-            this.dataInicial = dataInicial;
-            monteCarlo = new List<MonteCarlo>();
+            this.periodoInicial = periodoInicial;
+           // monteCarlo = new List<MonteCarlo>();
 
             init();
 
@@ -39,14 +40,13 @@ namespace Backtester.backend
         public void init()
         {
             carteira = new Carteira(facade, config.capitalInicial, config, tradeSystem);
-
         }
 
-        public void runBackTest()
+        public void runBackTest(ICaller caller)
         {
             if (tradeSystem.vm.Count == 0)
             {
-                runSingleBackTest();
+                runSingleBackTest(caller);
                 return;
             }
             if (!useVars)
@@ -54,9 +54,20 @@ namespace Backtester.backend
                 return;
             }
 
-            if (useVars) loopVariavel(0); else runMonteCarlo("MC Run");
+            totalLoops_ = 1;
+            countLoops_ = 0;
+            foreach (Variavel v in tradeSystem.vm.variaveis)
+            {
+                totalLoops_ *= v.steps;
+            }
+            if (useVars) loopVariavel(caller,0); else runMonteCarlo(caller,"MC Run");
+
         }
-        public void loopVariavel(int id)
+
+        private int totalLoops_ = 0;
+        private int countLoops_ = 0;
+
+        public void loopVariavel(ICaller caller,int id)
         {
             Util.println("init " + id);
             Variavel v = tradeSystem.vm.GetVariavel(id);
@@ -66,10 +77,13 @@ namespace Backtester.backend
                 //System.out.println("loop "+id+" atual:"+v.getAtual());
 
                 if (id + 1 < tradeSystem.vm.Count)
-                    loopVariavel(id + 1);
+                {
+                    loopVariavel(caller, id + 1);
+                }
                 else
                 {
-                    runMonteCarlo(getVarsValues());
+                    countLoops_++;
+                    runMonteCarlo(caller, getVarsValues());
                 }
 
                 v.next();
@@ -79,16 +93,16 @@ namespace Backtester.backend
             }
         }
 
-        public void printMonteCarlo()
+     /*   public void printMonteCarlo()
         {
             for (int i = 0; i < monteCarlo.Count; i++)
             {
                 MonteCarlo mC = monteCarlo[i];
                 mC.printPerformance("MC(" + i + ")");
             }
-        }
+        }*/
 
-        public void ordernaMonteCarlo(Consts.OrdemEstatistica ordem)
+    /*    public void ordernaMonteCarlo(Consts.OrdemEstatistica ordem)
         {
             for (int i = 0; i < monteCarlo.Count - 1; i++)
             {
@@ -110,21 +124,19 @@ namespace Backtester.backend
 
             }
 
-        }
+        }*/
 
-        public void runMonteCarlo(String name)
+        public void runMonteCarlo(ICaller caller,String name)
         {
             MonteCarlo mC = new MonteCarlo(name);
             Util.println("runMonteCarlo:" + name);
-            for (int i = 0; i < runs; i++)
-            {
-                Estatistica stat = runSingleBackTest();
-                stat.setDesc(getVarsValues());
-                mC.addEstatistica(stat);
-            }
+            Estatistica stat = runSingleBackTest(caller);
+            stat.setDesc(getVarsValues());
+            mC.setEstatistica(stat);
             mC.update();
             mC.printPerformance("");
-            monteCarlo.Add(mC);
+            caller.UpdateApplication(carteira, mC,countLoops_, totalLoops_);
+            //monteCarlo.Add(mC);
 
         }
 
@@ -148,13 +160,14 @@ namespace Backtester.backend
         }
         public int[] GetRandomOrder()
         {
+            Random rnd=new Random();
             int[] rd = new int[ativos.Count];
             for (int i = 0; i < ativos.Count; i++)
                 rd[i] = i;
 
             for (int i = 0; i < ativos.Count - 1; i++)
                 for (int j = i; j < ativos.Count; j++)
-                    if (new Random().Next(1) > 0.5f)
+                    if (rnd.Next(1) > 0.5f)
                     {
                         int x = rd[i];
                         rd[i] = rd[j];
@@ -167,25 +180,24 @@ namespace Backtester.backend
         /*
          * Método principal que vai verificar as condições e fazer entradas (um integrador por assim dizer)
          */
-        public Estatistica runSingleBackTest()
+        public Estatistica runSingleBackTest(ICaller caller)
         {
             init();
-            Periodo periodo = ativoManager.GetPeriodo(dataInicial);
+            Periodo periodo = periodoInicial;
             string mesA = "";
+            int[] rd = GetRandomOrder();
             while (periodo.proximoPeriodo != null)
             {
+                caller.SimpleUpdate();
                 //System.out.println("Periodo:"+periodo.getPeriodo());
                 carteira.EndTurn(periodo, !mesA.Equals(periodo.GetMes()));
                 if (!mesA.Equals(periodo.GetMes())) mesA = periodo.GetMes() + "";
 
-                int[] rd = GetRandomOrder();
                 for (int i = 0; i < ativos.Count; i++)
                 {
 
                     Ativo ativo = ativos[rd[i]];
-
                     Candle candle = ativo.GetCandle(periodo);
-
 
                     if (candle != null)
                     {
@@ -223,26 +235,10 @@ namespace Backtester.backend
 
 
 
-        public int getRuns()
-        {
-            return runs;
-        }
-
-
-
-        public void setRuns(int runs)
-        {
-            this.runs = runs;
-        }
-
-
-
         public void setUseVars(bool b)
         {
             useVars = b;
         }
-
-
 
 
         public FacadeBacktester facade { get; set; }

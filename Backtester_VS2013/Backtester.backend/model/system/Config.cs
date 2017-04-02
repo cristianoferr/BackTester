@@ -1,4 +1,5 @@
 ﻿using Backtester.backend.DataManager;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
@@ -17,17 +18,14 @@ namespace Backtester.backend.model.system
             custoOperacao = 20;
             campoVenda = FormulaManager.CLOSE;
             campoCompra = FormulaManager.CLOSE;
-            riscoTrade = 1.5f;
-            stopMensal = 10;
-            maxCapitalTrade = 100000;
-            percTrade = 25; //Isso informa quanto do capital eu posso ter por ativo
-
+            papeis = new List<string>();
+            maxTestes = 100;
         }
 
         [DataMember]
-        public float riscoTrade { get; set; }
-
-
+        public string varsDebug { get; set; }
+        [DataMember]
+        public IList<string> papeis { get; set; }
 
         [DataMember]
         public bool flagCompra { get; set; }
@@ -38,9 +36,6 @@ namespace Backtester.backend.model.system
         [DataMember]
         public float capitalInicial { get; set; }
 
-
-
-
         [DataMember]
         public float custoOperacao { get; set; }
 
@@ -48,16 +43,7 @@ namespace Backtester.backend.model.system
         public string campoVenda { get; set; }
 
         [DataMember]
-        public float stopMensal { get; set; }
-
-        [DataMember]
         public string campoCompra { get; set; }
-
-        [DataMember]
-        public float maxCapitalTrade { get; set; }
-
-        [DataMember]
-        public float percTrade { get; set; }
 
         public static Config LoadSaved()
         {
@@ -78,7 +64,6 @@ namespace Backtester.backend.model.system
 
         public void SaveToFile()
         {
-
             DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Config));
             var fileStream = File.Create("saved-config.js");
             ser.WriteObject(fileStream, this);
@@ -87,5 +72,20 @@ namespace Backtester.backend.model.system
         }
 
 
+
+        public void AddPapel(string papel)
+        {
+            if (!papeis.Contains(papel))
+                papeis.Add(papel);
+        }
+
+        public void RemovePapel(string papel)
+        {
+            papeis.Remove(papel);
+        }
+
+
+        [DataMember]
+        public int maxTestes { get; set; }
     }
 }

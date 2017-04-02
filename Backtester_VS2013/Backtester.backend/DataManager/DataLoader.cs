@@ -16,7 +16,7 @@ namespace Backtester.backend.DataManager
         }
 
 
-        internal void LoadAtivo(Ativo ativo, Consts.PERIODO_ACAO periodoAcao, string fileName)
+        internal bool LoadAtivo(Ativo ativo, Consts.PERIODO_ACAO periodoAcao, string fileName)
         {
             if (!File.Exists(fileName))
             {
@@ -30,6 +30,10 @@ namespace Backtester.backend.DataManager
                 List<CargaADVFN> items = JsonConvert.DeserializeObject<List<CargaADVFN>>(json);
                 foreach (CargaADVFN item in items)
                 {
+                    if (item.s != "ok")
+                    {
+                        return false;
+                    }
                     Candle candleAnterior = null;
                     Periodo periodoAnterior = null;
                     //i=0 está bugado...
@@ -44,6 +48,7 @@ namespace Backtester.backend.DataManager
 
                             Candle candle = new Candle(periodo, ativo, item.o[i], item.c[i], item.h[i], item.l[i], item.v[i]);
                             candle.candleAnterior = candleAnterior;
+                            LimitaCandle(candle,50);
                             candle.periodo.AddCandle(candle);
                             if (candle.periodo.periodoAnterior == null && periodoAnterior != null)
                             {
@@ -58,8 +63,35 @@ namespace Backtester.backend.DataManager
                         }
                     }
                 }
+                return true;
             }
 
+        }
+
+        //tem alguns dados que parecem com problema... 
+        private void LimitaCandle(Candle candle, int percent)
+        {
+            Candle candleAnterior = candle.candleAnterior;
+            if (candleAnterior != null)
+            {
+                if (PercentDif(candle.GetValor(FormulaManager.LOW),candleAnterior.GetValor(FormulaManager.LOW))>percent||
+                    PercentDif(candle.GetValor(FormulaManager.HIGH),candleAnterior.GetValor(FormulaManager.HIGH))>percent||
+                    PercentDif(candle.GetValor(FormulaManager.CLOSE),candleAnterior.GetValor(FormulaManager.CLOSE))>percent||
+                        PercentDif(candle.GetValor(FormulaManager.OPEN),candleAnterior.GetValor(FormulaManager.OPEN))>percent)
+                {
+                    candle.SetValor(FormulaManager.LOW,candleAnterior.GetValor(FormulaManager.LOW));
+                    candle.SetValor(FormulaManager.HIGH,candleAnterior.GetValor(FormulaManager.HIGH));
+                    candle.SetValor(FormulaManager.CLOSE,candleAnterior.GetValor(FormulaManager.CLOSE));
+                    candle.SetValor(FormulaManager.OPEN,candleAnterior.GetValor(FormulaManager.OPEN));
+                }
+
+            }
+        }
+
+        private float PercentDif(float p1, float p2)
+        {
+            float ratio = (1 - p1 / p2) * 100f;
+            return Math.Abs(ratio);
         }
     }
 }

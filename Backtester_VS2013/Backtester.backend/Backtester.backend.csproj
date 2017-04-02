@@ -60,6 +60,7 @@
     <Compile Include="DataManager\TradeSystemHolder.cs" />
     <Compile Include="FacadeBacktester.cs" />
     <Compile Include="Consts.cs" />
+    <Compile Include="interfaces\ICaller.cs" />
     <Compile Include="model\ativos\Candle.cs" />
     <Compile Include="model\formulas\FormulaSUM.cs" />
     <Compile Include="model\formulas\FormulaMultiply.cs" />

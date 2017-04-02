@@ -124,10 +124,11 @@ namespace Backtester.backend.DataManager
 
         private static WebProxy CreateProxy()
         {
+            return null;/*
             WebProxy myProxy = new WebProxy();
             Uri newUri = new Uri("http://127.0.0.1:3128");
             myProxy.Address = newUri;
-            return myProxy;
+            return myProxy;*/
         }
 
         internal static void RequestData(string papel, string fileName)

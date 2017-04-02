@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Globalization;
 using System.Reflection;
 namespace Backtester.backend
 {
@@ -22,9 +23,9 @@ namespace Backtester.backend
             log.Error(msg);
         }
 
-        internal static string FormatCurrency(float valor)
+        public static string FormatCurrency(float valor)
         {
-            return valor.ToString();
+            return valor.ToString("0.00");
         }
 
 

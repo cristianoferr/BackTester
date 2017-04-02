@@ -1,7 +1,9 @@
 ﻿
 using Backtester.backend.model.system;
+using Backtester.backend.model.system.condicoes;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 namespace Backtester.backend.DataManager
@@ -20,9 +22,10 @@ namespace Backtester.backend.DataManager
 
         public static TradeSystemHolder LoadSaved()
         {
+            FileStream fileStream=null;
             try
             {
-                var fileStream = File.Open("TradeSystems.js", FileMode.Open);
+                 fileStream = File.Open("TradeSystems.js", FileMode.Open);
                 DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(TradeSystemHolder));
                 TradeSystemHolder config = (TradeSystemHolder)ser.ReadObject(fileStream);
                 fileStream.Close();
@@ -30,13 +33,36 @@ namespace Backtester.backend.DataManager
                 {
                     return new TradeSystemHolder();
                 }
+                else
+                {
+                    config.UpdateVarID();
+                }
                 return config;
             }
             catch (System.Exception e)
             {
                 Util.Error("Erro ao carregar TradeSystems: " + e.Message);
+                if (fileStream!=null)
+                    fileStream.Close();
             }
             return new TradeSystemHolder();
+        }
+
+        private void UpdateVarID()
+        {
+            int maxId = 0;
+            foreach (TradeSystem ts in tradeSystems)
+            {
+                foreach (Variavel v in ts.vm.variaveis)
+                {
+                    if (v.uniqueID > maxId)
+                    {
+                        maxId = v.uniqueID;
+                    }
+                }
+            }
+            maxId++;
+            Variavel.countVars = maxId;
         }
 
         public void SaveToFile()
@@ -51,7 +77,16 @@ namespace Backtester.backend.DataManager
 
         public TradeSystem GetTS(int index)
         {
-            return tradeSystems[index];
+            if (tradeSystems.Count > index && index>=0)
+            {
+                return tradeSystems[index];
+            }
+            return null;
+        }
+
+        public TradeSystem GetTS(string name)
+        {
+            return tradeSystems.Where(x => x.name == name).FirstOrDefault();
         }
 
         public void RemoveTradeSystem(int p)

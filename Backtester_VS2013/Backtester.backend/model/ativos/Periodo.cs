@@ -21,6 +21,10 @@ namespace Backtester.backend.model.ativos
             candles.Add(candle);
         }
 
+        public override string ToString()
+        {
+            return data;
+        }
 
         internal int GetDiferenca(Periodo per)
         {

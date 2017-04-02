@@ -12,7 +12,7 @@ namespace Backtester.backend.model
         Dictionary<Ativo, Posicao> posicoesAbertas;
         private int p;
         public system.Config config { get; private set; }
-        IList<Posicao> posicoesFechadas;
+        public IList<Posicao> posicoesFechadas {get;private set;}
         public Estatistica estatistica { get; private set; }
         public Carteira(FacadeBacktester facade, float capitalInicial, system.Config config, system.TradeSystem tradeSystem)
         {
@@ -30,47 +30,10 @@ namespace Backtester.backend.model
         public system.TradeSystem tradeSystem { get; set; }
 
         public float capitalInicial { get; set; }
-        public float capitalMes { get; set; }
-        public float capitalPosicao { get; set; }
+        public float capitalMes { get; private set; }
+        public float capitalPosicao { get; private set; }
 
         public float capitalLiq { get; set; }
-
-        /*   public void EfetuaCompra(Candle candle, int qtdAcoes)
-           {
-               qtdAcoes = Math.Abs(qtdAcoes);
-               float valor = candle.GetValor(FormulaManager.CLOSE);
-
-               int qtd = qtdAcoes - qtdAcoes % candle.ativo.loteMin;
-               if (qtd * valor > capitalLiq)
-               {
-                   qtd = (int)(capitalLiq / valor);
-                   qtd = qtd - qtd % candle.ativo.loteMin;
-               }
-               if (qtd > 0)
-               {
-                   Posicao posicao = GetPosicaoDoAtivo(candle.ativo);
-                   posicao.saldo += qtd;
-                   capitalLiq -= qtd * valor + config.custoOperacao;
-               }
-
-           }
-           public void EfetuaVenda(Candle candle, int qtdAcoes)
-           {
-               qtdAcoes = Math.Abs(qtdAcoes);
-               float valor = candle.GetValor(FormulaManager.CLOSE);
-               int qtd = qtdAcoes - qtdAcoes % candle.ativo.loteMin;
-
-               Posicao posicao = GetPosicaoDoAtivo(candle.ativo);
-               if (qtd > posicao.saldo)
-               {
-                   qtd = posicao.saldo;
-               }
-               if (qtd > 0)
-               {
-                   posicao.saldo -= qtd;
-                   capitalLiq += qtd * valor - config.custoOperacao;
-               }
-           }*/
 
         public Posicao GetPosicaoDoAtivo(Ativo ativo)
         {
@@ -91,7 +54,7 @@ namespace Backtester.backend.model
  * Efetua a entrada no ativo e deduz do saldo o capital do trade 
  * não importando se é compra ou venda
  */
-        internal void EfetuaEntrada(Ativo ativo, Periodo periodo, float perc, float vlrEntrada, float vlrStop, int direcao)
+        public void EfetuaEntrada(Ativo ativo, Periodo periodo, float perc, float vlrEntrada, float vlrStop, int direcao)
         {
             Posicao posicao = null;
             if (!posicoesAbertas.ContainsKey(ativo))
@@ -119,18 +82,25 @@ namespace Backtester.backend.model
 
         }
 
+        List<Posicao> posicoesARemover_ = new List<Posicao>();
         public void FechaPosicoes(Periodo periodo)
         {
+            posicoesARemover_.Clear();
             foreach (Ativo key in posicoesAbertas.Keys)
             {
                 Posicao p = posicoesAbertas[key];
                 Candle candle = p.ativo.GetCandle(periodo);
                 float vlrSaida = candle.GetValor(config.campoVenda);
-                FechaPosicao(p, candle, vlrSaida);
+                posicoesARemover_.Add(FechaPosicao(p, candle, vlrSaida,false));
+            }
+
+            foreach (Posicao p in posicoesARemover_)
+            {
+                posicoesAbertas.Remove(p.ativo);
             }
         }
 
-        public void FechaPosicao(Posicao posicao, Candle candle, float vlrSaida)
+        public Posicao FechaPosicao(Posicao posicao, Candle candle, float vlrSaida,bool okToRemove=true)
         {
 
 
@@ -141,8 +111,10 @@ namespace Backtester.backend.model
                 FechaOperacao(posicao, candle, oper, vlrSaida);
 
             }
-            posicoesAbertas.Remove(posicao.ativo);
+            if (okToRemove)
+                 posicoesAbertas.Remove(posicao.ativo);
             posicoesFechadas.Add(posicao);
+            return posicao;
         }
 
 
@@ -179,11 +151,12 @@ namespace Backtester.backend.model
         //Não posso por exemplo comprar mais que o risco permite ou mais capital do que eu tenho líquido.
         public float CalculaCapitalTrade(float percentualOperacao)
         {
-            float capitalTrade = GetCapital() * config.percTrade * percentualOperacao;
+            float capitalTrade = GetCapital() * tradeSystem.percTrade/100 * percentualOperacao;
 
+            float maxCapitalTrade = tradeSystem.maxCapitalTrade;
             //Caso o capital seja maior que o maximo capital então limita o capital
-            if ((capitalTrade > config.maxCapitalTrade) && (config.maxCapitalTrade > 0))
-                capitalTrade = config.maxCapitalTrade;
+            if ((capitalTrade > maxCapitalTrade) && (maxCapitalTrade > 0))
+                capitalTrade = maxCapitalTrade;
 
             if (capitalTrade > capitalLiq) capitalTrade = capitalLiq;
             return capitalTrade;
@@ -210,17 +183,18 @@ namespace Backtester.backend.model
         public float CalculaQtdTrade(float qtd, float vlrStop, float vlrEntrada)
         {
             //Limita pelo risco por trade (limita quanto posso arriscar baseado no stop inicial e no percentual do capital)
-            if (config.riscoTrade > 0)
+            float riscoTrade = tradeSystem.riscoTrade;
+            if (riscoTrade > 0)
             {
-                float vlrRisco = config.riscoTrade * GetCapital();
+                float vlrRisco = riscoTrade * GetCapital()/100;
                 float qtdR = Math.Abs((vlrRisco - 2 * config.custoOperacao) / (vlrEntrada - vlrStop));
                 if (qtdR < qtd) qtd = qtdR;
             }
 
             //Calculo quanto poderia arriscar para não passar o stop mensal
-            if (config.stopMensal > 0)
+            if (tradeSystem.stopMensal > 0)
             {
-                float vlrRisco = GetCapital() - capitalMes * (1 - config.stopMensal);
+                float vlrRisco = GetCapital() - capitalMes * (1 - tradeSystem.stopMensal/100);
                 float qtdR = Math.Abs((vlrRisco - 2 * config.custoOperacao) / (vlrEntrada - vlrStop));
                 if (vlrRisco < 0) qtdR = 0;
                 if (qtdR < qtd)
@@ -244,7 +218,7 @@ namespace Backtester.backend.model
             if (flagEndMes) capitalMes = GetCapital();
         }
 
-        private void AtualizaPosicao()
+        public void AtualizaPosicao()
         {
             capitalPosicao = 0;
             foreach (Posicao p in posicoesAbertas.Values)

@@ -9,7 +9,7 @@ namespace Backtester.backend.model
     public class VariavelManager
     {
         [DataMember]
-        private IList<Variavel> variaveis { get; set; }
+        public IList<Variavel> variaveis { get; private set; }
 
         public VariavelManager()
         {
@@ -31,13 +31,14 @@ namespace Backtester.backend.model
             return variaveis.Where(x => x.name == name).FirstOrDefault();
         }
 
-        public Variavel GetVariavel(string name, float vlrInicial, float step, float vlrFinal)
+        public Variavel GetVariavel(string name, string descricao,float vlrInicial, int steps, float vlrFinal)
         {
             name = name.ToUpper();
             Variavel var = GetVariavel(name);
             if (var == null)
             {
-                var = new Variavel(name, vlrInicial, step, vlrFinal);
+                var = new Variavel(name, vlrInicial, steps, vlrFinal);
+                var.descricao = descricao;
                 variaveis.Add(var);
             }
             return var;
@@ -66,6 +67,24 @@ namespace Backtester.backend.model
                 txt = txt.Replace("%" + var + "%", varValue + "");
             }
             return txt.Trim();
+        }
+
+        public void LoadVars(string vars)
+        {
+            string[] arrVars = vars.Split('(');
+            foreach (string v in arrVars)
+            {
+                if (v.Contains(":"))
+                {
+                    string v1 = v.Replace("(", "").Replace(")", "");
+                    string[] arrVar = v1.Split(':');
+                    if (arrVar[1].Contains(" v"))
+                    {
+                        arrVar[1] = arrVar[1].Substring(0, arrVar[1].IndexOf(" v"));
+                    }
+                    GetVariavel(arrVar[0]).vlrAtual = float.Parse(arrVar[1]);
+                }
+            }
         }
     }
 }

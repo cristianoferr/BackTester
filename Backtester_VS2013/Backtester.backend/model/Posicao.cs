@@ -2,6 +2,7 @@
 using Backtester.backend.model.ativos;
 using Backtester.backend.model.system.condicoes;
 using System.Collections.Generic;
+using System.Linq;
 namespace Backtester.backend.model
 {
     public class Posicao
@@ -14,13 +15,20 @@ namespace Backtester.backend.model
 
         public Posicao(Carteira carteira, Ativo ativo)
         {
-            // TODO: Complete member initialization
             this.carteira = carteira;
             this.ativo = ativo;
             operacoesAbertas = new List<Operacao>();
             operacoesFechadas = new List<Operacao>();
             saldo = 0;
             direcao = 0;
+        }
+
+        public int countAcoes
+        {
+            get{
+                return operacoesFechadas.Sum(x=>x.qtd);
+            }
+
         }
 
         public int saldo { get; set; }
@@ -37,8 +45,8 @@ namespace Backtester.backend.model
     */
         public float EfetuaEntrada(Periodo periodo, float perc, int direcao, float valorAcao, float vlrStop)
         {
-            Candle c = ativo.GetCandle(periodo);
-            if (c == null)
+            Candle candle = ativo.GetCandle(periodo);
+            if (candle == null)
             {
                 return 0;
             }
@@ -50,15 +58,13 @@ namespace Backtester.backend.model
                 return 0;
             }
 
-
-
             int qtd = (int)carteira.QueryQtdAcoes(valorAcao, vlrStop, perc);
             if (qtd <= 0) return 0;
 
 
             saldo += qtd;
             //System.out.println("Efetuando entrada no "+ativo.getName()+" em "+periodo+" a "+formatCurrency(valorAcao)+"x"+qtd+"="+formatCurrency(valorAcao*qtd)+" stop em: "+formatCurrency(vlrStop)+" saldo:"+saldo+" direcao:"+direcao);
-            Operacao oper = new Operacao(carteira, c, valorAcao, vlrStop, qtd, direcao, carteira.tradeSystem.GetStopMovel(direcao));
+            Operacao oper = new Operacao(carteira, candle, valorAcao, vlrStop, qtd, direcao, carteira.tradeSystem.GetStopMovel(direcao));
             operacoesAbertas.Add(oper);
             return qtd * valorAcao;
         }

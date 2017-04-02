@@ -7,20 +7,31 @@ namespace Backtester.backend.model.system.condicoes
     public class Operacao
     {
 
+        public float vlrStopInicial { get; private set; }
         public Operacao(Carteira carteira, Candle candle, float vlrEntrada, float vlrStop, int qtd, int direcao, String formulaStop)
         {
-            direcao = 1;//1=compra / -1=venda
+            this.direcao = direcao;//1=compra / -1=venda
             this.carteira = carteira;
             this.candleInicial = candle;
             stopado = false;
             this.vlrEntrada = vlrEntrada;
-            if (formulaStop == "")
+            if (formulaStop == "" || formulaStop==null)
                 stop = new Stop(carteira.tradeSystem, direcao, vlrStop);
             else
                 stop = new Stop(carteira.tradeSystem, direcao, vlrStop, carteira.facade.formulaManager.GetFormula(formulaStop));
             this.qtd = qtd;
+            vlrStopInicial = vlrStop;
             this.direcao = direcao;
 
+        }
+
+        public override string ToString()
+        {
+            string saida="";
+            if (direcao > 0) { saida += "Compra de "; }
+            if (direcao < 0) { saida += "Venda de "; }
+            saida += qtd + "x" + candleInicial.ativo.name + " a " + vlrEntrada + " com stop inicial em " + vlrStopInicial;
+            return saida;
         }
         /*
          * Retorna a quantidade de "candles" da operação

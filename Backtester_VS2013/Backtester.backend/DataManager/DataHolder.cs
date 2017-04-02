@@ -94,5 +94,10 @@ namespace Backtester.backend.model
             }
             return lista;
         }
+
+        internal void RemoveAtivo(Ativo ativo)
+        {
+            ativos.Remove(ativo.name);
+        }
     }
 }

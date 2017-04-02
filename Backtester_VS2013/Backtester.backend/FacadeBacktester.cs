@@ -1,4 +1,5 @@
 ﻿using Backtester.backend.DataManager;
+using Backtester.backend.interfaces;
 using Backtester.backend.model;
 using Backtester.backend.model.ativos;
 
@@ -10,6 +11,8 @@ namespace Backtester.backend
         public DataHolder dh { get; set; }
 
         public FormulaManager formulaManager { get; set; }
+
+        
         public FacadeBacktester()
         {
             dm = new DataLoader(this);
@@ -31,6 +34,14 @@ namespace Backtester.backend
         {
             return dh.GetAtivo(name);
 
+        }
+
+        public void LoadAtivos(System.Collections.Generic.IList<string> list)
+        {
+            foreach (string papel in list)
+            {
+                LoadAtivoDiario(papel);
+            }
         }
 
         public void LoadAtivos()
@@ -55,17 +66,34 @@ namespace Backtester.backend
         public void LoadAtivo(string papel, int loteMin, Consts.PERIODO_ACAO periodo, string fileName)
         {
             Ativo ativo = dh.GetOrCreateAtivo(papel, loteMin);
-            dm.LoadAtivo(ativo, periodo, fileName);
+            if (ativo.candles.Count > 0)
+            {
+                return;
+            }
+            if (!dm.LoadAtivo(ativo, periodo, fileName))
+            {
+                dh.RemoveAtivo(ativo);
+            }
         }
-
-
 
         internal Periodo GetPeriodo(string data)
         {
             return dh.GetPeriodo(data);
         }
 
+        BackTester backTester;
 
+        public void Run(ICaller caller,model.system.Config config, model.system.TradeSystem ts)
+        {
 
+            backTester = new BackTester(this, dh.periodos[0],config,ts);
+            backTester.runBackTest(caller);
+        }
+
+        public void RunSingle(ICaller caller, model.system.Config config, model.system.TradeSystem ts)
+        {
+            backTester = new BackTester(this, dh.periodos[0], config, ts);
+            backTester.runMonteCarlo(caller,"Run Single");
+        }
     }
 }

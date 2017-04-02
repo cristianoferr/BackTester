@@ -20,9 +20,9 @@ namespace Backtester.tests
         [TestMethod]
         public void TestWebRequest()
         {
-            string saida = AcaoService.LoadFromApi("PETR4");
+            string saida = AcaoService.LoadFromWeb("PETR4");
             Assert.IsNotNull(saida);
-            Assert.IsTrue(saida.Contains("\"descr\":\"PETROBRAS PN   (VST)\""), saida);
+            Assert.IsTrue(saida.Contains("\"s\":\"ok\""), saida);
         }
 
         [AssemblyInitialize]
@@ -96,8 +96,8 @@ namespace Backtester.tests
             VariavelManager vm = tradeSystem.vm;
             string na = "VAR1";
             string nb = "NOME_QUALQUER";
-            Variavel va = vm.GetVariavel(na, 1, 2, 3);
-            Variavel vb = vm.GetVariavel(nb, 10, 3, 30);
+            Variavel va = vm.GetVariavel(na,"", 1, 2, 3);
+            Variavel vb = vm.GetVariavel(nb, "", 10, 3, 30);
 
             string text = "%" + na + "%>%" + nb + "%";
             Assert.IsTrue(vm.ReplaceVariavel(text) == "1>10", "Erro: " + vm.ReplaceVariavel(text));
@@ -130,9 +130,32 @@ namespace Backtester.tests
             Periodo periodo2 = new Periodo("2015-06-06 00:00");
 
             float closeInicial = 3;
-            float closeFinal = 3.2f;
-            Candle candleInicial = new Candle(periodo1, ativo, 2, closeInicial, 3.5f, 1.5f, 1000);
-            Candle candleFinal = new Candle(periodo1, ativo, 2, closeFinal, 3.5f, 1.5f, 1000);
+            float closeFinal = 2.7f;
+            Candle candleInicial = new Candle(periodo1, ativo, closeInicial * 0.9f, closeInicial, closeInicial * 1.2f, closeInicial * 0.9f, 1000);
+            Candle candleFinal = new Candle(periodo2, ativo, closeFinal * 0.9f, closeFinal, closeFinal * 1.2f, closeFinal * 0.8f, 1000);
+            ativo.AddCandle(candleInicial);
+            ativo.AddCandle(candleFinal);
+
+            Assert.IsTrue(carteira.capitalLiq == valorInicial);
+            
+            carteira.EfetuaEntrada(ativo, periodo1, 1, closeInicial, closeInicial * 0.8f, 1);
+            
+            Assert.IsTrue(carteira.capitalLiq < valorInicial, carteira.capitalLiq +">=" +valorInicial);
+            Posicao posicao=carteira.GetPosicaoDoAtivo(ativo);
+            Assert.IsNotNull(posicao);
+            Assert.IsTrue(posicao.ativo==ativo);
+            Assert.IsTrue(posicao.operacoesAbertas.Count==1);
+            Operacao oper=posicao.operacoesAbertas[0];
+            Assert.IsTrue(oper.qtd>0);
+            Assert.IsTrue(carteira.capitalLiq + oper.qtd * oper.vlrEntrada + config.custoOperacao == valorInicial);
+            carteira.periodoAtual = periodo1;
+            carteira.AtualizaPosicao();
+            Assert.IsTrue(carteira.capitalLiq + carteira.capitalPosicao == valorInicial - config.custoOperacao, "Posicao: " + carteira.capitalPosicao);
+
+            carteira.periodoAtual = periodo2;
+            carteira.AtualizaPosicao();
+            Assert.IsTrue(carteira.capitalPosicao == 0, "vlr posicao:"+carteira.capitalPosicao);
+          //  cartAssert.IsTrue(oper.qtd>0);eira.
 
             /*      int qtdAcoesOrdem = 350; int qtdAcoesEsperado = 300;
                   carteira.EfetuaCompra(candleInicial, qtdAcoesOrdem);
@@ -219,8 +242,9 @@ namespace Backtester.tests
                 soma += candle.GetValor(fonte);
                 candle = candle.proximoCandle;
             }
+            candle = candle.candleAnterior;
             soma = soma / periodos;
-            Assert.IsTrue(Math.Abs(candle.GetValor(codigoFormula) - soma) < 0.1f, candle.candleAnterior.GetValor(codigoFormula) + "<>" + soma);
+            Assert.IsTrue(Math.Abs(candle.GetValor(codigoFormula) - soma) < 0.1f, candle.GetValor(codigoFormula) + "<>" + soma);
         }
 
         [TestMethod]

@@ -61,7 +61,11 @@ namespace Backtester.backend.model.ativos
         {
             Formula f = ativo.facade.formulaManager.GetFormula(name);
             if (!f.gravar) return f.Calc(this);
-            if (!valores.ContainsKey(name)) return 0;
+            if (!valores.ContainsKey(name))
+            {
+                //valores[name] = f.Calc(this);
+                return 0;
+            }
             return valores[name];
         }
 

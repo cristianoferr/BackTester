@@ -1,25 +1,42 @@
 ﻿
 using System;
+using System.Runtime.Serialization;
 namespace Backtester.backend.model.system.condicoes
 {
+    [DataContract]
     public class Variavel
     {
 
-        public float vlrInicial { get; private set; }
-        public float step { get; private set; }
-        public float vlrFinal { get; private set; }
-        public float vlrAtual { get; private set; }
+        [DataMember]
+        public float vlrInicial { get;  set; }
+        [DataMember]
+        public int steps { get; set; }
+        [DataMember]
+        public float vlrFinal { get;  set; }
+        [DataMember]
+        public float vlrAtual { get;  set; }
 
-        public string name { get; private set; }
+        [DataMember]
+        public string name { get; set; }
+        [DataMember]
+        public string descricao { get;  set; }
+        [DataMember]
+        public int uniqueID { get; private set; }
 
-        public Variavel(string name, float vlrInicial, float step, float vlrFinal)
+        public static int countVars = 0;
+
+        public Variavel(string name, float vlrInicial, int steps, float vlrFinal)
         {
+            if (steps == 0) steps = 1;
+            this.steps = steps;
+            //step = Math.Abs(vlrFinal - vlrInicial) / steps;
+            countVars++;
+            uniqueID = countVars;
             this.vlrFinal = vlrFinal;
             this.name = name;
-            step = Math.Abs(step);
-            if (vlrFinal < vlrInicial) step = -step;
-            if (step == 0) step = 1;
-            this.step = step;
+            //if (vlrFinal < vlrInicial) step = -step;
+            //if (step == 0) step = 1;
+            //this.step = step;
             this.vlrInicial = vlrInicial;
             this.vlrAtual = this.vlrInicial;
         }
@@ -28,11 +45,12 @@ namespace Backtester.backend.model.system.condicoes
             this.vlrAtual = this.vlrInicial;
         }
 
-        public int getSteps()
-        {
-            return (int)(Math.Abs(vlrFinal - vlrInicial) / step);
-        }
 
+        private float step{
+            get{
+                return Math.Abs(vlrFinal - vlrInicial) / steps;
+            }
+        }
 
         public void next()
         {
@@ -45,6 +63,14 @@ namespace Backtester.backend.model.system.condicoes
             return (vlrAtual == vlrFinal);
         }
 
+        public override string ToString()
+        {
+            if (name == null)
+            {
+                return "UNDEF.";
+            }
+            return name;
+        }
 
     }
 }

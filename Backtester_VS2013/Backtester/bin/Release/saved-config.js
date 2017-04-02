@@ -1,0 +1,1 @@
+{"campoCompra":"C","campoVenda":"C","capitalInicial":100000,"custoOperacao":20,"flagCompra":true,"flagVenda":true,"maxTestes":20,"papeis":["PETR4","GGBR4","BBDC4","BBAS3","ABEV3","CCRO3","CIEL3","NATU4","VALE5"],"varsDebug":" v(STOP_GAP):0 v(RISCO_TRADE):10 v(STOP_MENSAL):6 v(MAX_CAPITAL_TRADE):208000 v(PERC_TRADE):82 v(USA_STOP_MENSAL):0"}

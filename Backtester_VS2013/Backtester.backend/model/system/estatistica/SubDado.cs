@@ -44,7 +44,9 @@ namespace Backtester.backend.model.system.estatistica
         public void print(String txt)
         {
             Util.println("------------------" + txt + "--------------------------------");
-            Util.println("DIF: " + Util.FormatCurrency(todosTrades.getTotal()) + " %Acerto:" + Util.FormatCurrency((Math.Abs((float)tradesGanhos.getnTrades() / (float)todosTrades.getnTrades())) * 100) + "%   $W/$L:" + Util.FormatCurrency((Math.Abs(tradesGanhos.getTotal() / tradesPerdidos.getTotal()) - 1) * 100) + "% Stops:" + nTradesStopados);
+            string percAcerto = Util.FormatCurrency(this.percAcerto);
+            string winLossRatio = Util.FormatCurrency(this.winLossRatio);
+            Util.println("DIF: " + Util.FormatCurrency(todosTrades.getTotal()) + " %Acerto:" + percAcerto + "%   $W/$L:" + winLossRatio + " Stops:" + nTradesStopados);
             todosTrades.print("TODOS:     ");
             tradesGanhos.print("GANHADORES:");
             tradesPerdidos.print("PERDEDORES:");
@@ -53,6 +55,37 @@ namespace Backtester.backend.model.system.estatistica
         public int getnTradesStopados()
         {
             return nTradesStopados;
+        }
+
+        public float percAcerto
+        {
+            get
+            {
+                return (Math.Abs((float)tradesGanhos.getnTrades() / (float)todosTrades.getnTrades())) * 100;
+            }
+        }
+
+        public float winLossRatio
+        {
+            get
+            {
+                return Math.Abs(tradesGanhos.getTotal() / tradesPerdidos.getTotal());
+            }
+        }
+
+        public float totalGanho
+        {
+            get
+            {
+                return tradesGanhos.getTotal() ;
+            }
+        }
+        public float totalPerdido
+        {
+            get
+            {
+                return tradesPerdidos.getTotal();
+            }
         }
 
         public SubSubDado getTodosTrades()
