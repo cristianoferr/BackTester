@@ -19,7 +19,32 @@ namespace Backtester.backend.model.system
             campoVenda = FormulaManager.CLOSE;
             campoCompra = FormulaManager.CLOSE;
             papeis = new List<string>();
-            maxTestes = 100;
+            maxTestes = 20;
+
+            InitDefaultPapeis();
+        }
+
+        private void InitDefaultPapeis()
+        {
+            papeis.Add("ABEV3");
+            papeis.Add("BBAS3");
+            papeis.Add("BBDC4");
+            papeis.Add("BVMF3");
+            papeis.Add("CCRO3");
+            papeis.Add("CIEL3");
+            papeis.Add("CMIG4");
+            papeis.Add("CYRE3");
+            papeis.Add("EMBR3");
+            papeis.Add("GGBR4");
+            papeis.Add("ITSA4");
+            papeis.Add("ITUB4");
+            papeis.Add("JBSS3");
+            papeis.Add("LAME4");
+            papeis.Add("LREN3");
+            papeis.Add("NATU3");
+            papeis.Add("PETR4");
+            papeis.Add("VALE5");
+            papeis.Add("WEGE3");
         }
 
         [DataMember]

@@ -1,0 +1,5 @@
+ Melhores variaveis:
+ v(STOP_GAP):0 v(RISCO_TRADE):8 v(RISCO_GLOBAL):0 v(STOP_MENSAL):24 v(MAX_CAPITAL_TRADE):82000 v(PERC_TRADE):64 v(USA_STOP_MOVEL):0 v(MULTIPLAS_ENTRADAS):0
+ 
+ TODO:
+ - Permitir parar a simulação

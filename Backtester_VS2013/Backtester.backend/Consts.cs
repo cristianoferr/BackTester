@@ -10,12 +10,17 @@ namespace Backtester.backend
         public const string VAR_STOP_MENSAL = "STOP_MENSAL";
         public const string VAR_MAX_CAPITAL_TRADE = "MAX_CAPITAL_TRADE";
         public const string VAR_PERC_TRADE = "PERC_TRADE";
-        public const string VAR_USA_STOP_MOVEL = "USA_STOP_MENSAL";
+        public const string VAR_USA_STOP_MOVEL = "USA_STOP_MOVEL";
+        public const string VAR_RISCO_GLOBAL = "RISCO_GLOBAL";
+        public const string VAR_MULTIPLAS_ENTRADAS = "MULTIPLAS_ENTRADAS";
 
-        public enum TIPO_OPERACAO{
-            UNDEF=0,
-            COMPRA=1,
-            VENDA=-1
+
+
+        public enum TIPO_OPERACAO
+        {
+            UNDEF = 0,
+            COMPRA = 1,
+            VENDA = -1
         }
 
         public enum NODE_TYPE
@@ -55,6 +60,6 @@ namespace Backtester.backend
             PERC_ACERTO
         }
 
-        
+
     }
 }

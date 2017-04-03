@@ -12,7 +12,7 @@ namespace Backtester.backend.model
         Dictionary<Ativo, Posicao> posicoesAbertas;
         private int p;
         public system.Config config { get; private set; }
-        public IList<Posicao> posicoesFechadas {get;private set;}
+        public IList<Posicao> posicoesFechadas { get; private set; }
         public Estatistica estatistica { get; private set; }
         public Carteira(FacadeBacktester facade, float capitalInicial, system.Config config, system.TradeSystem tradeSystem)
         {
@@ -90,8 +90,13 @@ namespace Backtester.backend.model
             {
                 Posicao p = posicoesAbertas[key];
                 Candle candle = p.ativo.GetCandle(periodo);
+                while (candle == null)
+                {
+                    periodo = periodo.periodoAnterior;
+                    candle = p.ativo.GetCandle(periodo);
+                }
                 float vlrSaida = candle.GetValor(config.campoVenda);
-                posicoesARemover_.Add(FechaPosicao(p, candle, vlrSaida,false));
+                posicoesARemover_.Add(FechaPosicao(p, candle, vlrSaida, false));
             }
 
             foreach (Posicao p in posicoesARemover_)
@@ -100,7 +105,7 @@ namespace Backtester.backend.model
             }
         }
 
-        public Posicao FechaPosicao(Posicao posicao, Candle candle, float vlrSaida,bool okToRemove=true)
+        public Posicao FechaPosicao(Posicao posicao, Candle candle, float vlrSaida, bool okToRemove = true)
         {
 
 
@@ -112,7 +117,7 @@ namespace Backtester.backend.model
 
             }
             if (okToRemove)
-                 posicoesAbertas.Remove(posicao.ativo);
+                posicoesAbertas.Remove(posicao.ativo);
             posicoesFechadas.Add(posicao);
             return posicao;
         }
@@ -151,7 +156,7 @@ namespace Backtester.backend.model
         //Não posso por exemplo comprar mais que o risco permite ou mais capital do que eu tenho líquido.
         public float CalculaCapitalTrade(float percentualOperacao)
         {
-            float capitalTrade = GetCapital() * tradeSystem.percTrade/100 * percentualOperacao;
+            float capitalTrade = GetCapital() * tradeSystem.percTrade / 100 * percentualOperacao;
 
             float maxCapitalTrade = tradeSystem.maxCapitalTrade;
             //Caso o capital seja maior que o maximo capital então limita o capital
@@ -186,15 +191,17 @@ namespace Backtester.backend.model
             float riscoTrade = tradeSystem.riscoTrade;
             if (riscoTrade > 0)
             {
-                float vlrRisco = riscoTrade * GetCapital()/100;
+                float vlrRisco = riscoTrade * GetCapital() / 100;
                 float qtdR = Math.Abs((vlrRisco - 2 * config.custoOperacao) / (vlrEntrada - vlrStop));
                 if (qtdR < qtd) qtd = qtdR;
             }
 
+            //TODO: usar risco global
+
             //Calculo quanto poderia arriscar para não passar o stop mensal
             if (tradeSystem.stopMensal > 0)
             {
-                float vlrRisco = GetCapital() - capitalMes * (1 - tradeSystem.stopMensal/100);
+                float vlrRisco = GetCapital() - capitalMes * (1 - tradeSystem.stopMensal / 100);
                 float qtdR = Math.Abs((vlrRisco - 2 * config.custoOperacao) / (vlrEntrada - vlrStop));
                 if (vlrRisco < 0) qtdR = 0;
                 if (qtdR < qtd)

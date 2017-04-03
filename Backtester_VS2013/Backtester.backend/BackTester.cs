@@ -16,7 +16,7 @@ namespace Backtester.backend
         TradeSystem tradeSystem;
         Periodo periodoInicial;
 
-     //   IList<MonteCarlo> monteCarlo;
+        //   IList<MonteCarlo> monteCarlo;
         bool useVars = true;
         IList<Ativo> ativos = null;
 
@@ -29,7 +29,7 @@ namespace Backtester.backend
             this.config = config;
             this.tradeSystem = tradeSystem;
             this.periodoInicial = periodoInicial;
-           // monteCarlo = new List<MonteCarlo>();
+            // monteCarlo = new List<MonteCarlo>();
 
             init();
 
@@ -60,14 +60,14 @@ namespace Backtester.backend
             {
                 totalLoops_ *= v.steps;
             }
-            if (useVars) loopVariavel(caller,0); else runMonteCarlo(caller,"MC Run");
+            if (useVars) loopVariavel(caller, 0); else runMonteCarlo(caller, "MC Run");
 
         }
 
         private int totalLoops_ = 0;
         private int countLoops_ = 0;
 
-        public void loopVariavel(ICaller caller,int id)
+        public void loopVariavel(ICaller caller, int id)
         {
             Util.println("init " + id);
             Variavel v = tradeSystem.vm.GetVariavel(id);
@@ -93,40 +93,40 @@ namespace Backtester.backend
             }
         }
 
-     /*   public void printMonteCarlo()
-        {
-            for (int i = 0; i < monteCarlo.Count; i++)
-            {
-                MonteCarlo mC = monteCarlo[i];
-                mC.printPerformance("MC(" + i + ")");
-            }
-        }*/
+        /*   public void printMonteCarlo()
+           {
+               for (int i = 0; i < monteCarlo.Count; i++)
+               {
+                   MonteCarlo mC = monteCarlo[i];
+                   mC.printPerformance("MC(" + i + ")");
+               }
+           }*/
 
-    /*    public void ordernaMonteCarlo(Consts.OrdemEstatistica ordem)
-        {
-            for (int i = 0; i < monteCarlo.Count - 1; i++)
+        /*    public void ordernaMonteCarlo(Consts.OrdemEstatistica ordem)
             {
-
-                for (int j = i + 1; j < monteCarlo.Count; j++)
+                for (int i = 0; i < monteCarlo.Count - 1; i++)
                 {
-                    MonteCarlo statI = monteCarlo[i];
-                    float vI = 0;
-                    MonteCarlo statJ = monteCarlo[j];
-                    float vJ = 0;
-                    if (ordem == Backtester.backend.Consts.OrdemEstatistica.CAPITAL_FINAL) vI = statI.getCapitalFinal();
-                    if (ordem == Backtester.backend.Consts.OrdemEstatistica.CAPITAL_FINAL) vJ = statJ.getCapitalFinal();
-                    if (vI > vJ)
+
+                    for (int j = i + 1; j < monteCarlo.Count; j++)
                     {
-                        monteCarlo[j] = statI;
-                        monteCarlo[i] = statJ;
+                        MonteCarlo statI = monteCarlo[i];
+                        float vI = 0;
+                        MonteCarlo statJ = monteCarlo[j];
+                        float vJ = 0;
+                        if (ordem == Backtester.backend.Consts.OrdemEstatistica.CAPITAL_FINAL) vI = statI.getCapitalFinal();
+                        if (ordem == Backtester.backend.Consts.OrdemEstatistica.CAPITAL_FINAL) vJ = statJ.getCapitalFinal();
+                        if (vI > vJ)
+                        {
+                            monteCarlo[j] = statI;
+                            monteCarlo[i] = statJ;
+                        }
                     }
+
                 }
 
-            }
+            }*/
 
-        }*/
-
-        public void runMonteCarlo(ICaller caller,String name)
+        public void runMonteCarlo(ICaller caller, String name)
         {
             MonteCarlo mC = new MonteCarlo(name);
             Util.println("runMonteCarlo:" + name);
@@ -135,7 +135,7 @@ namespace Backtester.backend
             mC.setEstatistica(stat);
             mC.update();
             mC.printPerformance("");
-            caller.UpdateApplication(carteira, mC,countLoops_, totalLoops_);
+            caller.UpdateApplication(carteira, mC, countLoops_, totalLoops_);
             //monteCarlo.Add(mC);
 
         }
@@ -160,7 +160,7 @@ namespace Backtester.backend
         }
         public int[] GetRandomOrder()
         {
-            Random rnd=new Random();
+            Random rnd = new Random();
             int[] rd = new int[ativos.Count];
             for (int i = 0; i < ativos.Count; i++)
                 rd[i] = i;
@@ -203,13 +203,18 @@ namespace Backtester.backend
                     {
                         int qtdAcoes = carteira.PossuiAtivo(ativo);
                         float direcao = tradeSystem.checaCondicaoEntrada(candle, config);
-                        //System.out.println("Capital:"+carteira.getCapital()+" Líquido:"+carteira.getCapitalLiq()+" QtdAcoes:"+qtdAcoes+" C:"+candle.getValor("C")+" MME(C,9):"+candle.getValor("MME(C,9)")+" direcao:"+direcao);
+
 
                         //Não tenho posicao em aberto E direcao de entrada foi ativada (por hora só vou permitir 1 posicao do ativo por vez
+
                         if ((direcao != 0))
                         {
-                            float valorAcao = candle.GetValor(carteira.config.campoCompra);
-                            carteira.EfetuaEntrada(ativo, periodo, 1, valorAcao, Math.Abs(direcao), (direcao > 0 ? 1 : -1));
+
+                            if (qtdAcoes == 0 || (qtdAcoes != 0 && tradeSystem.usaMultiplasEntradas))
+                            {
+                                float valorAcao = candle.GetValor(carteira.config.campoCompra);
+                                carteira.EfetuaEntrada(ativo, periodo, 1, valorAcao, Math.Abs(direcao), (direcao > 0 ? 1 : -1));
+                            }
                         }
 
                         //Se eu tiver posicao em aberto, verifico se foi ativado a saida, se sim, a saida será feita no vlrSaida padrao
