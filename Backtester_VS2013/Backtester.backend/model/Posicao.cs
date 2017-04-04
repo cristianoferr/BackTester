@@ -58,7 +58,7 @@ namespace Backtester.backend.model
                 return 0;
             }
 
-            int qtd = (int)carteira.QueryQtdAcoes(valorAcao, vlrStop, perc);
+            int qtd = (int)carteira.QueryQtdAcoes(valorAcao, vlrStop, perc,periodo);
             if (qtd <= 0) return 0;
 
 
@@ -107,5 +107,16 @@ namespace Backtester.backend.model
 
         }
 
+
+        internal float GetCapitalSobRisco(Periodo periodo)
+        {
+            float capitalSobRisco = 0;
+
+            foreach (Operacao oper in operacoesAbertas)
+            {
+                capitalSobRisco += oper.GetCapitalSobRisco(periodo);
+            }
+            return capitalSobRisco;
+        }
     }
 }

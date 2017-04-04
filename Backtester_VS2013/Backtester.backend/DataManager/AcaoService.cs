@@ -124,10 +124,12 @@ namespace Backtester.backend.DataManager
 
         private static WebProxy CreateProxy()
         {
-            //return null;
+            string proxy= Environment.GetEnvironmentVariable("HTTP_PROXY");
+            if (proxy==null || proxy=="")
+                return null;
 
             WebProxy myProxy = new WebProxy();
-            Uri newUri = new Uri("http://127.0.0.1:3128");
+            Uri newUri = new Uri(proxy);
             myProxy.Address = newUri;
             return myProxy;
         }

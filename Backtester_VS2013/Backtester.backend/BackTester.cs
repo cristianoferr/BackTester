@@ -11,7 +11,7 @@ namespace Backtester.backend
 {
     public class BackTester
     {
-        Carteira carteira;
+        public Carteira carteira { get; private set; }
         Config config;
         TradeSystem tradeSystem;
         Periodo periodoInicial;

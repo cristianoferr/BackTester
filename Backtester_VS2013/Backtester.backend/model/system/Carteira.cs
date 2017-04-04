@@ -9,7 +9,7 @@ namespace Backtester.backend.model
     public class Carteira
     {
 
-        Dictionary<Ativo, Posicao> posicoesAbertas;
+        public Dictionary<Ativo, Posicao> posicoesAbertas { get; private set; }
         private int p;
         public system.Config config { get; private set; }
         public IList<Posicao> posicoesFechadas { get; private set; }
@@ -167,12 +167,12 @@ namespace Backtester.backend.model
             return capitalTrade;
         }
 
-        internal int QueryQtdAcoes(float vlrEntrada, float vlrStop, float perc)
+        internal int QueryQtdAcoes(float vlrEntrada, float vlrStop, float perc,Periodo periodoAtual)
         {
             float capitalTrade = CalculaCapitalTrade(perc);
             float qtd = capitalTrade / vlrEntrada;
 
-            qtd = CalculaQtdTrade(qtd, vlrStop, vlrEntrada);
+            qtd = CalculaQtdTrade(qtd, vlrStop, vlrEntrada, periodoAtual);
 
             float qtdN = (float)(Math.Round(qtd / 100) * 100);
             if (qtdN > qtd) qtdN = qtdN - 100;
@@ -185,8 +185,19 @@ namespace Backtester.backend.model
      * Essa função serve para limitar baseado no risco do trade... se for muito arriscado então a quantidade é menor.
      * O Stop não é alterado apenas a quantidade é reduzida.
      */
-        public float CalculaQtdTrade(float qtd, float vlrStop, float vlrEntrada)
+        public float CalculaQtdTrade(float qtd, float vlrStop, float vlrEntrada,Periodo periodoAtual)
         {
+
+            float riscoGlobal = tradeSystem.riscoGlobal;
+            if (riscoGlobal > 0)
+            {
+                float capitalSobRisco = GetCapitalSobRisco(periodoAtual);
+                float vlrRiscoMaximo = riscoGlobal * GetCapital() / 100;
+                vlrRiscoMaximo -= capitalSobRisco;
+                float qtdR = Math.Abs((vlrRiscoMaximo - 2 * config.custoOperacao) / (vlrEntrada - vlrStop));
+                if (qtdR < qtd) qtd = qtdR;
+            }
+
             //Limita pelo risco por trade (limita quanto posso arriscar baseado no stop inicial e no percentual do capital)
             float riscoTrade = tradeSystem.riscoTrade;
             if (riscoTrade > 0)
@@ -196,7 +207,7 @@ namespace Backtester.backend.model
                 if (qtdR < qtd) qtd = qtdR;
             }
 
-            //TODO: usar risco global
+           
 
             //Calculo quanto poderia arriscar para não passar o stop mensal
             if (tradeSystem.stopMensal > 0)
@@ -251,6 +262,24 @@ namespace Backtester.backend.model
         internal void PrintEstatistica()
         {
             estatistica.Print();
+        }
+
+        public float GetRiscoCarteiraPercent(Periodo periodo)
+        {
+            float capitalTotal=GetCapital();
+            float capitalSobRisco = GetCapitalSobRisco(periodo);
+            return capitalSobRisco / capitalTotal*100;
+        }
+
+        public float GetCapitalSobRisco(Periodo periodo)
+        {
+
+            float capitalSobRisco = 0;
+            foreach (Posicao p in posicoesAbertas.Values)
+            {
+                capitalSobRisco += p.GetCapitalSobRisco(periodo);
+            }
+            return capitalSobRisco;
         }
     }
 }

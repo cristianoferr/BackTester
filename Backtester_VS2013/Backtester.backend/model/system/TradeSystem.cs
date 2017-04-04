@@ -134,6 +134,13 @@ namespace Backtester.backend.model.system
         }
 
 
+        public float riscoGlobal
+        {
+            get
+            {
+                return vm.GetVariavel(Consts.VAR_RISCO_GLOBAL).vlrAtual;
+            }
+        }
         public float riscoTrade
         {
             get

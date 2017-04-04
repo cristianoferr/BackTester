@@ -45,6 +45,21 @@ namespace Backtester.backend.model.system.condicoes
         {
             return (GetTotalSaida() - GetTotalEntrada()) * direcao;
         }
+
+        internal float GetCapitalSobRisco(Periodo periodo)
+        {
+            Candle candle = candleInicial.ativo.GetCandle(periodo);
+            float vlrStop = stop.CalcStop(candle);
+            float risco = (vlrEntrada - vlrStop) * qtd*direcao;
+
+            //stop>vlrentrada
+            if (risco < 0)
+            {
+                risco = 0;
+            }
+            return risco;
+        }
+
         /*
          * Essa função verifica se atingiu o stop definido, tanto na compra quanto na venda
          * Se sim, então retorna o valor do stop, lembrando que não 
@@ -122,5 +137,7 @@ namespace Backtester.backend.model.system.condicoes
 
         public Carteira carteira { get; set; }
 
+
+       
     }
 }
