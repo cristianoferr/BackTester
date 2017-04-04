@@ -1,5 +1,5 @@
 ﻿using Backtester.backend.model.system.estatistica;
-using System.Collections.Generic;
+using UsoComum;
 
 namespace Backtester.backend.model.system
 {
@@ -24,16 +24,16 @@ namespace Backtester.backend.model.system
         {
             return name;
         }
-      
+
 
         public void printEstatisticas()
         {
-                Util.println(global.getDesc() + "=>" + global.getPerformance());
+            Utils.println(global.getDesc() + "=>" + global.getPerformance());
         }
 
         public void printPerformance(string s)
         {
-            Util.println(s + ": " + name + "=>" + global.getMaxMinCapital() + " Trades:" + global.getGeral().getAmbasPontas().getTodosTrades().getnTrades());
+            Utils.println(s + ": " + name + "=>" + global.getMaxMinCapital() + " Trades:" + global.getGeral().getAmbasPontas().getTodosTrades().getnTrades());
         }
 
         public void update()
@@ -45,32 +45,35 @@ namespace Backtester.backend.model.system
             float nDias = 0;
             float dif = 0;
 
-          /*  for (int i = 0; i < estatisticas.Count; i++)
-            {
-                Estatistica stat = estatisticas[i];
+            /*  for (int i = 0; i < estatisticas.Count; i++)
+              {
+                  Estatistica stat = estatisticas[i];
 
-                capitalFinal += stat.getCapitalFinal();
-                if (stat.getCapitalFinal() > maxCapital)
-                    maxCapital = stat.getCapitalFinal();
-                if ((minCapital == -1) || (stat.getCapitalFinal() < minCapital))
-                    minCapital = stat.getCapitalFinal();
-                nTrades += stat.getGeral().getAmbasPontas().getTodosTrades().getnTrades();
-                dif += stat.getGeral().getAmbasPontas().getTodosTrades().getTotal();
+                  capitalFinal += stat.getCapitalFinal();
+                  if (stat.getCapitalFinal() > maxCapital)
+                      maxCapital = stat.getCapitalFinal();
+                  if ((minCapital == -1) || (stat.getCapitalFinal() < minCapital))
+                      minCapital = stat.getCapitalFinal();
+                  nTrades += stat.getGeral().getAmbasPontas().getTodosTrades().getnTrades();
+                  dif += stat.getGeral().getAmbasPontas().getTodosTrades().getTotal();
 
-                global.getGeral().getAmbasPontas().addOperacao(stat.getGeral().getAmbasPontas().getTodosTrades().getTotal(), stat.getGeral().getAmbasPontas().getTodosTrades().getnTrades(), false);
+                  global.getGeral().getAmbasPontas().addOperacao(stat.getGeral().getAmbasPontas().getTodosTrades().getTotal(), stat.getGeral().getAmbasPontas().getTodosTrades().getnTrades(), false);
 
-            }*/
+              }*/
 
-           /* global.setCapitalFinal(capitalFinal);
-            global.setMaxCapital(maxCapital);
-            global.setMinCapital(minCapital);*/
+            /* global.setCapitalFinal(capitalFinal);
+             global.setMaxCapital(maxCapital);
+             global.setMinCapital(minCapital);*/
 
 
         }
 
-        public int qtdTrades { get {
-            return global.getGeral().getAmbasPontas().getTodosTrades().getnTrades(); 
-        } 
+        public int qtdTrades
+        {
+            get
+            {
+                return global.getGeral().getAmbasPontas().getTodosTrades().getnTrades();
+            }
         }
 
         public float winLossRatio

@@ -7,6 +7,7 @@ using Backtester.backend.model.system;
 using Backtester.backend.model.system.condicoes;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using UsoComum;
 
 namespace Backtester.tests
 {
@@ -21,6 +22,7 @@ namespace Backtester.tests
         public void TestBacktesterVars()
         {
             Config config = new Config();
+            config.capitalInicial = 100000;
             TradeSystem tradeSystem = new TradeSystem(config);
 
             facade.LoadAtivo("PETR4", 100, Consts.PERIODO_ACAO.DIARIO, "dados/petr4-diario.js");
@@ -28,18 +30,18 @@ namespace Backtester.tests
             Assert.IsNotNull(ativo);
             Assert.IsTrue(ativo.candles.Count > 0);
 
-            Candle candle=ativo.firstCandle;
+            Candle candle = ativo.firstCandle;
             Periodo periodo = candle.periodo;
 
             BackTester bt = new BackTester(facade, periodo, config, tradeSystem);
 
-            Carteira carteira=bt.carteira;
+            Carteira carteira = bt.carteira;
             Assert.IsNotNull(carteira);
-            Assert.IsTrue(carteira.posicoesFechadas.Count==0);
-            Assert.IsTrue(carteira.posicoesAbertas.Count==0);
+            Assert.IsTrue(carteira.posicoesFechadas.Count == 0);
+            Assert.IsTrue(carteira.posicoesAbertas.Count == 0);
             float riscoTotal = carteira.GetRiscoCarteiraPercent(periodo);
             Assert.IsTrue(riscoTotal == 0);
-           // carteira.EfetuaEntrada(ativo, periodo, 1, 10, 9, 1);
+            // carteira.EfetuaEntrada(ativo, periodo, 1, 10, 9, 1);
 
             //entro com um valor fixo (direto na carteira)
             Posicao posicao = new Posicao(carteira, ativo);
@@ -56,10 +58,10 @@ namespace Backtester.tests
             candle.SetValor(config.campoVenda, 10);
             carteira.periodoAtual = periodo;
             carteira.AtualizaPosicao();
-            Assert.IsTrue(carteira.GetCapital() == 100000, carteira.GetCapital() +"<>"+100000);
+            Assert.IsTrue(carteira.GetCapital() == 100000, carteira.GetCapital() + "<>" + 100000);
             Assert.IsTrue(carteira.capitalPosicao == 10000, carteira.GetCapital() + "<>" + 10000);
             riscoTotal = carteira.GetRiscoCarteiraPercent(periodo);
-            Assert.IsTrue(riscoTotal == riscoEsperado, riscoTotal +"<>"+ riscoEsperado);
+            Assert.IsTrue(riscoTotal == riscoEsperado, riscoTotal + "<>" + riscoEsperado);
 
             //2a operacao
             Operacao oper2 = new Operacao(carteira, candle, 10, 9, qtd, 1, null);
@@ -75,19 +77,19 @@ namespace Backtester.tests
             riscoTotal = carteira.GetRiscoCarteiraPercent(periodo);
             Assert.IsTrue(riscoTotal == riscoEsperado, riscoTotal + "<>" + riscoEsperado);
 
-            tradeSystem.vm.GetVariavel(Consts.VAR_RISCO_TRADE).vlrAtual=2;
-            tradeSystem.vm.GetVariavel(Consts.VAR_RISCO_GLOBAL).vlrAtual=5;
+            tradeSystem.vm.GetVariavel(Consts.VAR_RISCO_TRADE).vlrAtual = 2;
+            tradeSystem.vm.GetVariavel(Consts.VAR_RISCO_GLOBAL).vlrAtual = 5;
 
-            float qtdTrade = carteira.CalculaQtdTrade(100000, 10, 12,periodo);
+            float qtdTrade = carteira.CalculaQtdTrade(100000, 10, 12, periodo);
             Assert.IsTrue(qtdTrade == 980, qtdTrade + "<>" + 980);
         }
 
         [TestMethod]
         public void TestWebRequest()
         {
-           /* string saida = AcaoService.LoadFromWeb("PETR4");
-            Assert.IsNotNull(saida);
-            Assert.IsTrue(saida.Contains("\"s\":\"ok\""), saida);*/
+            /* string saida = AcaoService.LoadFromWeb("PETR4");
+             Assert.IsNotNull(saida);
+             Assert.IsTrue(saida.Contains("\"s\":\"ok\""), saida);*/
         }
 
         [AssemblyInitialize]
@@ -102,9 +104,9 @@ namespace Backtester.tests
         [TestMethod]
         public void TestLogs()
         {
-            Util.Info("log de info");
-            Util.Error("log de erro");
-            Util.Info("log de info");
+            Utils.Info("log de info");
+            Utils.Error("log de erro");
+            Utils.Info("log de info");
 
             log.Info("log direto");
         }
@@ -161,7 +163,7 @@ namespace Backtester.tests
             VariavelManager vm = tradeSystem.vm;
             string na = "VAR1";
             string nb = "NOME_QUALQUER";
-            Variavel va = vm.GetVariavel(na,"", 1, 2, 3);
+            Variavel va = vm.GetVariavel(na, "", 1, 2, 3);
             Variavel vb = vm.GetVariavel(nb, "", 10, 3, 30);
 
             string text = "%" + na + "%>%" + nb + "%";
@@ -202,16 +204,16 @@ namespace Backtester.tests
             ativo.AddCandle(candleFinal);
 
             Assert.IsTrue(carteira.capitalLiq == valorInicial);
-            
+
             carteira.EfetuaEntrada(ativo, periodo1, 1, closeInicial, closeInicial * 0.8f, 1);
-            
-            Assert.IsTrue(carteira.capitalLiq < valorInicial, carteira.capitalLiq +">=" +valorInicial);
-            Posicao posicao=carteira.GetPosicaoDoAtivo(ativo);
+
+            Assert.IsTrue(carteira.capitalLiq < valorInicial, carteira.capitalLiq + ">=" + valorInicial);
+            Posicao posicao = carteira.GetPosicaoDoAtivo(ativo);
             Assert.IsNotNull(posicao);
-            Assert.IsTrue(posicao.ativo==ativo);
-            Assert.IsTrue(posicao.operacoesAbertas.Count==1);
-            Operacao oper=posicao.operacoesAbertas[0];
-            Assert.IsTrue(oper.qtd>0);
+            Assert.IsTrue(posicao.ativo == ativo);
+            Assert.IsTrue(posicao.operacoesAbertas.Count == 1);
+            Operacao oper = posicao.operacoesAbertas[0];
+            Assert.IsTrue(oper.qtd > 0);
             Assert.IsTrue(carteira.capitalLiq + oper.qtd * oper.vlrEntrada + config.custoOperacao == valorInicial);
             carteira.periodoAtual = periodo1;
             carteira.AtualizaPosicao();
@@ -219,8 +221,8 @@ namespace Backtester.tests
 
             carteira.periodoAtual = periodo2;
             carteira.AtualizaPosicao();
-            Assert.IsTrue(carteira.capitalPosicao == 0, "vlr posicao:"+carteira.capitalPosicao);
-          //  cartAssert.IsTrue(oper.qtd>0);eira.
+            Assert.IsTrue(carteira.capitalPosicao == 0, "vlr posicao:" + carteira.capitalPosicao);
+            //  cartAssert.IsTrue(oper.qtd>0);eira.
 
             /*      int qtdAcoesOrdem = 350; int qtdAcoesEsperado = 300;
                   carteira.EfetuaCompra(candleInicial, qtdAcoesOrdem);
@@ -358,21 +360,21 @@ namespace Backtester.tests
         public void TestSeparaFormulaEmElementos()
         {
             string formula = "A>B && B>C";
-            string[] elementos = Util.SeparaEmElementos(formula);
+            string[] elementos = Utils.SeparaEmElementos(formula);
             Assert.IsTrue(elementos.Length == 3);
             Assert.IsTrue(elementos[0] == "A>B");
             Assert.IsTrue(elementos[1] == "&&");
             Assert.IsTrue(elementos[2] == "B>C");
 
             formula = "(A>B && B>C) || A<S";
-            elementos = Util.SeparaEmElementos(formula);
+            elementos = Utils.SeparaEmElementos(formula);
             Assert.IsTrue(elementos.Length == 3);
             Assert.IsTrue(elementos[0] == "(A>B && B>C)", elementos[0]);
             Assert.IsTrue(elementos[1] == "||");
             Assert.IsTrue(elementos[2] == "A<S");
 
             formula = "((A>B && B>C) || A<S) && (A(a)>d(d&&c(-1)) && D>A(GH))";
-            elementos = Util.SeparaEmElementos(formula);
+            elementos = Utils.SeparaEmElementos(formula);
             Assert.IsTrue(elementos.Length == 3);
             Assert.IsTrue(elementos[0] == "((A>B && B>C) || A<S)", elementos[0]);
             Assert.IsTrue(elementos[1] == "&&");
@@ -432,12 +434,12 @@ namespace Backtester.tests
             Condicao cond = new Condicao(config, "MME(C,9)>MME(C,3)");
             Assert.IsTrue(cond.cond1 == "MME(C,9)");
             Assert.IsTrue(cond.cond2 == "MME(C,3)");
-            Assert.IsTrue(cond.operador == Consts.Operador.GREATER);
+            Assert.IsTrue(cond.operador == ConstsComuns.Operador.GREATER);
 
             cond = new Condicao(config, "MME(C,19)<=MME(C,31)");
             Assert.IsTrue(cond.cond1 == "MME(C,19)");
             Assert.IsTrue(cond.cond2 == "MME(C,31)");
-            Assert.IsTrue(cond.operador == Consts.Operador.LOWER_EQ);
+            Assert.IsTrue(cond.operador == ConstsComuns.Operador.LOWER_EQ);
         }
 
         [TestMethod]

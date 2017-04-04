@@ -1,6 +1,6 @@
-﻿using Backtester.backend;
-using System;
+﻿using System;
 using System.Windows.Forms;
+using UsoComum;
 
 namespace Backtester
 {
@@ -14,8 +14,8 @@ namespace Backtester
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            Utils.Info("Inicializando...");
             Application.Run(new FrmPrincipal());
-            Util.Info("Log em Program");
         }
     }
 }

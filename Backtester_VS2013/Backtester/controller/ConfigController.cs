@@ -1,13 +1,14 @@
 ﻿using Backtester.backend;
-using Backtester.backend.model.system;
-using System.Linq;
-using System.Collections.Generic;
 using Backtester.backend.interfaces;
-using System.Windows.Forms;
-using Backtester.backend.model.system.estatistica;
 using Backtester.backend.model;
+using Backtester.backend.model.system;
 using Backtester.backend.model.system.condicoes;
+using Backtester.backend.model.system.estatistica;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
+using UsoComum;
 namespace Backtester.controller
 {
     public class ConfigController : IController, ICaller
@@ -61,7 +62,7 @@ namespace Backtester.controller
         {
             config.flagCompra = frmPrincipal.chkFlagCompra.Checked;
             config.flagVenda = frmPrincipal.chkFlagVenda.Checked;
-            config.varsDebug=frmPrincipal.txtVarsDebug.Text  ;
+            config.varsDebug = frmPrincipal.txtVarsDebug.Text;
             try
             {
                 config.maxTestes = int.Parse(frmPrincipal.txtTestesNaTela.Text);
@@ -70,7 +71,7 @@ namespace Backtester.controller
             }
             catch (System.Exception e)
             {
-                Util.Error(e.Message);
+                Utils.Error(e.Message);
             }
 
         }
@@ -108,7 +109,7 @@ namespace Backtester.controller
             facade.RunSingle(this, config, ts);
         }
 
-        public void UpdateApplication(Carteira carteira,MonteCarlo mC, int countLoops, int totalLoops)
+        public void UpdateApplication(Carteira carteira, MonteCarlo mC, int countLoops, int totalLoops)
         {
             Application.DoEvents();
             frmPrincipal.labelStatus.Text = countLoops + " / " + totalLoops;
@@ -149,10 +150,11 @@ namespace Backtester.controller
 
         private void RemovePiorTeste()
         {
-            MonteCarlo mc=frmPrincipal.dataGridRuns.Rows[0].Cells[0].Value as MonteCarlo;
-            int piorIndex=0;
+            MonteCarlo mc = frmPrincipal.dataGridRuns.Rows[0].Cells[0].Value as MonteCarlo;
+            int piorIndex = 0;
             float piorResultado = mc.getCapitalFinal();
-            for (int i=1;i<frmPrincipal.dataGridRuns.Rows.Count;i++){
+            for (int i = 1; i < frmPrincipal.dataGridRuns.Rows.Count; i++)
+            {
                 mc = frmPrincipal.dataGridRuns.Rows[i].Cells[0].Value as MonteCarlo;
                 if (mc != null)
                 {
@@ -179,24 +181,24 @@ namespace Backtester.controller
 
         internal void SelectMonteCarlo(int p)
         {
-            MonteCarlo mc=frmPrincipal.dataGridRuns.Rows[p].Cells[0].Value as MonteCarlo;
+            MonteCarlo mc = frmPrincipal.dataGridRuns.Rows[p].Cells[0].Value as MonteCarlo;
             if (mc == null)
             {
                 return;
             }
             Carteira carteira = frmPrincipal.dataGridRuns.Rows[p].Cells[1].Value as Carteira;
             Estatistica global = mc.getGlobal();
-           // global.getGeral().getAmbasPontas().todosTrades.o
+            // global.getGeral().getAmbasPontas().todosTrades.o
             frmPrincipal.dataGridOperacoes.Rows.Clear();
             IList<Posicao> posicoes = carteira.posicoesFechadas;
             float capital = config.capitalInicial;
-            int contaOperacao=0;
+            int contaOperacao = 0;
             for (int i = 0; i < posicoes.Count; i++)
             {
-                Posicao posicao=posicoes[i];
-                for  (int j=0;j<posicao.operacoesFechadas.Count;j++)
+                Posicao posicao = posicoes[i];
+                for (int j = 0; j < posicao.operacoesFechadas.Count; j++)
                 {
-                    Operacao oper=posicao.operacoesFechadas[j];
+                    Operacao oper = posicao.operacoesFechadas[j];
                     contaOperacao++;
                     int rowLine = frmPrincipal.dataGridOperacoes.Rows.Count - 1;
                     frmPrincipal.dataGridOperacoes.Rows.Add();
@@ -208,13 +210,13 @@ namespace Backtester.controller
                     frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = oper.candleFinal.periodo;
                     frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = posicao.direcao > 0 ? "Compra" : "Venda";
                     frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = oper.qtd;
-                    frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = Util.FormatCurrency(oper.vlrEntrada);
-                    frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = Util.FormatCurrency(oper.vlrSaida);
-                    frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = Util.FormatCurrency(oper.vlrStopInicial);
-                    frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = oper.stopado?"Sim":"Não";
-                    frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = Util.FormatCurrency(oper.qtd * oper.vlrEntrada);
-                    frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = Util.FormatCurrency(oper.GetDif());
-                    frmPrincipal.dataGridOperacoes.Rows[rowLine].DefaultCellStyle.ForeColor= Color.Black;
+                    frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = Utils.FormatCurrency(oper.vlrEntrada);
+                    frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = Utils.FormatCurrency(oper.vlrSaida);
+                    frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = Utils.FormatCurrency(oper.vlrStopInicial);
+                    frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = oper.stopado ? "Sim" : "Não";
+                    frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = Utils.FormatCurrency(oper.qtd * oper.vlrEntrada);
+                    frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = Utils.FormatCurrency(oper.GetDif());
+                    frmPrincipal.dataGridOperacoes.Rows[rowLine].DefaultCellStyle.ForeColor = Color.Black;
                     if (oper.GetDif() > 0)
                     {
                         frmPrincipal.dataGridOperacoes.Rows[rowLine].DefaultCellStyle.BackColor = Color.Blue;
@@ -226,8 +228,8 @@ namespace Backtester.controller
                         frmPrincipal.dataGridOperacoes.Rows[rowLine].DefaultCellStyle.ForeColor = Color.White;
                     }
                     capital += oper.GetDif() - 2 * config.custoOperacao;
-                    frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = Util.FormatCurrency(capital);
-                  //  oper.
+                    frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = Utils.FormatCurrency(capital);
+                    //  oper.
                 }
             }
         }

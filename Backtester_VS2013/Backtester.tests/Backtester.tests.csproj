@@ -63,6 +63,10 @@
       <Project>{28321850-284a-4f5a-a3b6-f6a40a14cc45}</Project>
       <Name>Backtester.backend</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UsoComum\UsoComum.csproj">
+      <Project>{2fce4f1b-6056-4be9-8b92-2ead1d1232cf}</Project>
+      <Name>UsoComum</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

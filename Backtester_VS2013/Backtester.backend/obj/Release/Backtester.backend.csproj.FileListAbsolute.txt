@@ -36,3 +36,5 @@ F:\Java\repositorios\BackTester\Backtester_VS2013\Backtester.backend\bin\Release
 F:\Java\repositorios\BackTester\Backtester_VS2013\Backtester.backend\obj\Release\Backtester.backend.csprojResolveAssemblyReference.cache
 F:\Java\repositorios\BackTester\Backtester_VS2013\Backtester.backend\obj\Release\Backtester.backend.dll
 F:\Java\repositorios\BackTester\Backtester_VS2013\Backtester.backend\obj\Release\Backtester.backend.pdb
+G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester.backend\bin\Release\UsoComum.dll
+G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester.backend\bin\Release\UsoComum.pdb

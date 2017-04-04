@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using UsoComum;
 namespace Backtester.backend.DataManager
 {
     public class DataLoader
@@ -20,7 +21,7 @@ namespace Backtester.backend.DataManager
         {
             if (!File.Exists(fileName))
             {
-                Util.Info("Ativo " + ativo.name + " não encontrado... carregando via serviço...");
+                Utils.Info("Ativo " + ativo.name + " não encontrado... carregando via serviço...");
                 AcaoService.RequestData(ativo.name, fileName);
             }
             using (StreamReader r = new StreamReader(fileName))
@@ -40,7 +41,7 @@ namespace Backtester.backend.DataManager
                     for (int i = item.t.Count - 1; i > 0; i--)
                     {
                         //DataDTO data = item.data[i];
-                        DateTime data = Util.UnixTimeStampToDateTime(item.t[i]);
+                        DateTime data = Utils.UnixTimeStampToDateTime(item.t[i]);
 
                         Periodo periodo = facade.GetPeriodo(data.ToShortDateString());
                         if (ativo.GetCandle(periodo) == null)
@@ -48,7 +49,7 @@ namespace Backtester.backend.DataManager
 
                             Candle candle = new Candle(periodo, ativo, item.o[i], item.c[i], item.h[i], item.l[i], item.v[i]);
                             candle.candleAnterior = candleAnterior;
-                            LimitaCandle(candle,50);
+                            LimitaCandle(candle, 50);
                             candle.periodo.AddCandle(candle);
                             if (candle.periodo.periodoAnterior == null && periodoAnterior != null)
                             {
@@ -74,15 +75,15 @@ namespace Backtester.backend.DataManager
             Candle candleAnterior = candle.candleAnterior;
             if (candleAnterior != null)
             {
-                if (PercentDif(candle.GetValor(FormulaManager.LOW),candleAnterior.GetValor(FormulaManager.LOW))>percent||
-                    PercentDif(candle.GetValor(FormulaManager.HIGH),candleAnterior.GetValor(FormulaManager.HIGH))>percent||
-                    PercentDif(candle.GetValor(FormulaManager.CLOSE),candleAnterior.GetValor(FormulaManager.CLOSE))>percent||
-                        PercentDif(candle.GetValor(FormulaManager.OPEN),candleAnterior.GetValor(FormulaManager.OPEN))>percent)
+                if (PercentDif(candle.GetValor(FormulaManager.LOW), candleAnterior.GetValor(FormulaManager.LOW)) > percent ||
+                    PercentDif(candle.GetValor(FormulaManager.HIGH), candleAnterior.GetValor(FormulaManager.HIGH)) > percent ||
+                    PercentDif(candle.GetValor(FormulaManager.CLOSE), candleAnterior.GetValor(FormulaManager.CLOSE)) > percent ||
+                        PercentDif(candle.GetValor(FormulaManager.OPEN), candleAnterior.GetValor(FormulaManager.OPEN)) > percent)
                 {
-                    candle.SetValor(FormulaManager.LOW,candleAnterior.GetValor(FormulaManager.LOW));
-                    candle.SetValor(FormulaManager.HIGH,candleAnterior.GetValor(FormulaManager.HIGH));
-                    candle.SetValor(FormulaManager.CLOSE,candleAnterior.GetValor(FormulaManager.CLOSE));
-                    candle.SetValor(FormulaManager.OPEN,candleAnterior.GetValor(FormulaManager.OPEN));
+                    candle.SetValor(FormulaManager.LOW, candleAnterior.GetValor(FormulaManager.LOW));
+                    candle.SetValor(FormulaManager.HIGH, candleAnterior.GetValor(FormulaManager.HIGH));
+                    candle.SetValor(FormulaManager.CLOSE, candleAnterior.GetValor(FormulaManager.CLOSE));
+                    candle.SetValor(FormulaManager.OPEN, candleAnterior.GetValor(FormulaManager.OPEN));
                 }
 
             }

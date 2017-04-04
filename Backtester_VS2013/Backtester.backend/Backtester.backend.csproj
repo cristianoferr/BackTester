@@ -99,7 +99,6 @@
     <Compile Include="model\system\TradeSystem.cs" />
     <Compile Include="model\VariavelManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Util.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="dados\old\natu3-diario.js">
@@ -132,6 +131,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UsoComum\UsoComum.csproj">
+      <Project>{2fce4f1b-6056-4be9-8b92-2ead1d1232cf}</Project>
+      <Name>UsoComum</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

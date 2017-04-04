@@ -1,0 +1,5 @@
+G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\UsoComum\bin\Release\UsoComum.dll
+G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\UsoComum\bin\Release\UsoComum.pdb
+G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\UsoComum\bin\Release\log4net.dll
+G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\UsoComum\obj\Release\UsoComum.dll
+G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\UsoComum\obj\Release\UsoComum.pdb

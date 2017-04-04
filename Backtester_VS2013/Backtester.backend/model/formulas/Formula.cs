@@ -17,7 +17,7 @@ namespace Backtester.backend.model.formulas
         public string name { get; set; }
         public string ToString(float valor)
         {
-            return GetCode() + "=" + Util.FormatCurrency(valor);
+            return GetCode() + "=" + UsoComum.Utils.FormatCurrency(valor);
         }
         public virtual string GetCode()
         {

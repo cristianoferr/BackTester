@@ -3,11 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backtester", "Backtester\Backtester.csproj", "{44C570C1-62D1-4F05-8EDA-D3D11EDFA848}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backtester.frontend", "Backtester\Backtester.frontend.csproj", "{44C570C1-62D1-4F05-8EDA-D3D11EDFA848}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backtester.tests", "Backtester.tests\Backtester.tests.csproj", "{84CFDC7A-4BCA-4A80-B870-54C008DF4AD5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backtester.backend", "Backtester.backend\Backtester.backend.csproj", "{28321850-284A-4F5A-A3B6-F6A40A14CC45}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneticProgramming.backend", "GeneticProgramming\GeneticProgramming.backend.csproj", "{E5B00111-7548-4973-8A54-4D1EF1F4D3DA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Backtester", "Backtester", "{2EB8D004-0AA3-4D91-B9C3-2C68CF107ACB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GeneticProgramming", "GeneticProgramming", "{90CB6C33-3C23-4BA7-9796-383AD133E0F1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneticProgramming.tests", "GeneticProgramming.tests\GeneticProgramming.tests.csproj", "{D644DBAA-149F-42D4-AB1A-31FEB2E54050}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsoComum", "UsoComum\UsoComum.csproj", "{2FCE4F1B-6056-4BE9-8B92-2EAD1D1232CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backtester.GeneticProgramming", "Backtester.GeneticProgramming\Backtester.GeneticProgramming.csproj", "{02042338-51C1-4FB0-9156-4B0F46A545B5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,8 +39,32 @@ Global
 		{28321850-284A-4F5A-A3B6-F6A40A14CC45}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{28321850-284A-4F5A-A3B6-F6A40A14CC45}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{28321850-284A-4F5A-A3B6-F6A40A14CC45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5B00111-7548-4973-8A54-4D1EF1F4D3DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5B00111-7548-4973-8A54-4D1EF1F4D3DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5B00111-7548-4973-8A54-4D1EF1F4D3DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5B00111-7548-4973-8A54-4D1EF1F4D3DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D644DBAA-149F-42D4-AB1A-31FEB2E54050}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D644DBAA-149F-42D4-AB1A-31FEB2E54050}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D644DBAA-149F-42D4-AB1A-31FEB2E54050}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D644DBAA-149F-42D4-AB1A-31FEB2E54050}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2FCE4F1B-6056-4BE9-8B92-2EAD1D1232CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FCE4F1B-6056-4BE9-8B92-2EAD1D1232CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FCE4F1B-6056-4BE9-8B92-2EAD1D1232CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FCE4F1B-6056-4BE9-8B92-2EAD1D1232CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02042338-51C1-4FB0-9156-4B0F46A545B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02042338-51C1-4FB0-9156-4B0F46A545B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02042338-51C1-4FB0-9156-4B0F46A545B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02042338-51C1-4FB0-9156-4B0F46A545B5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{44C570C1-62D1-4F05-8EDA-D3D11EDFA848} = {2EB8D004-0AA3-4D91-B9C3-2C68CF107ACB}
+		{84CFDC7A-4BCA-4A80-B870-54C008DF4AD5} = {2EB8D004-0AA3-4D91-B9C3-2C68CF107ACB}
+		{28321850-284A-4F5A-A3B6-F6A40A14CC45} = {2EB8D004-0AA3-4D91-B9C3-2C68CF107ACB}
+		{E5B00111-7548-4973-8A54-4D1EF1F4D3DA} = {90CB6C33-3C23-4BA7-9796-383AD133E0F1}
+		{D644DBAA-149F-42D4-AB1A-31FEB2E54050} = {90CB6C33-3C23-4BA7-9796-383AD133E0F1}
+		{02042338-51C1-4FB0-9156-4B0F46A545B5} = {2EB8D004-0AA3-4D91-B9C3-2C68CF107ACB}
 	EndGlobalSection
 EndGlobal

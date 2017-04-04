@@ -2,6 +2,7 @@
 using Backtester.backend.model.system.condicoes;
 using System;
 using System.Collections.Generic;
+using UsoComum;
 
 namespace Backtester.backend.model.system.estatistica
 {
@@ -51,11 +52,11 @@ namespace Backtester.backend.model.system.estatistica
         public void Print()
         {
 
-            Util.println("-------------------------------------------------------------");
+            Utils.println("-------------------------------------------------------------");
             getGeral().print();
-            Util.println("------------------Estatistica--------------------------------");
-            Util.println(getPerformance());
-            Util.println("Max Capital:" + Util.FormatCurrency(maxCapital) + " Menor Capital:" + Util.FormatCurrency(minCapital));
+            Utils.println("------------------Estatistica--------------------------------");
+            Utils.println(getPerformance());
+            Utils.println("Max Capital:" + Utils.FormatCurrency(maxCapital) + " Menor Capital:" + Utils.FormatCurrency(minCapital));
             /*float wl=0;
             if (geral.getTodosTrades().nTradesWin!=0) wl=((float)geral.getTodosTrades().nTradesWin/(float)geral.getTodosTrades().nTrades);
             System.out.println("Trades:"+geral.getTodosTrades().nTrades+" Winners:"+geral.getTodosTrades().nTradesWin+" Losers:"+geral.getTodosTrades().nTradesLoss+" W/L:"+formatCurrency((wl)*100)+"% Stops:"+geral.getTodosTrades().nTradesStopados);
@@ -65,12 +66,12 @@ namespace Backtester.backend.model.system.estatistica
 
         public String getPerformance()
         {
-            return "CapitalFinal:" + Util.FormatCurrency(getCapitalFinal()) + " Dif:" + Util.FormatCurrency(getGeral().getAmbasPontas().todosTrades.getTotal()) + " GrossWin:" + Util.FormatCurrency(getGeral().getAmbasPontas().tradesGanhos.getTotal()) + " GrossLoss:" + Util.FormatCurrency(getGeral().getAmbasPontas().tradesPerdidos.getTotal());
+            return "CapitalFinal:" + Utils.FormatCurrency(getCapitalFinal()) + " Dif:" + Utils.FormatCurrency(getGeral().getAmbasPontas().todosTrades.getTotal()) + " GrossWin:" + Utils.FormatCurrency(getGeral().getAmbasPontas().tradesGanhos.getTotal()) + " GrossLoss:" + Utils.FormatCurrency(getGeral().getAmbasPontas().tradesPerdidos.getTotal());
         }
 
         public String getMaxMinCapital()
         {
-            return "CapitalFinal:" + Util.FormatCurrency(getCapitalFinal()) + " Max:" + Util.FormatCurrency(maxCapital) + " Min:" + Util.FormatCurrency(minCapital);
+            return "CapitalFinal:" + Utils.FormatCurrency(getCapitalFinal()) + " Max:" + Utils.FormatCurrency(maxCapital) + " Min:" + Utils.FormatCurrency(minCapital);
         }
 
         public String getDesc()

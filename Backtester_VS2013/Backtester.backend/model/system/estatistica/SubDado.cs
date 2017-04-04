@@ -1,5 +1,6 @@
 ﻿using Backtester.backend.model.system.condicoes;
 using System;
+using UsoComum;
 
 namespace Backtester.backend.model.system.estatistica
 {
@@ -43,10 +44,10 @@ namespace Backtester.backend.model.system.estatistica
 
         public void print(String txt)
         {
-            Util.println("------------------" + txt + "--------------------------------");
-            string percAcerto = Util.FormatCurrency(this.percAcerto);
-            string winLossRatio = Util.FormatCurrency(this.winLossRatio);
-            Util.println("DIF: " + Util.FormatCurrency(todosTrades.getTotal()) + " %Acerto:" + percAcerto + "%   $W/$L:" + winLossRatio + " Stops:" + nTradesStopados);
+            Utils.println("------------------" + txt + "--------------------------------");
+            string percAcerto = Utils.FormatCurrency(this.percAcerto);
+            string winLossRatio = Utils.FormatCurrency(this.winLossRatio);
+            Utils.println("DIF: " + Utils.FormatCurrency(todosTrades.getTotal()) + " %Acerto:" + percAcerto + "%   $W/$L:" + winLossRatio + " Stops:" + nTradesStopados);
             todosTrades.print("TODOS:     ");
             tradesGanhos.print("GANHADORES:");
             tradesPerdidos.print("PERDEDORES:");
@@ -77,7 +78,7 @@ namespace Backtester.backend.model.system.estatistica
         {
             get
             {
-                return tradesGanhos.getTotal() ;
+                return tradesGanhos.getTotal();
             }
         }
         public float totalPerdido

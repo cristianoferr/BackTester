@@ -6,6 +6,7 @@ using Backtester.backend.model.system.condicoes;
 using Backtester.backend.model.system.estatistica;
 using System;
 using System.Collections.Generic;
+using UsoComum;
 
 namespace Backtester.backend
 {
@@ -69,12 +70,11 @@ namespace Backtester.backend
 
         public void loopVariavel(ICaller caller, int id)
         {
-            Util.println("init " + id);
             Variavel v = tradeSystem.vm.GetVariavel(id);
             v.reset();
             while (!v.hasEnded())
             {
-                //System.out.println("loop "+id+" atual:"+v.getAtual());
+                Utils.Info("loop da variavel " + v.name + " com vlr:" + v.vlrAtual);
 
                 if (id + 1 < tradeSystem.vm.Count)
                 {
@@ -129,7 +129,7 @@ namespace Backtester.backend
         public void runMonteCarlo(ICaller caller, String name)
         {
             MonteCarlo mC = new MonteCarlo(name);
-            Util.println("runMonteCarlo:" + name);
+            Utils.println("runMonteCarlo:" + name);
             Estatistica stat = runSingleBackTest(caller);
             stat.setDesc(getVarsValues());
             mC.setEstatistica(stat);
@@ -158,7 +158,7 @@ namespace Backtester.backend
             ativos.Add(ativoManager.GetAtivo(ativo));
 
         }
-        public int[] GetRandomOrder()
+        public int[] GetRandomOrder(int percMax)
         {
             Random rnd = new Random();
             int[] rd = new int[ativos.Count];
@@ -174,7 +174,11 @@ namespace Backtester.backend
                         rd[j] = x;
                     }
 
-            return rd;
+            int[] ret = new int[rd.Length * percMax / 100];
+            for (int i = 0; i < ret.Length; i++)
+                ret[i] = rd[i];
+
+            return ret;
         }
 
         /*
@@ -185,7 +189,7 @@ namespace Backtester.backend
             init();
             Periodo periodo = periodoInicial;
             string mesA = "";
-            int[] rd = GetRandomOrder();
+            int[] rd = GetRandomOrder(config.qtdPercPapeis);
             while (periodo.proximoPeriodo != null)
             {
                 caller.SimpleUpdate();
@@ -193,7 +197,7 @@ namespace Backtester.backend
                 carteira.EndTurn(periodo, !mesA.Equals(periodo.GetMes()));
                 if (!mesA.Equals(periodo.GetMes())) mesA = periodo.GetMes() + "";
 
-                for (int i = 0; i < ativos.Count; i++)
+                for (int i = 0; i < rd.Length; i++)
                 {
 
                     Ativo ativo = ativos[rd[i]];
@@ -233,7 +237,7 @@ namespace Backtester.backend
             }
             carteira.FechaPosicoes(periodo);
             carteira.EndTurn(periodo, !mesA.Equals(periodo.GetMes()));
-            Util.println("Saldo final:" + carteira.GetCapital());
+            Utils.println("Saldo final:" + carteira.GetCapital());
             carteira.PrintEstatistica();
             return carteira.estatistica;
         }

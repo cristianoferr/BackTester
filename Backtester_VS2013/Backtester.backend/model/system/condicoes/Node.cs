@@ -1,6 +1,7 @@
 ﻿
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using UsoComum;
 namespace Backtester.backend.model.system.condicoes
 {
     [DataContract]
@@ -40,7 +41,7 @@ namespace Backtester.backend.model.system.condicoes
             }
             else
             {
-                string[] elementos = Util.SeparaEmElementos(formula);
+                string[] elementos = Utils.SeparaEmElementos(formula);
                 if (elementos[1] == "&&") nodeType = Consts.NODE_TYPE.AND;
                 if (elementos[1] == "||") nodeType = Consts.NODE_TYPE.AND;
                 AddCondicao(new Node(config, elementos[0]));

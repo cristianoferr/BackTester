@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
+using UsoComum;
 namespace Backtester.backend.DataManager
 {
     [DataContract]
@@ -22,10 +23,10 @@ namespace Backtester.backend.DataManager
 
         public static TradeSystemHolder LoadSaved()
         {
-            FileStream fileStream=null;
+            FileStream fileStream = null;
             try
             {
-                 fileStream = File.Open("TradeSystems.js", FileMode.Open);
+                fileStream = File.Open("TradeSystems.js", FileMode.Open);
                 DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(TradeSystemHolder));
                 TradeSystemHolder config = (TradeSystemHolder)ser.ReadObject(fileStream);
                 fileStream.Close();
@@ -41,8 +42,8 @@ namespace Backtester.backend.DataManager
             }
             catch (System.Exception e)
             {
-                Util.Error("Erro ao carregar TradeSystems: " + e.Message);
-                if (fileStream!=null)
+                Utils.Error("Erro ao carregar TradeSystems: " + e.Message);
+                if (fileStream != null)
                     fileStream.Close();
             }
             return new TradeSystemHolder();
@@ -67,7 +68,7 @@ namespace Backtester.backend.DataManager
 
         public void SaveToFile()
         {
-            Util.Info("Salvando TradeSystems... qtd:" + tradeSystems.Count);
+            Utils.Info("Salvando TradeSystems... qtd:" + tradeSystems.Count);
             if (tradeSystems.Count == 0) return;
             DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(TradeSystemHolder));
             var fileStream = File.Create("TradeSystems.js");
@@ -77,7 +78,7 @@ namespace Backtester.backend.DataManager
 
         public TradeSystem GetTS(int index)
         {
-            if (tradeSystems.Count > index && index>=0)
+            if (tradeSystems.Count > index && index >= 0)
             {
                 return tradeSystems[index];
             }

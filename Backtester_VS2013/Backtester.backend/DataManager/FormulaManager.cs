@@ -1,6 +1,7 @@
 ﻿
 using Backtester.backend.model.formulas;
 using System.Collections.Generic;
+using UsoComum;
 namespace Backtester.backend.DataManager
 {
     public class FormulaManager
@@ -150,7 +151,7 @@ namespace Backtester.backend.DataManager
             Formula f = null;
 
             //Esses operadores aceitam tanto fórmula quanto número no segundo parametro
-            if (Util.IsNumber(pars[1]))
+            if (Utils.IsNumber(pars[1]))
             {
                 if (name == SUBTRACT) f = new FormulaSUBTRACT(facade, name, GetFormula(pars[0]), float.Parse(pars[1]));
                 if (name == MULTIPLY) f = new FormulaMultiply(facade, name, GetFormula(pars[0]), float.Parse(pars[1]));

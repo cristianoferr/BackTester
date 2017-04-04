@@ -2,6 +2,7 @@
 using Backtester.backend.model.formulas;
 using System.Collections.Generic;
 using System.Linq;
+using UsoComum;
 namespace Backtester.backend.model
 {
     public class DataHolder
@@ -34,7 +35,7 @@ namespace Backtester.backend.model
         public void AddFormula(Formula f)
         {
             if (!f.gravar) return;
-            Util.Info("Carregando formula : " + f.GetCode());
+            Utils.Info("Carregando formula : " + f.GetCode());
 
             foreach (Ativo ativo in ativos.Values)
             {

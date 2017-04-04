@@ -1,5 +1,6 @@
 ﻿using Backtester.backend.model.ativos;
 using System.Runtime.Serialization;
+using UsoComum;
 
 namespace Backtester.backend.model.system.condicoes
 {
@@ -15,7 +16,7 @@ namespace Backtester.backend.model.system.condicoes
         public string cond2 { get; set; }
 
         [DataMember]
-        public Consts.Operador operador { get; set; }
+        public ConstsComuns.Operador operador { get; set; }
 
         public Config config { get; set; }
 
@@ -55,7 +56,7 @@ namespace Backtester.backend.model.system.condicoes
                     }
                 }
             }
-            operador = Util.ConverteOperador(oper);
+            operador = Utils.ConverteOperador(oper);
         }
 
 
@@ -76,12 +77,12 @@ namespace Backtester.backend.model.system.condicoes
 
         private bool VerificaCondicao(float c1, float c2)
         {
-            if (operador == Consts.Operador.DIFFERENT) return c1 != c2;
-            if (operador == Consts.Operador.EQUAL) return c1 == c2;
-            if (operador == Consts.Operador.GREATER) return c1 > c2;
-            if (operador == Consts.Operador.GREATER_EQ) return c1 >= c2;
-            if (operador == Consts.Operador.LOWER) return c1 < c2;
-            if (operador == Consts.Operador.LOWER_EQ) return c1 <= c2;
+            if (operador == ConstsComuns.Operador.DIFFERENT) return c1 != c2;
+            if (operador == ConstsComuns.Operador.EQUAL) return c1 == c2;
+            if (operador == ConstsComuns.Operador.GREATER) return c1 > c2;
+            if (operador == ConstsComuns.Operador.GREATER_EQ) return c1 >= c2;
+            if (operador == ConstsComuns.Operador.LOWER) return c1 < c2;
+            if (operador == ConstsComuns.Operador.LOWER_EQ) return c1 <= c2;
             return false;
         }
 

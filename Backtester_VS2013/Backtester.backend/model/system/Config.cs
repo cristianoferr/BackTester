@@ -14,13 +14,13 @@ namespace Backtester.backend.model.system
             flagCompra = true;
             flagVenda = true;
 
-            capitalInicial = 100000;
+            capitalInicial = 10000;
             custoOperacao = 20;
             campoVenda = FormulaManager.CLOSE;
             campoCompra = FormulaManager.CLOSE;
             papeis = new List<string>();
             maxTestes = 20;
-
+            qtdPercPapeis = 80;//se eu tenho 100 papeis a testar então isso fará com que seja retornado uma lsita com x perc de 100
             InitDefaultPapeis();
         }
 
@@ -112,5 +112,8 @@ namespace Backtester.backend.model.system
 
         [DataMember]
         public int maxTestes { get; set; }
+
+        [DataMember]
+        public int qtdPercPapeis { get; set; }
     }
 }
