@@ -8,7 +8,7 @@ namespace GeneticProgramming.nodes
     {
 
         public GPNode(semantica.GPSemantica semantica)
-            : base(semantica, GPConsts.GPNODE_TYPE.NODE)
+            : base(semantica, GPConsts.GPNODE_TYPE.NODE_FORMULA)
         {
             if (semantica == null)
             {

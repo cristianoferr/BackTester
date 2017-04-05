@@ -333,9 +333,9 @@ namespace Backtester.tests
 
 
 
-            Node nodeOR = new Node(Consts.NODE_TYPE.OR);
-            Node nodeAND = new Node(Consts.NODE_TYPE.AND);
-            Node nodeNOT = new Node(Consts.NODE_TYPE.NOT);
+            Node nodeOR = new Node(ConstsComuns.BOOLEAN_TYPE.OR);
+            Node nodeAND = new Node(ConstsComuns.BOOLEAN_TYPE.AND);
+            Node nodeNOT = new Node(ConstsComuns.BOOLEAN_TYPE.NOT);
             nodeOR.AddCondicao(cond1);
             nodeAND.AddCondicao(cond1);
             nodeNOT.AddCondicao(cond1);

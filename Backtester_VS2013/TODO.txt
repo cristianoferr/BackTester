@@ -1,0 +1,33 @@
+
+GP:
+- Diversificar os tipos de nodes:
+	NODE_FORMULA: SUM,SUBTRACT,MULTIPLY,DIVIDE junto com as formulas do negocio (MME,IFR, ETC)
+	NODE_COMPARER: >,<,=,!=,>=,<=
+	NODE_NUMBER:
+
+Exemplo de formula válida:
+
+(mme(c,9)>mme(c,3)&&(ifr(O,5)>70))||macd(3,12)>REF(C,3))
+formula: pode ter formula e numeros:  fx(O,9)
+comparer: pode ter formula e numeros: greater(fx(),9)
+boolean: pode ter comparer e boolean: AND(greater(2,1),lower(1,10))
+
+- Juntar GPHolder com GPSolutionDefinition?
+
+
+-- descrição das classe:
+GPHolder:
+	Armazena todas as semanticas pré-configuradas para uso rápido na gpsolutiondefinition
+
+GPSolutionDefinition:
+	Contém todas as fórmulas disponíveis em listas para reutilização.
+		Exemplo de uso lista: Números somente, comparer+formula+number.
+
+GPTemplate:
+	Contém um dictionary com o nome da propriedade mais a lista que está sendo usado para gerar aqueles valores: Dictionary<string, SemanticaList>
+	É usado para criar a solution aleatoria e validar
+
+GPSolution:
+	Criado a partir do template e contém o node resultado do cálculo, formado a partir de um template e permitirá ser mutado.
+	Contém o fitnessResult, usado para rankear os resultados
+

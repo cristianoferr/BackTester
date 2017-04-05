@@ -2,18 +2,25 @@
 using System.Collections.Generic;
 namespace GeneticProgramming.semantica
 {
-    public class GPHolderSemantica
+    public class GPSolutionDefinition
     {
         private GPHolder holder;
 
         public Dictionary<string, SemanticaList> semantics { get; set; }
 
 
-        public GPHolderSemantica(GPHolder holder)
+        public GPSolutionDefinition(GPHolder holder)
         {
             semantics = new Dictionary<string, SemanticaList>();
             this.holder = holder;
             holder.semanticsHolder = this;
+        }
+
+
+        public void AddSemantica(string listName, string holderName)
+        {
+            GPSemantica semantica = holder.GetSemantica(holderName);
+            AddSemantica(listName, semantica);
         }
 
         public void AddSemantica(string listName, GPSemantica semantica)

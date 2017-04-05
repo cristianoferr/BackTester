@@ -5,11 +5,11 @@ using System.Runtime.Serialization;
 namespace GeneticProgramming.nodes
 {
     [DataContract]
-    public class GPNumber : GPAbstractNode
+    public class GPNodeNumber : GPAbstractNode
     {
 
-        public GPNumber(GPSemantica semanticaNumber, float vlrInicial)
-            : base(semanticaNumber, GPConsts.GPNODE_TYPE.NUMBER)
+        public GPNodeNumber(GPSemantica semanticaNumber, float vlrInicial)
+            : base(semanticaNumber, GPConsts.GPNODE_TYPE.NODE_NUMBER)
         {
             this.valor = vlrInicial;
         }

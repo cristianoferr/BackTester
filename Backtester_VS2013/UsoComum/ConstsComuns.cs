@@ -20,5 +20,15 @@ namespace UsoComum
             [Description("!=")]
             DIFFERENT = 5
         }
+
+        public enum BOOLEAN_TYPE
+        {
+            [Description("&&")]
+            AND = 0,
+            [Description("||")]
+            OR = 1,
+            [Description("!")]
+            NOT = 2
+        }
     }
 }

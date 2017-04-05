@@ -9,14 +9,14 @@ namespace Backtester.backend.model.system.condicoes
     {
 
         [DataMember]
-        public Consts.NODE_TYPE nodeType { get; set; }
+        public ConstsComuns.BOOLEAN_TYPE nodeType { get; set; }
         [DataMember]
         public IList<ICondicao> condicoes { get; set; }
 
         [DataMember]
         public string formula { get; set; }
 
-        public Node(Consts.NODE_TYPE nodeType)
+        public Node(ConstsComuns.BOOLEAN_TYPE nodeType)
         {
             this.nodeType = nodeType;
             condicoes = new List<ICondicao>();
@@ -31,19 +31,19 @@ namespace Backtester.backend.model.system.condicoes
             {
                 if (formula.StartsWith("!"))
                 {
-                    nodeType = Consts.NODE_TYPE.NOT;
+                    nodeType = ConstsComuns.BOOLEAN_TYPE.NOT;
                 }
                 else
                 {
-                    nodeType = Consts.NODE_TYPE.AND;
+                    nodeType = ConstsComuns.BOOLEAN_TYPE.AND;
                 }
                 AddCondicao(new Condicao(config, formula));
             }
             else
             {
                 string[] elementos = Utils.SeparaEmElementos(formula);
-                if (elementos[1] == "&&") nodeType = Consts.NODE_TYPE.AND;
-                if (elementos[1] == "||") nodeType = Consts.NODE_TYPE.AND;
+                if (elementos[1] == "&&") nodeType = ConstsComuns.BOOLEAN_TYPE.AND;
+                if (elementos[1] == "||") nodeType = ConstsComuns.BOOLEAN_TYPE.AND;
                 AddCondicao(new Node(config, elementos[0]));
                 AddCondicao(new Node(config, elementos[2]));
             }
@@ -78,17 +78,17 @@ namespace Backtester.backend.model.system.condicoes
                     ret = b;
                     firstLoop = false;
                 }
-                if (nodeType == Consts.NODE_TYPE.AND || nodeType == Consts.NODE_TYPE.NOT)
+                if (nodeType == ConstsComuns.BOOLEAN_TYPE.AND || nodeType == ConstsComuns.BOOLEAN_TYPE.NOT)
                 {
                     ret = ret && b;
                 }
-                if (nodeType == Consts.NODE_TYPE.OR)
+                if (nodeType == ConstsComuns.BOOLEAN_TYPE.OR)
                 {
                     ret = ret || b;
                 }
             }
 
-            if (nodeType == Consts.NODE_TYPE.NOT)
+            if (nodeType == ConstsComuns.BOOLEAN_TYPE.NOT)
             {
                 ret = !ret;
             }

@@ -1,5 +1,4 @@
 ﻿
-using System.ComponentModel;
 namespace Backtester.backend
 {
     public class Consts
@@ -23,15 +22,7 @@ namespace Backtester.backend
             VENDA = -1
         }
 
-        public enum NODE_TYPE
-        {
-            [Description("&&")]
-            AND = 0,
-            [Description("||")]
-            OR = 1,
-            [Description("!")]
-            NOT = 2
-        }
+
         public enum PERIODO_ACAO
         {
             DIARIO, SEMANAL

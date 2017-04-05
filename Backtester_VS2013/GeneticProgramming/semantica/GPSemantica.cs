@@ -1,21 +1,20 @@
 ﻿
-using GeneticProgramming.nodes;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 namespace GeneticProgramming.semantica
 {
     [DataContract]
-    public class GPSemantica
+    public abstract class GPSemantica
     {
-        public GPSemantica(string name, GPConsts.GPNODE_TYPE nodeType = GPConsts.GPNODE_TYPE.NODE)
+        public GPSemantica(string name, GPConsts.GPNODE_TYPE nodeType)
         {
             this.name = name;
             this.nodeType = nodeType;
-            propriedades = new List<GPConsts.GPNODE_TYPE>();
+            propriedades = new List<int>();
         }
 
         [DataMember]
-        public IList<GPConsts.GPNODE_TYPE> propriedades { get; private set; }
+        public IList<int> propriedades { get; private set; }
 
         [DataMember]
         public string name { get; set; }
@@ -24,13 +23,15 @@ namespace GeneticProgramming.semantica
         {
             get
             {
-                return propriedades.Count == 0;
+                if (propriedades.Count == 0) return true;
+                return false;
             }
         }
 
-        public virtual void AddPropriedade(GPConsts.GPNODE_TYPE nodeType)
+
+        public virtual void AddPropriedade(int nodesAllowed)
         {
-            propriedades.Add(nodeType);
+            propriedades.Add(nodesAllowed);
         }
 
         internal virtual bool CanAddNode(int index, nodes.GPAbstractNode nodeFilho)
@@ -39,21 +40,23 @@ namespace GeneticProgramming.semantica
             {
                 return false;
             }
-            return propriedades[index] == nodeFilho.nodeType;
+            return (propriedades[index] & (int)nodeFilho.nodeType) > 0;
         }
 
-        internal virtual nodes.GPAbstractNode InstantiateEmpty()
-        {
-            return new GPNode(this);
-        }
+        internal abstract nodes.GPAbstractNode InstantiateEmpty();
 
         [DataMember]
         public GPConsts.GPNODE_TYPE nodeType { get; private set; }
 
 
-        internal GPConsts.GPNODE_TYPE NextNodeType(int i)
+        internal int NextNodeType(int i)
         {
             return propriedades[i];
+        }
+
+        public void AddPropriedade(GPConsts.GPNODE_TYPE nodeType)
+        {
+            propriedades.Add((int)nodeType);
         }
     }
 }

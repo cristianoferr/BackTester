@@ -1,14 +1,17 @@
 ﻿
+using System;
 namespace GeneticProgramming
 {
     public class GPConsts
     {
 
+        [Flags]
         public enum GPNODE_TYPE
         {
-            ANY=0,
-            NODE = 1,
-            NUMBER = 2
+            NODE_FORMULA = 1,
+            NODE_NUMBER = 2,
+            NODE_COMPARER = 4,
+            NODE_BOOLEAN = 8
         }
     }
 }

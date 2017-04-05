@@ -26,7 +26,7 @@ namespace GeneticProgramming.semantica
             foreach (string key in properties.Keys)
             {
                 SemanticaList lista=properties[key];
-                solution.SetValue(key,lista.CreateRandomNode(config,GPConsts.GPNODE_TYPE.NODE,false));
+                solution.SetValue(key,lista.CreateRandomNode(config,GPConsts.GPNODE_TYPE.NODE_FORMULA,false));
             }
             return solution;
         }

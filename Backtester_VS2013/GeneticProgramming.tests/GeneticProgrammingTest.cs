@@ -57,6 +57,50 @@ namespace GeneticProgramming.tests
         }
 
         [TestMethod]
+        public void TestaGPHolder()
+        {
+            GPConfig config = new GPConfig();
+            GPHolder holder = new GPHolder();
+            Assert.IsNotNull(holder.GetSemantica(GPHolder.BOOL_AND));
+            Assert.IsTrue(holder.GetSemantica(GPHolder.BOOL_AND).nodeType == GPConsts.GPNODE_TYPE.NODE_BOOLEAN);
+            Assert.IsNotNull(holder.GetSemantica(GPHolder.COMP_EQUAL));
+            Assert.IsTrue(holder.GetSemantica(GPHolder.COMP_EQUAL).nodeType == GPConsts.GPNODE_TYPE.NODE_COMPARER);
+            Assert.IsNotNull(holder.GetSemantica(GPHolder.FORM_MULTIPLY));
+            Assert.IsTrue(holder.GetSemantica(GPHolder.FORM_MULTIPLY).nodeType == GPConsts.GPNODE_TYPE.NODE_FORMULA);
+        }
+
+        [TestMethod]
+        public void TestaGPSolutionDefinition()
+        {
+            GPConfig config = new GPConfig();
+            GPHolder holder = new GPHolder();
+
+
+            string listDefault = "default";
+            GPSolutionDefinition definition = CreateSampleDefinition(listDefault, holder);
+
+            SemanticaList listSemantic = definition.GetListByName(listDefault);
+        }
+
+        private GPSolutionDefinition CreateSampleDefinition(string listName, GPHolder holder)
+        {
+            GPSolutionDefinition definition = new GPSolutionDefinition(holder);
+            definition.AddSemantica(listName, holder.GetSemantica(GPHolder.BOOL_AND));
+            SemanticaList listSemantic = definition.GetListByName(listName);
+            Assert.IsNotNull(listSemantic);
+            Assert.IsTrue(listSemantic.Contains(holder.GetSemantica(GPHolder.BOOL_AND)));
+            Assert.IsFalse(listSemantic.Contains(holder.GetSemantica(GPHolder.BOOL_NOT)));
+
+            definition.AddSemantica(listName, holder.GetSemantica(GPHolder.BOOL_NOT));
+            Assert.IsTrue(listSemantic.Contains(holder.GetSemantica(GPHolder.BOOL_NOT)));
+            definition.AddSemantica(listName, holder.GetSemantica(GPHolder.BOOL_OR));
+
+
+
+            return definition;
+        }
+
+        [TestMethod]
         public void TestaGPCriacaoPelaLista()
         {
             GPPool pool = new GPPool();
@@ -66,16 +110,16 @@ namespace GeneticProgramming.tests
 
             config.maxNodes = 10;
             config.minNodes = 5;
-            GPAbstractNode nodeRandom = listaFormulas.CreateRandomNode(config,GPConsts.GPNODE_TYPE.NODE,false);
+            GPAbstractNode nodeRandom = listaFormulas.CreateRandomNode(config, (int)GPConsts.GPNODE_TYPE.NODE_COMPARER, false);
             Assert.IsNotNull(nodeRandom);
-            Assert.IsTrue(nodeRandom.Size() >= config.minNodes && nodeRandom.Size()<=config.maxNodes);
+            Assert.IsTrue(nodeRandom.Size() >= config.minNodes && nodeRandom.Size() <= config.maxNodes);
         }
 
         private SemanticaList CriaListaNumerica(GPHolder holder)
         {
             string listName = "numericList";
             GPSemanticaNumber semanticaN1 = new GPSemanticaNumber("0 a 100", 0, 100);
-            GPHolderSemantica sh = new GPHolderSemantica(holder);
+            GPSolutionDefinition sh = new GPSolutionDefinition(holder);
             sh.AddSemantica(listName, semanticaN1);
 
             SemanticaList lista = sh.GetListByName(listName);
@@ -87,19 +131,19 @@ namespace GeneticProgramming.tests
         {
             string listName = "default";
 
-            GPSemantica semanticaF1 = new GPSemantica("f1");
-            semanticaF1.AddPropriedade(GeneticProgramming.GPConsts.GPNODE_TYPE.NODE);
-            semanticaF1.AddPropriedade(GeneticProgramming.GPConsts.GPNODE_TYPE.NUMBER);
-            GPSemantica semanticaF2 = new GPSemantica("f2");
-            semanticaF2.AddPropriedade(GeneticProgramming.GPConsts.GPNODE_TYPE.NODE);
-            semanticaF2.AddPropriedade(GeneticProgramming.GPConsts.GPNODE_TYPE.NODE);
-            GPSemantica semanticaF3 = new GPSemantica("f3");
-            GPSemantica semanticaF4 = new GPSemantica("f4");
-            semanticaF4.AddPropriedade(GeneticProgramming.GPConsts.GPNODE_TYPE.NUMBER);
+            GPSemantica semanticaF1 = new GPSemanticaFormula("f1");
+            semanticaF1.AddPropriedade(GeneticProgramming.GPConsts.GPNODE_TYPE.NODE_FORMULA);
+            semanticaF1.AddPropriedade(GeneticProgramming.GPConsts.GPNODE_TYPE.NODE_NUMBER);
+            GPSemantica semanticaF2 = new GPSemanticaFormula("f2");
+            semanticaF2.AddPropriedade(GeneticProgramming.GPConsts.GPNODE_TYPE.NODE_FORMULA);
+            semanticaF2.AddPropriedade(GeneticProgramming.GPConsts.GPNODE_TYPE.NODE_FORMULA);
+            GPSemantica semanticaF3 = new GPSemanticaFormula("f3");
+            GPSemantica semanticaF4 = new GPSemanticaFormula("f4");
+            semanticaF4.AddPropriedade(GeneticProgramming.GPConsts.GPNODE_TYPE.NODE_NUMBER);
 
             GPSemanticaNumber semanticaN1 = new GPSemanticaNumber("0 a 100", 0, 100);
 
-            GPHolderSemantica sh = new GPHolderSemantica(holder);
+            GPSolutionDefinition sh = new GPSolutionDefinition(holder);
             sh.AddSemantica(listName, semanticaF1);
             sh.AddSemantica(listName, semanticaF2);
             sh.AddSemantica(listName, semanticaF3);
@@ -138,22 +182,22 @@ namespace GeneticProgramming.tests
         {
 
             //pai: PAI(FILHO,NUMBER)
-            GPSemantica semanticaPai = new GPSemantica("PAI");
-            semanticaPai.AddPropriedade(GPConsts.GPNODE_TYPE.NODE);
-            semanticaPai.AddPropriedade(GPConsts.GPNODE_TYPE.NUMBER);
-            GPSemantica semanticaPai2 = new GPSemantica("PAI2");
-            semanticaPai2.AddPropriedade(GPConsts.GPNODE_TYPE.NODE);
-            semanticaPai2.AddPropriedade(GPConsts.GPNODE_TYPE.NUMBER);
+            GPSemantica semanticaPai = new GPSemanticaFormula("PAI");
+            semanticaPai.AddPropriedade(GPConsts.GPNODE_TYPE.NODE_FORMULA);
+            semanticaPai.AddPropriedade(GPConsts.GPNODE_TYPE.NODE_NUMBER);
+            GPSemantica semanticaPai2 = new GPSemanticaFormula("PAI2");
+            semanticaPai2.AddPropriedade(GPConsts.GPNODE_TYPE.NODE_FORMULA);
+            semanticaPai2.AddPropriedade(GPConsts.GPNODE_TYPE.NODE_NUMBER);
             Assert.IsFalse(semanticaPai.IsTerminal);
 
             //filho: TERMINAL
 
             GPSemantica semanticaNumber = new GPSemanticaNumber("Numero de 0 a 10", 0, 10);
 
-            GPSemantica semanticaFilho = new GPSemantica("FILHO");
+            GPSemantica semanticaFilho = new GPSemanticaFormula("FILHO");
             //neto: NETO(NUMBER)
-            GPSemantica semanticaNeto = new GPSemantica("NETO");
-            semanticaNeto.AddPropriedade(GPConsts.GPNODE_TYPE.NUMBER);
+            GPSemantica semanticaNeto = new GPSemanticaFormula("NETO");
+            semanticaNeto.AddPropriedade(GPConsts.GPNODE_TYPE.NODE_NUMBER);
             // GPSemantica semanticaNumber2 = new GPSemantica("NETO");
             Assert.IsTrue(semanticaFilho.IsTerminal);
 
@@ -161,8 +205,8 @@ namespace GeneticProgramming.tests
             GPAbstractNode nodePai2 = new GPNode(semanticaPai2);
             GPAbstractNode nodeFilho = new GPNode(semanticaFilho);
             GPAbstractNode nodeNeto = new GPNode(semanticaNeto);
-            GPAbstractNode nodeNumber = new GPNumber(semanticaNumber, 10);
-            GPAbstractNode nodeNumber2 = new GPNumber(semanticaNumber, 1050.123f);
+            GPAbstractNode nodeNumber = new GPNodeNumber(semanticaNumber, 10);
+            GPAbstractNode nodeNumber2 = new GPNodeNumber(semanticaNumber, 1050.123f);
 
             Assert.IsTrue(nodePai.CanAddNode(nodeFilho));
             Assert.IsFalse(nodePai.CanAddNode(nodeNumber));
@@ -200,8 +244,8 @@ namespace GeneticProgramming.tests
             nodeNeto.AddNode(nodeNumber2);
 
             Assert.IsTrue(nodePai.ToString() == "PAI(NETO(1050.123),10)", nodePai.ToString() + "<>" + "PAI(NETO(1050.123),10)");
-            Assert.IsTrue(nodePai.Size() == 4, nodePai.Size() +"<>"+ 4);
-            Assert.IsTrue(nodeNumber.Size() == 1, nodeNumber.Size() +"<>"+ 1);
+            Assert.IsTrue(nodePai.Size() == 4, nodePai.Size() + "<>" + 4);
+            Assert.IsTrue(nodeNumber.Size() == 1, nodeNumber.Size() + "<>" + 1);
 
         }
     }

@@ -9,7 +9,7 @@ namespace GeneticProgramming.semantica
     {
         static Random randomizer = new Random();
         public GPSemanticaNumber(string name, int minValue, int maxValue)
-            : base(name,GPConsts.GPNODE_TYPE.NUMBER)
+            : base(name, GPConsts.GPNODE_TYPE.NODE_NUMBER)
         {
             this.name = name;
             this.minValue = minValue;
@@ -18,7 +18,7 @@ namespace GeneticProgramming.semantica
 
         internal override nodes.GPAbstractNode InstantiateEmpty()
         {
-            return new GPNumber(this,randomizer.Next(minValue,maxValue));
+            return new GPNodeNumber(this, randomizer.Next(minValue, maxValue));
         }
 
         public override bool IsTerminal
@@ -27,11 +27,6 @@ namespace GeneticProgramming.semantica
             {
                 return true;
             }
-        }
-
-        public override void AddPropriedade(GPConsts.GPNODE_TYPE nodeType)
-        {
-
         }
 
         internal override bool CanAddNode(int index, nodes.GPAbstractNode nodeFilho)
