@@ -114,15 +114,15 @@ namespace Backtester.tests
         [TestMethod]
         public void TestInicial()
         {
-
-            Ativo ativo = new Ativo(facade, "PETR4", 100);
+            string ativoName = "ABCD";
+            Ativo ativo = new Ativo(facade, ativoName, 100);
 
             facade.AddAtivo(ativo);
-            Ativo ativoGet = facade.GetAtivo("PETR4");
+            Ativo ativoGet = facade.GetAtivo(ativoName);
             Assert.IsNotNull(ativoGet);
             Assert.IsTrue(ativoGet == ativo);
             Assert.IsTrue(ativo.loteMin == 100);
-            Assert.IsTrue(ativo.name == "PETR4");
+            Assert.IsTrue(ativo.name == ativoName);
 
             Periodo periodo1 = new Periodo("2015-06-05 00:00");
             Periodo periodo2 = new Periodo("2015-06-06 00:00");
@@ -277,6 +277,7 @@ namespace Backtester.tests
         [TestMethod]
         public void TestFormulas()
         {
+            facade = new FacadeBacktester();
             facade.LoadAtivo("PETR4", 100, Consts.PERIODO_ACAO.DIARIO, "dados/petr4-diario.js");
             Ativo ativo = facade.GetAtivo("PETR4");
 
@@ -445,6 +446,7 @@ namespace Backtester.tests
         [TestMethod]
         public void TestTradeSystem()
         {
+            facade = new FacadeBacktester();
             Config config = new Config();
             TradeSystem tradeSystem = new TradeSystem(config);
 
@@ -459,6 +461,7 @@ namespace Backtester.tests
             Periodo periodo = new Periodo("01-01-2017");
             Ativo ativo = new Ativo(facade, "TESTE", 100);
             Candle candle = new Candle(periodo, ativo);
+            ativo.firstCandle = candle;
             candle.SetValor("MME(C,9)", 10);
             candle.SetValor("MME(C,3)", 5);
             candle.SetValor("SUBTRACT(L,MULTIPLY(STD(C,10),2))", 2);

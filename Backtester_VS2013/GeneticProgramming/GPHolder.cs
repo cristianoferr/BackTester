@@ -6,6 +6,6 @@ namespace GeneticProgramming
      */
     public class GPHolder
     {
-        public semantica.GPSemanticaHolder semanticsHolder { get; set; }
+        public semantica.GPHolderSemantica semanticsHolder { get; set; }
     }
 }

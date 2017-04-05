@@ -29,7 +29,7 @@ namespace GeneticProgramming.tests
             SemanticaList listaNumerica = CriaListaNumerica(holder);
 
             //Templates: possuem propriedades evolutivas, cada uma apontando para uma lista de semantica
-            GPTemplate template = new GPTemplate();
+            GPTemplate template = new GPTemplate(config);
             template.AddProperty("prop1", listaFormulas);
             template.AddProperty("prop2", listaFormulas);
             template.AddProperty("prop3", listaFormulas);
@@ -40,27 +40,42 @@ namespace GeneticProgramming.tests
 
             GPSolution solution = template.CreateRandomSolution();
             Assert.IsNotNull(solution);
-            GPNode p1 = solution.GetValue("prop1");
+            GPAbstractNode p1 = solution.GetValue("prop1");
             Assert.IsNotNull(p1);
-            GPNode p2 = solution.GetValue("prop2");
+            GPAbstractNode p2 = solution.GetValue("prop2");
             Assert.IsNotNull(p2);
-            GPNode p3 = solution.GetValue("prop3");
+            GPAbstractNode p3 = solution.GetValue("prop3");
             Assert.IsNotNull(p3);
-            GPNode p4 = solution.GetValue("prop4");
+            GPAbstractNode p4 = solution.GetValue("prop4");
             Assert.IsNotNull(p4);
 
-            GPNode n1 = solution.GetValue("number1");
+            GPAbstractNode n1 = solution.GetValue("number1");
             Assert.IsNotNull(n1);
-            GPNode n2 = solution.GetValue("number2");
+            GPAbstractNode n2 = solution.GetValue("number2");
             Assert.IsNotNull(n2);
 
+        }
+
+        [TestMethod]
+        public void TestaGPCriacaoPelaLista()
+        {
+            GPPool pool = new GPPool();
+            GPConfig config = new GPConfig();
+            GPHolder holder = new GPHolder();
+            SemanticaList listaFormulas = CriaListaDefault(holder);
+
+            config.maxNodes = 10;
+            config.minNodes = 5;
+            GPAbstractNode nodeRandom = listaFormulas.CreateRandomNode(config,GPConsts.GPNODE_TYPE.NODE,false);
+            Assert.IsNotNull(nodeRandom);
+            Assert.IsTrue(nodeRandom.Size() >= config.minNodes && nodeRandom.Size()<=config.maxNodes);
         }
 
         private SemanticaList CriaListaNumerica(GPHolder holder)
         {
             string listName = "numericList";
             GPSemanticaNumber semanticaN1 = new GPSemanticaNumber("0 a 100", 0, 100);
-            GPSemanticaHolder sh = new GPSemanticaHolder(holder);
+            GPHolderSemantica sh = new GPHolderSemantica(holder);
             sh.AddSemantica(listName, semanticaN1);
 
             SemanticaList lista = sh.GetListByName(listName);
@@ -82,10 +97,13 @@ namespace GeneticProgramming.tests
             GPSemantica semanticaF4 = new GPSemantica("f4");
             semanticaF4.AddPropriedade(GeneticProgramming.GPConsts.GPNODE_TYPE.NUMBER);
 
-            GPSemanticaHolder sh = new GPSemanticaHolder(holder);
+            GPSemanticaNumber semanticaN1 = new GPSemanticaNumber("0 a 100", 0, 100);
+
+            GPHolderSemantica sh = new GPHolderSemantica(holder);
             sh.AddSemantica(listName, semanticaF1);
             sh.AddSemantica(listName, semanticaF2);
             sh.AddSemantica(listName, semanticaF3);
+            sh.AddSemantica(listName, semanticaN1);
 
             SemanticaList lista = sh.GetListByName(listName);
             Assert.IsTrue(lista.Contains(semanticaF1));
@@ -182,6 +200,8 @@ namespace GeneticProgramming.tests
             nodeNeto.AddNode(nodeNumber2);
 
             Assert.IsTrue(nodePai.ToString() == "PAI(NETO(1050.123),10)", nodePai.ToString() + "<>" + "PAI(NETO(1050.123),10)");
+            Assert.IsTrue(nodePai.Size() == 4, nodePai.Size() +"<>"+ 4);
+            Assert.IsTrue(nodeNumber.Size() == 1, nodeNumber.Size() +"<>"+ 1);
 
         }
     }

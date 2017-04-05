@@ -134,5 +134,15 @@ namespace GeneticProgramming.nodes
             }
             return false;
         }
+
+        public int Size()
+        {
+            int size = 1;
+            foreach (GPAbstractNode node in children)
+            {
+                size += node.Size();
+            }
+            return size;
+        }
     }
 }

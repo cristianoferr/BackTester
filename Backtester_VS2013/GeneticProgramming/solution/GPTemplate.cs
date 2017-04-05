@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using GeneticProgramming.solution;
+using System.Collections.Generic;
 
 namespace GeneticProgramming.semantica
 {
@@ -8,9 +9,10 @@ namespace GeneticProgramming.semantica
     public class GPTemplate
     {
         public Dictionary<string, SemanticaList> properties { get; private set; }
-        public GPTemplate()
+        public GPTemplate(GPConfig config)
         {
             properties = new Dictionary<string, SemanticaList>();
+            this.config = config;
         }
 
         public void AddProperty(string name, SemanticaList lista)
@@ -20,7 +22,15 @@ namespace GeneticProgramming.semantica
 
         public solution.GPSolution CreateRandomSolution()
         {
-            throw new System.NotImplementedException();
+            GPSolution solution = new GPSolution();
+            foreach (string key in properties.Keys)
+            {
+                SemanticaList lista=properties[key];
+                solution.SetValue(key,lista.CreateRandomNode(config,GPConsts.GPNODE_TYPE.NODE,false));
+            }
+            return solution;
         }
+
+        public GPConfig config { get; set; }
     }
 }

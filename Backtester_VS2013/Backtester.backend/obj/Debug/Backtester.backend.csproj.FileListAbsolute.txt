@@ -55,3 +55,5 @@ G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester.backend\bin\
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester.backend\bin\Debug\dados\old\vale5-diario.js
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester.backend\bin\Debug\UsoComum.dll
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester.backend\bin\Debug\UsoComum.pdb
+F:\Java\repositorios\BackTester\Backtester_VS2013\Backtester.backend\bin\Debug\UsoComum.dll
+F:\Java\repositorios\BackTester\Backtester_VS2013\Backtester.backend\bin\Debug\UsoComum.pdb

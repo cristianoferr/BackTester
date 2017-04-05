@@ -1,18 +1,25 @@
 ﻿
+using GeneticProgramming.nodes;
+using System;
 using System.Runtime.Serialization;
 namespace GeneticProgramming.semantica
 {
     [DataContract]
     public class GPSemanticaNumber : GPSemantica
     {
-        public GPSemanticaNumber(string name, float minValue, float maxValue)
-            : base(name)
+        static Random randomizer = new Random();
+        public GPSemanticaNumber(string name, int minValue, int maxValue)
+            : base(name,GPConsts.GPNODE_TYPE.NUMBER)
         {
             this.name = name;
             this.minValue = minValue;
             this.maxValue = maxValue;
         }
 
+        internal override nodes.GPAbstractNode InstantiateEmpty()
+        {
+            return new GPNumber(this,randomizer.Next(minValue,maxValue));
+        }
 
         public override bool IsTerminal
         {
@@ -33,9 +40,9 @@ namespace GeneticProgramming.semantica
         }
 
         [DataMember]
-        public float minValue { get; set; }
+        public int minValue { get; set; }
 
         [DataMember]
-        public float maxValue { get; set; }
+        public int maxValue { get; set; }
     }
 }

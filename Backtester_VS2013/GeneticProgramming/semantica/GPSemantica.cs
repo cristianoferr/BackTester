@@ -1,4 +1,5 @@
 ﻿
+using GeneticProgramming.nodes;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 namespace GeneticProgramming.semantica
@@ -6,9 +7,10 @@ namespace GeneticProgramming.semantica
     [DataContract]
     public class GPSemantica
     {
-        public GPSemantica(string name)
+        public GPSemantica(string name, GPConsts.GPNODE_TYPE nodeType = GPConsts.GPNODE_TYPE.NODE)
         {
             this.name = name;
+            this.nodeType = nodeType;
             propriedades = new List<GPConsts.GPNODE_TYPE>();
         }
 
@@ -38,6 +40,20 @@ namespace GeneticProgramming.semantica
                 return false;
             }
             return propriedades[index] == nodeFilho.nodeType;
+        }
+
+        internal virtual nodes.GPAbstractNode InstantiateEmpty()
+        {
+            return new GPNode(this);
+        }
+
+        [DataMember]
+        public GPConsts.GPNODE_TYPE nodeType { get; private set; }
+
+
+        internal GPConsts.GPNODE_TYPE NextNodeType(int i)
+        {
+            return propriedades[i];
         }
     }
 }

@@ -6,8 +6,9 @@ namespace GeneticProgramming
 
         public enum GPNODE_TYPE
         {
-            NODE = 0,
-            NUMBER = 1
+            ANY=0,
+            NODE = 1,
+            NUMBER = 2
         }
     }
 }

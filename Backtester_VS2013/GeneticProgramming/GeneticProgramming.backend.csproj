@@ -51,7 +51,7 @@
     <Compile Include="semantica\GPSemanticaNumber.cs" />
     <Compile Include="semantica\GPSemantica.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="semantica\GPSemanticaHolder.cs" />
+    <Compile Include="semantica\GPHolderSemantica.cs" />
     <Compile Include="solution\GPSolution.cs" />
     <Compile Include="solution\GPTemplate.cs" />
     <Compile Include="semantica\SemanticaList.cs" />

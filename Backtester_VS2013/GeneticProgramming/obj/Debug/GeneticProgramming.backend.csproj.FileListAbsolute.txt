@@ -4,3 +4,9 @@ G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\GeneticProgramming\bin\
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\GeneticProgramming\obj\Debug\GeneticProgramming.backend.csprojResolveAssemblyReference.cache
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\GeneticProgramming\obj\Debug\GeneticProgramming.dll
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\GeneticProgramming\obj\Debug\GeneticProgramming.pdb
+F:\Java\repositorios\BackTester\Backtester_VS2013\GeneticProgramming\bin\Debug\GeneticProgramming.dll
+F:\Java\repositorios\BackTester\Backtester_VS2013\GeneticProgramming\bin\Debug\GeneticProgramming.pdb
+F:\Java\repositorios\BackTester\Backtester_VS2013\GeneticProgramming\bin\Debug\Newtonsoft.Json.dll
+F:\Java\repositorios\BackTester\Backtester_VS2013\GeneticProgramming\obj\Debug\GeneticProgramming.backend.csprojResolveAssemblyReference.cache
+F:\Java\repositorios\BackTester\Backtester_VS2013\GeneticProgramming\obj\Debug\GeneticProgramming.dll
+F:\Java\repositorios\BackTester\Backtester_VS2013\GeneticProgramming\obj\Debug\GeneticProgramming.pdb
