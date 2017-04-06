@@ -15,6 +15,7 @@ namespace GeneticProgramming.semantica
         string name { get; set; }
         IList<GPSemantica> lista { get; set; }
 
+
         public bool Contains(GPSemantica semantica)
         {
             return lista.Contains(semantica);
@@ -25,42 +26,61 @@ namespace GeneticProgramming.semantica
             lista.Add(semantica);
         }
 
-        public GPAbstractNode CreateRandomNode(GPConfig config, int nodeType, bool flagTerminal, GPAbstractNode parent = null)
-        {
-            int maxNodes = config.maxNodes;
-            Random rnd = new Random();
 
-            IList<GPSemantica> subLista = lista.Where(x => (((int)x.nodeType | nodeType) > 0) && (!flagTerminal || (x.IsTerminal && flagTerminal))).ToList();
-            GPSemantica semantica = subLista[rnd.Next(subLista.Count)];
+        static Random rnd = new Random();
+        public GPAbstractNode CreateRandomNode(GPConfig config, bool flagTerminal, GPAbstractNode parent = null, int countLevel = 0)
+        {
+            GPAbstractNode ret = null;
+            do
+            {
+                ret = InternalCreateRandomNode(config, flagTerminal, parent, countLevel);
+                if (ret.SizeLevel() > config.maxLevels)
+                {
+                    ret = null;
+                }
+
+            } while (ret == null);
+            return ret;
+        }
+        public GPAbstractNode InternalCreateRandomNode(GPConfig config, bool flagTerminal, GPAbstractNode parent = null, int countLevel = 0)
+        {
+            int maxNodes = config.maxLevels;
+
+
+            GPSemantica semantica = GetRandomSemantica(flagTerminal);
             GPAbstractNode node = semantica.InstantiateEmpty();
             if (parent == null)
             {
                 parent = node;
             }
-            for (int i = 0; i < semantica.propriedades.Count(); i++)
+
+            int rndVal = rnd.Next(semantica.minParams, semantica.maxParams);
+
+            for (int i = 0; i < rndVal; i++)
             {
-                int nodeTypeRequired = semantica.NextNodeType(i);
-                GPAbstractNode nodeParam = CreateRandomNode(config, nodeTypeRequired, parent.Size() >= config.maxNodes, parent);
+                GPAbstractNode nodeParam = InternalCreateRandomNode(config, countLevel + 1 > config.maxLevels, parent, countLevel + 1);
                 if (!node.CanAddNode(nodeParam))
                 {
                     throw new Exception("Node não permite adicionar nodeParam!");
                 }
                 node.AddNode(nodeParam);
             }
-            /* if (parent != null )
-             {
-                 //if (parent.Size() <= config.maxNodes)
-                 //{
-             //        parent.AddNode(node);
-                 }
-                 else
-                 {
-                     return null;
-                 }
-             }*/
 
 
             return node;
         }
+
+
+        private GPSemantica GetRandomSemantica(bool flagTerminal)
+        {
+            IList<GPSemantica> subLista = lista.Where(x => (!flagTerminal || (x.IsTerminal && flagTerminal))).ToList();
+            if (subLista.Count == 0)
+            {
+                subLista = lista;
+            }
+            GPSemantica semantica = subLista[rnd.Next(subLista.Count)];
+            return semantica;
+        }
+
     }
 }

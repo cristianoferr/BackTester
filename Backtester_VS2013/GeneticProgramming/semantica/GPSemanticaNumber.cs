@@ -9,7 +9,7 @@ namespace GeneticProgramming.semantica
     {
         static Random randomizer = new Random();
         public GPSemanticaNumber(string name, int minValue, int maxValue)
-            : base(name, GPConsts.GPNODE_TYPE.NODE_NUMBER)
+            : base(name, GPConsts.GPNODE_TYPE.NODE_NUMBER, 0, 0)
         {
             this.name = name;
             this.minValue = minValue;

@@ -29,13 +29,13 @@ namespace GeneticProgramming.semantica
             list.Add(semantica);
         }
 
+
         public SemanticaList GetListByName(string listName)
         {
             if (!semantics.ContainsKey(listName))
             {
                 SemanticaList list = new SemanticaList(listName);
                 semantics.Add(listName, list);
-                return list;
             }
             return semantics[listName];
         }

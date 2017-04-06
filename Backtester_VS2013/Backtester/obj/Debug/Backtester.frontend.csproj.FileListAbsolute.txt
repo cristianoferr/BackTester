@@ -25,10 +25,6 @@ F:\Java\repositorios\BackTester\Backtester_VS2013\Backtester\obj\Debug\Backteste
 F:\Java\repositorios\BackTester\Backtester_VS2013\Backtester\obj\Debug\Backtester.FrmPrincipal.resources
 F:\Java\repositorios\BackTester\Backtester_VS2013\Backtester\obj\Debug\Backtester.Properties.Resources.resources
 F:\Java\repositorios\BackTester\Backtester_VS2013\Backtester\obj\Debug\Backtester.frontend.csproj.GenerateResource.Cache
-G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester\obj\Debug\Backtester.frontend.csprojResolveAssemblyReference.cache
-G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester\obj\Debug\Backtester.FrmPrincipal.resources
-G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester\obj\Debug\Backtester.Properties.Resources.resources
-G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester\obj\Debug\Backtester.frontend.csproj.GenerateResource.Cache
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester\bin\Debug\dados\old\natu3-diario.js
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester\bin\Debug\dados\old\ccro3-diario.js
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester\bin\Debug\dados\old\ciel3-diario.js
@@ -51,5 +47,9 @@ G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester\bin\Debug\Ba
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester\bin\Debug\UsoComum.pdb
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester\bin\Debug\RestSharp.xml
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester\bin\Debug\Newtonsoft.Json.xml
+G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester\obj\Debug\Backtester.frontend.csprojResolveAssemblyReference.cache
+G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester\obj\Debug\Backtester.FrmPrincipal.resources
+G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester\obj\Debug\Backtester.Properties.Resources.resources
+G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester\obj\Debug\Backtester.frontend.csproj.GenerateResource.Cache
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester\obj\Debug\Backtester.exe
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester\obj\Debug\Backtester.pdb

@@ -47,8 +47,9 @@
     <Compile Include="GPPool.cs" />
     <Compile Include="nodes\GPAbstractNode.cs" />
     <Compile Include="nodes\GPNodeComparer.cs" />
+    <Compile Include="nodes\GPNodeBoolean.cs" />
     <Compile Include="nodes\GPNodeNumber.cs" />
-    <Compile Include="nodes\GPNode.cs" />
+    <Compile Include="nodes\GPNodeFormula.cs" />
     <Compile Include="semantica\GPSemanticaBoolean.cs" />
     <Compile Include="semantica\GPSemanticaFormula.cs" />
     <Compile Include="semantica\GPSemanticaComparer.cs" />

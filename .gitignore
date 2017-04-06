@@ -1,3 +1,7 @@
+Backtester_VS2013/Backtester/bin
+Backtester_VS2013/GeneticProgramming.tests/bin/Release
+Backtester_VS2013/Backtester.tests/bin
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db

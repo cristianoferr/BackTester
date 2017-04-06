@@ -25,8 +25,8 @@ namespace GeneticProgramming.semantica
             GPSolution solution = new GPSolution();
             foreach (string key in properties.Keys)
             {
-                SemanticaList lista=properties[key];
-                solution.SetValue(key,lista.CreateRandomNode(config,GPConsts.GPNODE_TYPE.NODE_FORMULA,false));
+                SemanticaList lista = properties[key];
+                solution.SetValue(key, lista.CreateRandomNode(config, false));
             }
             return solution;
         }

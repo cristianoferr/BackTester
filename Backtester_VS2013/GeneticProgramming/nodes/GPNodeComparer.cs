@@ -1,5 +1,4 @@
 ﻿
-using System;
 using System.Runtime.Serialization;
 namespace GeneticProgramming.nodes
 {
@@ -10,7 +9,10 @@ namespace GeneticProgramming.nodes
         public GPNodeComparer(semantica.GPSemantica semantica)
             : base(semantica, GPConsts.GPNODE_TYPE.NODE_COMPARER)
         {
-            
+
+
         }
+
+      
     }
 }

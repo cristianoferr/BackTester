@@ -74,26 +74,36 @@ namespace GeneticProgramming.nodes
             }
         }
 
+        internal string NotacaoDoMeio()
+        {
+            if (children.Count == 0) return "Error!";
+            if (children.Count == 1) return semantica.name + children[0];
+            string ret = "(" + children[0].ToString() + ")";
+            for (int i = 1; i < children.Count; i++)
+            {
+                ret += semantica.name + "(" + children[1] + ")";
+            }
+            return ret;
+        }
+
         public override string ToString()
         {
 
+            if (children.Count < semantica.minParams || children.Count > semantica.maxParams)
+            {
+                return "ERROR:" + semantica.name;
+            }
             if (children.Count == 0)
             {
-                if (semantica.propriedades.Count > 0)
-                {
-                    return "ERROR:" + semantica.name;
-                }
                 return semantica.name;
             }
             string str = "";
             for (int i = 0; i < children.Count; i++)
             {
                 str += children[i].ToString();
-                if (i < children.Count - 1)
-                {
-                    str += ",";
-                }
+                str += ",";
             }
+            str = str.Substring(0, str.LastIndexOf(","));
             string ret = string.Format("{0}({1})", semantica.name, str);
             return ret;
         }
@@ -143,6 +153,17 @@ namespace GeneticProgramming.nodes
                 size += node.Size();
             }
             return size;
+        }
+
+        public int SizeLevel(int sizeLevel = 1)
+        {
+            int maxSize = sizeLevel;
+            foreach (GPAbstractNode node in children)
+            {
+                int size = node.SizeLevel(sizeLevel + 1);
+                if (size > maxSize) maxSize = size;
+            }
+            return maxSize;
         }
     }
 }

@@ -17,8 +17,10 @@ namespace GeneticProgramming
             poolQtd = 100;
             elitismPercent = 5;
             mutationRatePerc = 3;
-            maxNodes = 10;//Quantidade maxima que um nó pode ter
-            minNodes = 5;
+            maxLevels = 5;//Quantidade maxima que um nó pode ter
+            minLevels = 2;
+
+            this.maxSize = 30;//tamanhos maiores que esse serão rejeitados.
         }
 
         #region IO
@@ -52,12 +54,14 @@ namespace GeneticProgramming
         public float mutationRatePerc { get; set; }
 
         [DataMember]
-        public int maxNodes { get; set; }
+        public int maxLevels { get; set; }
         [DataMember]
-        public int minNodes { get; set; }
+        public int minLevels { get; set; }
         #endregion
 
 
-        
+
+
+        public int maxSize { get; set; }
     }
 }

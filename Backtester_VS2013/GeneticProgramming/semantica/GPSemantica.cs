@@ -1,20 +1,30 @@
 ﻿
-using System.Collections.Generic;
 using System.Runtime.Serialization;
 namespace GeneticProgramming.semantica
 {
     [DataContract]
     public abstract class GPSemantica
     {
-        public GPSemantica(string name, GPConsts.GPNODE_TYPE nodeType)
+        public GPSemantica(string name, GPConsts.GPNODE_TYPE nodeType, int minParams, int maxParams)
         {
             this.name = name;
             this.nodeType = nodeType;
-            propriedades = new List<int>();
+            this.minParams = minParams;
+            this.maxParams = maxParams;
         }
 
-        [DataMember]
-        public IList<int> propriedades { get; private set; }
+        public override string ToString()
+        {
+            string ret = name;
+
+            if (minParams > 0)
+            {
+                ret += "(" + minParams + "..." + maxParams + ")";
+            }
+            return ret;
+        }
+
+
 
         [DataMember]
         public string name { get; set; }
@@ -23,24 +33,15 @@ namespace GeneticProgramming.semantica
         {
             get
             {
-                if (propriedades.Count == 0) return true;
-                return false;
+                return maxParams == 0;
             }
         }
 
 
-        public virtual void AddPropriedade(int nodesAllowed)
-        {
-            propriedades.Add(nodesAllowed);
-        }
 
         internal virtual bool CanAddNode(int index, nodes.GPAbstractNode nodeFilho)
         {
-            if (index >= propriedades.Count)
-            {
-                return false;
-            }
-            return (propriedades[index] & (int)nodeFilho.nodeType) > 0;
+            return (maxParams > index);
         }
 
         internal abstract nodes.GPAbstractNode InstantiateEmpty();
@@ -49,14 +50,8 @@ namespace GeneticProgramming.semantica
         public GPConsts.GPNODE_TYPE nodeType { get; private set; }
 
 
-        internal int NextNodeType(int i)
-        {
-            return propriedades[i];
-        }
+        public int minParams { get; set; }
 
-        public void AddPropriedade(GPConsts.GPNODE_TYPE nodeType)
-        {
-            propriedades.Add((int)nodeType);
-        }
+        public int maxParams { get; set; }
     }
 }

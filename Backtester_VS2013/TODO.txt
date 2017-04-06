@@ -8,9 +8,11 @@ GP:
 Exemplo de formula válida:
 
 (mme(c,9)>mme(c,3)&&(ifr(O,5)>70))||macd(3,12)>REF(C,3))
-formula: pode ter formula e numeros:  fx(O,9)
-comparer: pode ter formula e numeros: greater(fx(),9)
-boolean: pode ter comparer e boolean: AND(greater(2,1),lower(1,10))
+X formula: pode ter formula e numeros:  fx(O,9)
+X comparer: pode ter formula, comparer,boolean e numeros: greater(fx(),9)
+X boolean: pode ter comparer e boolean: AND(greater(2,1),lower(1,10))
+Nova regra: tudo pode ter tudo, respeitando a quantidade maxima de params
+
 
 - Juntar GPHolder com GPSolutionDefinition?
 
