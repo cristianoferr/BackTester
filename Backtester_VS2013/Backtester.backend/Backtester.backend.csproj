@@ -62,8 +62,9 @@
     <Compile Include="Consts.cs" />
     <Compile Include="interfaces\ICaller.cs" />
     <Compile Include="model\ativos\Candle.cs" />
-    <Compile Include="model\formulas\FormulaSUM.cs" />
+    <Compile Include="model\formulas\FormulaDivide.cs" />
     <Compile Include="model\formulas\FormulaMultiply.cs" />
+    <Compile Include="model\formulas\FormulaSUM.cs" />
     <Compile Include="model\formulas\FormulaSUBTRACT.cs" />
     <Compile Include="model\system\Carteira.cs" />
     <Compile Include="DataManager\DataHolder.cs" />

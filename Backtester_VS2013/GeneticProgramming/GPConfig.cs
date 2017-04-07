@@ -20,6 +20,7 @@ namespace GeneticProgramming
             maxLevels = 5;//Quantidade maxima que um nó pode ter
             minLevels = 2;
 
+            spliceChancePerc = 60;//chance de misturar o código com outra solution
             this.maxSize = 30;//tamanhos maiores que esse serão rejeitados.
         }
 
@@ -48,7 +49,7 @@ namespace GeneticProgramming
         public int poolQtd { get; set; }
 
         [DataMember]
-        public float elitismPercent { get; set; }
+        public int elitismPercent { get; set; }
 
         [DataMember]
         public float mutationRatePerc { get; set; }
@@ -63,5 +64,7 @@ namespace GeneticProgramming
 
 
         public int maxSize { get; set; }
+
+        public int spliceChancePerc { get; set; }
     }
 }

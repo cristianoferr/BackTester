@@ -31,7 +31,7 @@ namespace Backtester.backend.model
             return variaveis.Where(x => x.name == name).FirstOrDefault();
         }
 
-        public Variavel GetVariavel(string name, string descricao,float vlrInicial, int steps, float vlrFinal)
+        public Variavel GetVariavel(string name, string descricao, float vlrInicial, int steps, float vlrFinal)
         {
             name = name.ToUpper();
             Variavel var = GetVariavel(name);
@@ -85,6 +85,11 @@ namespace Backtester.backend.model
                     GetVariavel(arrVar[0]).vlrAtual = float.Parse(arrVar[1]);
                 }
             }
+        }
+
+        public void SetVariavel(string var, float value)
+        {
+            GetVariavel(var).vlrAtual = value;
         }
     }
 }

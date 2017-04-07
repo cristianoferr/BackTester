@@ -15,8 +15,8 @@ namespace Backtester.backend.DataManager
         public static string HIGH = "H";
         public static string LOW = "L";
         public static string VOL = "V";
-        public static string DIFOC = "DIFOC";
-        public static string DIFHL = "DIFHL";
+        // public static string DIFOC = "DIFOC";//TODO: IMPLEMENTAR ESSAS 2 FUNÇÕES
+        //public static string DIFHL = "DIFHL";
         public static string MMS = "MMS";
         public static string MME = "MME";
         public static string IFR = "RSI";
@@ -33,8 +33,10 @@ namespace Backtester.backend.DataManager
         public static string SUM = "SUM";
         public static string SUBTRACT = "SUBTRACT";
         public static string MULTIPLY = "MULTIPLY";
-        public static string DAYOFWEEK = "DAYOFWEEK";
-        public static string TICK = "TICK";
+        public static string DIVIDE = "DIVIDE";
+
+        // public static string DAYOFWEEK = "DAYOFWEEK";
+        // public static string TICK = "TICK";
         public static string STOCH = "STOCH";
         public static string PERCENTIL = "PERCENTIL";
         private FacadeBacktester facade;
@@ -47,8 +49,8 @@ namespace Backtester.backend.DataManager
             formulasDisp.Add(HIGH);
             formulasDisp.Add(LOW);
             formulasDisp.Add(VOL);
-            formulasDisp.Add(DIFOC);
-            formulasDisp.Add(DIFHL);
+            //formulasDisp.Add(DIFOC);
+            //formulasDisp.Add(DIFHL);
             formulasDisp.Add(MMS);
             formulasDisp.Add(MME);
             formulasDisp.Add(IFR);
@@ -64,9 +66,9 @@ namespace Backtester.backend.DataManager
             formulasDisp.Add(BB);
             formulasDisp.Add(SUM);
             formulasDisp.Add(SUBTRACT);
-            formulasDisp.Add(DAYOFWEEK);
+            // formulasDisp.Add(DAYOFWEEK);
             formulasDisp.Add(MULTIPLY);
-            formulasDisp.Add(TICK);
+            // formulasDisp.Add(TICK);
             formulasDisp.Add(STOCH);
             formulasDisp.Add(PERCENTIL);
         }
@@ -155,12 +157,14 @@ namespace Backtester.backend.DataManager
             {
                 if (name == SUBTRACT) f = new FormulaSUBTRACT(facade, name, GetFormula(pars[0]), float.Parse(pars[1]));
                 if (name == MULTIPLY) f = new FormulaMultiply(facade, name, GetFormula(pars[0]), float.Parse(pars[1]));
+                if (name == DIVIDE) f = new FormulaDivide(facade, name, GetFormula(pars[0]), float.Parse(pars[1]));
                 if (name == SUM) f = new FormulaSUM(facade, name, GetFormula(pars[0]), float.Parse(pars[1]));
             }
             else
             {
                 if (name == SUBTRACT) f = new FormulaSUBTRACT(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
                 if (name == MULTIPLY) f = new FormulaMultiply(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
+                if (name == DIVIDE) f = new FormulaDivide(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
                 if (name == SUM) f = new FormulaSUM(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
             }
 

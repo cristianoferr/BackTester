@@ -22,7 +22,7 @@ namespace GeneticProgramming.semantica
 
         public solution.GPSolution CreateRandomSolution()
         {
-            GPSolution solution = new GPSolution();
+            GPSolution solution = new GPSolution(this);
             foreach (string key in properties.Keys)
             {
                 SemanticaList lista = properties[key];

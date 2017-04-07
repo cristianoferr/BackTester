@@ -43,8 +43,8 @@
   <ItemGroup>
     <Compile Include="GPConsts.cs" />
     <Compile Include="GPConfig.cs" />
-    <Compile Include="GPHolder.cs" />
     <Compile Include="GPPool.cs" />
+    <Compile Include="runner\GPRunner.cs" />
     <Compile Include="nodes\GPAbstractNode.cs" />
     <Compile Include="nodes\GPNodeComparer.cs" />
     <Compile Include="nodes\GPNodeBoolean.cs" />

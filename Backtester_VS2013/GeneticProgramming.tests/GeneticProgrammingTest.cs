@@ -2,6 +2,7 @@
 using GeneticProgramming.semantica;
 using GeneticProgramming.solution;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace GeneticProgramming.tests
 {
@@ -9,11 +10,12 @@ namespace GeneticProgramming.tests
     public class GeneticProgrammingTest
     {
 
+        static GPConfig config = new GPConfig();
+
         [TestMethod]
         public void TestGPTemplate()
         {
-            GPConfig config = new GPConfig();
-            GPHolder holder = new GPHolder();
+            GPSolutionDefinition holder = new GPSolutionDefinition(config);
 
             /*
              vou simular um template com 4 formulas(nodes) e 2 variaveis numéricas
@@ -65,54 +67,54 @@ namespace GeneticProgramming.tests
         [TestMethod]
         public void TestaGPHolder()
         {
-            GPConfig config = new GPConfig();
-            GPHolder holder = new GPHolder();
-            Assert.IsNotNull(holder.GetSemantica(GPHolder.BOOL_AND));
-            Assert.IsTrue(holder.GetSemantica(GPHolder.BOOL_AND).nodeType == GPConsts.GPNODE_TYPE.NODE_BOOLEAN);
-            Assert.IsNotNull(holder.GetSemantica(GPHolder.COMP_EQUAL));
-            Assert.IsTrue(holder.GetSemantica(GPHolder.COMP_EQUAL).nodeType == GPConsts.GPNODE_TYPE.NODE_COMPARER);
-            Assert.IsNotNull(holder.GetSemantica(GPHolder.OPER_MULTIPLY));
-            Assert.IsTrue(holder.GetSemantica(GPHolder.OPER_MULTIPLY).nodeType == GPConsts.GPNODE_TYPE.NODE_OPERATOR);
+            GPSolutionDefinition holder = new GPSolutionDefinition(config);
+            Assert.IsNotNull(holder.GetSemantica(GPConsts.BOOL_AND));
+            Assert.IsTrue(holder.GetSemantica(GPConsts.BOOL_AND).nodeType == GPConsts.GPNODE_TYPE.NODE_BOOLEAN);
+            Assert.IsNotNull(holder.GetSemantica(GPConsts.COMP_EQUAL));
+            Assert.IsTrue(holder.GetSemantica(GPConsts.COMP_EQUAL).nodeType == GPConsts.GPNODE_TYPE.NODE_COMPARER);
+            Assert.IsNotNull(holder.GetSemantica(GPConsts.OPER_MULTIPLY));
+            Assert.IsTrue(holder.GetSemantica(GPConsts.OPER_MULTIPLY).nodeType == GPConsts.GPNODE_TYPE.NODE_OPERATOR);
         }
 
         [TestMethod]
         public void TestaGPSolutionDefinition()
         {
-            GPConfig config = new GPConfig();
-            GPHolder holder = new GPHolder();
+
 
 
             string listDefault = "default";
-            GPSolutionDefinition definition = CreateSampleDefinition(listDefault, holder);
+            GPSolutionDefinition definition = CreateSampleDefinition(listDefault);
             SemanticaList listSemantic = definition.GetListByName(listDefault);
         }
 
-        private GPSolutionDefinition CreateSampleDefinition(string listName, GPHolder holder)
+        private GPSolutionDefinition CreateSampleDefinition(string listName)
         {
-            GPSolutionDefinition definition = new GPSolutionDefinition(holder);
-            definition.AddSemantica(listName, holder.GetSemantica(GPHolder.BOOL_AND));
+
+            GPSolutionDefinition definition = new GPSolutionDefinition(config);
+            definition.CreateListByName(listName, config.minLevels, config.maxLevels);
+            definition.AddSemanticaToList(listName, definition.GetSemantica(GPConsts.BOOL_AND));
             SemanticaList listSemantic = definition.GetListByName(listName);
             Assert.IsNotNull(listSemantic);
-            Assert.IsTrue(listSemantic.Contains(holder.GetSemantica(GPHolder.BOOL_AND)));
-            Assert.IsFalse(listSemantic.Contains(holder.GetSemantica(GPHolder.BOOL_NOT)));
+            Assert.IsTrue(listSemantic.Contains(definition.GetSemantica(GPConsts.BOOL_AND)));
+            Assert.IsFalse(listSemantic.Contains(definition.GetSemantica(GPConsts.BOOL_NOT)));
 
-            definition.AddSemantica(listName, holder.GetSemantica(GPHolder.BOOL_NOT));
-            Assert.IsTrue(listSemantic.Contains(holder.GetSemantica(GPHolder.BOOL_NOT)));
-            definition.AddSemantica(listName, holder.GetSemantica(GPHolder.BOOL_OR));
+            definition.AddSemanticaToList(listName, definition.GetSemantica(GPConsts.BOOL_NOT));
+            Assert.IsTrue(listSemantic.Contains(definition.GetSemantica(GPConsts.BOOL_NOT)));
+            definition.AddSemanticaToList(listName, definition.GetSemantica(GPConsts.BOOL_OR));
 
-            definition.AddSemantica(listName, holder.GetSemantica(GPHolder.COMP_DIF));
-            definition.AddSemantica(listName, holder.GetSemantica(GPHolder.COMP_EQUAL));
-            definition.AddSemantica(listName, holder.GetSemantica(GPHolder.COMP_GREATER));
-            definition.AddSemantica(listName, holder.GetSemantica(GPHolder.COMP_GREATER_EQ));
-            definition.AddSemantica(listName, holder.GetSemantica(GPHolder.COMP_LOWER));
-            definition.AddSemantica(listName, holder.GetSemantica(GPHolder.COMP_LOWER_EQ));
+            definition.AddSemanticaToList(listName, definition.GetSemantica(GPConsts.COMP_DIF));
+            definition.AddSemanticaToList(listName, definition.GetSemantica(GPConsts.COMP_EQUAL));
+            definition.AddSemanticaToList(listName, definition.GetSemantica(GPConsts.COMP_GREATER));
+            definition.AddSemanticaToList(listName, definition.GetSemantica(GPConsts.COMP_GREATER_EQ));
+            definition.AddSemanticaToList(listName, definition.GetSemantica(GPConsts.COMP_LOWER));
+            definition.AddSemanticaToList(listName, definition.GetSemantica(GPConsts.COMP_LOWER_EQ));
 
-            definition.AddSemantica(listName, holder.GetSemantica(GPHolder.OPER_ADD));
-            definition.AddSemantica(listName, holder.GetSemantica(GPHolder.OPER_DIVIDE));
-            definition.AddSemantica(listName, holder.GetSemantica(GPHolder.OPER_MULTIPLY));
-            definition.AddSemantica(listName, holder.GetSemantica(GPHolder.OPER_SUBTRACT));
+            definition.AddSemanticaToList(listName, definition.GetSemantica(GPConsts.OPER_ADD));
+            definition.AddSemanticaToList(listName, definition.GetSemantica(GPConsts.OPER_DIVIDE));
+            definition.AddSemanticaToList(listName, definition.GetSemantica(GPConsts.OPER_MULTIPLY));
+            definition.AddSemanticaToList(listName, definition.GetSemantica(GPConsts.OPER_SUBTRACT));
 
-            definition.AddSemantica(listName, holder.GetSemantica(GPHolder.NUMBER_DEFAULT));
+            definition.AddSemanticaToList(listName, definition.GetSemantica(GPConsts.NUMBER_DEFAULT));
 
 
             return definition;
@@ -121,39 +123,38 @@ namespace GeneticProgramming.tests
         [TestMethod]
         public void TestaGPCriacaoPelaLista()
         {
-            GPConfig config = new GPConfig();
-            GPHolder holder = new GPHolder();
-            GPPool pool = new GPPool(config,holder);
-            SemanticaList listaFormulas = CriaListaDefault(holder);
+            GPPool pool = new GPPool(config);
 
             string listDefault = "default";
-            GPSolutionDefinition definition = CreateSampleDefinition(listDefault, holder);
+            GPSolutionDefinition definition = CreateSampleDefinition(listDefault);
+            SemanticaList listaFormulas = CriaListaDefault(definition);
             SemanticaList listSemantic = definition.GetListByName(listDefault);
 
-            config.maxLevels = 3;
-            config.minLevels = 2;
+            listSemantic.maxLevels = 3;
+            listSemantic.minLevels = 2;
             GPAbstractNode nodeRandom = listSemantic.CreateRandomNode(config, false);
             Assert.IsNotNull(nodeRandom);
             string toString = nodeRandom.ToString();
-            Assert.IsTrue(nodeRandom.SizeLevel() >= config.minLevels && nodeRandom.SizeLevel() <= config.maxLevels, "SizeLevel:" + nodeRandom.SizeLevel());
+            Assert.IsTrue(nodeRandom.SizeLevel() >= listSemantic.minLevels && nodeRandom.SizeLevel() <= listSemantic.maxLevels, "SizeLevel:" + nodeRandom.SizeLevel());
         }
 
-        private SemanticaList CriaListaNumerica(GPHolder holder)
+        private SemanticaList CriaListaNumerica(GPSolutionDefinition holder)
         {
             string listName = "numericList";
             GPSemanticaNumber semanticaN1 = new GPSemanticaNumber("0 a 100", 0, 100);
-            GPSolutionDefinition sh = new GPSolutionDefinition(holder);
-            sh.AddSemantica(listName, semanticaN1);
+            GPSolutionDefinition sh = new GPSolutionDefinition(config);
+            sh.CreateListByName(listName, 0, 0);
+            sh.AddSemanticaToList(listName, semanticaN1);
 
             SemanticaList lista = sh.GetListByName(listName);
             Assert.IsTrue(lista.Contains(semanticaN1));
             return lista;
         }
 
-        private static SemanticaList CriaListaDefault(GPHolder holder)
+        private static SemanticaList CriaListaDefault(GPSolutionDefinition sh)
         {
             string listName = "default";
-
+            sh.CreateListByName(listName, config.minLevels, config.maxLevels);
             GPSemantica semanticaF1 = new GPSemanticaFormula("f1", 2, 3);
             GPSemantica semanticaF2 = new GPSemanticaFormula("f2", 2, 2);
             GPSemantica semanticaF3 = new GPSemanticaFormula("f3", 2, 3);
@@ -161,20 +162,21 @@ namespace GeneticProgramming.tests
             GPSemantica semanticaF5 = new GPSemanticaFormula("f5", 0, 0);
             GPSemanticaNumber semanticaN1 = new GPSemanticaNumber("0 a 100", 0, 100);
 
-            GPSolutionDefinition sh = new GPSolutionDefinition(holder);
-            sh.AddSemantica(listName, semanticaF1);
-            sh.AddSemantica(listName, semanticaF2);
-            sh.AddSemantica(listName, semanticaF3);
-            sh.AddSemantica(listName, semanticaF5);
-            sh.AddSemantica(listName, semanticaN1);
+            sh.AddSemanticaToList(listName, semanticaF1);
+            sh.AddSemanticaToList(listName, semanticaF2);
+            sh.AddSemanticaToList(listName, semanticaF3);
+            sh.AddSemanticaToList(listName, semanticaF5);
+            sh.AddSemanticaToList(listName, semanticaN1);
 
 
             SemanticaList lista = sh.GetListByName(listName);
+            lista.minLevels = config.minLevels;
+            lista.maxLevels = config.maxLevels;
             Assert.IsTrue(lista.Contains(semanticaF1));
             Assert.IsTrue(lista.Contains(semanticaF2));
             Assert.IsTrue(lista.Contains(semanticaF3));
             Assert.IsFalse(lista.Contains(semanticaF4));
-            sh.AddSemantica(listName, semanticaF4);
+            sh.AddSemanticaToList(listName, semanticaF4);
             Assert.IsTrue(lista.Contains(semanticaF4));
             return lista;
         }
@@ -182,13 +184,12 @@ namespace GeneticProgramming.tests
         [TestMethod]
         public void TestGPInicial()
         {
-            GPHolder holder = new GPHolder();
-            SemanticaList listaFormulas = CriaListaDefault(holder);
-            SemanticaList listaNumerica = CriaListaNumerica(holder);
+            GPSolutionDefinition sh = new GPSolutionDefinition(config);
+            SemanticaList listaFormulas = CriaListaDefault(sh);
+            SemanticaList listaNumerica = CriaListaNumerica(sh);
 
-            GPConfig config = new GPConfig();
             GPTemplate template = CreateTestTemplate(config, listaFormulas, listaNumerica);
-            GPPool pool = new GPPool(config, holder);
+            GPPool pool = new GPPool(config);
 
             Assert.IsTrue(config.poolQtd > 0);
             Assert.IsTrue(config.elitismPercent > 0);
@@ -196,7 +197,31 @@ namespace GeneticProgramming.tests
             Assert.IsTrue(config.poolQtd > 0);
 
             pool.InitPool(template);
+
+
             Assert.IsTrue(pool.solutions.Count > 0);
+
+            //randomizo valores iniciais para fazer ordenação
+            Random rnd = new Random();
+            for (int i = 0; i < pool.solutions.Count; i++)
+            {
+                GPSolution solution = pool.solutions[i];
+                solution.fitnessResult = rnd.Next(1, 10000);
+            }
+
+
+            pool.SortFitness();
+            for (int i = 1; i < pool.solutions.Count; i++)
+            {
+                Assert.IsTrue(pool.solutions[i - 1].fitnessResult >= pool.solutions[i].fitnessResult);
+            }
+
+            GPSolution sol1 = pool.solutions[1];
+            GPSolution sol2 = pool.solutions[2];
+            
+            string splicedKey = sol1.SpliceWith(sol2);
+            Assert.IsNotNull(splicedKey);
+
 
         }
 

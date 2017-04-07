@@ -165,5 +165,20 @@ namespace GeneticProgramming.nodes
             }
             return maxSize;
         }
+
+        internal GPAbstractNode GetNthChild(int nth, ref int count)
+        {
+            count++;
+            if (count == nth) { return this; }
+
+            foreach (GPAbstractNode node in children)
+            {
+                if (node.GetNthChild(nth, ref count) != null)
+                {
+                    return node;
+                }
+            }
+            return null;
+        }
     }
 }

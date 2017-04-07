@@ -7,10 +7,13 @@ namespace GeneticProgramming.semantica
 {
     public class SemanticaList
     {
-        public SemanticaList(string listName)
+        public SemanticaList(string listName, int minLevel, int maxLevel)
         {
             this.name = listName;
             lista = new List<GPSemantica>();
+            this.minLevels = minLevel;
+            this.maxLevels = maxLevel;
+
         }
         string name { get; set; }
         IList<GPSemantica> lista { get; set; }
@@ -34,7 +37,7 @@ namespace GeneticProgramming.semantica
             do
             {
                 ret = InternalCreateRandomNode(config, flagTerminal, parent, countLevel);
-                if (ret.SizeLevel() > config.maxLevels)
+                if (ret.SizeLevel() > maxLevels || ret.SizeLevel() < minLevels)
                 {
                     ret = null;
                 }
@@ -82,5 +85,37 @@ namespace GeneticProgramming.semantica
             return semantica;
         }
 
+
+        int maxLevels_ = 1;
+        public int maxLevels
+        {
+            get
+            {
+                return maxLevels_;
+            }
+
+            set
+            {
+                if (value < 1) value = 1;
+                maxLevels_ = value;
+            }
+
+        }
+
+        int minLevels_ = 1;
+        public int minLevels
+        {
+            get
+            {
+                return minLevels_;
+            }
+
+            set
+            {
+                if (value < 1) value = 1;
+                minLevels_ = value;
+            }
+
+        }
     }
 }
