@@ -1,4 +1,6 @@
 ﻿using GeneticProgramming.nodes;
+using GeneticProgramming.semantica;
+using GeneticProgramming.solution;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
@@ -11,12 +13,27 @@ namespace GeneticProgramming
     public class GPPool
     {
 
-        [DataMember]
-        public IList<GPAbstractNode> nodes { get; private set; }
-
-        public void InitPool(GPConfig config, GPHolder holder)
+        public GPPool(GPConfig config, GPHolder holder)
         {
-            nodes = new List<GPAbstractNode>();
+            this.config = config;
+            this.holder = holder;
+            
+
         }
+        [DataMember]
+        public IList<GPSolution> solutions { get; private set; }
+
+        public void InitPool(GPTemplate template)
+        {
+            solutions = new List<GPSolution>();
+            for (int i = 0; i < config.poolQtd; i++)
+            {
+                solutions.Add(template.CreateRandomSolution());
+            }
+        }
+
+        public GPConfig config { get; set; }
+        public GPHolder holder { get; set; }
+
     }
 }

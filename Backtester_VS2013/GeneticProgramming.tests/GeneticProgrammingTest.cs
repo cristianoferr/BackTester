@@ -12,7 +12,6 @@ namespace GeneticProgramming.tests
         [TestMethod]
         public void TestGPTemplate()
         {
-            GPPool pool = new GPPool();
             GPConfig config = new GPConfig();
             GPHolder holder = new GPHolder();
 
@@ -29,14 +28,7 @@ namespace GeneticProgramming.tests
             SemanticaList listaNumerica = CriaListaNumerica(holder);
 
             //Templates: possuem propriedades evolutivas, cada uma apontando para uma lista de semantica
-            GPTemplate template = new GPTemplate(config);
-            template.AddProperty("prop1", listaFormulas);
-            template.AddProperty("prop2", listaFormulas);
-            template.AddProperty("prop3", listaFormulas);
-            template.AddProperty("prop4", listaFormulas);
-
-            template.AddProperty("number1", listaNumerica);
-            template.AddProperty("number2", listaNumerica);
+            GPTemplate template = CreateTestTemplate(config, listaFormulas, listaNumerica);
 
             GPSolution solution = template.CreateRandomSolution();
             Assert.IsNotNull(solution);
@@ -57,6 +49,19 @@ namespace GeneticProgramming.tests
 
         }
 
+        private static GPTemplate CreateTestTemplate(GPConfig config, SemanticaList listaFormulas, SemanticaList listaNumerica)
+        {
+            GPTemplate template = new GPTemplate(config);
+            template.AddProperty("prop1", listaFormulas);
+            template.AddProperty("prop2", listaFormulas);
+            template.AddProperty("prop3", listaFormulas);
+            template.AddProperty("prop4", listaFormulas);
+
+            template.AddProperty("number1", listaNumerica);
+            template.AddProperty("number2", listaNumerica);
+            return template;
+        }
+
         [TestMethod]
         public void TestaGPHolder()
         {
@@ -67,7 +72,7 @@ namespace GeneticProgramming.tests
             Assert.IsNotNull(holder.GetSemantica(GPHolder.COMP_EQUAL));
             Assert.IsTrue(holder.GetSemantica(GPHolder.COMP_EQUAL).nodeType == GPConsts.GPNODE_TYPE.NODE_COMPARER);
             Assert.IsNotNull(holder.GetSemantica(GPHolder.OPER_MULTIPLY));
-            Assert.IsTrue(holder.GetSemantica(GPHolder.OPER_MULTIPLY).nodeType == GPConsts.GPNODE_TYPE.NODE_FORMULA);
+            Assert.IsTrue(holder.GetSemantica(GPHolder.OPER_MULTIPLY).nodeType == GPConsts.GPNODE_TYPE.NODE_OPERATOR);
         }
 
         [TestMethod]
@@ -116,9 +121,9 @@ namespace GeneticProgramming.tests
         [TestMethod]
         public void TestaGPCriacaoPelaLista()
         {
-            GPPool pool = new GPPool();
             GPConfig config = new GPConfig();
             GPHolder holder = new GPHolder();
+            GPPool pool = new GPPool(config,holder);
             SemanticaList listaFormulas = CriaListaDefault(holder);
 
             string listDefault = "default";
@@ -177,18 +182,21 @@ namespace GeneticProgramming.tests
         [TestMethod]
         public void TestGPInicial()
         {
-
-            GPPool pool = new GPPool();
-            GPConfig config = new GPConfig();
             GPHolder holder = new GPHolder();
+            SemanticaList listaFormulas = CriaListaDefault(holder);
+            SemanticaList listaNumerica = CriaListaNumerica(holder);
+
+            GPConfig config = new GPConfig();
+            GPTemplate template = CreateTestTemplate(config, listaFormulas, listaNumerica);
+            GPPool pool = new GPPool(config, holder);
 
             Assert.IsTrue(config.poolQtd > 0);
             Assert.IsTrue(config.elitismPercent > 0);
             Assert.IsTrue(config.mutationRatePerc > 0);
             Assert.IsTrue(config.poolQtd > 0);
 
-            pool.InitPool(config, holder);
-            Assert.IsTrue(pool.nodes.Count > 0);
+            pool.InitPool(template);
+            Assert.IsTrue(pool.solutions.Count > 0);
 
         }
 
