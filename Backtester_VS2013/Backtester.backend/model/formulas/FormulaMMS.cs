@@ -4,17 +4,12 @@ namespace Backtester.backend.model.formulas
 {
     public class FormulaMMS : Formula
     {
-        public int per { get; set; }
+        public Formula per { get; set; }
         public Formula campo { get; set; }
 
-        public FormulaMMS(FacadeBacktester facade, string name, string campo, int per)
-            : base(facade, name)
-        {
-            this.campo = facade.formulaManager.GetFormula(campo);
-            this.per = per;
-        }
+       
 
-        public FormulaMMS(FacadeBacktester facade, string name, Formula campo, int per)
+        public FormulaMMS(FacadeBacktester facade, string name, Formula campo, Formula per)
             : base(facade, name)
         {
             this.campo = campo;
@@ -23,20 +18,27 @@ namespace Backtester.backend.model.formulas
 
         public override string GetCode()
         {
-            return name + "(" + campo.GetCode() + "," + per + ")";
+            return name + "(" + campo.GetCode() + "," + per.GetCode() + ")";
         }
 
         public override float Calc(Candle candle)
         {
             float tot = 0;
             Candle c = candle;
-            for (int i = 0; i < per; i++)
+            float vPer = per.Calc(candle);
+            vPer = LimitPeriodo(vPer);
+            if (vPer <= 0) return 0;
+            for (int i = 0; i < vPer; i++)
             {
                 //System.out.println("i:"+i+" "+tot);
-                tot = tot + c.GetValor(campo);
+                float vlr = 0;
+                if (c == null) return 0;
+                if (c.candleAnterior!=c)
+                    vlr=c.GetValor(campo);
+                tot = tot + vlr;
                 c = c.candleAnterior;
             }
-            tot = tot / per;
+            tot = tot / vPer;
             //System.out.println("tot:"+tot);
             return tot;
         }

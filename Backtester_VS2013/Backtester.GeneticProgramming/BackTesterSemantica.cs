@@ -35,21 +35,21 @@ namespace Backtester.GeneticProgramming
             AddSemanticaFormula(FormulaManager.MMS, 2, 2);
             AddSemanticaFormula(FormulaManager.MME, 2, 2);
             AddSemanticaFormula(FormulaManager.IFR, 2, 2);
-            AddSemanticaFormula(FormulaManager.HV, 1, 1);
-            AddSemanticaFormula(FormulaManager.LV, 1, 1);
-            AddSemanticaFormula(FormulaManager.AVGGAIN, 1, 1);
-            AddSemanticaFormula(FormulaManager.AVGLOSS, 1, 1);
-            AddSemanticaFormula(FormulaManager.STDDEV, 1, 1);
-            AddSemanticaFormula(FormulaManager.UPPERBB, 2, 2);
-            AddSemanticaFormula(FormulaManager.MIDDLEBB, 2, 2);
-            AddSemanticaFormula(FormulaManager.LOWERBB, 2, 2);
-            AddSemanticaFormula(FormulaManager.BB, 3, 3);
+            AddSemanticaFormula(FormulaManager.HV, 2, 2);
+            AddSemanticaFormula(FormulaManager.LV, 2, 2);
+            AddSemanticaFormula(FormulaManager.AVGGAIN, 2, 2);
+            AddSemanticaFormula(FormulaManager.AVGLOSS, 2, 2);
+            AddSemanticaFormula(FormulaManager.STDDEV, 2, 2);
+            AddSemanticaFormula(FormulaManager.UPPERBB, 3, 3);
+            AddSemanticaFormula(FormulaManager.MIDDLEBB, 3, 3);
+            AddSemanticaFormula(FormulaManager.LOWERBB, 3, 3);
+            //AddSemanticaFormula(FormulaManager.BB, 3, 3);
             AddSemanticaFormula(FormulaManager.SUBTRACT, 2, 2);
             AddSemanticaFormula(FormulaManager.MULTIPLY, 2, 2);
             AddSemanticaFormula(FormulaManager.SUM, 2, 2);
             AddSemanticaFormula(FormulaManager.DIVIDE, 2, 2);
-            AddSemanticaFormula(FormulaManager.STOCH, 1, 1);
-            AddSemanticaFormula(FormulaManager.PERCENTIL, 0, 0);
+            AddSemanticaFormula(FormulaManager.STOCH, 2, 2);
+            AddSemanticaFormula(FormulaManager.PERCENTIL, 1, 1);
         }
 
         private void AddSemanticaFormula(string name, int min, int max)

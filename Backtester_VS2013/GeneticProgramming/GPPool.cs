@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using UsoComum;
 
 namespace GeneticProgramming
 {
@@ -25,8 +26,9 @@ namespace GeneticProgramming
 
         public void InitPool(GPTemplate template)
         {
+            this.template = template;
             solutions = new List<GPSolution>();
-            for (int i = 0; i < config.poolQtd; i++)
+            for (int i = 0; i < config.poolSize; i++)
             {
                 solutions.Add(template.CreateRandomSolution());
             }
@@ -54,25 +56,35 @@ namespace GeneticProgramming
             }
         }
 
-        internal void Mutate()
+        public void Mutate()
         {
-            Random rnd = new Random();
-            for (int i = config.elitismPercent * solutions.Count; i < solutions.Count; i++)
+            for (int i = config.elitismPercent * solutions.Count/100; i < solutions.Count; i++)
             {
                 GPSolution solution = solutions[i];
 
-                if (rnd.Next(0, 100) < config.spliceChancePerc)
+                if (Utils.Random(0, 100) < config.spliceChancePerc)
                 {
                     //Pego um dos top 85%
-                    GPSolution mateWith = solutions[rnd.Next(0, 85) / 100 * solutions.Count];
+                    GPSolution mateWith = solutions[Utils.Random(0, 85) / 100 * solutions.Count];
                     solution.SpliceWith(mateWith);
                 }
-                if (rnd.Next(0, 100) <= config.mutationRatePerc)
+                if (Utils.Random(0, 100) <= config.mutationRatePerc)
                 {
                     solution.Mutate();
                 }
                 //TODO: mutate, splice, etc
             }
+
+            for (int i = solutions.Count-1;i>=config.unfitRemovalPercent * config.poolSize / 100; i--)
+            {
+                solutions.RemoveAt(i);
+            }
+            for (int i = config.unfitRemovalPercent * config.poolSize / 100; i < config.poolSize; i++)
+            {
+                solutions.Add(template.CreateRandomSolution());
+            }
         }
+
+        public GPTemplate template { get; set; }
     }
 }

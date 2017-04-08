@@ -5,12 +5,9 @@ namespace Backtester.backend.model.formulas
 {
     public class FormulaMME : FormulaMMS
     {
-        public FormulaMME(FacadeBacktester facade, String name, String campo, int per)
-            : base(facade, name, campo, per)
-        {
-        }
+  
 
-        public FormulaMME(FacadeBacktester facade, String name, Formula campo, int per)
+        public FormulaMME(FacadeBacktester facade, String name, Formula campo, Formula per)
             : base(facade, name, campo, per)
         {
         }
@@ -18,11 +15,16 @@ namespace Backtester.backend.model.formulas
         public override float Calc(Candle candle)
         {
             Candle c = candle;
-            float K = 2f / (per + 1f);
+            float vPer = per.Calc(candle);
+            vPer = LimitPeriodo(vPer);
+            if (vPer <= 0) return 0;
+            float K = 2f / (vPer + 1f);
             Candle cp = c.candleAnterior;
+            if (cp == null) return 0;
             float P = 0;
-            float prevMM = cp.GetValor(GetCode());
-            if (prevMM == 0) { P = cp.GetValor(campo); } else { P = prevMM; }
+            
+            float prevMM = cp==c?0:cp.GetValor(GetCode());
+            P = prevMM; 
             float C = c.GetValor(campo);
 
             float EMA = (K * (C - P)) + P;

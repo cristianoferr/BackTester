@@ -21,7 +21,7 @@ namespace GeneticProgramming
         public abstract GPTemplate CreateTemplate();
 
 
-        public void SingleRun()
+        public virtual void SingleRun()
         {
             pool.InitTurn();
             foreach (GPSolution solution in pool.solutions)

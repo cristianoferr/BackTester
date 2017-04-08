@@ -2,6 +2,7 @@
 using GeneticProgramming.semantica;
 using System.Globalization;
 using System.Runtime.Serialization;
+using UsoComum;
 namespace GeneticProgramming.nodes
 {
     [DataContract]
@@ -9,17 +10,39 @@ namespace GeneticProgramming.nodes
     {
 
         public GPNodeNumber(GPSemantica semanticaNumber, float vlrInicial)
-            : base(semanticaNumber, GPConsts.GPNODE_TYPE.NODE_NUMBER)
+            : base(semanticaNumber)
         {
             this.valor = vlrInicial;
         }
 
+
+        public override void Mutate(SemanticaList semanticaList)
+        {
+            valor += Utils.Random(- 2, + 2);
+        }
+
+        float valor_;
         [DataMember]
-        public float valor { get; set; }
+        public float valor { get{
+            return valor_;
+        }
+            set{
+                if (value > semanticaNumber.maxValue)
+                {
+                    value = semanticaNumber.maxValue;
+                }
+                if (value < semanticaNumber.minValue)
+                {
+                    value = semanticaNumber.minValue;
+                }
+
+                valor_ = value;
+            }
+        }
 
         public override string ToString()
         {
-            return valor.ToString("#.###", CultureInfo.CreateSpecificCulture("en-US"));
+            return valor.ToString("0.###", CultureInfo.CreateSpecificCulture("en-US"));
         }
 
         public GPSemanticaNumber semanticaNumber

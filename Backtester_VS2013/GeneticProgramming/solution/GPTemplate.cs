@@ -32,5 +32,10 @@ namespace GeneticProgramming.semantica
         }
 
         public GPConfig config { get; set; }
+
+        public SemanticaList GetProperty(string property)
+        {
+            return properties[property];
+        }
     }
 }

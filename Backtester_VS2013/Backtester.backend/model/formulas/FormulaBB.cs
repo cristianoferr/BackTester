@@ -1,16 +1,17 @@
 ﻿
 using Backtester.backend.DataManager;
 using Backtester.backend.model.ativos;
+using System;
 namespace Backtester.backend.model.formulas
 {
     public class FormulaBB : Formula
     {
-        int per;
+        Formula per;
         string banda;
-        float desvio;
+        Formula desvio;
         Formula campo;
 
-        public FormulaBB(FacadeBacktester facade, string name, Formula campo, string banda, int per, float desvio)
+        public FormulaBB(FacadeBacktester facade, string name, Formula campo, string banda, Formula per, Formula desvio)
             : base(facade, name)
         {
             this.per = per;
@@ -26,17 +27,19 @@ namespace Backtester.backend.model.formulas
 
         public override string GetCode()
         {
-            return name + "(" + campo.GetCode() + "," + banda + "," + per + "," + desvio + ")";
+            return name + "(" + campo.GetCode() + "," + per.GetCode() + "," + desvio.GetCode() + ")";
         }
 
         public override float Calc(Candle candle)
         {
+            float vPer = per.Calc(candle);
+            vPer = LimitPeriodo(vPer);
             float v = 0;
-            float avg = candle.GetValor(facade.formulaManager.GetFormula(FormulaManager.MMS, campo.GetCode() + "," + per));
-            float stdDev = candle.GetValor(facade.formulaManager.GetFormula(FormulaManager.STDDEV, campo.GetCode() + "," + per));
-            if (banda == "U") v = avg + desvio * stdDev;
+            float avg = candle.GetValor(facade.formulaManager.GetFormula(FormulaManager.MMS, campo.GetCode() + "," + vPer));
+            float stdDev = candle.GetValor(facade.formulaManager.GetFormula(FormulaManager.STDDEV, campo.GetCode() + "," + vPer));
+            if (banda == "U") v = avg + desvio.Calc(candle) * stdDev;
             if (banda == "M") v = avg;
-            if (banda == "L") v = avg - desvio * stdDev;
+            if (banda == "L") v = avg - desvio.Calc(candle) * stdDev;
 
             return v;
         }

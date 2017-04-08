@@ -1,5 +1,6 @@
 ﻿
 using Backtester.backend.model.ativos;
+using System;
 namespace Backtester.backend.model.formulas
 {
     public class Formula
@@ -26,7 +27,17 @@ namespace Backtester.backend.model.formulas
 
         public virtual float Calc(Candle candle)
         {
-            return candle.GetValor(name);
+            return candle.GetValorIfExists(name);
+        }
+
+        internal float LimitPeriodo(float per)
+        {
+            per = Math.Abs(per);
+            if (per > 100)
+            {
+                per = 100;
+            }
+            return per;
         }
 
         public override string ToString()

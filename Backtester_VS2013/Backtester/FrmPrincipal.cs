@@ -8,11 +8,13 @@ namespace Backtester
     {
         ConfigController configController;
         TradeSystemController tsController;
+        GeneticProgrammingController gpController;
         public FrmPrincipal()
         {
             InitializeComponent();
             configController = new ConfigController(this);
             tsController = new TradeSystemController(this);
+            gpController = new GeneticProgrammingController(this,configController);
 
         }
 
@@ -137,6 +139,11 @@ namespace Backtester
         private void dataGridRuns_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void btnRodaGP_Click(object sender, System.EventArgs e)
+        {
+            gpController.Run();
         }
 
 

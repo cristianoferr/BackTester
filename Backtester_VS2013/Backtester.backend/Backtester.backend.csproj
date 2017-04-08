@@ -64,8 +64,16 @@
     <Compile Include="model\ativos\Candle.cs" />
     <Compile Include="model\formulas\FormulaDivide.cs" />
     <Compile Include="model\formulas\FormulaMultiply.cs" />
+    <Compile Include="model\formulas\FormulaNumber.cs" />
     <Compile Include="model\formulas\FormulaSUM.cs" />
     <Compile Include="model\formulas\FormulaSUBTRACT.cs" />
+    <Compile Include="model\formulas\LOGICAL\FormulaEQUAL.cs" />
+    <Compile Include="model\formulas\LOGICAL\FormulaDIF.cs" />
+    <Compile Include="model\formulas\LOGICAL\FormulaLOWER_EQ.cs" />
+    <Compile Include="model\formulas\LOGICAL\FormulaLOWER.cs" />
+    <Compile Include="model\formulas\LOGICAL\FormulaGREATER_EQ.cs" />
+    <Compile Include="model\formulas\LOGICAL\FormulaLogical.cs" />
+    <Compile Include="model\formulas\LOGICAL\FormulaGREATER.cs" />
     <Compile Include="model\system\Carteira.cs" />
     <Compile Include="DataManager\DataHolder.cs" />
     <Compile Include="model\formulas\Formula.cs" />

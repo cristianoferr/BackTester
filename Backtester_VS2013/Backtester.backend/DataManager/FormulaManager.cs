@@ -29,7 +29,7 @@ namespace Backtester.backend.DataManager
         public static string UPPERBB = "UPPERBB";
         public static string MIDDLEBB = "MIDDLEBB";
         public static string LOWERBB = "LOWERBB";
-        public static string BB = "BB";
+      //  public static string BB = "BB";
         public static string SUM = "SUM";
         public static string SUBTRACT = "SUBTRACT";
         public static string MULTIPLY = "MULTIPLY";
@@ -39,11 +39,28 @@ namespace Backtester.backend.DataManager
         // public static string TICK = "TICK";
         public static string STOCH = "STOCH";
         public static string PERCENTIL = "PERCENTIL";
+
+        //LOGICAL
+        public static string COMP_DIF = UsoComum.ConstsComuns.Operador.DIFFERENT.ToString();
+        public static string COMP_EQUAL = UsoComum.ConstsComuns.Operador.EQUAL.ToString();
+        public static string COMP_GREATER = UsoComum.ConstsComuns.Operador.GREATER.ToString();
+        public static string COMP_GREATER_EQ = UsoComum.ConstsComuns.Operador.GREATER_EQ.ToString();
+        public static string COMP_LOWER = UsoComum.ConstsComuns.Operador.LOWER.ToString();
+        public static string COMP_LOWER_EQ = UsoComum.ConstsComuns.Operador.LOWER_EQ.ToString();
+
+
         private FacadeBacktester facade;
 
         public FormulaManager(FacadeBacktester facadeBacktester)
         {
             this.facade = facadeBacktester;
+            formulasDisp.Add(COMP_DIF);
+            formulasDisp.Add(COMP_EQUAL);
+            formulasDisp.Add(COMP_GREATER);
+            formulasDisp.Add(COMP_GREATER_EQ);
+            formulasDisp.Add(COMP_LOWER);
+            formulasDisp.Add(COMP_LOWER_EQ);
+
             formulasDisp.Add(CLOSE);
             formulasDisp.Add(OPEN);
             formulasDisp.Add(HIGH);
@@ -63,7 +80,7 @@ namespace Backtester.backend.DataManager
             formulasDisp.Add(UPPERBB);
             formulasDisp.Add(MIDDLEBB);
             formulasDisp.Add(LOWERBB);
-            formulasDisp.Add(BB);
+          //  formulasDisp.Add(BB);
             formulasDisp.Add(SUM);
             formulasDisp.Add(SUBTRACT);
             // formulasDisp.Add(DAYOFWEEK);
@@ -98,7 +115,8 @@ namespace Backtester.backend.DataManager
             string par = getFormulaParFromCode(code);
 
             Formula formula = CreateFormula(name, par);
-            facade.dh.AddFormula(name, par);
+          //  facade.dh.AddFormula(name, par);
+            facade.dh.AddFormula(formula);
             return formula;
 
         }
@@ -114,7 +132,7 @@ namespace Backtester.backend.DataManager
         {
             string name = getFormulaNameFromCode(code);
             if (code == name) return "";
-            string par = code.Replace(name + "(", "");
+            string par = code.Substring(name.Length + 1);
             par = par.Substring(0, par.Length - 1);
             return par;
         }
@@ -124,6 +142,62 @@ namespace Backtester.backend.DataManager
 
             if (formulasInst.ContainsKey(GetCode(name, par))) return formulasInst[GetCode(name, par)];
 
+            string[] pars = SplitParameters(par);
+
+            Formula f = null;
+
+            if (Utils.IsNumber(name))
+            {
+                f = new FormulaNumber(facade, name);
+            }
+
+            //Esses operadores aceitam tanto fórmula quanto número no segundo parametro
+            if (Utils.IsNumber(pars[1]))
+            {
+                if (name == SUBTRACT) f = new FormulaSUBTRACT(facade, name, GetFormula(pars[0]), float.Parse(pars[1]));
+                if (name == MULTIPLY) f = new FormulaMultiply(facade, name, GetFormula(pars[0]), float.Parse(pars[1]));
+                if (name == DIVIDE) f = new FormulaDivide(facade, name, GetFormula(pars[0]), float.Parse(pars[1]));
+                if (name == SUM) f = new FormulaSUM(facade, name, GetFormula(pars[0]), float.Parse(pars[1]));
+            }
+            else
+            {
+                if (name == SUBTRACT) f = new FormulaSUBTRACT(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
+                if (name == MULTIPLY) f = new FormulaMultiply(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
+                if (name == DIVIDE) f = new FormulaDivide(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
+                if (name == SUM) f = new FormulaSUM(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
+            }
+
+            if (f == null)
+            {
+                f = CreateLogicalFormulas(name, pars);
+            }
+
+            if (name == STOCH) f = new FormulaStoch(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
+            if (name == PERCENTIL) f = new FormulaPercentil(facade, name, GetFormula(pars[0]));
+            //if (name == TICK) f = new FormulaTick(facade, name);
+            // if (name == DAYOFWEEK) f = new FormulaDayOfWeek(facade, name);
+            if (name == REF) f = new FormulaREF(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
+            if (name == IFR) f = new FormulaRSI(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
+            if (name == HV) f = new FormulaHV(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
+            if (name == LV) f = new FormulaLV(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
+            if (name == AVGGAIN) f = new FormulaAvgGain(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
+            if (name == AVGLOSS) f = new FormulaAvgLoss(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
+            if (name == STDDEV) f = new FormulaStdDev(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
+            if (name == UPPERBB) f = new FormulaBB(facade, UPPERBB, GetFormula(pars[0]), "U", GetFormula(pars[1]), GetFormula(pars[2]));
+            if (name == MIDDLEBB) f = new FormulaBB(facade, MIDDLEBB, GetFormula(pars[0]), "M", GetFormula(pars[1]), GetFormula(pars[2]));
+            if (name == LOWERBB) f = new FormulaBB(facade, LOWERBB, GetFormula(pars[0]), "L", GetFormula(pars[1]), GetFormula(pars[2]));
+           // if (name == BB) f = new FormulaBB(facade, BB, GetFormula(pars[0]), pars[1], int.Parse(pars[2]), float.Parse(pars[3]));
+
+            if (name == MME) f = new FormulaMME(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
+            if (name == MMS) f = new FormulaMMS(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
+            if (f == null) f = new Formula(facade, name);
+            formulasInst.Add(GetCode(name, par), f);
+
+            return f;
+        }
+
+        private static string[] SplitParameters(string par)
+        {
             string[] pars = new string[5];
             int p = 0;
             int flagParenteses = 0;
@@ -149,47 +223,18 @@ namespace Backtester.backend.DataManager
             {
                 if (pars[i] != null) if (pars[i].EndsWith(".0")) pars[i] = pars[i].Replace(".0", "");
             }
+            return pars;
+        }
 
+        private Formula CreateLogicalFormulas(string name, string[] pars)
+        {
             Formula f = null;
-
-            //Esses operadores aceitam tanto fórmula quanto número no segundo parametro
-            if (Utils.IsNumber(pars[1]))
-            {
-                if (name == SUBTRACT) f = new FormulaSUBTRACT(facade, name, GetFormula(pars[0]), float.Parse(pars[1]));
-                if (name == MULTIPLY) f = new FormulaMultiply(facade, name, GetFormula(pars[0]), float.Parse(pars[1]));
-                if (name == DIVIDE) f = new FormulaDivide(facade, name, GetFormula(pars[0]), float.Parse(pars[1]));
-                if (name == SUM) f = new FormulaSUM(facade, name, GetFormula(pars[0]), float.Parse(pars[1]));
-            }
-            else
-            {
-                if (name == SUBTRACT) f = new FormulaSUBTRACT(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
-                if (name == MULTIPLY) f = new FormulaMultiply(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
-                if (name == DIVIDE) f = new FormulaDivide(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
-                if (name == SUM) f = new FormulaSUM(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
-            }
-
-
-            if (name == STOCH) f = new FormulaStoch(facade, name, int.Parse(pars[0]), int.Parse(pars[1]));
-            if (name == PERCENTIL) f = new FormulaPercentil(facade, name, GetFormula(pars[0]));
-            //if (name == TICK) f = new FormulaTick(facade, name);
-            // if (name == DAYOFWEEK) f = new FormulaDayOfWeek(facade, name);
-            if (name == REF) f = new FormulaREF(facade, name, GetFormula(pars[0]), int.Parse(pars[1]));
-            if (name == IFR) f = new FormulaRSI(facade, name, GetFormula(pars[0]), int.Parse(pars[1]));
-            if (name == HV) f = new FormulaHV(facade, name, GetFormula(pars[0]), int.Parse(pars[1]));
-            if (name == LV) f = new FormulaLV(facade, name, GetFormula(pars[0]), int.Parse(pars[1]));
-            if (name == AVGGAIN) f = new FormulaAvgGain(facade, name, GetFormula(pars[0]), int.Parse(pars[1]));
-            if (name == AVGLOSS) f = new FormulaAvgLoss(facade, name, GetFormula(pars[0]), int.Parse(pars[1]));
-            if (name == STDDEV) f = new FormulaStdDev(facade, name, GetFormula(pars[0]), int.Parse(pars[1]));
-            if (name == UPPERBB) f = new FormulaBB(facade, BB, GetFormula(pars[0]), "U", int.Parse(pars[1]), float.Parse(pars[2]));
-            if (name == MIDDLEBB) f = new FormulaBB(facade, BB, GetFormula(pars[0]), "M", int.Parse(pars[1]), float.Parse(pars[2]));
-            if (name == LOWERBB) f = new FormulaBB(facade, BB, GetFormula(pars[0]), "L", int.Parse(pars[1]), float.Parse(pars[2]));
-            if (name == BB) f = new FormulaBB(facade, BB, GetFormula(pars[0]), pars[1], int.Parse(pars[2]), float.Parse(pars[3]));
-
-            if (name == MME) f = new FormulaMME(facade, name, GetFormula(pars[0]), int.Parse(pars[1]));
-            if (name == MMS) f = new FormulaMMS(facade, name, GetFormula(pars[0]), int.Parse(pars[1]));
-            if (f == null) f = new Formula(facade, name);
-            formulasInst.Add(GetCode(name, par), f);
-
+            if (name == COMP_DIF) f = new FormulaDIF(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
+            if (name == COMP_EQUAL) f = new FormulaEQUAL(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
+            if (name == COMP_GREATER) f = new FormulaGREATER(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
+            if (name == COMP_GREATER_EQ) f = new FormulaGREATER_EQ(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
+            if (name == COMP_LOWER) f = new FormulaLOWER(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
+            if (name == COMP_LOWER_EQ) f = new FormulaLOWER_EQ(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
             return f;
         }
     }

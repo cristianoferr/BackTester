@@ -38,3 +38,5 @@ F:\Java\repositorios\BackTester\Backtester_VS2013\Backtester.backend\obj\Release
 F:\Java\repositorios\BackTester\Backtester_VS2013\Backtester.backend\obj\Release\Backtester.backend.pdb
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester.backend\bin\Release\UsoComum.dll
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester.backend\bin\Release\UsoComum.pdb
+F:\Java\repositorios\BackTester\Backtester_VS2013\Backtester.backend\bin\Release\UsoComum.dll
+F:\Java\repositorios\BackTester\Backtester_VS2013\Backtester.backend\bin\Release\UsoComum.pdb

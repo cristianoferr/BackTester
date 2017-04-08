@@ -5,10 +5,10 @@ namespace Backtester.backend.model.formulas
 {
     public class FormulaAvgLoss : Formula
     {
-        int per;
+        Formula per;
         Formula campo;
 
-        public FormulaAvgLoss(FacadeBacktester facade, string name, Formula campo, int per)
+        public FormulaAvgLoss(FacadeBacktester facade, string name, Formula campo, Formula per)
             : base(facade, name)
         {
             this.per = per;
@@ -19,7 +19,7 @@ namespace Backtester.backend.model.formulas
 
         public override string GetCode()
         {
-            return name + "(" + campo.GetCode() + "," + per + ")";
+            return name + "(" + campo.GetCode() + "," + per.GetCode() + ")";
         }
 
 
@@ -27,20 +27,23 @@ namespace Backtester.backend.model.formulas
         {
             Candle cp = candle;
             float ag = 0;
-            for (int i = 0; i < per; i++)
+            float vPer = per.Calc(candle);
+            vPer = LimitPeriodo(vPer);
+            if (vPer == 0) return 0;
+            for (int i = 0; i < vPer; i++)
             {
+                if (cp.candleAnterior == null) return 0;
                 float dif = cp.GetValor(campo) - cp.candleAnterior.GetValor(campo);
                 if (dif < 0) ag += dif;
                 if (cp.candleAnterior == null) return 0;
                 cp = cp.candleAnterior;
-
             }
             float rs = 0;
 
             //1o candle após "per" periodos
-            if (cp.candleAnterior == null)
+            if (cp.candleAnterior == null || cp.candleAnterior==cp)
             {
-                ag = ag / per;
+                ag = ag / vPer;
                 rs = ag;
             }
             else
@@ -48,8 +51,8 @@ namespace Backtester.backend.model.formulas
                 ag = candle.GetValor(campo) - candle.candleAnterior.GetValor(campo);
                 if (ag > 0) ag = 0;
                 ag = Math.Abs(ag);
-                rs = candle.candleAnterior.GetValor(facade.formulaManager.GetFormula(GetCode())) * (per - 1) + ag;
-                rs = rs / per;
+                rs = candle.candleAnterior.GetValor(facade.formulaManager.GetFormula(GetCode())) * (vPer - 1) + ag;
+                rs = rs / vPer;
             }
 
 

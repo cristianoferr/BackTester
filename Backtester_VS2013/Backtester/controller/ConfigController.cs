@@ -15,7 +15,7 @@ namespace Backtester.controller
     {
         private FrmPrincipal frmPrincipal;
         public static Config config;
-        FacadeBacktester facade;
+        public FacadeBacktester facade;
 
         public ConfigController(FrmPrincipal frmPrincipal)
         {
@@ -88,6 +88,11 @@ namespace Backtester.controller
             config.RemovePapel(papel);
             ReloadPapeis();
             Salva();
+        }
+
+        public virtual void RunBackTester(TradeSystem ts)
+        {
+
         }
 
         int contaTestes = 0;

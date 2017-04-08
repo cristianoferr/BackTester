@@ -70,18 +70,18 @@ namespace Backtester.controller
             if (selectedTS < 0) return;
             TradeSystem ts = holder.GetTS(selectedTS);
             ts.name = frmPrincipal.txtNameTs.Text;
-            ts.condicaoEntradaC.formula=frmPrincipal.txtCondEntrC.Text;
-            ts.condicaoEntradaC.descricao = frmPrincipal.txtCondEntrCDesc.Text;
+            ts.condicaoEntradaC=frmPrincipal.txtCondEntrC.Text;
+            //ts.condicaoEntradaC.descricao = frmPrincipal.txtCondEntrCDesc.Text;
 
-            ts.condicaoSaidaC.formula=frmPrincipal.txtCondSaidaC.Text;
-            ts.condicaoSaidaC.descricao = frmPrincipal.txtCondSaidaCDesc.Text;
+            ts.condicaoSaidaC=frmPrincipal.txtCondSaidaC.Text;
+            //ts.condicaoSaidaC.descricao = frmPrincipal.txtCondSaidaCDesc.Text;
 
 
-            ts.condicaoEntradaV.formula=frmPrincipal.txtCondEntrV.Text;
-            ts.condicaoEntradaV.descricao = frmPrincipal.txtCondEntrVDesc.Text;
+            ts.condicaoEntradaV=frmPrincipal.txtCondEntrV.Text;
+           // ts.condicaoEntradaV.descricao = frmPrincipal.txtCondEntrVDesc.Text;
 
-            ts.condicaoSaidaV.formula=frmPrincipal.txtCondSaidaV.Text;
-            ts.condicaoSaidaV.descricao = frmPrincipal.txtCondSaidaVDesc.Text;
+            ts.condicaoSaidaV=frmPrincipal.txtCondSaidaV.Text;
+            //ts.condicaoSaidaV.descricao = frmPrincipal.txtCondSaidaVDesc.Text;
 
             ts.stopMovelC = frmPrincipal.txtStopMovelCompra.Text;
             ts.stopMovelV = frmPrincipal.txtStopMovelVenda.Text;
@@ -132,10 +132,10 @@ namespace Backtester.controller
             vc.UpdateUI();
         }
 
-        private void UpdateUI(backend.model.system.condicoes.CondicaoComplexa condicao, System.Windows.Forms.TextBox txtFormula, System.Windows.Forms.TextBox txtDesc)
+        private void UpdateUI(string condicao, System.Windows.Forms.TextBox txtFormula, System.Windows.Forms.TextBox txtDesc)
         {
-            txtFormula.Text = condicao.formula;
-            txtDesc.Text = condicao.descricao;
+            txtFormula.Text = condicao;
+            //txtDesc.Text = condicao.descricao;
         }
 
 

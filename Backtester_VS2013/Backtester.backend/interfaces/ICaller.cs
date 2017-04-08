@@ -14,5 +14,7 @@ namespace Backtester.backend.interfaces
         void SimpleUpdate();
 
         void UpdateApplication(Carteira carteira, MonteCarlo mc, int countLoops, int totalLoops);
+
+        void RunBackTester(TradeSystem ts);
     }
 }

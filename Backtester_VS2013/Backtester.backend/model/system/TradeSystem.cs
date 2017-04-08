@@ -34,17 +34,21 @@ namespace Backtester.backend.model.system
             GetVariavel(Consts.VAR_USA_STOP_MOVEL, "Usa stop movel? 0=nao, 1=sim", 0, 1, 1);
             GetVariavel(Consts.VAR_MULTIPLAS_ENTRADAS, "A posição pode ter mais de uma entrada(operacao)? 0=nao, 1=sim", 0, 1, 1);
 
-            condicaoEntradaC = new CondicaoComplexa();
+          /*  condicaoEntradaC = new CondicaoComplexa();
             condicaoEntradaV = new CondicaoComplexa();
             condicaoSaidaC = new CondicaoComplexa();
-            condicaoSaidaV = new CondicaoComplexa();
+            condicaoSaidaV = new CondicaoComplexa();*/
 
-            string entrada = "MME(C,9)>MME(C,6)";
-            string saida = "MME(C,9)<MME(C,6)";
-            condicaoEntradaC.ChangeCondicao(entrada);
+            string entrada = "GREATER(MME(C,9),MME(C,6))";
+            string saida = "LOWER(MME(C,9),MME(C,6))";
+            /*condicaoEntradaC.ChangeCondicao(entrada);
             condicaoSaidaC.ChangeCondicao(saida);
             condicaoEntradaV.ChangeCondicao(saida);
-            condicaoSaidaV.ChangeCondicao(entrada);
+            condicaoSaidaV.ChangeCondicao(entrada);*/
+            condicaoEntradaC = entrada;
+            condicaoSaidaC = saida;
+            condicaoEntradaV=saida;
+                condicaoSaidaV=entrada;
 
         }
 
@@ -66,7 +70,18 @@ namespace Backtester.backend.model.system
         public string stopMovelV { get; set; }
 
 
+
         [DataMember]
+        public string condicaoEntradaC { get;  set; }
+
+        [DataMember]
+        public string condicaoSaidaC { get;  set; }
+        [DataMember]
+        public string condicaoEntradaV { get;  set; }
+
+        [DataMember]
+        public string condicaoSaidaV { get;  set; }
+      /*  [DataMember]
         public CondicaoComplexa condicaoEntradaC { get; private set; }
 
         [DataMember]
@@ -76,7 +91,7 @@ namespace Backtester.backend.model.system
 
         [DataMember]
         public CondicaoComplexa condicaoSaidaV { get; private set; }
-
+        */
         #endregion
         /*
          * Esse método verifica se a entrada foi ativada para o candle atual
@@ -85,13 +100,17 @@ namespace Backtester.backend.model.system
         public float checaCondicaoEntrada(Candle candle, Config config)
         {
             if ((config.flagCompra && condicaoEntradaC != null))
-                if (condicaoEntradaC.VerificaCondicao(candle, this))
+            {
+                float valor = candle.GetValor(vm.ReplaceVariavel(condicaoEntradaC));
+                if (valor>=1)
                     return candle.GetValor(stopInicialC) * (1f - stopGapPerc / 100f);
-
+            }
             if ((config.flagVenda && condicaoEntradaV != null))
-                if (condicaoEntradaV.VerificaCondicao(candle, this))
+            {
+                float valor = candle.GetValor(vm.ReplaceVariavel(condicaoEntradaV));
+                if (valor >= 1)
                     return -candle.GetValor(stopInicialV) * (1f + stopGapPerc / 100f);
-
+            }
             return 0;
         }
 
@@ -100,11 +119,13 @@ namespace Backtester.backend.model.system
             //SE for compra e ativou a condicao de saida
             if (direcao > 0)
             {
-                if (condicaoSaidaC.VerificaCondicao(candle, this)) return 1;
+                float valor = candle.GetValor(vm.ReplaceVariavel(condicaoSaidaC));
+                if (valor>=1) return 1;
             }
             if (direcao < 0)
             {
-                if (condicaoSaidaV.VerificaCondicao(candle, this)) return 1;
+                float valor = candle.GetValor(vm.ReplaceVariavel(condicaoSaidaV));
+                if (valor >= 1) return 1;
             }
             return 0;
         }

@@ -5,9 +5,9 @@ namespace Backtester.backend.model.formulas
 {
     public class FormulaStoch : Formula
     {
-        int per, d, smooth;
+        Formula per, smooth;
 
-        public FormulaStoch(FacadeBacktester facade, string name, int per, int smooth)
+        public FormulaStoch(FacadeBacktester facade, string name, Formula per, Formula smooth)
             : base(facade, name)
         {
             this.per = per;
@@ -18,39 +18,26 @@ namespace Backtester.backend.model.formulas
 
         public override string GetCode()
         {
-            return name + "(" + per + "," + smooth + ")";
+            return name + "(" + per.ToString() + "," + smooth.ToString() + ")";
         }
-
-
-        /*
- * (non-Javadoc)
- * @see com.cristiano.backtester.formulas.Formula#calc(com.cristiano.backtester.ativos.Candle)
- * 
- * %K = (Current Close - Lowest Low)/(Highest High - Lowest Low) * 100
-%D = 3-day SMA of %K
-
-Lowest Low = lowest low for the look-back period
-Highest High = highest high for the look-back period
-%K is multiplied by 100 to move the decimal point two places
- */
 
 
         public override float Calc(Candle candle)
         {
             float k = 0;
-            for (int i = 0; i < smooth; i++)
+            float max=smooth.Calc(candle);
+            for (int i = 0; i < max; i++)
             {
                 float ll = candle.GetValor(facade.formulaManager.GetFormula(FormulaManager.LV, "L," + per));
                 float hh = candle.GetValor(facade.formulaManager.GetFormula(FormulaManager.HV, "H," + per));
                 float close = candle.GetValor("C");
                 k += (close - ll) / (hh - ll) * 100;
                 candle = candle.candleAnterior;
+                if (candle == null) return 0;
             }
-            k /= smooth;
+            k /= smooth.Calc(candle);
 
-
-            //	System.out.println("candle:"+candle.getPeriodo()+" rsi:"+rsi+" ag:"+ag+" al:"+al);
-            return (k);
+            return k;
         }
     }
 }

@@ -7,7 +7,7 @@ namespace UsoComum
     {
 
 
-
+        
 
         static readonly log4net.ILog log =
             log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
@@ -20,6 +20,12 @@ namespace UsoComum
         public static void Error(string msg)
         {
             log.Error(msg);
+        }
+
+        static Random rnd = new Random();
+        public static int Random(int min, int max)
+        {
+            return rnd.Next(min, max);
         }
 
         public static string FormatCurrency(float valor)

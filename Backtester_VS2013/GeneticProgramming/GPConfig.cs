@@ -14,7 +14,7 @@ namespace GeneticProgramming
         #region Constructors
         public GPConfig()
         {
-            poolQtd = 100;
+            poolSize = 100;
             elitismPercent = 5;
             mutationRatePerc = 3;
             maxLevels = 5;//Quantidade maxima que um nó pode ter
@@ -22,6 +22,7 @@ namespace GeneticProgramming
 
             spliceChancePerc = 60;//chance de misturar o código com outra solution
             this.maxSize = 30;//tamanhos maiores que esse serão rejeitados.
+            unfitRemovalPercent = 85;//85% para cima serão removidos e substituidos por novos
         }
 
         #region IO
@@ -46,7 +47,7 @@ namespace GeneticProgramming
         #region Properties
 
         [DataMember]
-        public int poolQtd { get; set; }
+        public int poolSize { get; set; }
 
         [DataMember]
         public int elitismPercent { get; set; }
@@ -66,5 +67,7 @@ namespace GeneticProgramming
         public int maxSize { get; set; }
 
         public int spliceChancePerc { get; set; }
+
+        public int unfitRemovalPercent { get; set; }
     }
 }

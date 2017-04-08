@@ -53,14 +53,32 @@ namespace GeneticProgramming.solution
             return float.Parse(GetValue(var).ToString());
         }
 
-        internal void Mutate()
+        public string GetValueAsString(string var)
         {
-            throw new System.NotImplementedException();
+            return GetValue(var).ToString();
+        }
+
+        public void Mutate()
+        {
+            int rnd=Utils.Random(0,valores.Count );
+            int i=0;
+            foreach (string key in valores.Keys)
+            {
+                if (i==rnd){
+                    Mutate(valores[key],key);
+                }
+            }
+            
+        }
+
+        public void Mutate(GPAbstractNode node,string property)
+        {
+            node.Mutate(template.GetProperty(property));
         }
 
         public GPTemplate template { get; set; }
 
-        static Random rnd = new Random();
+        
         public string SpliceWith(GPSolution mateWith)
         {
             int minSize = 2;
@@ -75,13 +93,13 @@ namespace GeneticProgramming.solution
 
             if (validKeys.Count > 0)
             {
-                string key = validKeys[rnd.Next(0, validKeys.Count)];
+                string key = validKeys[Utils.Random(0, validKeys.Count)];
                 GPAbstractNode rootNode1 = valores[key];
                 GPAbstractNode rootNode2 = mateWith.valores[key];
                 int count = 0;
-                GPAbstractNode rndNode1 = rootNode1.GetNthChild(rnd.Next(2, rootNode1.Size()), ref count);
+                GPAbstractNode rndNode1 = rootNode1.GetNthChild(Utils.Random(2, rootNode1.Size()), ref count);
                 count = 0;
-                GPAbstractNode rndNode2 = rootNode2.GetNthChild(rnd.Next(2, rootNode2.Size()), ref count);
+                GPAbstractNode rndNode2 = rootNode2.GetNthChild(Utils.Random(2, rootNode2.Size()), ref count);
                 if (!rndNode1.nodePai.TransferNode(rndNode1, rndNode2))
                 {
                     Utils.Error("Erro fazendo transferNode!");
@@ -97,5 +115,7 @@ namespace GeneticProgramming.solution
 
         }
 
+
+       
     }
 }

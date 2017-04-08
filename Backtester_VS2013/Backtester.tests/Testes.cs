@@ -283,6 +283,16 @@ namespace Backtester.tests
 
             FormulaManager fm = facade.formulaManager;
 
+            Assert.IsNotNull(fm.GetFormula("3"));
+
+            Formula f=fm.GetFormula("RSI(HV(SUBTRACT(O,-9),L),C)");
+            Assert.IsNotNull(f);
+
+            f = fm.GetFormula("PERCENTIL(SUBTRACT(PERCENTIL(C),C))");
+            Assert.IsNotNull(f);
+
+            f = fm.GetFormula("RSI(HV(SUBTRACT(O,-9),L),C)");
+            Assert.IsNotNull(f);
 
             Assert.IsNotNull(fm.GetFormula("MME(C,3)"));
 
@@ -305,13 +315,17 @@ namespace Backtester.tests
 
             float soma = 0;
             Candle candle = ativo.firstCandle;
+            for (int i = 0; i < 10; i++)
+            {
+                candle = candle.proximoCandle;
+            }
             for (int i = 0; i < periodos; i++)
             {
                 soma += candle.GetValor(fonte);
                 candle = candle.proximoCandle;
             }
-            candle = candle.candleAnterior;
             soma = soma / periodos;
+            candle = candle.candleAnterior;
             Assert.IsTrue(Math.Abs(candle.GetValor(codigoFormula) - soma) < 0.1f, candle.GetValor(codigoFormula) + "<>" + soma);
         }
 
@@ -454,9 +468,9 @@ namespace Backtester.tests
             Carteira carteira = new Carteira(facade, valorInicial, config, tradeSystem);
             config.custoOperacao = 20f;
 
-            tradeSystem.condicaoEntradaC.formula = "MME(C,9)>MME(C,3)";
-            tradeSystem.condicaoSaidaC.formula = "MME(C,9)<MME(C,3)";
-            tradeSystem.condicaoEntradaV.formula = "MME(C,9)<MME(C,3)";
+            tradeSystem.condicaoEntradaC = "GREATER(MME(C,9),MME(C,3))";
+            tradeSystem.condicaoSaidaC = "LOWER(MME(C,9),MME(C,3))";
+            tradeSystem.condicaoEntradaV = "LOWER(MME(C,9),MME(C,3))";
 
             Periodo periodo = new Periodo("01-01-2017");
             Ativo ativo = new Ativo(facade, "TESTE", 100);
@@ -465,14 +479,25 @@ namespace Backtester.tests
             candle.SetValor("MME(C,9)", 10);
             candle.SetValor("MME(C,3)", 5);
             candle.SetValor("SUBTRACT(L,MULTIPLY(STD(C,10),2))", 2);
+            candle.SetValor("H", 10);
+            candle.SetValor(tradeSystem.stopInicialC, 5);
+
+            Formula formulaGreater=facade.formulaManager.GetFormula(tradeSystem.condicaoEntradaC);
+            float value=formulaGreater.Calc(candle);
+            Assert.IsTrue(value>0,value+"<=0");
+
+            Formula formulaLower = facade.formulaManager.GetFormula(tradeSystem.condicaoEntradaV);
+            value = formulaLower.Calc(candle);
+            Assert.IsTrue(value <= 0, value + ">0");
 
             float result = tradeSystem.checaCondicaoEntrada(candle, config);
             Assert.IsTrue(result > 0, "result:" + result);
 
             candle.SetValor("MME(C,9)", 2);
+            candle.SetValor("C", 2);
 
             result = tradeSystem.checaCondicaoEntrada(candle, config);
-            Assert.IsTrue(result == 0, "result:" + result);
+            Assert.IsTrue(result < 0, "result:" + result);
         }
 
     }

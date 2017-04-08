@@ -3,3 +3,8 @@ G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\UsoComum\bin\Release\Us
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\UsoComum\bin\Release\log4net.dll
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\UsoComum\obj\Release\UsoComum.dll
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\UsoComum\obj\Release\UsoComum.pdb
+F:\Java\repositorios\BackTester\Backtester_VS2013\UsoComum\bin\Release\UsoComum.dll
+F:\Java\repositorios\BackTester\Backtester_VS2013\UsoComum\bin\Release\UsoComum.pdb
+F:\Java\repositorios\BackTester\Backtester_VS2013\UsoComum\bin\Release\log4net.dll
+F:\Java\repositorios\BackTester\Backtester_VS2013\UsoComum\obj\Release\UsoComum.dll
+F:\Java\repositorios\BackTester\Backtester_VS2013\UsoComum\obj\Release\UsoComum.pdb

@@ -58,6 +58,17 @@ namespace Backtester.backend.model
                 return 0;
             }
 
+            //cancelando trades lixos... 
+            //TODO: adicionar um erro critico no tradesystem
+            if (direcao > 0 && vlrStop >= valorAcao)
+            {
+                return 0;
+            }
+            if (direcao < 0 && vlrStop <= valorAcao)
+            {
+                return 0;
+            }
+
             int qtd = (int)carteira.QueryQtdAcoes(valorAcao, vlrStop, perc,periodo);
             if (qtd <= 0) return 0;
 

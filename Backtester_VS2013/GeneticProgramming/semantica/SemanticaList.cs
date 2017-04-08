@@ -3,6 +3,7 @@ using GeneticProgramming.nodes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using UsoComum;
 namespace GeneticProgramming.semantica
 {
     public class SemanticaList
@@ -116,6 +117,23 @@ namespace GeneticProgramming.semantica
                 minLevels_ = value;
             }
 
+        }
+
+        internal GPSemantica GetEquivalent(GPSemantica semanticaToAvoid,int qtdChild)
+        {
+            IList<GPSemantica> validOptions = new List<GPSemantica>();
+            foreach (GPSemantica sem in lista)
+            {
+                if (sem.minParams <= qtdChild && sem.maxParams >= qtdChild && semanticaToAvoid.name!=sem.name)
+                {
+                    validOptions.Add(sem);
+                }
+            }
+
+            if (validOptions.Count==0)
+                return semanticaToAvoid;
+            GPSemantica choosen = validOptions[Utils.Random(0, validOptions.Count)];
+            return choosen;
         }
     }
 }

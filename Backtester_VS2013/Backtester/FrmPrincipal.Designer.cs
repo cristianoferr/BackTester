@@ -28,24 +28,41 @@
         /// </summary>
         public void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
             this.mainTab = new System.Windows.Forms.TabControl();
             this.tabBackTester = new System.Windows.Forms.TabPage();
             this.tabControlBacktester = new System.Windows.Forms.TabControl();
             this.tabRuns = new System.Windows.Forms.TabPage();
             this.dataGridRuns = new System.Windows.Forms.DataGridView();
+            this.MCObjeto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Carteira = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colNr = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colNome = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.resultado = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.maxCapital = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.minCapital = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.winLoss = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.trades = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ganhos = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.perdidos = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalGanho = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalPerdido = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.percAcerto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.maxdias = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.minDias = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Avg_dias = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelRunsBottom = new System.Windows.Forms.Panel();
             this.dataGridOperacoes = new System.Windows.Forms.DataGridView();
             this.number = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -66,7 +83,6 @@
             this.labelStatus = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel5 = new System.Windows.Forms.Panel();
-            this.txtVarsDebug = new System.Windows.Forms.TextBox();
             this.btnRodaSingle = new System.Windows.Forms.Button();
             this.cbTradeSystem = new System.Windows.Forms.ComboBox();
             this.btnRun = new System.Windows.Forms.Button();
@@ -166,23 +182,8 @@
             this.btnAdicionaTS = new System.Windows.Forms.Button();
             this.btnSalvaTradeSystems = new System.Windows.Forms.Button();
             this.listTradeSystems = new System.Windows.Forms.ListBox();
-            this.MCObjeto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Carteira = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colNr = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colNome = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.resultado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.maxCapital = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.minCapital = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.winLoss = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.trades = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ganhos = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.perdidos = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.totalGanho = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.totalPerdido = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.percAcerto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.maxdias = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.minDias = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Avg_dias = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.txtVarsDebug = new System.Windows.Forms.TextBox();
+            this.btnRodaGP = new System.Windows.Forms.Button();
             this.mainTab.SuspendLayout();
             this.tabBackTester.SuspendLayout();
             this.tabControlBacktester.SuspendLayout();
@@ -227,7 +228,7 @@
             this.mainTab.Location = new System.Drawing.Point(0, 0);
             this.mainTab.Name = "mainTab";
             this.mainTab.SelectedIndex = 0;
-            this.mainTab.Size = new System.Drawing.Size(965, 553);
+            this.mainTab.Size = new System.Drawing.Size(1112, 631);
             this.mainTab.TabIndex = 0;
             this.mainTab.SelectedIndexChanged += new System.EventHandler(this.mainTab_SelectedIndexChanged);
             // 
@@ -238,7 +239,7 @@
             this.tabBackTester.Location = new System.Drawing.Point(4, 22);
             this.tabBackTester.Name = "tabBackTester";
             this.tabBackTester.Padding = new System.Windows.Forms.Padding(3);
-            this.tabBackTester.Size = new System.Drawing.Size(957, 527);
+            this.tabBackTester.Size = new System.Drawing.Size(1104, 605);
             this.tabBackTester.TabIndex = 0;
             this.tabBackTester.Text = "Backtester";
             this.tabBackTester.UseVisualStyleBackColor = true;
@@ -251,7 +252,7 @@
             this.tabControlBacktester.Location = new System.Drawing.Point(3, 46);
             this.tabControlBacktester.Name = "tabControlBacktester";
             this.tabControlBacktester.SelectedIndex = 0;
-            this.tabControlBacktester.Size = new System.Drawing.Size(951, 478);
+            this.tabControlBacktester.Size = new System.Drawing.Size(1098, 556);
             this.tabControlBacktester.TabIndex = 0;
             // 
             // tabRuns
@@ -262,7 +263,7 @@
             this.tabRuns.Location = new System.Drawing.Point(4, 22);
             this.tabRuns.Name = "tabRuns";
             this.tabRuns.Padding = new System.Windows.Forms.Padding(3);
-            this.tabRuns.Size = new System.Drawing.Size(943, 452);
+            this.tabRuns.Size = new System.Drawing.Size(1090, 530);
             this.tabRuns.TabIndex = 1;
             this.tabRuns.Text = "Runs";
             this.tabRuns.UseVisualStyleBackColor = true;
@@ -291,19 +292,172 @@
             this.dataGridRuns.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridRuns.Location = new System.Drawing.Point(3, 32);
             this.dataGridRuns.Name = "dataGridRuns";
-            this.dataGridRuns.Size = new System.Drawing.Size(937, 215);
+            this.dataGridRuns.Size = new System.Drawing.Size(1084, 293);
             this.dataGridRuns.TabIndex = 1;
             this.dataGridRuns.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridRuns_CellContentClick);
             this.dataGridRuns.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridRuns_RowEnter);
+            // 
+            // MCObjeto
+            // 
+            this.MCObjeto.HeaderText = "MCObjeto";
+            this.MCObjeto.Name = "MCObjeto";
+            this.MCObjeto.Visible = false;
+            // 
+            // Carteira
+            // 
+            this.Carteira.HeaderText = "Carteira";
+            this.Carteira.Name = "Carteira";
+            this.Carteira.Visible = false;
+            // 
+            // colNr
+            // 
+            this.colNr.HeaderText = "#";
+            this.colNr.Name = "colNr";
+            this.colNr.Width = 30;
+            // 
+            // colNome
+            // 
+            this.colNome.HeaderText = "Nome";
+            this.colNome.Name = "colNome";
+            // 
+            // resultado
+            // 
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle14.Format = "N2";
+            dataGridViewCellStyle14.NullValue = null;
+            this.resultado.DefaultCellStyle = dataGridViewCellStyle14;
+            this.resultado.HeaderText = "Resultado";
+            this.resultado.Name = "resultado";
+            this.resultado.Width = 80;
+            // 
+            // maxCapital
+            // 
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle15.Format = "N2";
+            dataGridViewCellStyle15.NullValue = null;
+            this.maxCapital.DefaultCellStyle = dataGridViewCellStyle15;
+            this.maxCapital.HeaderText = "Max Capital";
+            this.maxCapital.Name = "maxCapital";
+            this.maxCapital.Width = 80;
+            // 
+            // minCapital
+            // 
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle16.Format = "N2";
+            dataGridViewCellStyle16.NullValue = null;
+            this.minCapital.DefaultCellStyle = dataGridViewCellStyle16;
+            this.minCapital.HeaderText = "Min Capital";
+            this.minCapital.Name = "minCapital";
+            this.minCapital.Width = 80;
+            // 
+            // winLoss
+            // 
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle17.Format = "N2";
+            dataGridViewCellStyle17.NullValue = null;
+            this.winLoss.DefaultCellStyle = dataGridViewCellStyle17;
+            this.winLoss.HeaderText = "$W/$L";
+            this.winLoss.Name = "winLoss";
+            this.winLoss.Width = 50;
+            // 
+            // trades
+            // 
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle18.Format = "N0";
+            dataGridViewCellStyle18.NullValue = null;
+            this.trades.DefaultCellStyle = dataGridViewCellStyle18;
+            this.trades.HeaderText = "Trades";
+            this.trades.Name = "trades";
+            this.trades.Width = 50;
+            // 
+            // ganhos
+            // 
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle19.Format = "N0";
+            dataGridViewCellStyle19.NullValue = null;
+            this.ganhos.DefaultCellStyle = dataGridViewCellStyle19;
+            this.ganhos.HeaderText = "Ganhos";
+            this.ganhos.Name = "ganhos";
+            this.ganhos.Width = 50;
+            // 
+            // perdidos
+            // 
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle20.Format = "N0";
+            dataGridViewCellStyle20.NullValue = null;
+            this.perdidos.DefaultCellStyle = dataGridViewCellStyle20;
+            this.perdidos.HeaderText = "Perdidos";
+            this.perdidos.Name = "perdidos";
+            this.perdidos.Width = 50;
+            // 
+            // totalGanho
+            // 
+            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle21.Format = "N2";
+            dataGridViewCellStyle21.NullValue = null;
+            this.totalGanho.DefaultCellStyle = dataGridViewCellStyle21;
+            this.totalGanho.HeaderText = "Total Ganho";
+            this.totalGanho.Name = "totalGanho";
+            this.totalGanho.Width = 80;
+            // 
+            // totalPerdido
+            // 
+            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle22.Format = "N2";
+            dataGridViewCellStyle22.NullValue = null;
+            this.totalPerdido.DefaultCellStyle = dataGridViewCellStyle22;
+            this.totalPerdido.HeaderText = "Total Perdido";
+            this.totalPerdido.Name = "totalPerdido";
+            this.totalPerdido.Width = 80;
+            // 
+            // percAcerto
+            // 
+            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle23.Format = "N2";
+            dataGridViewCellStyle23.NullValue = null;
+            this.percAcerto.DefaultCellStyle = dataGridViewCellStyle23;
+            this.percAcerto.HeaderText = "%Acerto";
+            this.percAcerto.Name = "percAcerto";
+            this.percAcerto.Width = 50;
+            // 
+            // maxdias
+            // 
+            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle24.Format = "N0";
+            dataGridViewCellStyle24.NullValue = null;
+            this.maxdias.DefaultCellStyle = dataGridViewCellStyle24;
+            this.maxdias.HeaderText = "Max.Dias";
+            this.maxdias.Name = "maxdias";
+            this.maxdias.Width = 50;
+            // 
+            // minDias
+            // 
+            dataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle25.Format = "N0";
+            dataGridViewCellStyle25.NullValue = null;
+            this.minDias.DefaultCellStyle = dataGridViewCellStyle25;
+            this.minDias.HeaderText = "Min.Dias";
+            this.minDias.Name = "minDias";
+            this.minDias.Width = 50;
+            // 
+            // Avg_dias
+            // 
+            dataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle26.Format = "N0";
+            dataGridViewCellStyle26.NullValue = null;
+            this.Avg_dias.DefaultCellStyle = dataGridViewCellStyle26;
+            this.Avg_dias.HeaderText = "Avg.Dias";
+            this.Avg_dias.Name = "Avg_dias";
+            this.Avg_dias.Width = 50;
             // 
             // panelRunsBottom
             // 
             this.panelRunsBottom.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelRunsBottom.Controls.Add(this.dataGridOperacoes);
             this.panelRunsBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelRunsBottom.Location = new System.Drawing.Point(3, 247);
+            this.panelRunsBottom.Location = new System.Drawing.Point(3, 325);
             this.panelRunsBottom.Name = "panelRunsBottom";
-            this.panelRunsBottom.Size = new System.Drawing.Size(937, 202);
+            this.panelRunsBottom.Size = new System.Drawing.Size(1084, 202);
             this.panelRunsBottom.TabIndex = 2;
             // 
             // dataGridOperacoes
@@ -327,7 +481,7 @@
             this.dataGridOperacoes.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridOperacoes.Location = new System.Drawing.Point(0, 0);
             this.dataGridOperacoes.Name = "dataGridOperacoes";
-            this.dataGridOperacoes.Size = new System.Drawing.Size(935, 200);
+            this.dataGridOperacoes.Size = new System.Drawing.Size(1082, 200);
             this.dataGridOperacoes.TabIndex = 5;
             // 
             // number
@@ -416,18 +570,19 @@
             // 
             // panel7
             // 
+            this.panel7.Controls.Add(this.txtVarsDebug);
             this.panel7.Controls.Add(this.labelStatus);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel7.Location = new System.Drawing.Point(3, 3);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(937, 29);
+            this.panel7.Size = new System.Drawing.Size(1084, 29);
             this.panel7.TabIndex = 3;
             // 
             // labelStatus
             // 
             this.labelStatus.AutoSize = true;
             this.labelStatus.Dock = System.Windows.Forms.DockStyle.Right;
-            this.labelStatus.Location = new System.Drawing.Point(917, 0);
+            this.labelStatus.Location = new System.Drawing.Point(1064, 0);
             this.labelStatus.Name = "labelStatus";
             this.labelStatus.Padding = new System.Windows.Forms.Padding(10);
             this.labelStatus.Size = new System.Drawing.Size(20, 33);
@@ -438,31 +593,22 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(943, 452);
+            this.tabPage1.Size = new System.Drawing.Size(1090, 530);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "tabPage1";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // panel5
             // 
-            this.panel5.Controls.Add(this.txtVarsDebug);
+            this.panel5.Controls.Add(this.btnRodaGP);
             this.panel5.Controls.Add(this.btnRodaSingle);
             this.panel5.Controls.Add(this.cbTradeSystem);
             this.panel5.Controls.Add(this.btnRun);
             this.panel5.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel5.Location = new System.Drawing.Point(3, 3);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(951, 43);
+            this.panel5.Size = new System.Drawing.Size(1098, 43);
             this.panel5.TabIndex = 1;
-            // 
-            // txtVarsDebug
-            // 
-            this.txtVarsDebug.Location = new System.Drawing.Point(397, 3);
-            this.txtVarsDebug.Multiline = true;
-            this.txtVarsDebug.Name = "txtVarsDebug";
-            this.txtVarsDebug.Size = new System.Drawing.Size(517, 40);
-            this.txtVarsDebug.TabIndex = 5;
-            this.txtVarsDebug.TextChanged += new System.EventHandler(this.txtVarsDebug_TextChanged);
             // 
             // btnRodaSingle
             // 
@@ -479,7 +625,7 @@
             // 
             this.cbTradeSystem.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbTradeSystem.FormattingEnabled = true;
-            this.cbTradeSystem.Location = new System.Drawing.Point(132, 12);
+            this.cbTradeSystem.Location = new System.Drawing.Point(227, 12);
             this.cbTradeSystem.Name = "cbTradeSystem";
             this.cbTradeSystem.Size = new System.Drawing.Size(259, 21);
             this.cbTradeSystem.TabIndex = 2;
@@ -514,7 +660,7 @@
             this.tabConfig.Location = new System.Drawing.Point(4, 22);
             this.tabConfig.Name = "tabConfig";
             this.tabConfig.Padding = new System.Windows.Forms.Padding(3);
-            this.tabConfig.Size = new System.Drawing.Size(957, 527);
+            this.tabConfig.Size = new System.Drawing.Size(1104, 605);
             this.tabConfig.TabIndex = 1;
             this.tabConfig.Text = "Config";
             this.tabConfig.UseVisualStyleBackColor = true;
@@ -643,7 +789,7 @@
             this.tabTradeSystem.Controls.Add(this.panelTSLeft);
             this.tabTradeSystem.Location = new System.Drawing.Point(4, 22);
             this.tabTradeSystem.Name = "tabTradeSystem";
-            this.tabTradeSystem.Size = new System.Drawing.Size(957, 527);
+            this.tabTradeSystem.Size = new System.Drawing.Size(1104, 605);
             this.tabTradeSystem.TabIndex = 2;
             this.tabTradeSystem.Text = "TradeSystem";
             this.tabTradeSystem.UseVisualStyleBackColor = true;
@@ -655,7 +801,7 @@
             this.panelTradeSystem.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelTradeSystem.Location = new System.Drawing.Point(176, 0);
             this.panelTradeSystem.Name = "panelTradeSystem";
-            this.panelTradeSystem.Size = new System.Drawing.Size(781, 527);
+            this.panelTradeSystem.Size = new System.Drawing.Size(928, 605);
             this.panelTradeSystem.TabIndex = 7;
             this.panelTradeSystem.TabStop = false;
             this.panelTradeSystem.Text = "TradeSystem";
@@ -670,14 +816,14 @@
             this.tabTSOpcoes.Location = new System.Drawing.Point(3, 52);
             this.tabTSOpcoes.Name = "tabTSOpcoes";
             this.tabTSOpcoes.SelectedIndex = 0;
-            this.tabTSOpcoes.Size = new System.Drawing.Size(775, 472);
+            this.tabTSOpcoes.Size = new System.Drawing.Size(922, 550);
             this.tabTSOpcoes.TabIndex = 14;
             // 
             // tabDefinicoes
             // 
             this.tabDefinicoes.Location = new System.Drawing.Point(4, 22);
             this.tabDefinicoes.Name = "tabDefinicoes";
-            this.tabDefinicoes.Size = new System.Drawing.Size(767, 446);
+            this.tabDefinicoes.Size = new System.Drawing.Size(914, 524);
             this.tabDefinicoes.TabIndex = 3;
             this.tabDefinicoes.Text = "Definições";
             this.tabDefinicoes.UseVisualStyleBackColor = true;
@@ -1359,7 +1505,7 @@
             this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel3.Location = new System.Drawing.Point(3, 16);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(775, 36);
+            this.panel3.Size = new System.Drawing.Size(922, 36);
             this.panel3.TabIndex = 13;
             // 
             // txtNameTs
@@ -1388,7 +1534,7 @@
             this.panelTSLeft.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelTSLeft.Location = new System.Drawing.Point(0, 0);
             this.panelTSLeft.Name = "panelTSLeft";
-            this.panelTSLeft.Size = new System.Drawing.Size(176, 527);
+            this.panelTSLeft.Size = new System.Drawing.Size(176, 605);
             this.panelTSLeft.TabIndex = 12;
             // 
             // panel1
@@ -1397,7 +1543,7 @@
             this.panel1.Controls.Add(this.btnAdicionaTS);
             this.panel1.Controls.Add(this.btnSalvaTradeSystems);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel1.Location = new System.Drawing.Point(0, 496);
+            this.panel1.Location = new System.Drawing.Point(0, 574);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(176, 31);
             this.panel1.TabIndex = 12;
@@ -1438,168 +1584,34 @@
             this.listTradeSystems.FormattingEnabled = true;
             this.listTradeSystems.Location = new System.Drawing.Point(0, 0);
             this.listTradeSystems.Name = "listTradeSystems";
-            this.listTradeSystems.Size = new System.Drawing.Size(176, 527);
+            this.listTradeSystems.Size = new System.Drawing.Size(176, 605);
             this.listTradeSystems.TabIndex = 5;
             this.listTradeSystems.SelectedIndexChanged += new System.EventHandler(this.listTradeSystems_SelectedIndexChanged);
             // 
-            // MCObjeto
+            // txtVarsDebug
             // 
-            this.MCObjeto.HeaderText = "MCObjeto";
-            this.MCObjeto.Name = "MCObjeto";
-            this.MCObjeto.Visible = false;
+            this.txtVarsDebug.Location = new System.Drawing.Point(3, 3);
+            this.txtVarsDebug.Name = "txtVarsDebug";
+            this.txtVarsDebug.Size = new System.Drawing.Size(942, 20);
+            this.txtVarsDebug.TabIndex = 6;
+            this.txtVarsDebug.TextChanged += new System.EventHandler(this.txtVarsDebug_TextChanged);
             // 
-            // Carteira
+            // btnRodaGP
             // 
-            this.Carteira.HeaderText = "Carteira";
-            this.Carteira.Name = "Carteira";
-            this.Carteira.Visible = false;
-            // 
-            // colNr
-            // 
-            this.colNr.HeaderText = "#";
-            this.colNr.Name = "colNr";
-            this.colNr.Width = 30;
-            // 
-            // colNome
-            // 
-            this.colNome.HeaderText = "Nome";
-            this.colNome.Name = "colNome";
-            // 
-            // resultado
-            // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle1.Format = "N2";
-            dataGridViewCellStyle1.NullValue = null;
-            this.resultado.DefaultCellStyle = dataGridViewCellStyle1;
-            this.resultado.HeaderText = "Resultado";
-            this.resultado.Name = "resultado";
-            this.resultado.Width = 80;
-            // 
-            // maxCapital
-            // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle2.Format = "N2";
-            dataGridViewCellStyle2.NullValue = null;
-            this.maxCapital.DefaultCellStyle = dataGridViewCellStyle2;
-            this.maxCapital.HeaderText = "Max Capital";
-            this.maxCapital.Name = "maxCapital";
-            this.maxCapital.Width = 80;
-            // 
-            // minCapital
-            // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle3.Format = "N2";
-            dataGridViewCellStyle3.NullValue = null;
-            this.minCapital.DefaultCellStyle = dataGridViewCellStyle3;
-            this.minCapital.HeaderText = "Min Capital";
-            this.minCapital.Name = "minCapital";
-            this.minCapital.Width = 80;
-            // 
-            // winLoss
-            // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle4.Format = "N2";
-            dataGridViewCellStyle4.NullValue = null;
-            this.winLoss.DefaultCellStyle = dataGridViewCellStyle4;
-            this.winLoss.HeaderText = "$W/$L";
-            this.winLoss.Name = "winLoss";
-            this.winLoss.Width = 50;
-            // 
-            // trades
-            // 
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle5.Format = "N0";
-            dataGridViewCellStyle5.NullValue = null;
-            this.trades.DefaultCellStyle = dataGridViewCellStyle5;
-            this.trades.HeaderText = "Trades";
-            this.trades.Name = "trades";
-            this.trades.Width = 50;
-            // 
-            // ganhos
-            // 
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle6.Format = "N0";
-            dataGridViewCellStyle6.NullValue = null;
-            this.ganhos.DefaultCellStyle = dataGridViewCellStyle6;
-            this.ganhos.HeaderText = "Ganhos";
-            this.ganhos.Name = "ganhos";
-            this.ganhos.Width = 50;
-            // 
-            // perdidos
-            // 
-            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle7.Format = "N0";
-            dataGridViewCellStyle7.NullValue = null;
-            this.perdidos.DefaultCellStyle = dataGridViewCellStyle7;
-            this.perdidos.HeaderText = "Perdidos";
-            this.perdidos.Name = "perdidos";
-            this.perdidos.Width = 50;
-            // 
-            // totalGanho
-            // 
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle8.Format = "N2";
-            dataGridViewCellStyle8.NullValue = null;
-            this.totalGanho.DefaultCellStyle = dataGridViewCellStyle8;
-            this.totalGanho.HeaderText = "Total Ganho";
-            this.totalGanho.Name = "totalGanho";
-            this.totalGanho.Width = 80;
-            // 
-            // totalPerdido
-            // 
-            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle9.Format = "N2";
-            dataGridViewCellStyle9.NullValue = null;
-            this.totalPerdido.DefaultCellStyle = dataGridViewCellStyle9;
-            this.totalPerdido.HeaderText = "Total Perdido";
-            this.totalPerdido.Name = "totalPerdido";
-            this.totalPerdido.Width = 80;
-            // 
-            // percAcerto
-            // 
-            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle10.Format = "N2";
-            dataGridViewCellStyle10.NullValue = null;
-            this.percAcerto.DefaultCellStyle = dataGridViewCellStyle10;
-            this.percAcerto.HeaderText = "%Acerto";
-            this.percAcerto.Name = "percAcerto";
-            this.percAcerto.Width = 50;
-            // 
-            // maxdias
-            // 
-            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle11.Format = "N0";
-            dataGridViewCellStyle11.NullValue = null;
-            this.maxdias.DefaultCellStyle = dataGridViewCellStyle11;
-            this.maxdias.HeaderText = "Max.Dias";
-            this.maxdias.Name = "maxdias";
-            this.maxdias.Width = 50;
-            // 
-            // minDias
-            // 
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle12.Format = "N0";
-            dataGridViewCellStyle12.NullValue = null;
-            this.minDias.DefaultCellStyle = dataGridViewCellStyle12;
-            this.minDias.HeaderText = "Min.Dias";
-            this.minDias.Name = "minDias";
-            this.minDias.Width = 50;
-            // 
-            // Avg_dias
-            // 
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle13.Format = "N0";
-            dataGridViewCellStyle13.NullValue = null;
-            this.Avg_dias.DefaultCellStyle = dataGridViewCellStyle13;
-            this.Avg_dias.HeaderText = "Avg.Dias";
-            this.Avg_dias.Name = "Avg_dias";
-            this.Avg_dias.Width = 50;
+            this.btnRodaGP.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnRodaGP.Location = new System.Drawing.Point(126, 0);
+            this.btnRodaGP.Name = "btnRodaGP";
+            this.btnRodaGP.Size = new System.Drawing.Size(74, 43);
+            this.btnRodaGP.TabIndex = 5;
+            this.btnRodaGP.Text = "Roda GP";
+            this.btnRodaGP.UseVisualStyleBackColor = true;
+            this.btnRodaGP.Click += new System.EventHandler(this.btnRodaGP_Click);
             // 
             // FrmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(965, 553);
+            this.ClientSize = new System.Drawing.Size(1112, 631);
             this.Controls.Add(this.mainTab);
             this.Name = "FrmPrincipal";
             this.Text = "BackTester";
@@ -1613,7 +1625,6 @@
             this.panel7.ResumeLayout(false);
             this.panel7.PerformLayout();
             this.panel5.ResumeLayout(false);
-            this.panel5.PerformLayout();
             this.tabConfig.ResumeLayout(false);
             this.tabConfig.PerformLayout();
             this.tabTradeSystem.ResumeLayout(false);
@@ -1764,7 +1775,6 @@
         public System.Windows.Forms.DataGridView dataGridRuns;
         public System.Windows.Forms.Panel panelRunsBottom;
         public System.Windows.Forms.Button btnRodaSingle;
-        public System.Windows.Forms.TextBox txtVarsDebug;
         public System.Windows.Forms.Panel panel7;
         public System.Windows.Forms.Label labelStatus;
         public System.Windows.Forms.DataGridView dataGridOperacoes;
@@ -1801,6 +1811,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn maxdias;
         private System.Windows.Forms.DataGridViewTextBoxColumn minDias;
         private System.Windows.Forms.DataGridViewTextBoxColumn Avg_dias;
+        public System.Windows.Forms.TextBox txtVarsDebug;
+        public System.Windows.Forms.Button btnRodaGP;
     }
 }
 

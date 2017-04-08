@@ -1,4 +1,5 @@
 ﻿using Backtester.backend;
+using Backtester.backend.interfaces;
 using Backtester.backend.model.system;
 using GeneticProgramming;
 using GeneticProgramming.semantica;
@@ -14,19 +15,25 @@ namespace Backtester.GeneticProgramming
         public const string PROP_COND_ENTRADA_V = "COND_ENTRADA_V";
         public const string PROP_COND_SAIDA_C = "COND_SAIDA_C";
         public const string PROP_COND_SAIDA_V = "COND_SAIDA_V";
-        public const string PROP_COND_STOP_MOVEL = "STOP_MOVEL";
-        public const string PROP_COND_STOP_INICIAL = "STOP_INICIAL";
+        public const string PROP_COND_STOP_MOVEL_C = "STOP_MOVEL_C";
+        public const string PROP_COND_STOP_MOVEL_V = "STOP_MOVEL_V";
+        public const string PROP_COND_STOP_INICIAL_C = "STOP_INICIAL_C";
+        public const string PROP_COND_STOP_INICIAL_V = "STOP_INICIAL_V";
 
         public const string OBJ_TRADESYSTEM = "TRADESYSTEM";
 
         IList<string> listFormulas = new List<string>();
         IList<string> listVariaveis = new List<string>();
+        private Config config1;
 
-        public BTGPRunner(Config config)
+        public BTGPRunner(Config config, ICaller gpController)
             : base(LoadGPConfig())
         {
             this.config = config;
+            this.gpController = gpController;
         }
+        
+     
         public override GPSolutionDefinition CreateSolutionDefinition()
         {
             GPSolutionDefinition def = new BackTesterSemantica(gpConfig);
@@ -44,15 +51,19 @@ namespace Backtester.GeneticProgramming
             listFormulas.Add(PROP_COND_ENTRADA_V);
             listFormulas.Add(PROP_COND_SAIDA_C);
             listFormulas.Add(PROP_COND_SAIDA_V);
-            listFormulas.Add(PROP_COND_STOP_MOVEL);
-            listFormulas.Add(PROP_COND_STOP_INICIAL);
+            listFormulas.Add(PROP_COND_STOP_MOVEL_C);
+            listFormulas.Add(PROP_COND_STOP_MOVEL_V);
+            listFormulas.Add(PROP_COND_STOP_INICIAL_C);
+            listFormulas.Add(PROP_COND_STOP_INICIAL_V);
 
             template.AddProperty(PROP_COND_ENTRADA_C, listaFormula);
             template.AddProperty(PROP_COND_ENTRADA_V, listaFormula);
             template.AddProperty(PROP_COND_SAIDA_C, listaFormula);
             template.AddProperty(PROP_COND_SAIDA_V, listaFormula);
-            template.AddProperty(PROP_COND_STOP_MOVEL, listaFormula);
-            template.AddProperty(PROP_COND_STOP_INICIAL, listaFormula);
+            template.AddProperty(PROP_COND_STOP_MOVEL_C, listaFormula);
+            template.AddProperty(PROP_COND_STOP_MOVEL_V, listaFormula);
+            template.AddProperty(PROP_COND_STOP_INICIAL_C, listaFormula);
+            template.AddProperty(PROP_COND_STOP_INICIAL_V, listaFormula);
 
             listVariaveis.Add(Consts.VAR_STOP_GAP);
             listVariaveis.Add(Consts.VAR_RISCO_TRADE);
@@ -77,7 +88,8 @@ namespace Backtester.GeneticProgramming
 
         public override void RunSolution(GPSolution solution)
         {
-
+            TradeSystem ts = solution.GetPropriedade(OBJ_TRADESYSTEM) as TradeSystem;
+            gpController.RunBackTester(ts);
         }
 
         public override void PrepareSolution(GPSolution solution)
@@ -87,6 +99,15 @@ namespace Backtester.GeneticProgramming
             {
                 ts.vm.SetVariavel(var, solution.GetValueAsNumber(var));
             }
+            ts.condicaoEntradaC = solution.GetValueAsString(PROP_COND_ENTRADA_C);
+            ts.condicaoEntradaV = solution.GetValueAsString(PROP_COND_ENTRADA_V);
+            ts.condicaoSaidaC = solution.GetValueAsString(PROP_COND_SAIDA_C);
+            ts.condicaoSaidaV = solution.GetValueAsString(PROP_COND_SAIDA_V);
+            ts.stopMovelC = solution.GetValueAsString(PROP_COND_STOP_MOVEL_C);
+            ts.stopMovelV = solution.GetValueAsString(PROP_COND_STOP_MOVEL_V);
+            ts.stopInicialC = solution.GetValueAsString(PROP_COND_STOP_INICIAL_C);
+            ts.stopInicialV = solution.GetValueAsString(PROP_COND_STOP_INICIAL_V);
+
             solution.SetPropriedade(OBJ_TRADESYSTEM, ts);
         }
 
@@ -99,5 +120,9 @@ namespace Backtester.GeneticProgramming
 
 
         public Config config { get; set; }
+
+
+
+        public ICaller gpController { get; set; }
     }
 }

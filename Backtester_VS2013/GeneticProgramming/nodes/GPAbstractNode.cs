@@ -9,16 +9,13 @@ namespace GeneticProgramming.nodes
     public abstract class GPAbstractNode
     {
 
-
-
-        public GPAbstractNode(semantica.GPSemantica semantica, GPConsts.GPNODE_TYPE nodeType)
+        public GPAbstractNode(semantica.GPSemantica semantica)
         {
             if (semantica == null)
             {
                 throw new Exception("Semantica não definida!");
             }
             this.semantica = semantica;
-            this.nodeType = nodeType;
             children = new List<GPAbstractNode>();
 
         }
@@ -28,10 +25,7 @@ namespace GeneticProgramming.nodes
         public IList<GPAbstractNode> children { get; private set; }
 
         [DataMember]
-        public GPSemantica semantica { get; private set; }
-
-        [DataMember]
-        public GPConsts.GPNODE_TYPE nodeType { get; private set; }
+        public GPSemantica semantica { get; internal set; }
 
         public virtual bool CanAddNode(GPAbstractNode nodeFilho)
         {
@@ -113,8 +107,6 @@ namespace GeneticProgramming.nodes
 
         public bool TransferNode(GPAbstractNode oldNode, GPAbstractNode newNode, bool mirror = true)
         {
-            if (oldNode.nodeType == newNode.nodeType)
-            {
                 if (newNode.ContainsNode(this))
                 {
                     return false;
@@ -141,8 +133,6 @@ namespace GeneticProgramming.nodes
                     }
                 }
                 return true;
-            }
-            return false;
         }
 
         public int Size()
@@ -180,5 +170,7 @@ namespace GeneticProgramming.nodes
             }
             return null;
         }
+
+        public abstract void Mutate(SemanticaList semanticaList);
     }
 }

@@ -59,14 +59,16 @@ namespace Backtester.backend.model.ativos
 
         public float GetValor(string name)
         {
-            Formula f = ativo.facade.formulaManager.GetFormula(name);
-            if (!f.gravar) return f.Calc(this);
-            if (!valores.ContainsKey(name))
+            if (valores.ContainsKey(name))
             {
-                //valores[name] = f.Calc(this);
-                return 0;
+                return valores[name];
             }
-            return valores[name];
+            Formula f = ativo.facade.formulaManager.GetFormula(name);
+            if (valores.ContainsKey(name))
+            {
+                return valores[name];
+            }
+            return f.Calc(this);
         }
 
         public float GetValor(Formula f)
@@ -75,12 +77,14 @@ namespace Backtester.backend.model.ativos
             return valores[f.GetCode()];
         }
 
-        Candle candleAnterior_;
-        public Candle candleAnterior
+        public float GetValorIfExists(string name)
         {
-            get { if (candleAnterior_ == null) { return this; } return candleAnterior_; }
-            set { candleAnterior_ = value; }
+            if (valores.ContainsKey(name))
+                return valores[name];
+            return 0;
         }
+
+        public Candle candleAnterior { get; set; }
 
 
 
@@ -101,5 +105,7 @@ namespace Backtester.backend.model.ativos
         }
 
 
+
+      
     }
 }

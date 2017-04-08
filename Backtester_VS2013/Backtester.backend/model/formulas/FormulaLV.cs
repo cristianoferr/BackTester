@@ -4,10 +4,10 @@ namespace Backtester.backend.model.formulas
 {
     public class FormulaLV : Formula
     {
-        int per;
+        Formula per;
         Formula campo;
 
-        public FormulaLV(FacadeBacktester facade, string name, Formula campo, int per)
+        public FormulaLV(FacadeBacktester facade, string name, Formula campo, Formula per)
             : base(facade, name)
         {
             this.per = per;
@@ -18,7 +18,7 @@ namespace Backtester.backend.model.formulas
 
         public override string GetCode()
         {
-            return name + "(" + campo.GetCode() + "," + per + ")";
+            return name + "(" + campo.GetCode() + "," + per.GetCode() + ")";
         }
 
 
@@ -30,11 +30,14 @@ namespace Backtester.backend.model.formulas
 
             float v = candle.GetValor(campo);
             Candle cp = c;
-            for (int i = 0; i < per; i++)
+            float vPer = per.Calc(candle);
+            vPer = LimitPeriodo(vPer);
+            for (int i = 0; i < vPer; i++)
             {
                 float x = cp.GetValor(campo);
                 if (x < v) v = x;
                 cp = cp.candleAnterior;
+                if (cp == null) return 0;
             }
 
             return (v);

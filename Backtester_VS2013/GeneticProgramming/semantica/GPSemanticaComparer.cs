@@ -16,7 +16,7 @@ namespace GeneticProgramming.semantica
 
         internal override nodes.GPAbstractNode InstantiateEmpty()
         {
-            return new GPNodeComparer(this);
+            return new GPNode(this);
         }
 
         public UsoComum.ConstsComuns.Operador operador { get; set; }

@@ -55,6 +55,7 @@ namespace GeneticProgramming.tests
         {
             GPTemplate template = new GPTemplate(config);
             template.AddProperty("prop1", listaFormulas);
+            Assert.IsTrue(template.GetProperty("prop1") == listaFormulas);
             template.AddProperty("prop2", listaFormulas);
             template.AddProperty("prop3", listaFormulas);
             template.AddProperty("prop4", listaFormulas);
@@ -191,10 +192,10 @@ namespace GeneticProgramming.tests
             GPTemplate template = CreateTestTemplate(config, listaFormulas, listaNumerica);
             GPPool pool = new GPPool(config);
 
-            Assert.IsTrue(config.poolQtd > 0);
+            Assert.IsTrue(config.poolSize > 0);
             Assert.IsTrue(config.elitismPercent > 0);
             Assert.IsTrue(config.mutationRatePerc > 0);
-            Assert.IsTrue(config.poolQtd > 0);
+            Assert.IsTrue(config.poolSize > 0);
 
             pool.InitPool(template);
 
@@ -222,6 +223,15 @@ namespace GeneticProgramming.tests
             string splicedKey = sol1.SpliceWith(sol2);
             Assert.IsNotNull(splicedKey);
 
+            string strOriginal=sol1.GetValue(splicedKey).ToString();
+            sol1.Mutate(sol1.GetValue(splicedKey), splicedKey);
+            string strMutated= sol1.GetValue(splicedKey).ToString();
+            //Assert.IsFalse(strOriginal == strMutated,"Não mutou: "+strOriginal);
+
+            GPSolution badSolution=pool.solutions[pool.solutions.Count - 1];
+            pool.Mutate();
+            Assert.IsFalse(pool.solutions.Contains(badSolution));
+            Assert.IsTrue(pool.solutions.Count == config.poolSize, pool.solutions.Count +"<>"+ config.poolSize);
 
         }
 
@@ -236,7 +246,7 @@ namespace GeneticProgramming.tests
 
             //filho: TERMINAL
 
-            GPSemantica semanticaNumber = new GPSemanticaNumber("Numero de 0 a 10", 0, 10);
+            GPSemantica semanticaNumber = new GPSemanticaNumber("Numero de 0 a 10", 0, 10000);
 
             GPSemantica semanticaFilho = new GPSemanticaFormula("FILHO", 0, 0);
             //neto: NETO(NUMBER)
@@ -244,10 +254,10 @@ namespace GeneticProgramming.tests
             // GPSemantica semanticaNumber2 = new GPSemantica("NETO");
             Assert.IsTrue(semanticaFilho.IsTerminal);
 
-            GPAbstractNode nodePai = new GPNodeFormula(semanticaPai);
-            GPAbstractNode nodePai2 = new GPNodeFormula(semanticaPai2);
-            GPAbstractNode nodeFilho = new GPNodeFormula(semanticaFilho);
-            GPAbstractNode nodeNeto = new GPNodeFormula(semanticaNeto);
+            GPAbstractNode nodePai = new GPNode(semanticaPai);
+            GPAbstractNode nodePai2 = new GPNode(semanticaPai2);
+            GPAbstractNode nodeFilho = new GPNode(semanticaFilho);
+            GPAbstractNode nodeNeto = new GPNode(semanticaNeto);
             GPAbstractNode nodeNumber = new GPNodeNumber(semanticaNumber, 10);
             GPAbstractNode nodeNumber2 = new GPNodeNumber(semanticaNumber, 1050.123f);
 

@@ -10,21 +10,21 @@ namespace Backtester.backend.model.formulas
  */
     public class FormulaStdDev : Formula
     {
-        int per;
+        Formula per;
         Formula campo;
 
-        public FormulaStdDev(FacadeBacktester facade, string name, Formula campo, int per)
+        public FormulaStdDev(FacadeBacktester facade, string name, Formula campo, Formula per)
             : base(facade, name)
         {
             this.campo = campo;
-            this.per = Math.Abs(per);
+            this.per = per;
         }
 
 
 
         public override string GetCode()
         {
-            return name + "(" + campo.GetCode() + "," + per + ")";
+            return name + "(" + campo.GetCode() + "," + per.GetCode() + ")";
         }
 
 
@@ -35,18 +35,21 @@ namespace Backtester.backend.model.formulas
             Candle cp = candle;
             float avg = candle.GetValor(facade.formulaManager.GetFormula(FormulaManager.MMS, campo.GetCode() + "," + per));
 
-            float soma = 0;
-
-            for (int i = 0; i < per; i++)
+            float soma = 0; 
+            float vPer = per.Calc(candle);
+            vPer = LimitPeriodo(vPer);
+            if (vPer == 0) return 0;
+            for (int i = 0; i < vPer; i++)
             {
                 //System.out.println(candle.getPeriodo()+" "+cp.getValor(FormulaManager.close));
                 float dif = cp.GetValor(campo) - avg;
                 dif = dif * dif;
                 soma += dif;
                 cp = cp.candleAnterior;
+                if (cp == null) return 0;
 
             }
-            soma = soma / per;
+            soma = soma / vPer;
 
 
             return (float)Math.Sqrt(soma);

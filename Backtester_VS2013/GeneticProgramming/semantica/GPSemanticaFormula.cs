@@ -16,7 +16,7 @@ namespace GeneticProgramming.semantica
 
         internal override nodes.GPAbstractNode InstantiateEmpty()
         {
-            return new GPNodeFormula(this);
+            return new GPNode(this);
         }
 
     }
