@@ -62,7 +62,9 @@ namespace Backtester.backend.model.system.estatistica
         {
             get
             {
-                return (Math.Abs((float)tradesGanhos.getnTrades() / (float)todosTrades.getnTrades())) * 100;
+                float nTrades = todosTrades.getnTrades();
+                if (nTrades == 0) return 0;
+                return (Math.Abs((float)tradesGanhos.getnTrades() / nTrades)) * 100;
             }
         }
 
@@ -70,7 +72,9 @@ namespace Backtester.backend.model.system.estatistica
         {
             get
             {
-                return Math.Abs(tradesGanhos.getTotal() / tradesPerdidos.getTotal());
+                float total = tradesPerdidos.getTotal();
+                if (total == 0) return 0;
+                return Math.Abs(tradesGanhos.getTotal() / total);
             }
         }
 

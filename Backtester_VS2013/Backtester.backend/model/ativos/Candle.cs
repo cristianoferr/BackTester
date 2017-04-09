@@ -26,6 +26,30 @@ namespace Backtester.backend.model.ativos
             SetValor(FormulaManager.VOL, vol);
         }
 
+        List<string> keysToRemove = new List<string>();
+        internal void ClearData()
+        {
+
+            keysToRemove.Clear();
+            foreach (string key in valores.Keys)
+            {
+                if (key!=FormulaManager.CLOSE &&
+                    key!=FormulaManager.OPEN &&
+                    key!=FormulaManager.HIGH &&
+                    key!=FormulaManager.LOW &&
+                    key != FormulaManager.VOL)
+                {
+                    keysToRemove.Add(key);
+                }
+
+            }
+
+            foreach (string key in keysToRemove)
+            {
+                valores.Remove(key);
+            }
+        }
+
         public Periodo periodo { get; set; }
 
         public Ativo ativo { get; set; }
@@ -106,6 +130,8 @@ namespace Backtester.backend.model.ativos
 
 
 
-      
+
+
+       
     }
 }

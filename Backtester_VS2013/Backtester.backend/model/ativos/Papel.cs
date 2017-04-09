@@ -42,5 +42,14 @@ namespace Backtester.backend.model.ativos
 
         public Candle firstCandle { get; set; }
 
+
+        internal void ClearData()
+        {
+            foreach (Periodo per in candles.Keys)
+            {
+                Candle candle = candles[per];
+                candle.ClearData();
+            }
+        }
     }
 }

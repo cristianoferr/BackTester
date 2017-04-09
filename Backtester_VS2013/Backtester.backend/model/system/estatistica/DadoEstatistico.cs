@@ -5,14 +5,14 @@ namespace Backtester.backend.model.system.estatistica
 {
     public class DadoEstatistico
     {
-        public IList<Operacao> operacoes { get; private set; } //Contém as operações finalizadas nesse dia.
+      //  public IList<Operacao> operacoes { get; private set; } //Contém as operações finalizadas nesse dia.
         float capital;
         SubDado compras, vendas, ambasPontas;
 
 
         public DadoEstatistico()
         {
-            operacoes = new List<Operacao>();
+        //    operacoes = new List<Operacao>();
             compras = new SubDado();
             vendas = new SubDado();
             ambasPontas = new SubDado();

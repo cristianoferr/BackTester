@@ -46,23 +46,6 @@
             this.tabControlBacktester = new System.Windows.Forms.TabControl();
             this.tabRuns = new System.Windows.Forms.TabPage();
             this.dataGridRuns = new System.Windows.Forms.DataGridView();
-            this.MCObjeto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Carteira = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colNr = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colNome = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.resultado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.maxCapital = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.minCapital = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.winLoss = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.trades = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ganhos = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.perdidos = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.totalGanho = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.totalPerdido = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.percAcerto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.maxdias = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.minDias = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Avg_dias = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelRunsBottom = new System.Windows.Forms.Panel();
             this.dataGridOperacoes = new System.Windows.Forms.DataGridView();
             this.number = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -80,9 +63,11 @@
             this.Dif = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Capital = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel7 = new System.Windows.Forms.Panel();
+            this.txtVarsDebug = new System.Windows.Forms.TextBox();
             this.labelStatus = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.btnRodaSingleGP = new System.Windows.Forms.Button();
             this.btnRodaSingle = new System.Windows.Forms.Button();
             this.cbTradeSystem = new System.Windows.Forms.ComboBox();
             this.btnRun = new System.Windows.Forms.Button();
@@ -182,8 +167,25 @@
             this.btnAdicionaTS = new System.Windows.Forms.Button();
             this.btnSalvaTradeSystems = new System.Windows.Forms.Button();
             this.listTradeSystems = new System.Windows.Forms.ListBox();
-            this.txtVarsDebug = new System.Windows.Forms.TextBox();
-            this.btnRodaGP = new System.Windows.Forms.Button();
+            this.MCObjeto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Carteira = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colNr = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colNome = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Fitness = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.resultado = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.maxCapital = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.minCapital = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.winLoss = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.trades = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ganhos = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.perdidos = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalGanho = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.totalPerdido = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.percAcerto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.maxdias = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.minDias = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Avg_dias = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.button1 = new System.Windows.Forms.Button();
             this.mainTab.SuspendLayout();
             this.tabBackTester.SuspendLayout();
             this.tabControlBacktester.SuspendLayout();
@@ -276,6 +278,7 @@
             this.Carteira,
             this.colNr,
             this.colNome,
+            this.Fitness,
             this.resultado,
             this.maxCapital,
             this.minCapital,
@@ -296,159 +299,6 @@
             this.dataGridRuns.TabIndex = 1;
             this.dataGridRuns.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridRuns_CellContentClick);
             this.dataGridRuns.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridRuns_RowEnter);
-            // 
-            // MCObjeto
-            // 
-            this.MCObjeto.HeaderText = "MCObjeto";
-            this.MCObjeto.Name = "MCObjeto";
-            this.MCObjeto.Visible = false;
-            // 
-            // Carteira
-            // 
-            this.Carteira.HeaderText = "Carteira";
-            this.Carteira.Name = "Carteira";
-            this.Carteira.Visible = false;
-            // 
-            // colNr
-            // 
-            this.colNr.HeaderText = "#";
-            this.colNr.Name = "colNr";
-            this.colNr.Width = 30;
-            // 
-            // colNome
-            // 
-            this.colNome.HeaderText = "Nome";
-            this.colNome.Name = "colNome";
-            // 
-            // resultado
-            // 
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle14.Format = "N2";
-            dataGridViewCellStyle14.NullValue = null;
-            this.resultado.DefaultCellStyle = dataGridViewCellStyle14;
-            this.resultado.HeaderText = "Resultado";
-            this.resultado.Name = "resultado";
-            this.resultado.Width = 80;
-            // 
-            // maxCapital
-            // 
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle15.Format = "N2";
-            dataGridViewCellStyle15.NullValue = null;
-            this.maxCapital.DefaultCellStyle = dataGridViewCellStyle15;
-            this.maxCapital.HeaderText = "Max Capital";
-            this.maxCapital.Name = "maxCapital";
-            this.maxCapital.Width = 80;
-            // 
-            // minCapital
-            // 
-            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle16.Format = "N2";
-            dataGridViewCellStyle16.NullValue = null;
-            this.minCapital.DefaultCellStyle = dataGridViewCellStyle16;
-            this.minCapital.HeaderText = "Min Capital";
-            this.minCapital.Name = "minCapital";
-            this.minCapital.Width = 80;
-            // 
-            // winLoss
-            // 
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle17.Format = "N2";
-            dataGridViewCellStyle17.NullValue = null;
-            this.winLoss.DefaultCellStyle = dataGridViewCellStyle17;
-            this.winLoss.HeaderText = "$W/$L";
-            this.winLoss.Name = "winLoss";
-            this.winLoss.Width = 50;
-            // 
-            // trades
-            // 
-            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle18.Format = "N0";
-            dataGridViewCellStyle18.NullValue = null;
-            this.trades.DefaultCellStyle = dataGridViewCellStyle18;
-            this.trades.HeaderText = "Trades";
-            this.trades.Name = "trades";
-            this.trades.Width = 50;
-            // 
-            // ganhos
-            // 
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle19.Format = "N0";
-            dataGridViewCellStyle19.NullValue = null;
-            this.ganhos.DefaultCellStyle = dataGridViewCellStyle19;
-            this.ganhos.HeaderText = "Ganhos";
-            this.ganhos.Name = "ganhos";
-            this.ganhos.Width = 50;
-            // 
-            // perdidos
-            // 
-            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle20.Format = "N0";
-            dataGridViewCellStyle20.NullValue = null;
-            this.perdidos.DefaultCellStyle = dataGridViewCellStyle20;
-            this.perdidos.HeaderText = "Perdidos";
-            this.perdidos.Name = "perdidos";
-            this.perdidos.Width = 50;
-            // 
-            // totalGanho
-            // 
-            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle21.Format = "N2";
-            dataGridViewCellStyle21.NullValue = null;
-            this.totalGanho.DefaultCellStyle = dataGridViewCellStyle21;
-            this.totalGanho.HeaderText = "Total Ganho";
-            this.totalGanho.Name = "totalGanho";
-            this.totalGanho.Width = 80;
-            // 
-            // totalPerdido
-            // 
-            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle22.Format = "N2";
-            dataGridViewCellStyle22.NullValue = null;
-            this.totalPerdido.DefaultCellStyle = dataGridViewCellStyle22;
-            this.totalPerdido.HeaderText = "Total Perdido";
-            this.totalPerdido.Name = "totalPerdido";
-            this.totalPerdido.Width = 80;
-            // 
-            // percAcerto
-            // 
-            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle23.Format = "N2";
-            dataGridViewCellStyle23.NullValue = null;
-            this.percAcerto.DefaultCellStyle = dataGridViewCellStyle23;
-            this.percAcerto.HeaderText = "%Acerto";
-            this.percAcerto.Name = "percAcerto";
-            this.percAcerto.Width = 50;
-            // 
-            // maxdias
-            // 
-            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle24.Format = "N0";
-            dataGridViewCellStyle24.NullValue = null;
-            this.maxdias.DefaultCellStyle = dataGridViewCellStyle24;
-            this.maxdias.HeaderText = "Max.Dias";
-            this.maxdias.Name = "maxdias";
-            this.maxdias.Width = 50;
-            // 
-            // minDias
-            // 
-            dataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle25.Format = "N0";
-            dataGridViewCellStyle25.NullValue = null;
-            this.minDias.DefaultCellStyle = dataGridViewCellStyle25;
-            this.minDias.HeaderText = "Min.Dias";
-            this.minDias.Name = "minDias";
-            this.minDias.Width = 50;
-            // 
-            // Avg_dias
-            // 
-            dataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle26.Format = "N0";
-            dataGridViewCellStyle26.NullValue = null;
-            this.Avg_dias.DefaultCellStyle = dataGridViewCellStyle26;
-            this.Avg_dias.HeaderText = "Avg.Dias";
-            this.Avg_dias.Name = "Avg_dias";
-            this.Avg_dias.Width = 50;
             // 
             // panelRunsBottom
             // 
@@ -578,6 +428,14 @@
             this.panel7.Size = new System.Drawing.Size(1084, 29);
             this.panel7.TabIndex = 3;
             // 
+            // txtVarsDebug
+            // 
+            this.txtVarsDebug.Location = new System.Drawing.Point(3, 3);
+            this.txtVarsDebug.Name = "txtVarsDebug";
+            this.txtVarsDebug.Size = new System.Drawing.Size(942, 20);
+            this.txtVarsDebug.TabIndex = 6;
+            this.txtVarsDebug.TextChanged += new System.EventHandler(this.txtVarsDebug_TextChanged);
+            // 
             // labelStatus
             // 
             this.labelStatus.AutoSize = true;
@@ -600,7 +458,8 @@
             // 
             // panel5
             // 
-            this.panel5.Controls.Add(this.btnRodaGP);
+            this.panel5.Controls.Add(this.button1);
+            this.panel5.Controls.Add(this.btnRodaSingleGP);
             this.panel5.Controls.Add(this.btnRodaSingle);
             this.panel5.Controls.Add(this.cbTradeSystem);
             this.panel5.Controls.Add(this.btnRun);
@@ -609,6 +468,17 @@
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(1098, 43);
             this.panel5.TabIndex = 1;
+            // 
+            // btnRodaSingleGP
+            // 
+            this.btnRodaSingleGP.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnRodaSingleGP.Location = new System.Drawing.Point(126, 0);
+            this.btnRodaSingleGP.Name = "btnRodaSingleGP";
+            this.btnRodaSingleGP.Size = new System.Drawing.Size(74, 43);
+            this.btnRodaSingleGP.TabIndex = 5;
+            this.btnRodaSingleGP.Text = "Single GP";
+            this.btnRodaSingleGP.UseVisualStyleBackColor = true;
+            this.btnRodaSingleGP.Click += new System.EventHandler(this.btnRodaSingleGP_Click);
             // 
             // btnRodaSingle
             // 
@@ -625,7 +495,7 @@
             // 
             this.cbTradeSystem.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbTradeSystem.FormattingEnabled = true;
-            this.cbTradeSystem.Location = new System.Drawing.Point(227, 12);
+            this.cbTradeSystem.Location = new System.Drawing.Point(410, 12);
             this.cbTradeSystem.Name = "cbTradeSystem";
             this.cbTradeSystem.Size = new System.Drawing.Size(259, 21);
             this.cbTradeSystem.TabIndex = 2;
@@ -845,7 +715,7 @@
             this.tabTSVars.Location = new System.Drawing.Point(4, 22);
             this.tabTSVars.Name = "tabTSVars";
             this.tabTSVars.Padding = new System.Windows.Forms.Padding(3);
-            this.tabTSVars.Size = new System.Drawing.Size(767, 446);
+            this.tabTSVars.Size = new System.Drawing.Size(914, 524);
             this.tabTSVars.TabIndex = 0;
             this.tabTSVars.Text = "Variaveis";
             this.tabTSVars.UseVisualStyleBackColor = true;
@@ -854,7 +724,7 @@
             // 
             this.labelVarId.AutoSize = true;
             this.labelVarId.Dock = System.Windows.Forms.DockStyle.Right;
-            this.labelVarId.Location = new System.Drawing.Point(764, 3);
+            this.labelVarId.Location = new System.Drawing.Point(911, 3);
             this.labelVarId.Margin = new System.Windows.Forms.Padding(0);
             this.labelVarId.Name = "labelVarId";
             this.labelVarId.Size = new System.Drawing.Size(0, 13);
@@ -953,7 +823,7 @@
             this.panel2.Dock = System.Windows.Forms.DockStyle.Left;
             this.panel2.Location = new System.Drawing.Point(3, 3);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(176, 440);
+            this.panel2.Size = new System.Drawing.Size(176, 518);
             this.panel2.TabIndex = 13;
             // 
             // panel4
@@ -961,7 +831,7 @@
             this.panel4.Controls.Add(this.btnRemoveVar);
             this.panel4.Controls.Add(this.btnAdicionaVar);
             this.panel4.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel4.Location = new System.Drawing.Point(0, 409);
+            this.panel4.Location = new System.Drawing.Point(0, 487);
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(176, 31);
             this.panel4.TabIndex = 12;
@@ -992,7 +862,7 @@
             this.listTSVars.FormattingEnabled = true;
             this.listTSVars.Location = new System.Drawing.Point(0, 0);
             this.listTSVars.Name = "listTSVars";
-            this.listTSVars.Size = new System.Drawing.Size(176, 440);
+            this.listTSVars.Size = new System.Drawing.Size(176, 518);
             this.listTSVars.TabIndex = 5;
             this.listTSVars.SelectedIndexChanged += new System.EventHandler(this.listTSVars_SelectedIndexChanged);
             // 
@@ -1004,7 +874,7 @@
             this.tabTSCompra.Location = new System.Drawing.Point(4, 22);
             this.tabTSCompra.Name = "tabTSCompra";
             this.tabTSCompra.Padding = new System.Windows.Forms.Padding(3);
-            this.tabTSCompra.Size = new System.Drawing.Size(767, 446);
+            this.tabTSCompra.Size = new System.Drawing.Size(914, 524);
             this.tabTSCompra.TabIndex = 1;
             this.tabTSCompra.Text = "Compra";
             this.tabTSCompra.UseVisualStyleBackColor = true;
@@ -1019,7 +889,7 @@
             this.groupBox2.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox2.Location = new System.Drawing.Point(3, 233);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(761, 115);
+            this.groupBox2.Size = new System.Drawing.Size(908, 115);
             this.groupBox2.TabIndex = 13;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Stop";
@@ -1102,7 +972,7 @@
             this.groupBox3.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox3.Location = new System.Drawing.Point(3, 118);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(761, 115);
+            this.groupBox3.Size = new System.Drawing.Size(908, 115);
             this.groupBox3.TabIndex = 12;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Condição de Saida";
@@ -1179,7 +1049,7 @@
             this.panelCompraEntrada.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelCompraEntrada.Location = new System.Drawing.Point(3, 3);
             this.panelCompraEntrada.Name = "panelCompraEntrada";
-            this.panelCompraEntrada.Size = new System.Drawing.Size(761, 115);
+            this.panelCompraEntrada.Size = new System.Drawing.Size(908, 115);
             this.panelCompraEntrada.TabIndex = 11;
             this.panelCompraEntrada.TabStop = false;
             this.panelCompraEntrada.Text = "Condição de Entrada";
@@ -1254,7 +1124,7 @@
             this.tabTSVenda.Controls.Add(this.groupBox7);
             this.tabTSVenda.Location = new System.Drawing.Point(4, 22);
             this.tabTSVenda.Name = "tabTSVenda";
-            this.tabTSVenda.Size = new System.Drawing.Size(767, 446);
+            this.tabTSVenda.Size = new System.Drawing.Size(914, 524);
             this.tabTSVenda.TabIndex = 2;
             this.tabTSVenda.Text = "Venda";
             this.tabTSVenda.UseVisualStyleBackColor = true;
@@ -1269,7 +1139,7 @@
             this.groupBox10.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox10.Location = new System.Drawing.Point(0, 230);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(767, 115);
+            this.groupBox10.Size = new System.Drawing.Size(914, 115);
             this.groupBox10.TabIndex = 15;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Stop";
@@ -1352,7 +1222,7 @@
             this.groupBox5.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox5.Location = new System.Drawing.Point(0, 115);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(767, 115);
+            this.groupBox5.Size = new System.Drawing.Size(914, 115);
             this.groupBox5.TabIndex = 14;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Condição de Saida";
@@ -1429,7 +1299,7 @@
             this.groupBox7.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupBox7.Location = new System.Drawing.Point(0, 0);
             this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(767, 115);
+            this.groupBox7.Size = new System.Drawing.Size(914, 115);
             this.groupBox7.TabIndex = 13;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Condição de Entrada";
@@ -1588,24 +1458,175 @@
             this.listTradeSystems.TabIndex = 5;
             this.listTradeSystems.SelectedIndexChanged += new System.EventHandler(this.listTradeSystems_SelectedIndexChanged);
             // 
-            // txtVarsDebug
+            // MCObjeto
             // 
-            this.txtVarsDebug.Location = new System.Drawing.Point(3, 3);
-            this.txtVarsDebug.Name = "txtVarsDebug";
-            this.txtVarsDebug.Size = new System.Drawing.Size(942, 20);
-            this.txtVarsDebug.TabIndex = 6;
-            this.txtVarsDebug.TextChanged += new System.EventHandler(this.txtVarsDebug_TextChanged);
+            this.MCObjeto.HeaderText = "MCObjeto";
+            this.MCObjeto.Name = "MCObjeto";
+            this.MCObjeto.Visible = false;
             // 
-            // btnRodaGP
+            // Carteira
             // 
-            this.btnRodaGP.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btnRodaGP.Location = new System.Drawing.Point(126, 0);
-            this.btnRodaGP.Name = "btnRodaGP";
-            this.btnRodaGP.Size = new System.Drawing.Size(74, 43);
-            this.btnRodaGP.TabIndex = 5;
-            this.btnRodaGP.Text = "Roda GP";
-            this.btnRodaGP.UseVisualStyleBackColor = true;
-            this.btnRodaGP.Click += new System.EventHandler(this.btnRodaGP_Click);
+            this.Carteira.HeaderText = "Carteira";
+            this.Carteira.Name = "Carteira";
+            this.Carteira.Visible = false;
+            // 
+            // colNr
+            // 
+            this.colNr.HeaderText = "#";
+            this.colNr.Name = "colNr";
+            this.colNr.Width = 30;
+            // 
+            // colNome
+            // 
+            this.colNome.HeaderText = "Nome";
+            this.colNome.Name = "colNome";
+            // 
+            // Fitness
+            // 
+            this.Fitness.HeaderText = "Fitness";
+            this.Fitness.Name = "Fitness";
+            this.Fitness.Visible = false;
+            // 
+            // resultado
+            // 
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle14.Format = "N2";
+            dataGridViewCellStyle14.NullValue = null;
+            this.resultado.DefaultCellStyle = dataGridViewCellStyle14;
+            this.resultado.HeaderText = "Resultado";
+            this.resultado.Name = "resultado";
+            this.resultado.Width = 80;
+            // 
+            // maxCapital
+            // 
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle15.Format = "N2";
+            dataGridViewCellStyle15.NullValue = null;
+            this.maxCapital.DefaultCellStyle = dataGridViewCellStyle15;
+            this.maxCapital.HeaderText = "Max Capital";
+            this.maxCapital.Name = "maxCapital";
+            this.maxCapital.Width = 80;
+            // 
+            // minCapital
+            // 
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle16.Format = "N2";
+            dataGridViewCellStyle16.NullValue = null;
+            this.minCapital.DefaultCellStyle = dataGridViewCellStyle16;
+            this.minCapital.HeaderText = "Min Capital";
+            this.minCapital.Name = "minCapital";
+            this.minCapital.Width = 80;
+            // 
+            // winLoss
+            // 
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle17.Format = "N2";
+            dataGridViewCellStyle17.NullValue = null;
+            this.winLoss.DefaultCellStyle = dataGridViewCellStyle17;
+            this.winLoss.HeaderText = "$W/$L";
+            this.winLoss.Name = "winLoss";
+            this.winLoss.Width = 50;
+            // 
+            // trades
+            // 
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle18.Format = "N0";
+            dataGridViewCellStyle18.NullValue = null;
+            this.trades.DefaultCellStyle = dataGridViewCellStyle18;
+            this.trades.HeaderText = "Trades";
+            this.trades.Name = "trades";
+            this.trades.Width = 50;
+            // 
+            // ganhos
+            // 
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle19.Format = "N0";
+            dataGridViewCellStyle19.NullValue = null;
+            this.ganhos.DefaultCellStyle = dataGridViewCellStyle19;
+            this.ganhos.HeaderText = "Ganhos";
+            this.ganhos.Name = "ganhos";
+            this.ganhos.Width = 50;
+            // 
+            // perdidos
+            // 
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle20.Format = "N0";
+            dataGridViewCellStyle20.NullValue = null;
+            this.perdidos.DefaultCellStyle = dataGridViewCellStyle20;
+            this.perdidos.HeaderText = "Perdidos";
+            this.perdidos.Name = "perdidos";
+            this.perdidos.Width = 50;
+            // 
+            // totalGanho
+            // 
+            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle21.Format = "N2";
+            dataGridViewCellStyle21.NullValue = null;
+            this.totalGanho.DefaultCellStyle = dataGridViewCellStyle21;
+            this.totalGanho.HeaderText = "Total Ganho";
+            this.totalGanho.Name = "totalGanho";
+            this.totalGanho.Width = 80;
+            // 
+            // totalPerdido
+            // 
+            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle22.Format = "N2";
+            dataGridViewCellStyle22.NullValue = null;
+            this.totalPerdido.DefaultCellStyle = dataGridViewCellStyle22;
+            this.totalPerdido.HeaderText = "Total Perdido";
+            this.totalPerdido.Name = "totalPerdido";
+            this.totalPerdido.Width = 80;
+            // 
+            // percAcerto
+            // 
+            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle23.Format = "N2";
+            dataGridViewCellStyle23.NullValue = null;
+            this.percAcerto.DefaultCellStyle = dataGridViewCellStyle23;
+            this.percAcerto.HeaderText = "%Acerto";
+            this.percAcerto.Name = "percAcerto";
+            this.percAcerto.Width = 50;
+            // 
+            // maxdias
+            // 
+            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle24.Format = "N0";
+            dataGridViewCellStyle24.NullValue = null;
+            this.maxdias.DefaultCellStyle = dataGridViewCellStyle24;
+            this.maxdias.HeaderText = "Max.Dias";
+            this.maxdias.Name = "maxdias";
+            this.maxdias.Width = 50;
+            // 
+            // minDias
+            // 
+            dataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle25.Format = "N0";
+            dataGridViewCellStyle25.NullValue = null;
+            this.minDias.DefaultCellStyle = dataGridViewCellStyle25;
+            this.minDias.HeaderText = "Min.Dias";
+            this.minDias.Name = "minDias";
+            this.minDias.Width = 50;
+            // 
+            // Avg_dias
+            // 
+            dataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle26.Format = "N0";
+            dataGridViewCellStyle26.NullValue = null;
+            this.Avg_dias.DefaultCellStyle = dataGridViewCellStyle26;
+            this.Avg_dias.HeaderText = "Avg.Dias";
+            this.Avg_dias.Name = "Avg_dias";
+            this.Avg_dias.Width = 50;
+            // 
+            // button1
+            // 
+            this.button1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.button1.Location = new System.Drawing.Point(200, 0);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(74, 43);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "Roda GP";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.btnRodaGP_Click);
             // 
             // FrmPrincipal
             // 
@@ -1794,10 +1815,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Capital;
         public System.Windows.Forms.MaskedTextBox txtTestesNaTela;
         public System.Windows.Forms.Label label24;
+        public System.Windows.Forms.TextBox txtVarsDebug;
+        public System.Windows.Forms.Button btnRodaSingleGP;
         private System.Windows.Forms.DataGridViewTextBoxColumn MCObjeto;
         private System.Windows.Forms.DataGridViewTextBoxColumn Carteira;
         private System.Windows.Forms.DataGridViewTextBoxColumn colNr;
         private System.Windows.Forms.DataGridViewTextBoxColumn colNome;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Fitness;
         private System.Windows.Forms.DataGridViewTextBoxColumn resultado;
         private System.Windows.Forms.DataGridViewTextBoxColumn maxCapital;
         private System.Windows.Forms.DataGridViewTextBoxColumn minCapital;
@@ -1811,8 +1835,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn maxdias;
         private System.Windows.Forms.DataGridViewTextBoxColumn minDias;
         private System.Windows.Forms.DataGridViewTextBoxColumn Avg_dias;
-        public System.Windows.Forms.TextBox txtVarsDebug;
-        public System.Windows.Forms.Button btnRodaGP;
+        public System.Windows.Forms.Button button1;
     }
 }
 

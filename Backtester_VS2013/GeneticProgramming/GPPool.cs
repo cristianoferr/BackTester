@@ -14,6 +14,7 @@ namespace GeneticProgramming
     [DataContract]
     public class GPPool
     {
+        public const float PENALTY = 100000;
 
         public GPPool(GPConfig config)
         {
@@ -44,7 +45,21 @@ namespace GeneticProgramming
         }
         public void EndTurn()
         {
-            SortFitness();
+            //penalizando solucoes com mesmo fitness (parece que a mesma solução se alastra, ficando todos iguais)
+
+            for (int i = 0; i < solutions.Count - 1; i++)
+            {
+                GPSolution solI=solutions[i];
+                for (int j = i + 1; j < solutions.Count; j++)
+                {
+                    GPSolution solJ=solutions[j];
+                    if (solI.fitnessResult == solJ.fitnessResult)
+                    {
+                        solJ.fitnessResult -= Utils.Random(PENALTY,PENALTY*2);
+                    }
+                }
+            }
+                SortFitness();
 
         }
 
@@ -58,7 +73,41 @@ namespace GeneticProgramming
 
         public void Mutate()
         {
-            for (int i = config.elitismPercent * solutions.Count/100; i < solutions.Count; i++)
+            IList<GPSolution> nextSolutions = new List<GPSolution>();
+
+            for (int i = 0; i < solutions.Count; i++)
+            {
+                if (i<=config.elitismRange * solutions.Count/100){
+                    nextSolutions.Add(solutions[i]);
+                }
+                else if (i <= config.mutationRange * solutions.Count / 100)
+                {
+                    GPSolution solution = solutions[i];
+                    solution.Mutate();
+                    nextSolutions.Add(solutions[i]);
+                }
+                else if (i <= config.generateChildRange * solutions.Count / 100)
+                {
+                    GPSolution solution1 = solutions[Utils.Random(0, config.generateChildRange/ 100f * solutions.Count) ];
+                    GPSolution solution2 = solutions[Utils.Random(0, config.generateChildRange/ 100f * solutions.Count)];
+                    GPSolution child2 = null;
+                    GPSolution child = solution1.CreateChildWith(solution2, out child2);
+                    nextSolutions.Add(child);
+                    nextSolutions.Add(child2);
+                    i += 1;
+                }
+                else
+                {
+                    nextSolutions.Add(template.CreateRandomSolution());
+                }
+
+            }
+            solutions.Clear();
+            solutions = nextSolutions;
+
+            /*
+
+            for (int i = config.elitismRange * solutions.Count/100; i < solutions.Count; i++)
             {
                 GPSolution solution = solutions[i];
 
@@ -82,9 +131,11 @@ namespace GeneticProgramming
             for (int i = config.unfitRemovalPercent * config.poolSize / 100; i < config.poolSize; i++)
             {
                 solutions.Add(template.CreateRandomSolution());
-            }
+            }*/
         }
 
         public GPTemplate template { get; set; }
+
+        
     }
 }

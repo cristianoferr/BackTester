@@ -16,6 +16,12 @@ namespace GeneticProgramming.nodes
         }
 
 
+        public override GPAbstractNode Clone()
+        {
+            GPNodeNumber node = base.Clone() as GPNodeNumber;
+            node.valor = valor;
+            return node;
+        }
         public override void Mutate(SemanticaList semanticaList)
         {
             valor += Utils.Random(- 2, + 2);

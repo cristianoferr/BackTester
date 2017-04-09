@@ -49,6 +49,19 @@ namespace GeneticProgramming.tests
             Assert.IsNotNull(n2);
 
 
+            GPAbstractNode clonep1 = p1.Clone();
+            Assert.IsNotNull(clonep1);
+            Assert.IsFalse(clonep1 == p1);
+            Assert.IsTrue(clonep1.ToString() == p1.ToString());
+
+            GPSolution cloneSolution = solution.Clone();
+            GPSolution solution2 = template.CreateRandomSolution();
+
+            GPSolution childSolution2=null;
+            GPSolution childSolution = solution.CreateChildWith(solution2,out childSolution2);
+            Assert.IsNotNull(childSolution);
+            Assert.IsNotNull(childSolution2);
+
         }
 
         private static GPTemplate CreateTestTemplate(GPConfig config, SemanticaList listaFormulas, SemanticaList listaNumerica)
@@ -193,7 +206,7 @@ namespace GeneticProgramming.tests
             GPPool pool = new GPPool(config);
 
             Assert.IsTrue(config.poolSize > 0);
-            Assert.IsTrue(config.elitismPercent > 0);
+            Assert.IsTrue(config.elitismRange > 0);
             Assert.IsTrue(config.mutationRatePerc > 0);
             Assert.IsTrue(config.poolSize > 0);
 

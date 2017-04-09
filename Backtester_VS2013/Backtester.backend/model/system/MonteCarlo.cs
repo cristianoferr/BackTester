@@ -1,4 +1,5 @@
 ﻿using Backtester.backend.model.system.estatistica;
+using System;
 using UsoComum;
 
 namespace Backtester.backend.model.system
@@ -7,10 +8,12 @@ namespace Backtester.backend.model.system
     {
         string name;
         Estatistica global;
+        public float fitness = 0;
         public MonteCarlo(string name)
         {
             this.name = name;
             global = new Estatistica(0);
+            fitness = 0;
         }
 
         public void setEstatistica(Estatistica stat)
@@ -36,37 +39,70 @@ namespace Backtester.backend.model.system
             Utils.println(s + ": " + name + "=>" + global.getMaxMinCapital() + " Trades:" + global.getGeral().getAmbasPontas().getTodosTrades().getnTrades());
         }
 
-        public void update()
+        internal void AnalisaEntrada(int direcao, float valorAcao, float vlrStop)
         {
-            float capitalFinal = 0;
-            float maxCapital = 0;
-            float minCapital = -1;
-            float nTrades = 0;
-            float nDias = 0;
-            float dif = 0;
+            if (vlrStop == 0)
+            {
+                ERROR_STOP_0 = true;
+                return;
+            }
+            if (direcao > 0 && vlrStop >= valorAcao)
+            {
+                ERROR_VLR_STOP_ERRADO = true;
+                return;
+            }
+            if (direcao < 0 && vlrStop <= valorAcao)
+            {
+                ERROR_VLR_STOP_ERRADO = true;
+                return;
+            }
 
-            /*  for (int i = 0; i < estatisticas.Count; i++)
-              {
-                  Estatistica stat = estatisticas[i];
-
-                  capitalFinal += stat.getCapitalFinal();
-                  if (stat.getCapitalFinal() > maxCapital)
-                      maxCapital = stat.getCapitalFinal();
-                  if ((minCapital == -1) || (stat.getCapitalFinal() < minCapital))
-                      minCapital = stat.getCapitalFinal();
-                  nTrades += stat.getGeral().getAmbasPontas().getTodosTrades().getnTrades();
-                  dif += stat.getGeral().getAmbasPontas().getTodosTrades().getTotal();
-
-                  global.getGeral().getAmbasPontas().addOperacao(stat.getGeral().getAmbasPontas().getTodosTrades().getTotal(), stat.getGeral().getAmbasPontas().getTodosTrades().getnTrades(), false);
-
-              }*/
-
-            /* global.setCapitalFinal(capitalFinal);
-             global.setMaxCapital(maxCapital);
-             global.setMinCapital(minCapital);*/
-
-
+            float difPerc = Math.Abs(valorAcao / vlrStop*100);
+            if (difPerc > MAX_DISTANCE_VLR_ENTRADA_VLR_STOP)
+            {
+                ERROR_DISTANCIA_SUPERADA = true;
+            }
         }
+
+        bool ERROR_STOP_0=false;
+        bool ERROR_VLR_STOP_ERRADO=false;
+        bool ERROR_DISTANCIA_SUPERADA=false;
+
+        public void FinishStats()
+        {
+            if (ERROR_STOP_0) fitness -= PENALTY;
+            if (ERROR_VLR_STOP_ERRADO) fitness -= PENALTY;
+            if (ERROR_DISTANCIA_SUPERADA) fitness -= PENALTY;
+
+            if (qtdTrades == 0)
+            {
+                fitness -= PENALTY*100;
+            }
+
+            fitness += BONUS * percAcerto;
+
+            int difTrades = QTD_MINIMA_TRADES - qtdTrades;
+            if (difTrades<0)difTrades=0;
+            fitness -= difTrades * PENALTY / QTD_MINIMA_TRADES*10;
+
+
+            float avgDias = global.getGeral().getAmbasPontas().getTodosTrades().getAvgDias();
+            //bonus até 50 dias...
+            if (avgDias < AVG_DIAS_GOAL)
+            {
+                fitness += BONUS * avgDias;
+            }
+
+            fitness /= 10;
+        }
+
+        public const int AVG_DIAS_GOAL = 50;
+        public const int MAX_DISTANCE_VLR_ENTRADA_VLR_STOP = 20;
+
+        public const int BONUS = 1000;
+        public const int PENALTY = 100000;
+        public const int PERC_MINIMA_ACERTO = 50;
+        public const int QTD_MINIMA_TRADES = 100;
 
         public int qtdTrades
         {
@@ -127,5 +163,12 @@ namespace Backtester.backend.model.system
         {
             return global;
         }
+
+        public float CalcFitness()
+        {
+            return getCapitalFinal() + fitness;
+        }
+
+       
     }
 }

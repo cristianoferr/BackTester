@@ -33,10 +33,11 @@ namespace Backtester.backend.model.formulas
         internal float LimitPeriodo(float per)
         {
             per = Math.Abs(per);
-            if (per > 100)
+            if (per > 20)
             {
-                per = 100;
+                per = 20;
             }
+            if (per <= 0) per = 1;
             return per;
         }
 

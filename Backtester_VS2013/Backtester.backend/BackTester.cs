@@ -47,7 +47,7 @@ namespace Backtester.backend
         {
             if (tradeSystem.vm.Count == 0)
             {
-                runSingleBackTest(caller);
+                runSingleBackTest(caller,new MonteCarlo("??"));
                 return;
             }
             if (!useVars)
@@ -126,18 +126,18 @@ namespace Backtester.backend
 
             }*/
 
-        public void runMonteCarlo(ICaller caller, String name)
+        public Carteira runMonteCarlo(ICaller caller, String name)
         {
             MonteCarlo mC = new MonteCarlo(name);
             Utils.println("runMonteCarlo:" + name);
-            Estatistica stat = runSingleBackTest(caller);
+            Estatistica stat = runSingleBackTest(caller, mC);
             stat.setDesc(getVarsValues());
             mC.setEstatistica(stat);
-            mC.update();
+            mC.FinishStats();
             mC.printPerformance("");
             caller.UpdateApplication(carteira, mC, countLoops_, totalLoops_);
             //monteCarlo.Add(mC);
-
+            return carteira;
         }
 
         public String getVarsValues()
@@ -184,9 +184,10 @@ namespace Backtester.backend
         /*
          * Método principal que vai verificar as condições e fazer entradas (um integrador por assim dizer)
          */
-        public Estatistica runSingleBackTest(ICaller caller)
+        public Estatistica runSingleBackTest(ICaller caller,MonteCarlo mc)
         {
             init();
+            carteira.monteCarlo = mc;
             Periodo periodo = periodoInicial;
             string mesA = "";
             int[] rd = GetRandomOrder(config.qtdPercPapeis);

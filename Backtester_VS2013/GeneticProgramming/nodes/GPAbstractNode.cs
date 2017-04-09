@@ -172,5 +172,16 @@ namespace GeneticProgramming.nodes
         }
 
         public abstract void Mutate(SemanticaList semanticaList);
+
+        public virtual GPAbstractNode Clone()
+        {
+            
+            GPAbstractNode node = semantica.InstantiateEmpty();
+            for (int i = 0; i < children.Count; i++)
+            {
+                node.AddNode(children[i].Clone());
+            }
+            return node;
+        }
     }
 }

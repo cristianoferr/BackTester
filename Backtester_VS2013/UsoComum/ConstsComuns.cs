@@ -28,7 +28,9 @@ namespace UsoComum
             [Description("||")]
             OR = 1,
             [Description("!")]
-            NOT = 2
+            NOT = 2,
+            [Description("^")]
+            XOR=3
         }
     }
 }

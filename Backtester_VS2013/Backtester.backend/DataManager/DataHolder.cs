@@ -100,5 +100,18 @@ namespace Backtester.backend.model
         {
             ativos.Remove(ativo.name);
         }
+
+        internal void ClearAtivos()
+        {
+            ativos.Clear();
+        }
+
+        internal void ClearData()
+        {
+            foreach (string key in ativos.Keys)
+            {
+                ativos[key].ClearData();
+            }
+        }
     }
 }

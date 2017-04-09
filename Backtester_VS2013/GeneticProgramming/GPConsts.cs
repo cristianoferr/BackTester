@@ -17,9 +17,10 @@ namespace GeneticProgramming
         public const string OPER_MULTIPLY = "MULTIPLY";
         public const string OPER_DIVIDE = "DIVIDE";
 
-        public const string BOOL_AND = "AND";
-        public const string BOOL_OR = "OR";
-        public const string BOOL_NOT = "NOT";
+        public static string BOOL_AND = UsoComum.ConstsComuns.BOOLEAN_TYPE.AND.ToString();
+        public static string BOOL_OR = UsoComum.ConstsComuns.BOOLEAN_TYPE.OR.ToString();
+        public static string BOOL_XOR = UsoComum.ConstsComuns.BOOLEAN_TYPE.XOR.ToString();
+        public static string BOOL_NOT = UsoComum.ConstsComuns.BOOLEAN_TYPE.NOT.ToString();//NYI
 
         public const string NUMBER_DEFAULT = "NUMBER_DEFAULT";
 

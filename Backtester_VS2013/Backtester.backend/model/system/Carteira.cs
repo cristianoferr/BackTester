@@ -281,5 +281,7 @@ namespace Backtester.backend.model
             }
             return capitalSobRisco;
         }
+
+        public system.MonteCarlo monteCarlo { get; set; }
     }
 }

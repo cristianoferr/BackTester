@@ -15,6 +15,9 @@ namespace Backtester.GeneticProgramming
 
             InicializaFormulasFinanceiras();
 
+            AddSemanticaToList(GPConsts.LISTA_FORMULA, GetSemantica(GPConsts.BOOL_AND));
+            AddSemanticaToList(GPConsts.LISTA_FORMULA, GetSemantica(GPConsts.BOOL_OR));
+            AddSemanticaToList(GPConsts.LISTA_FORMULA, GetSemantica(GPConsts.BOOL_XOR));
         }
 
         private void InicializaFormulasFinanceiras()
@@ -50,6 +53,8 @@ namespace Backtester.GeneticProgramming
             AddSemanticaFormula(FormulaManager.DIVIDE, 2, 2);
             AddSemanticaFormula(FormulaManager.STOCH, 2, 2);
             AddSemanticaFormula(FormulaManager.PERCENTIL, 1, 1);
+
+
         }
 
         private void AddSemanticaFormula(string name, int min, int max)

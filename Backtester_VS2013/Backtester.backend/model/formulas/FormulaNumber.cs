@@ -11,6 +11,8 @@ namespace Backtester.backend.model.formulas
             : base(facade, "NUMBER")
         {
             this.value = float.Parse(value);
+            if (this.value > 100) this.value = 100;
+            if (this.value < -100) this.value = -100;
             gravar = false;
         }
 
@@ -18,15 +20,12 @@ namespace Backtester.backend.model.formulas
 
         public override string GetCode()
         {
-            
             return value.ToString("0.###", CultureInfo.CreateSpecificCulture("en-US"));
         }
 
 
         public override float Calc(Candle candle)
         {
-            if (value > 100) value = 100;
-            if (value < -100) value = -100;
             return value;
         }
 

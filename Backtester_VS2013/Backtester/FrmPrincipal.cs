@@ -146,6 +146,12 @@ namespace Backtester
             gpController.Run();
         }
 
+        private void btnRodaSingleGP_Click(object sender, System.EventArgs e)
+        {
+            gpController.RunSingle();
+            
+        }
+
 
 
 

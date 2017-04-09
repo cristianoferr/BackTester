@@ -1,4 +1,5 @@
 ﻿
+using System;
 using System.Collections.Generic;
 namespace GeneticProgramming.semantica
 {
@@ -64,9 +65,10 @@ namespace GeneticProgramming.semantica
 
         private void InitBooleans()
         {
-            AddSemanticaBoolean(GPConsts.BOOL_AND, new GPSemanticaBoolean(GPConsts.BOOL_AND));
-            AddSemanticaBoolean(GPConsts.BOOL_OR, new GPSemanticaBoolean(GPConsts.BOOL_OR));
-            AddSemanticaBoolean(GPConsts.BOOL_NOT, new GPSemanticaBoolean(GPConsts.BOOL_NOT, 1, 1));
+            AddSemanticaBoolean(GPConsts.BOOL_AND, new GPSemanticaBoolean(GPConsts.BOOL_AND,2,2));
+            AddSemanticaBoolean(GPConsts.BOOL_OR, new GPSemanticaBoolean(GPConsts.BOOL_OR,2,2));
+            AddSemanticaBoolean(GPConsts.BOOL_XOR, new GPSemanticaBoolean(GPConsts.BOOL_XOR,2,2));
+           // AddSemanticaBoolean(GPConsts.BOOL_NOT, new GPSemanticaBoolean(GPConsts.BOOL_NOT, 1, 1));
         }
 
         internal void AddSemanticaBoolean(string name, GPSemanticaBoolean semantica)
@@ -116,7 +118,15 @@ namespace GeneticProgramming.semantica
 
         public void AddSemanticaToList(string listName, GPSemantica semantica)
         {
+            if (semantica == null)
+            {
+                throw new Exception("Semantica nula!");
+            }
             SemanticaList list = GetListByName(listName);
+            if (list.Contains(semantica))
+            {
+                throw new Exception("Tentando adicionar uma semantica que já existe:" + semantica.ToString());
+            }
             list.Add(semantica);
         }
 

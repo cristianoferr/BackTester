@@ -10,19 +10,45 @@ namespace GeneticProgramming.solution
     [DataContract]
     public class GPSolution
     {
+        static int countSolutions = 1;
+        int idSolution = countSolutions++;
         public GPSolution(GPTemplate template)
         {
             valores = new Dictionary<string, GPAbstractNode>();
             propriedadesDeNegocio = new Dictionary<string, object>();
             this.template = template;
+            name = "Solution " + idSolution;
+        }
+
+        public override string ToString()
+        {
+            return name;
+        }
+
+        public GPSolution Clone()
+        {
+            GPSolution result = new GPSolution(template);
+
+            foreach (string key in valores.Keys)
+            {
+                GPAbstractNode node = valores[key].Clone();
+                result.valores.Add(key, node);
+            }
+
+            return result;
         }
 
         #region Properties
         private Dictionary<string, object> propriedadesDeNegocio { get; set; }
+
+        [DataMember]
         private Dictionary<string, GPAbstractNode> valores { get; set; }
 
         //Será usado como base para o processo de ordenação de resultados e deve ser calculado pelo programa mestre...
         public float fitnessResult { get; set; }
+
+        [DataMember]
+        public GPTemplate template { get; set; }
         #endregion
 
 
@@ -34,6 +60,10 @@ namespace GeneticProgramming.solution
 
         public void SetPropriedade(string key, object node)
         {
+            if (propriedadesDeNegocio.ContainsKey(key))
+            {
+                propriedadesDeNegocio.Remove(key);
+            }
             propriedadesDeNegocio.Add(key, node);
         }
 
@@ -60,25 +90,28 @@ namespace GeneticProgramming.solution
 
         public void Mutate()
         {
-            int rnd=Utils.Random(0,valores.Count );
-            int i=0;
+            int rnd = Utils.Random(0, valores.Count);
+            int i = 0;
             foreach (string key in valores.Keys)
             {
-                if (i==rnd){
-                    Mutate(valores[key],key);
+                if (i == rnd)
+                {
+                    Mutate(valores[key], key);
                 }
+                i++;
             }
-            
+
         }
 
-        public void Mutate(GPAbstractNode node,string property)
+        public void Mutate(GPAbstractNode node, string property)
         {
             node.Mutate(template.GetProperty(property));
         }
 
-        public GPTemplate template { get; set; }
 
-        
+      
+
+
         public string SpliceWith(GPSolution mateWith)
         {
             int minSize = 2;
@@ -94,18 +127,7 @@ namespace GeneticProgramming.solution
             if (validKeys.Count > 0)
             {
                 string key = validKeys[Utils.Random(0, validKeys.Count)];
-                GPAbstractNode rootNode1 = valores[key];
-                GPAbstractNode rootNode2 = mateWith.valores[key];
-                int count = 0;
-                GPAbstractNode rndNode1 = rootNode1.GetNthChild(Utils.Random(2, rootNode1.Size()), ref count);
-                count = 0;
-                GPAbstractNode rndNode2 = rootNode2.GetNthChild(Utils.Random(2, rootNode2.Size()), ref count);
-                if (!rndNode1.nodePai.TransferNode(rndNode1, rndNode2))
-                {
-                    Utils.Error("Erro fazendo transferNode!");
-                    return null;
-                }
-                return key;
+                return SpliceWith(mateWith, key);
             }
             else
             {
@@ -115,7 +137,57 @@ namespace GeneticProgramming.solution
 
         }
 
+        private string SpliceWith(GPSolution mateWith, string key)
+        {
+            GPAbstractNode rootNode1 = valores[key];
+            GPAbstractNode rootNode2 = mateWith.valores[key];
 
-       
+            if (rootNode1.Size() > 1 && rootNode2.Size() > 1)
+            {
+                int count = 0;
+                GPAbstractNode rndNode1 = rootNode1.GetNthChild(Utils.Random(2, rootNode1.Size()), ref count);
+                count = 0;
+                GPAbstractNode rndNode2 = rootNode2.GetNthChild(Utils.Random(2, rootNode2.Size()), ref count);
+                if (!rndNode1.nodePai.TransferNode(rndNode1, rndNode2))
+                {
+                    Utils.Error("Erro fazendo transferNode!");
+                    return null;
+                }
+            }
+            else
+            {
+                valores.Remove(key);
+                mateWith.valores.Remove(key);
+                valores.Add(key, rootNode2);
+                mateWith.valores.Add(key, rootNode1);
+            }
+            return key;
+        }
+
+
+
+
+        public string name { get; set; }
+
+        public GPSolution CreateChildWith(GPSolution solution2, out GPSolution child2)
+        {
+            child2 = solution2.Clone();
+            GPSolution child = this.Clone();
+
+            foreach (string key in valores.Keys)
+            {
+               /* GPAbstractNode node1 = child.valores[key];
+                GPAbstractNode node2 = child2.valores[key];*/
+                if (Utils.Random(0, 100) > 50)
+                {
+                    child.SpliceWith(child2, key);
+                }
+               
+            }
+
+            return child;
+        }
+
+
     }
 }

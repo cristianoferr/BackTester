@@ -60,6 +60,8 @@ namespace Backtester.backend.model
 
             //cancelando trades lixos... 
             //TODO: adicionar um erro critico no tradesystem
+            carteira.monteCarlo.AnalisaEntrada(direcao, valorAcao, vlrStop);
+
             if (direcao > 0 && vlrStop >= valorAcao)
             {
                 return 0;

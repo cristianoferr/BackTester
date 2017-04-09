@@ -15,6 +15,6 @@ namespace Backtester.backend.interfaces
 
         void UpdateApplication(Carteira carteira, MonteCarlo mc, int countLoops, int totalLoops);
 
-        void RunBackTester(TradeSystem ts);
+        Carteira RunBackTester(TradeSystem ts,string name);
     }
 }

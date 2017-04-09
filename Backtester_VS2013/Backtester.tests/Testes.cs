@@ -311,7 +311,7 @@ namespace Backtester.tests
             string codigoFormula = "MMS(" + fonte + "," + periodos + ")";
             Formula formulaMMS = fm.GetFormula(codigoFormula);
             Assert.IsNotNull(formulaMMS);
-            Assert.IsTrue(formulaMMS.GetCode() == codigoFormula);
+            Assert.IsTrue(formulaMMS.GetCode() == codigoFormula, formulaMMS.GetCode() +"<>"+ codigoFormula);
 
             float soma = 0;
             Candle candle = ativo.firstCandle;

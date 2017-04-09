@@ -90,9 +90,9 @@ namespace Backtester.controller
             Salva();
         }
 
-        public virtual void RunBackTester(TradeSystem ts)
+        public virtual Carteira RunBackTester(TradeSystem ts,string name)
         {
-
+            return null;
         }
 
         int contaTestes = 0;
@@ -111,12 +111,13 @@ namespace Backtester.controller
             facade.LoadAtivos(config.papeis);
             frmPrincipal.dataGridRuns.Rows.Clear();
             //facade.RunSingleTS();
-            facade.RunSingle(this, config, ts);
+            facade.RunSingle("Run Single",this, config, ts);
         }
 
         public void UpdateApplication(Carteira carteira, MonteCarlo mC, int countLoops, int totalLoops)
         {
             Application.DoEvents();
+            if (totalLoops <= 0) totalLoops = 1;
             frmPrincipal.labelStatus.Text = countLoops + " / " + totalLoops;
             //frmPrincipal.dataSetBacktest.Tables[0].Rows.Add(mC);
             //DataGridViewRow row = new DataGridViewRow();
@@ -133,6 +134,7 @@ namespace Backtester.controller
             frmPrincipal.dataGridRuns.Rows[rowLine].Cells[colIndex++].Value = carteira;
             frmPrincipal.dataGridRuns.Rows[rowLine].Cells[colIndex++].Value = contaTestes;
             frmPrincipal.dataGridRuns.Rows[rowLine].Cells[colIndex++].Value = mC.ToString();
+            frmPrincipal.dataGridRuns.Rows[rowLine].Cells[colIndex++].Value = mC.CalcFitness();
             frmPrincipal.dataGridRuns.Rows[rowLine].Cells[colIndex++].Value = mC.getCapitalFinal();
             frmPrincipal.dataGridRuns.Rows[rowLine].Cells[colIndex++].Value = mC.getMaxCapital();
             frmPrincipal.dataGridRuns.Rows[rowLine].Cells[colIndex++].Value = mC.getMinCapital();
@@ -157,13 +159,13 @@ namespace Backtester.controller
         {
             MonteCarlo mc = frmPrincipal.dataGridRuns.Rows[0].Cells[0].Value as MonteCarlo;
             int piorIndex = 0;
-            float piorResultado = mc.getCapitalFinal();
+            float piorResultado = mc.CalcFitness();
             for (int i = 1; i < frmPrincipal.dataGridRuns.Rows.Count; i++)
             {
                 mc = frmPrincipal.dataGridRuns.Rows[i].Cells[0].Value as MonteCarlo;
                 if (mc != null)
                 {
-                    float resultado = mc.getCapitalFinal();
+                    float resultado = mc.CalcFitness();
                     if (resultado < piorResultado)
                     {
                         piorResultado = resultado;

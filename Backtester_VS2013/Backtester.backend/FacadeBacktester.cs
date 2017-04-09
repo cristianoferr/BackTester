@@ -44,20 +44,6 @@ namespace Backtester.backend
             }
         }
 
-        public void LoadAtivos()
-        {
-            LoadAtivoDiario("abev3");
-            LoadAtivoDiario("bbas3");
-            LoadAtivoDiario("bbdc4");
-            LoadAtivoDiario("bvmf3");
-            LoadAtivoDiario("ccro3");
-            LoadAtivoDiario("ciel3");
-            LoadAtivoDiario("ggbr4");
-            LoadAtivoDiario("natu3");
-            LoadAtivoDiario("petr4");
-            LoadAtivoDiario("vale5");
-        }
-
         private void LoadAtivoDiario(string papel)
         {
             LoadAtivo(papel.ToUpper(), 100, Consts.PERIODO_ACAO.DIARIO, "dados/" + papel.ToLower() + "-diario.js");
@@ -90,10 +76,25 @@ namespace Backtester.backend
             backTester.runBackTest(caller);
         }
 
-        public void RunSingle(ICaller caller, model.system.Config config, model.system.TradeSystem ts)
+        public Carteira RunSingle(string name,ICaller caller, model.system.Config config, model.system.TradeSystem ts)
         {
             backTester = new BackTester(this, dh.periodos[0], config, ts);
-            backTester.runMonteCarlo(caller,"Run Single");
+            return backTester.runMonteCarlo(caller, name);
+        }
+
+        public void ClearAtivos()
+        {
+            dh.ClearAtivos();
+        }
+
+        public void ClearFormulas()
+        {
+            formulaManager.ClearFormulas();
+        }
+
+        public void ClearData()
+        {
+            dh.ClearData();
         }
     }
 }

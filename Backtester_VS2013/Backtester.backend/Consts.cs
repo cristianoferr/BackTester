@@ -14,6 +14,7 @@ namespace Backtester.backend
         public const string VAR_MULTIPLAS_ENTRADAS = "MULTIPLAS_ENTRADAS";
 
 
+        public const int QTD_MAXIMA_FORMULAS_CACHE = 30000;
 
         public enum TIPO_OPERACAO
         {
@@ -38,5 +39,7 @@ namespace Backtester.backend
         }
 
 
+
+        
     }
 }

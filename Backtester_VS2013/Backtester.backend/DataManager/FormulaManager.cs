@@ -7,8 +7,11 @@ namespace Backtester.backend.DataManager
     public class FormulaManager
     {
 
+
+        
         public List<string> formulasDisp = new List<string>();
         public Dictionary<string, Formula> formulasInst = new Dictionary<string, Formula>();
+        public List<string> formulasCache = new List<string>();
 
         public static string CLOSE = "C";
         public static string OPEN = "O";
@@ -48,12 +51,21 @@ namespace Backtester.backend.DataManager
         public static string COMP_LOWER = UsoComum.ConstsComuns.Operador.LOWER.ToString();
         public static string COMP_LOWER_EQ = UsoComum.ConstsComuns.Operador.LOWER_EQ.ToString();
 
+        //BOOLEAN
+        public static string BOOL_AND = UsoComum.ConstsComuns.BOOLEAN_TYPE.AND.ToString();
+        public static string BOOL_OR = UsoComum.ConstsComuns.BOOLEAN_TYPE.OR.ToString();
+        public static string BOOL_XOR = UsoComum.ConstsComuns.BOOLEAN_TYPE.XOR.ToString();
+
 
         private FacadeBacktester facade;
 
         public FormulaManager(FacadeBacktester facadeBacktester)
         {
             this.facade = facadeBacktester;
+            formulasDisp.Add(BOOL_AND);
+            formulasDisp.Add(BOOL_OR);
+            formulasDisp.Add(BOOL_XOR);
+
             formulasDisp.Add(COMP_DIF);
             formulasDisp.Add(COMP_EQUAL);
             formulasDisp.Add(COMP_GREATER);
@@ -88,7 +100,22 @@ namespace Backtester.backend.DataManager
             // formulasDisp.Add(TICK);
             formulasDisp.Add(STOCH);
             formulasDisp.Add(PERCENTIL);
+
+            
         }
+
+        public void ClearFormulas()
+        {
+           /* while (formulasInst.Count > Consts.QTD_MAXIMA_FORMULAS_CACHE)
+            {
+                string key=formulasCache[0];
+                formulasInst.Remove(key);
+                formulasCache.RemoveAt(0);
+            }*/
+            formulasInst.Clear();
+            formulasCache.Clear();
+        }
+
 
         internal void CreateFormula(string formula)
         {
@@ -172,6 +199,11 @@ namespace Backtester.backend.DataManager
                 f = CreateLogicalFormulas(name, pars);
             }
 
+            if (f == null)
+            {
+                f = CreateBooleanFormulas(name, pars);
+            }
+
             if (name == STOCH) f = new FormulaStoch(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
             if (name == PERCENTIL) f = new FormulaPercentil(facade, name, GetFormula(pars[0]));
             //if (name == TICK) f = new FormulaTick(facade, name);
@@ -191,8 +223,19 @@ namespace Backtester.backend.DataManager
             if (name == MME) f = new FormulaMME(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
             if (name == MMS) f = new FormulaMMS(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
             if (f == null) f = new Formula(facade, name);
-            formulasInst.Add(GetCode(name, par), f);
+            string code=GetCode(name, par);
+            formulasInst.Add(code, f);
+            formulasCache.Add(code);
 
+            return f;
+        }
+
+        private Formula CreateBooleanFormulas(string name, string[] pars)
+        {
+            Formula f = null;
+            if (name == BOOL_AND) f = new FormulaAND(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
+            if (name == BOOL_OR) f = new FormulaOR(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
+            if (name == BOOL_XOR) f = new FormulaXOR(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
             return f;
         }
 
@@ -237,5 +280,7 @@ namespace Backtester.backend.DataManager
             if (name == COMP_LOWER_EQ) f = new FormulaLOWER_EQ(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
             return f;
         }
+
+       
     }
 }

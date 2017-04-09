@@ -23,9 +23,9 @@ namespace UsoComum
         }
 
         static Random rnd = new Random();
-        public static int Random(int min, int max)
+        public static int Random(float min, float max)
         {
-            return rnd.Next(min, max);
+            return rnd.Next((int)min, (int)max);
         }
 
         public static string FormatCurrency(float valor)

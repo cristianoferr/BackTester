@@ -1,5 +1,6 @@
 ﻿using Backtester.backend;
 using Backtester.backend.interfaces;
+using Backtester.backend.model;
 using Backtester.backend.model.system;
 using GeneticProgramming;
 using GeneticProgramming.semantica;
@@ -21,6 +22,7 @@ namespace Backtester.GeneticProgramming
         public const string PROP_COND_STOP_INICIAL_V = "STOP_INICIAL_V";
 
         public const string OBJ_TRADESYSTEM = "TRADESYSTEM";
+        public const string OBJ_MONTECARLO = "MONTERCARLO";
 
         IList<string> listFormulas = new List<string>();
         IList<string> listVariaveis = new List<string>();
@@ -47,23 +49,32 @@ namespace Backtester.GeneticProgramming
             SemanticaList listaFormula = definitions.GetListByName(GPConsts.LISTA_FORMULA);
             SemanticaList listaNumeros = definitions.GetListByName(GPConsts.LISTA_NUMEROS);
             //   template.AddProperty(PROP_COND_ENTRADA_C,)
-            listFormulas.Add(PROP_COND_ENTRADA_C);
-            listFormulas.Add(PROP_COND_ENTRADA_V);
-            listFormulas.Add(PROP_COND_SAIDA_C);
-            listFormulas.Add(PROP_COND_SAIDA_V);
-            listFormulas.Add(PROP_COND_STOP_MOVEL_C);
-            listFormulas.Add(PROP_COND_STOP_MOVEL_V);
-            listFormulas.Add(PROP_COND_STOP_INICIAL_C);
-            listFormulas.Add(PROP_COND_STOP_INICIAL_V);
 
-            template.AddProperty(PROP_COND_ENTRADA_C, listaFormula);
-            template.AddProperty(PROP_COND_ENTRADA_V, listaFormula);
-            template.AddProperty(PROP_COND_SAIDA_C, listaFormula);
-            template.AddProperty(PROP_COND_SAIDA_V, listaFormula);
-            template.AddProperty(PROP_COND_STOP_MOVEL_C, listaFormula);
-            template.AddProperty(PROP_COND_STOP_MOVEL_V, listaFormula);
-            template.AddProperty(PROP_COND_STOP_INICIAL_C, listaFormula);
-            template.AddProperty(PROP_COND_STOP_INICIAL_V, listaFormula);
+            if (config.flagCompra)
+            {
+                listFormulas.Add(PROP_COND_ENTRADA_C);
+                listFormulas.Add(PROP_COND_SAIDA_C);
+                listFormulas.Add(PROP_COND_STOP_MOVEL_C);
+                listFormulas.Add(PROP_COND_STOP_INICIAL_C);
+                template.AddProperty(PROP_COND_ENTRADA_C, listaFormula);
+                template.AddProperty(PROP_COND_SAIDA_C, listaFormula);
+                template.AddProperty(PROP_COND_STOP_MOVEL_C, listaFormula);
+                template.AddProperty(PROP_COND_STOP_INICIAL_C, listaFormula);
+            }
+
+            if (config.flagVenda)
+            {
+
+                listFormulas.Add(PROP_COND_ENTRADA_V);
+                listFormulas.Add(PROP_COND_SAIDA_V);
+                listFormulas.Add(PROP_COND_STOP_MOVEL_V);
+                listFormulas.Add(PROP_COND_STOP_INICIAL_V);
+                template.AddProperty(PROP_COND_ENTRADA_V, listaFormula);
+                template.AddProperty(PROP_COND_SAIDA_V, listaFormula);
+                template.AddProperty(PROP_COND_STOP_MOVEL_V, listaFormula);
+                template.AddProperty(PROP_COND_STOP_INICIAL_V, listaFormula);
+            }
+
 
             listVariaveis.Add(Consts.VAR_STOP_GAP);
             listVariaveis.Add(Consts.VAR_RISCO_TRADE);
@@ -89,7 +100,13 @@ namespace Backtester.GeneticProgramming
         public override void RunSolution(GPSolution solution)
         {
             TradeSystem ts = solution.GetPropriedade(OBJ_TRADESYSTEM) as TradeSystem;
-            gpController.RunBackTester(ts);
+            Carteira carteira=gpController.RunBackTester(ts,solution.name);
+            solution.fitnessResult = carteira.monteCarlo.CalcFitness();
+        }
+
+        public override void EndSolution(GPSolution solution)
+        {
+
         }
 
         public override void PrepareSolution(GPSolution solution)
@@ -99,15 +116,20 @@ namespace Backtester.GeneticProgramming
             {
                 ts.vm.SetVariavel(var, solution.GetValueAsNumber(var));
             }
-            ts.condicaoEntradaC = solution.GetValueAsString(PROP_COND_ENTRADA_C);
-            ts.condicaoEntradaV = solution.GetValueAsString(PROP_COND_ENTRADA_V);
-            ts.condicaoSaidaC = solution.GetValueAsString(PROP_COND_SAIDA_C);
-            ts.condicaoSaidaV = solution.GetValueAsString(PROP_COND_SAIDA_V);
-            ts.stopMovelC = solution.GetValueAsString(PROP_COND_STOP_MOVEL_C);
-            ts.stopMovelV = solution.GetValueAsString(PROP_COND_STOP_MOVEL_V);
-            ts.stopInicialC = solution.GetValueAsString(PROP_COND_STOP_INICIAL_C);
-            ts.stopInicialV = solution.GetValueAsString(PROP_COND_STOP_INICIAL_V);
-
+            if (config.flagCompra)
+            {
+                ts.condicaoEntradaC = solution.GetValueAsString(PROP_COND_ENTRADA_C);
+                ts.condicaoSaidaC = solution.GetValueAsString(PROP_COND_SAIDA_C);
+                ts.stopMovelC = solution.GetValueAsString(PROP_COND_STOP_MOVEL_C);
+                ts.stopInicialC = solution.GetValueAsString(PROP_COND_STOP_INICIAL_C);
+            }
+            if (config.flagVenda)
+            {
+                ts.condicaoEntradaV = solution.GetValueAsString(PROP_COND_ENTRADA_V);
+                ts.condicaoSaidaV = solution.GetValueAsString(PROP_COND_SAIDA_V);
+                ts.stopMovelV = solution.GetValueAsString(PROP_COND_STOP_MOVEL_V);
+                ts.stopInicialV = solution.GetValueAsString(PROP_COND_STOP_INICIAL_V);
+            }
             solution.SetPropriedade(OBJ_TRADESYSTEM, ts);
         }
 

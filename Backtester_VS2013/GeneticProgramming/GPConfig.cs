@@ -15,14 +15,15 @@ namespace GeneticProgramming
         public GPConfig()
         {
             poolSize = 100;
-            elitismPercent = 5;
-            mutationRatePerc = 3;
-            maxLevels = 5;//Quantidade maxima que um nó pode ter
+
+            elitismRange = 10;
+            mutationRange = 35;
+            generateChildRange = 85;
+            maxLevels = 4;//Quantidade maxima que um nó pode ter
             minLevels = 2;
 
-            spliceChancePerc = 60;//chance de misturar o código com outra solution
+            spliceChancePerc = 30;//chance de misturar o código com outra solution
             this.maxSize = 30;//tamanhos maiores que esse serão rejeitados.
-            unfitRemovalPercent = 85;//85% para cima serão removidos e substituidos por novos
         }
 
         #region IO
@@ -50,7 +51,7 @@ namespace GeneticProgramming
         public int poolSize { get; set; }
 
         [DataMember]
-        public int elitismPercent { get; set; }
+        public int elitismRange { get; set; }
 
         [DataMember]
         public float mutationRatePerc { get; set; }
@@ -69,5 +70,9 @@ namespace GeneticProgramming
         public int spliceChancePerc { get; set; }
 
         public int unfitRemovalPercent { get; set; }
+
+        public int mutationRange { get; set; }
+
+        public int generateChildRange { get; set; }
     }
 }
