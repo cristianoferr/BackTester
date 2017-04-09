@@ -33,13 +33,16 @@ namespace GeneticProgramming.nodes
             return valor_;
         }
             set{
-                if (value > semanticaNumber.maxValue)
+                if (semanticaNumber != null)
                 {
-                    value = semanticaNumber.maxValue;
-                }
-                if (value < semanticaNumber.minValue)
-                {
-                    value = semanticaNumber.minValue;
+                    if (value > semanticaNumber.maxValue)
+                    {
+                        value = semanticaNumber.maxValue;
+                    }
+                    if (value < semanticaNumber.minValue)
+                    {
+                        value = semanticaNumber.minValue;
+                    }
                 }
 
                 valor_ = value;

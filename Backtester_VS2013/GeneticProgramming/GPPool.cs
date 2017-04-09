@@ -2,8 +2,10 @@
 using GeneticProgramming.solution;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
 using UsoComum;
 
 namespace GeneticProgramming
@@ -16,27 +18,78 @@ namespace GeneticProgramming
     {
         public const float PENALTY = 100000;
 
+        #region IO
+        internal static GPPool LoadSaved(GPConfig config,GPSolutionDefinition definition)
+        {
+            try
+            {
+                var fileStream = File.Open("saved-pool.js", FileMode.Open);
+                DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(GPPool));
+                fileStream.Flush();
+                fileStream.Position = 0;
+                GPPool pool = (GPPool)ser.ReadObject(fileStream);
+                pool.config = config;
+                pool.FinishLoading(definition);
+                fileStream.Close();
+                return pool;
+            }
+            catch (System.Exception e)
+            {
+
+            }
+            return new GPPool(config);
+        }
+
+        //Necessário para religar o nodePai (não está sendo serializado para evitar loops)
+        private void FinishLoading(GPSolutionDefinition definition)
+        {
+            foreach (GPSolution solution in solutions)
+            {
+                solution.FinishLoading(definition);
+            }
+        }
+        internal void SaveState()
+        {
+            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(GPPool));
+            var fileStream = File.Create("saved-pool.js");
+            ser.WriteObject(fileStream, this);
+            fileStream.Close();
+        }
+
+
+        #endregion
+
+
         public GPPool(GPConfig config)
         {
             this.config = config;
-
-
+            testValue = 100;
+            solutions = new List<GPSolution>();
         }
+
+        #region properties
+        [DataMember]
+        public float testValue { get; set; }
         [DataMember]
         public IList<GPSolution> solutions { get; private set; }
+        public GPConfig config { get; set; }
+        public GPTemplate template { get; set; }
+        #endregion
 
         public void InitPool(GPTemplate template)
         {
             this.template = template;
-            solutions = new List<GPSolution>();
-            for (int i = 0; i < config.poolSize; i++)
+
+            while (solutions.Count < config.poolSize)
             {
                 solutions.Add(template.CreateRandomSolution());
             }
+
+            for (int i = 0; i < solutions.Count; i++)
+            {
+                solutions[i].template = template;
+            }
         }
-
-        public GPConfig config { get; set; }
-
 
         public void SortFitness()
         {
@@ -49,17 +102,17 @@ namespace GeneticProgramming
 
             for (int i = 0; i < solutions.Count - 1; i++)
             {
-                GPSolution solI=solutions[i];
+                GPSolution solI = solutions[i];
                 for (int j = i + 1; j < solutions.Count; j++)
                 {
-                    GPSolution solJ=solutions[j];
+                    GPSolution solJ = solutions[j];
                     if (solI.fitnessResult == solJ.fitnessResult)
                     {
-                        solJ.fitnessResult -= Utils.Random(PENALTY,PENALTY*2);
+                        solJ.fitnessResult -= Utils.Random(PENALTY, PENALTY * 2);
                     }
                 }
             }
-                SortFitness();
+            SortFitness();
 
         }
 
@@ -77,7 +130,8 @@ namespace GeneticProgramming
 
             for (int i = 0; i < solutions.Count; i++)
             {
-                if (i<=config.elitismRange * solutions.Count/100){
+                if (i <= config.elitismRange * solutions.Count / 100)
+                {
                     nextSolutions.Add(solutions[i]);
                 }
                 else if (i <= config.mutationRange * solutions.Count / 100)
@@ -88,8 +142,8 @@ namespace GeneticProgramming
                 }
                 else if (i <= config.generateChildRange * solutions.Count / 100)
                 {
-                    GPSolution solution1 = solutions[Utils.Random(0, config.generateChildRange/ 100f * solutions.Count) ];
-                    GPSolution solution2 = solutions[Utils.Random(0, config.generateChildRange/ 100f * solutions.Count)];
+                    GPSolution solution1 = solutions[Utils.Random(0, config.generateChildRange / 100f * solutions.Count)];
+                    GPSolution solution2 = solutions[Utils.Random(0, config.generateChildRange / 100f * solutions.Count)];
                     GPSolution child2 = null;
                     GPSolution child = solution1.CreateChildWith(solution2, out child2);
                     nextSolutions.Add(child);
@@ -134,8 +188,12 @@ namespace GeneticProgramming
             }*/
         }
 
-        public GPTemplate template { get; set; }
 
-        
+
+
+
+
+
+
     }
 }

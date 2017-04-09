@@ -1,10 +1,29 @@
 ﻿
+using System.Collections.Generic;
+using System.Reflection;
+using System.Linq;
 using System.Runtime.Serialization;
+using System;
 namespace GeneticProgramming.semantica
 {
     [DataContract]
+    [KnownType("GetKnownTypes")]
+
     public abstract class GPSemantica
     {
+
+        private static IEnumerable<Type> _descendingTypes;
+        private static IEnumerable<Type> GetKnownTypes()
+        {
+            if (_descendingTypes == null)
+                _descendingTypes = Assembly.GetExecutingAssembly()
+                                        .GetTypes()
+                                        .Where(t => typeof(GPSemantica).IsAssignableFrom(t))
+                                        .ToList();
+            return _descendingTypes;
+        }
+
+
         public GPSemantica(string name, GPConsts.GPNODE_TYPE nodeType, int minParams, int maxParams)
         {
             this.name = name;

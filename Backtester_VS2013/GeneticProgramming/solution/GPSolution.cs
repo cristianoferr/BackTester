@@ -43,11 +43,12 @@ namespace GeneticProgramming.solution
 
         [DataMember]
         private Dictionary<string, GPAbstractNode> valores { get; set; }
+        [DataMember]
+        public string name { get; set; }
 
         //Será usado como base para o processo de ordenação de resultados e deve ser calculado pelo programa mestre...
         public float fitnessResult { get; set; }
 
-        [DataMember]
         public GPTemplate template { get; set; }
         #endregion
 
@@ -109,9 +110,6 @@ namespace GeneticProgramming.solution
         }
 
 
-      
-
-
         public string SpliceWith(GPSolution mateWith)
         {
             int minSize = 2;
@@ -164,10 +162,7 @@ namespace GeneticProgramming.solution
             return key;
         }
 
-
-
-
-        public string name { get; set; }
+        
 
         public GPSolution CreateChildWith(GPSolution solution2, out GPSolution child2)
         {
@@ -189,5 +184,15 @@ namespace GeneticProgramming.solution
         }
 
 
+
+        internal void FinishLoading(GPSolutionDefinition definition)
+        {
+            propriedadesDeNegocio = new Dictionary<string, object>();
+            foreach (string key in valores.Keys)
+            {
+                GPAbstractNode node = valores[key];
+                node.FinishLoading(definition);
+            }
+        }
     }
 }

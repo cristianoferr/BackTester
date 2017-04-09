@@ -2,12 +2,27 @@
 using GeneticProgramming.semantica;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
+using System.Linq;
 using System.Runtime.Serialization;
 namespace GeneticProgramming.nodes
 {
     [DataContract]
+    [KnownType("GetKnownTypes")]
     public abstract class GPAbstractNode
     {
+
+        private static IEnumerable<Type> _descendingTypes;
+        private static IEnumerable<Type> GetKnownTypes()
+        {
+            if (_descendingTypes == null)
+                _descendingTypes = Assembly.GetExecutingAssembly()
+                                        .GetTypes()
+                                        .Where(t => typeof(GPAbstractNode).IsAssignableFrom(t))
+                                        .ToList();
+            return _descendingTypes;
+        }
+
 
         public GPAbstractNode(semantica.GPSemantica semantica)
         {
@@ -19,13 +34,27 @@ namespace GeneticProgramming.nodes
             children = new List<GPAbstractNode>();
 
         }
-        [DataMember]
+
+        #region propriedades
         public GPAbstractNode nodePai { get; set; }
         [DataMember]
         public IList<GPAbstractNode> children { get; private set; }
 
         [DataMember]
-        public GPSemantica semantica { get; internal set; }
+        public string semanticaName{get;set;}
+
+        private GPSemantica semantica_;
+        public GPSemantica semantica { get {
+            return semantica_;
+        }
+            internal set
+            {
+                semantica_ = value;
+                semanticaName = semantica_.name;
+            }
+        }
+
+        #endregion
 
         public virtual bool CanAddNode(GPAbstractNode nodeFilho)
         {
@@ -182,6 +211,16 @@ namespace GeneticProgramming.nodes
                 node.AddNode(children[i].Clone());
             }
             return node;
+        }
+
+        internal void FinishLoading(GPSolutionDefinition definition)
+        {
+            semantica_ = definition.GetSemantica(semanticaName);
+            foreach (GPAbstractNode node in children)
+            {
+                node.nodePai = this;
+                node.FinishLoading(definition);
+            }
         }
     }
 }
