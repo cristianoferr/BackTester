@@ -57,3 +57,7 @@ F:\Java\repositorios\BackTester\Backtester_VS2013\Backtester\bin\Debug\Backteste
 F:\Java\repositorios\BackTester\Backtester_VS2013\Backtester\bin\Debug\GeneticProgramming.dll
 F:\Java\repositorios\BackTester\Backtester_VS2013\Backtester\bin\Debug\Backtester.GeneticProgramming.pdb
 F:\Java\repositorios\BackTester\Backtester_VS2013\Backtester\bin\Debug\GeneticProgramming.pdb
+G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester\bin\Debug\Backtester.GeneticProgramming.dll
+G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester\bin\Debug\GeneticProgramming.dll
+G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester\bin\Debug\Backtester.GeneticProgramming.pdb
+G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester\bin\Debug\GeneticProgramming.pdb

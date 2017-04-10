@@ -23,9 +23,17 @@ namespace GeneticProgramming
         public static string BOOL_NOT = UsoComum.ConstsComuns.BOOLEAN_TYPE.NOT.ToString();//NYI
 
         public const string NUMBER_DEFAULT = "NUMBER_DEFAULT";
+        public const string NUMBER_BOOLEAN = "NUMBER_BOOLEAN";
+        public const string NUMBER_PERCENTUAL = "NUMBER_PERCENTUAL";
+        public const string NUMBER_GRANDE = "NUMBER_GRANDE";
 
         public const string LISTA_FORMULA = "formulas";
         public const string LISTA_NUMEROS = "numeros";
+        public const string LISTA_NUMEROS_BOOLEANOS = "LISTA_NUMEROS_BOOLEANOS";
+        public const string LISTA_NUMEROS_GRANDES = "LISTA_NUMEROS_GRANDES";
+        public const string LISTA_NUMEROS_PERCENTUAIS = "LISTA_NUMEROS_PERCENTUAIS";
+
+
 
         [Flags]
         public enum GPNODE_TYPE

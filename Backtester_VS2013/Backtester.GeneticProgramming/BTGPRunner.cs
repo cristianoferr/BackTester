@@ -34,8 +34,8 @@ namespace Backtester.GeneticProgramming
             this.config = config;
             this.gpController = gpController;
         }
-        
-     
+
+
         public override GPSolutionDefinition CreateSolutionDefinition()
         {
             GPSolutionDefinition def = new BackTesterSemantica(gpConfig);
@@ -48,6 +48,9 @@ namespace Backtester.GeneticProgramming
 
             SemanticaList listaFormula = definitions.GetListByName(GPConsts.LISTA_FORMULA);
             SemanticaList listaNumeros = definitions.GetListByName(GPConsts.LISTA_NUMEROS);
+            SemanticaList listaBooleanos = definitions.GetListByName(GPConsts.LISTA_NUMEROS_BOOLEANOS);
+            SemanticaList listaNumerosGrandes = definitions.GetListByName(GPConsts.LISTA_NUMEROS_GRANDES);
+            SemanticaList listaNumerosPercentuais = definitions.GetListByName(GPConsts.LISTA_NUMEROS_PERCENTUAIS);
             //   template.AddProperty(PROP_COND_ENTRADA_C,)
 
             if (config.flagCompra)
@@ -85,14 +88,14 @@ namespace Backtester.GeneticProgramming
             listVariaveis.Add(Consts.VAR_RISCO_GLOBAL);
             listVariaveis.Add(Consts.VAR_MULTIPLAS_ENTRADAS);
 
-            template.AddProperty(Consts.VAR_STOP_GAP, listaNumeros);
-            template.AddProperty(Consts.VAR_RISCO_TRADE, listaNumeros);
-            template.AddProperty(Consts.VAR_STOP_MENSAL, listaNumeros);
-            template.AddProperty(Consts.VAR_MAX_CAPITAL_TRADE, listaNumeros);
-            template.AddProperty(Consts.VAR_PERC_TRADE, listaNumeros);
-            template.AddProperty(Consts.VAR_USA_STOP_MOVEL, listaNumeros);
-            template.AddProperty(Consts.VAR_RISCO_GLOBAL, listaNumeros);
-            template.AddProperty(Consts.VAR_MULTIPLAS_ENTRADAS, listaNumeros);
+            template.AddProperty(Consts.VAR_STOP_GAP, listaNumerosPercentuais);
+            template.AddProperty(Consts.VAR_RISCO_TRADE, listaNumerosPercentuais);
+            template.AddProperty(Consts.VAR_STOP_MENSAL, listaNumerosPercentuais);
+            template.AddProperty(Consts.VAR_MAX_CAPITAL_TRADE, listaNumerosGrandes);
+            template.AddProperty(Consts.VAR_PERC_TRADE, listaNumerosPercentuais);
+            template.AddProperty(Consts.VAR_USA_STOP_MOVEL, listaBooleanos);
+            template.AddProperty(Consts.VAR_RISCO_GLOBAL, listaNumerosPercentuais);
+            template.AddProperty(Consts.VAR_MULTIPLAS_ENTRADAS, listaBooleanos);
 
             return template;
         }
@@ -100,7 +103,7 @@ namespace Backtester.GeneticProgramming
         public override void RunSolution(GPSolution solution)
         {
             TradeSystem ts = solution.GetPropriedade(OBJ_TRADESYSTEM) as TradeSystem;
-            Carteira carteira=gpController.RunBackTester(ts,solution.name);
+            Carteira carteira = gpController.RunBackTester(ts, solution.name);
             solution.fitnessResult = carteira.monteCarlo.CalcFitness();
         }
 

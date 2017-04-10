@@ -25,8 +25,9 @@ namespace Backtester.backend.model
 
         public int countAcoes
         {
-            get{
-                return operacoesFechadas.Sum(x=>x.qtd);
+            get
+            {
+                return operacoesFechadas.Sum(x => x.qtd);
             }
 
         }
@@ -58,9 +59,11 @@ namespace Backtester.backend.model
                 return 0;
             }
 
+            int qtd = (int)carteira.QueryQtdAcoes(valorAcao, vlrStop, perc, periodo);
             //cancelando trades lixos... 
             //TODO: adicionar um erro critico no tradesystem
-            carteira.monteCarlo.AnalisaEntrada(direcao, valorAcao, vlrStop);
+
+            carteira.monteCarlo.AnalisaEntrada(direcao, valorAcao, vlrStop, qtd > 0 ? qtd : 0);
 
             if (direcao > 0 && vlrStop >= valorAcao)
             {
@@ -71,7 +74,6 @@ namespace Backtester.backend.model
                 return 0;
             }
 
-            int qtd = (int)carteira.QueryQtdAcoes(valorAcao, vlrStop, perc,periodo);
             if (qtd <= 0) return 0;
 
 

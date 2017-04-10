@@ -162,7 +162,7 @@ namespace GeneticProgramming.solution
             return key;
         }
 
-        
+
 
         public GPSolution CreateChildWith(GPSolution solution2, out GPSolution child2)
         {
@@ -171,13 +171,13 @@ namespace GeneticProgramming.solution
 
             foreach (string key in valores.Keys)
             {
-               /* GPAbstractNode node1 = child.valores[key];
-                GPAbstractNode node2 = child2.valores[key];*/
+                /* GPAbstractNode node1 = child.valores[key];
+                 GPAbstractNode node2 = child2.valores[key];*/
                 if (Utils.Random(0, 100) > 50)
                 {
                     child.SpliceWith(child2, key);
                 }
-               
+
             }
 
             return child;
@@ -187,6 +187,10 @@ namespace GeneticProgramming.solution
 
         internal void FinishLoading(GPSolutionDefinition definition)
         {
+            if (idSolution > countSolutions)
+            {
+                countSolutions = idSolution + 1;
+            }
             propriedadesDeNegocio = new Dictionary<string, object>();
             foreach (string key in valores.Keys)
             {

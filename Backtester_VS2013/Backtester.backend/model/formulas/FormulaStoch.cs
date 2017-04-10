@@ -25,7 +25,8 @@ namespace Backtester.backend.model.formulas
         public override float Calc(Candle candle)
         {
             float k = 0;
-            float max=smooth.Calc(candle);
+            float max = smooth.Calc(candle);
+            max = LimitPeriodo(max);
             for (int i = 0; i < max; i++)
             {
                 float ll = candle.GetValor(facade.formulaManager.GetFormula(FormulaManager.LV, "L," + per));

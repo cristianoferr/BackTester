@@ -23,8 +23,16 @@ namespace GeneticProgramming.semantica
 
             CreateListByName(GPConsts.LISTA_FORMULA, config.minLevels, config.maxLevels);
             CreateListByName(GPConsts.LISTA_NUMEROS, 0, 0);
+            CreateListByName(GPConsts.LISTA_NUMEROS_BOOLEANOS, 0, 0);
+            CreateListByName(GPConsts.LISTA_NUMEROS_PERCENTUAIS, 0, 0);
+            CreateListByName(GPConsts.LISTA_NUMEROS_GRANDES, 0, 0);
+
+
             AddSemanticaToList(GPConsts.LISTA_FORMULA, GetSemantica(GPConsts.NUMBER_DEFAULT));
             AddSemanticaToList(GPConsts.LISTA_NUMEROS, GetSemantica(GPConsts.NUMBER_DEFAULT));
+            AddSemanticaToList(GPConsts.LISTA_NUMEROS_BOOLEANOS, GetSemantica(GPConsts.NUMBER_BOOLEAN));
+            AddSemanticaToList(GPConsts.LISTA_NUMEROS_GRANDES, GetSemantica(GPConsts.NUMBER_GRANDE));
+            AddSemanticaToList(GPConsts.LISTA_NUMEROS_PERCENTUAIS, GetSemantica(GPConsts.NUMBER_PERCENTUAL));
         }
         #region AllSemantics
 
@@ -38,8 +46,17 @@ namespace GeneticProgramming.semantica
             InitFormulas();
 
 
-            GPSemantica semantica = new GPSemanticaNumber(GPConsts.NUMBER_DEFAULT, -10, 10);
+            GPSemantica semantica = new GPSemanticaNumber(GPConsts.NUMBER_DEFAULT, -100, 100);
             AddSemanticaToDictionary(GPConsts.NUMBER_DEFAULT, semantica);
+
+            semantica = new GPSemanticaNumber(GPConsts.NUMBER_BOOLEAN, 0, 1);
+            AddSemanticaToDictionary(GPConsts.NUMBER_BOOLEAN, semantica);
+
+            semantica = new GPSemanticaNumber(GPConsts.NUMBER_GRANDE, 0, 100000);
+            AddSemanticaToDictionary(GPConsts.NUMBER_GRANDE, semantica);
+
+            semantica = new GPSemanticaNumber(GPConsts.NUMBER_PERCENTUAL, 0, 100);
+            AddSemanticaToDictionary(GPConsts.NUMBER_PERCENTUAL, semantica);
 
         }
 
@@ -65,10 +82,10 @@ namespace GeneticProgramming.semantica
 
         private void InitBooleans()
         {
-            AddSemanticaBoolean(GPConsts.BOOL_AND, new GPSemanticaBoolean(GPConsts.BOOL_AND,2,2));
-            AddSemanticaBoolean(GPConsts.BOOL_OR, new GPSemanticaBoolean(GPConsts.BOOL_OR,2,2));
-            AddSemanticaBoolean(GPConsts.BOOL_XOR, new GPSemanticaBoolean(GPConsts.BOOL_XOR,2,2));
-           // AddSemanticaBoolean(GPConsts.BOOL_NOT, new GPSemanticaBoolean(GPConsts.BOOL_NOT, 1, 1));
+            AddSemanticaBoolean(GPConsts.BOOL_AND, new GPSemanticaBoolean(GPConsts.BOOL_AND, 2, 2));
+            AddSemanticaBoolean(GPConsts.BOOL_OR, new GPSemanticaBoolean(GPConsts.BOOL_OR, 2, 2));
+            AddSemanticaBoolean(GPConsts.BOOL_XOR, new GPSemanticaBoolean(GPConsts.BOOL_XOR, 2, 2));
+            // AddSemanticaBoolean(GPConsts.BOOL_NOT, new GPSemanticaBoolean(GPConsts.BOOL_NOT, 1, 1));
         }
 
         internal void AddSemanticaBoolean(string name, GPSemanticaBoolean semantica)

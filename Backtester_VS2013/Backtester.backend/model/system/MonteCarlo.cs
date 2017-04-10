@@ -39,7 +39,9 @@ namespace Backtester.backend.model.system
             Utils.println(s + ": " + name + "=>" + global.getMaxMinCapital() + " Trades:" + global.getGeral().getAmbasPontas().getTodosTrades().getnTrades());
         }
 
-        internal void AnalisaEntrada(int direcao, float valorAcao, float vlrStop)
+        int totalQtdAcoes = 0;
+
+        internal void AnalisaEntrada(int direcao, float valorAcao, float vlrStop, int qtd)
         {
             if (vlrStop == 0)
             {
@@ -57,16 +59,17 @@ namespace Backtester.backend.model.system
                 return;
             }
 
-            float difPerc = Math.Abs(valorAcao / vlrStop*100);
+            float difPerc = Math.Abs((valorAcao / vlrStop - 1) * 100);
             if (difPerc > MAX_DISTANCE_VLR_ENTRADA_VLR_STOP)
             {
                 ERROR_DISTANCIA_SUPERADA = true;
             }
+            totalQtdAcoes += qtd;
         }
 
-        bool ERROR_STOP_0=false;
-        bool ERROR_VLR_STOP_ERRADO=false;
-        bool ERROR_DISTANCIA_SUPERADA=false;
+        bool ERROR_STOP_0 = false;
+        bool ERROR_VLR_STOP_ERRADO = false;
+        bool ERROR_DISTANCIA_SUPERADA = false;
 
         public void FinishStats()
         {
@@ -76,14 +79,28 @@ namespace Backtester.backend.model.system
 
             if (qtdTrades == 0)
             {
-                fitness -= PENALTY*100;
+                fitness -= PENALTY * 100;
+            }
+
+            //Bonus para quantidade de acoes...
+            if (qtdTrades > 0)
+            {
+                float avgAcoes = totalQtdAcoes / qtdTrades / 100;
+                if (avgAcoes <= 2)
+                {
+                    fitness -= PENALTY;
+                }
+                else
+                {
+                    fitness += BONUS * avgAcoes * 10;
+                }
             }
 
             fitness += BONUS * percAcerto;
 
             int difTrades = QTD_MINIMA_TRADES - qtdTrades;
-            if (difTrades<0)difTrades=0;
-            fitness -= difTrades * PENALTY / QTD_MINIMA_TRADES*10;
+            if (difTrades < 0) difTrades = 0;
+            fitness -= difTrades * PENALTY / QTD_MINIMA_TRADES * 10;
 
 
             float avgDias = global.getGeral().getAmbasPontas().getTodosTrades().getAvgDias();
@@ -93,7 +110,7 @@ namespace Backtester.backend.model.system
                 fitness += BONUS * avgDias;
             }
 
-            fitness /= 10;
+            //fitness /= 10;
         }
 
         public const int AVG_DIAS_GOAL = 50;
@@ -169,6 +186,6 @@ namespace Backtester.backend.model.system
             return getCapitalFinal() + fitness;
         }
 
-       
+
     }
 }

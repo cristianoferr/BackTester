@@ -12,7 +12,7 @@ namespace GeneticProgramming
 
             this.definitions = CreateSolutionDefinition();
             this.pool = GPPool.LoadSaved(config, definitions);
-            
+
         }
         public void Init()
         {
@@ -28,6 +28,7 @@ namespace GeneticProgramming
         public virtual void SingleRun()
         {
             pool.InitTurn();
+
             foreach (GPSolution solution in pool.solutions)
             {
                 PrepareSolution(solution);

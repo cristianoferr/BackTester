@@ -1,6 +1,5 @@
 ﻿using GeneticProgramming.semantica;
 using GeneticProgramming.solution;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -19,7 +18,7 @@ namespace GeneticProgramming
         public const float PENALTY = 100000;
 
         #region IO
-        internal static GPPool LoadSaved(GPConfig config,GPSolutionDefinition definition)
+        internal static GPPool LoadSaved(GPConfig config, GPSolutionDefinition definition)
         {
             try
             {
@@ -45,6 +44,7 @@ namespace GeneticProgramming
         {
             foreach (GPSolution solution in solutions)
             {
+               
                 solution.FinishLoading(definition);
             }
         }
@@ -63,13 +63,13 @@ namespace GeneticProgramming
         public GPPool(GPConfig config)
         {
             this.config = config;
-            testValue = 100;
+            iterationNumber = 0;
             solutions = new List<GPSolution>();
         }
 
         #region properties
         [DataMember]
-        public float testValue { get; set; }
+        public int iterationNumber { get; set; }
         [DataMember]
         public IList<GPSolution> solutions { get; private set; }
         public GPConfig config { get; set; }
@@ -118,6 +118,7 @@ namespace GeneticProgramming
 
         internal void InitTurn()
         {
+            iterationNumber++;
             foreach (GPSolution solution in solutions)
             {
                 solution.fitnessResult = 0;

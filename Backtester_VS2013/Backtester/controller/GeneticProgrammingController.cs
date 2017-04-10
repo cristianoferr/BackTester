@@ -2,19 +2,15 @@
 using Backtester.backend.model;
 using Backtester.backend.model.system;
 using Backtester.GeneticProgramming;
-using Microsoft.VisualBasic.CompilerServices;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Backtester.controller
 {
 
-    public class GeneticProgrammingController:IController,ICaller
+    public class GeneticProgrammingController : IController, ICaller
     {
         private FrmPrincipal frmPrincipal;
         private ConfigController configController;
@@ -25,7 +21,7 @@ namespace Backtester.controller
         {
             this.frmPrincipal = frmPrincipal;
             this.configController = configController;
-            runner = new BTGPRunner(ConfigController.config,this);
+            runner = new BTGPRunner(ConfigController.config, this);
             runner.Init();
         }
         public void UpdateValuesFromUI()
@@ -37,20 +33,17 @@ namespace Backtester.controller
 
         }
 
-        public Carteira RunBackTester(TradeSystem ts,string name)
+        public Carteira RunBackTester(TradeSystem ts, string name)
         {
-            return configController.facade.RunSingle(name,this, ConfigController.config, ts);
+            return configController.facade.RunSingle(name, this, ConfigController.config, ts);
         }
 
-        int loops = 0;
 
         internal void Run()
         {
             configController.facade.LoadAtivos(ConfigController.config.papeis);
-            loops = 0;
             while (true)
             {
-                loops++;
                 StartSingleRun();
             }
         }
@@ -67,7 +60,7 @@ namespace Backtester.controller
             GC.Collect();
             configController.facade.ClearData();
             configController.facade.ClearFormulas();
-            
+
             frmPrincipal.dataGridRuns.Rows.Clear();
             Thread t = new Thread(staticSingleRun);
             t.Start();
@@ -83,7 +76,7 @@ namespace Backtester.controller
                     {
                         UpdatesToAdd updt = updatesToAdd[i];
                         runs++;
-                        configController.UpdateApplication(updt.carteira, updt.mc, runs,loops);
+                        configController.UpdateApplication(updt.carteira, updt.mc, runs, updt.totalLoops);
                     }
                     updatesToAdd.Clear();
                 }
@@ -93,27 +86,28 @@ namespace Backtester.controller
         static void staticSingleRun()
         {
             runner.SingleRun();
-            
+
         }
 
-         public void SimpleUpdate(){
-             configController.SimpleUpdate();
-         }
+        public void SimpleUpdate()
+        {
+            configController.SimpleUpdate();
+        }
 
-         List<UpdatesToAdd> updatesToAdd = new List<UpdatesToAdd>();
-         public void UpdateApplication(Carteira carteira, MonteCarlo mc, int countLoops, int totalLoops)
-         {
-             UpdatesToAdd updt = new UpdatesToAdd();
-             updt.carteira = carteira;
-             updt.mc = mc;
-             updt.countLoops=countLoops;
-             updt.totalLoops = totalLoops;
-             updatesToAdd.Add(updt);
-             
-         }
+        List<UpdatesToAdd> updatesToAdd = new List<UpdatesToAdd>();
+        public void UpdateApplication(Carteira carteira, MonteCarlo mc, int countLoops, int totalLoops)
+        {
+            UpdatesToAdd updt = new UpdatesToAdd();
+            updt.carteira = carteira;
+            updt.mc = mc;
+            updt.countLoops = countLoops;
+            updt.totalLoops = runner.pool.iterationNumber;
+            updatesToAdd.Add(updt);
+
+        }
 
 
-         
+
     }
 
     class UpdatesToAdd
