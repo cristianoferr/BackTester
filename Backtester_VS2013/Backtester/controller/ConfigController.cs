@@ -145,6 +145,7 @@ namespace Backtester.controller
             frmPrincipal.dataGridRuns.Rows[rowLine].Cells[colIndex++].Value = mC.totalGanho;
             frmPrincipal.dataGridRuns.Rows[rowLine].Cells[colIndex++].Value = mC.totalPerdido;
             frmPrincipal.dataGridRuns.Rows[rowLine].Cells[colIndex++].Value = mC.percAcerto;
+            frmPrincipal.dataGridRuns.Rows[rowLine].Cells[colIndex++].Value = mC.capitalUsePercent;
             frmPrincipal.dataGridRuns.Rows[rowLine].Cells[colIndex++].Value = todosTrades.getMaxDias();
             frmPrincipal.dataGridRuns.Rows[rowLine].Cells[colIndex++].Value = todosTrades.getMinDias();
             frmPrincipal.dataGridRuns.Rows[rowLine].Cells[colIndex++].Value = todosTrades.getAvgDias();

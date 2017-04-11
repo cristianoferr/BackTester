@@ -41,6 +41,17 @@ namespace Backtester.backend.model.system
 
         int totalQtdAcoes = 0;
 
+        float totalCarteiraLiquido = 0;
+        float totalCarteiraEmPosicao = 0;
+        int totalPeriodos = 0;
+
+        internal void AnalizaPeriodo(Carteira carteira)
+        {
+            totalCarteiraLiquido += carteira.capitalLiq;
+            totalCarteiraEmPosicao += carteira.capitalPosicao;
+            totalPeriodos++;
+        }
+
         internal void AnalisaEntrada(int direcao, float valorAcao, float vlrStop, int qtd)
         {
             if (vlrStop == 0)
@@ -71,7 +82,7 @@ namespace Backtester.backend.model.system
         bool ERROR_VLR_STOP_ERRADO = false;
         bool ERROR_DISTANCIA_SUPERADA = false;
 
-        public void FinishStats()
+        public void FinishStats(Carteira carteira)
         {
             if (ERROR_STOP_0) fitness -= PENALTY;
             if (ERROR_VLR_STOP_ERRADO) fitness -= PENALTY;
@@ -82,6 +93,41 @@ namespace Backtester.backend.model.system
                 fitness -= PENALTY * 100;
             }
 
+            FitnessQtdAcoes();
+            FitnessPercUsoCapital();
+
+            fitness += BONUS * percAcerto;
+
+            int difTrades = QTD_MINIMA_TRADES - qtdTrades;
+            if (difTrades < 0) difTrades = 0;
+            fitness -= difTrades * PENALTY / QTD_MINIMA_TRADES * 50;
+
+
+            float avgDias = global.getGeral().getAmbasPontas().getTodosTrades().getAvgDias();
+            //bonus até 50 dias...
+            if (avgDias < AVG_DIAS_GOAL)
+            {
+                fitness += BONUS * avgDias;
+            }
+
+            
+            float difCapital = carteira.GetCapital()-carteira.capitalInicial;
+            if (difCapital < 0)
+            {
+                fitness -= PENALTY*100;
+            }
+
+            fitness /= 100;
+        }
+
+        private void FitnessPercUsoCapital()
+        {
+            //quanto maior o percentual de uso, melhor (significa que estou usando melhor os fundos)
+            fitness += capitalUsePercent * BONUS;
+        }
+
+        private void FitnessQtdAcoes()
+        {
             //Bonus para quantidade de acoes...
             if (qtdTrades > 0)
             {
@@ -92,31 +138,23 @@ namespace Backtester.backend.model.system
                 }
                 else
                 {
-                    fitness += BONUS * avgAcoes * 10;
+                    fitness += BONUS * avgAcoes;
                 }
             }
+        }
 
-            fitness += BONUS * percAcerto;
-
-            int difTrades = QTD_MINIMA_TRADES - qtdTrades;
-            if (difTrades < 0) difTrades = 0;
-            fitness -= difTrades * PENALTY / QTD_MINIMA_TRADES * 10;
-
-
-            float avgDias = global.getGeral().getAmbasPontas().getTodosTrades().getAvgDias();
-            //bonus até 50 dias...
-            if (avgDias < AVG_DIAS_GOAL)
+        public float capitalUsePercent
+        {
+            get
             {
-                fitness += BONUS * avgDias;
+                return totalCarteiraEmPosicao / (totalCarteiraEmPosicao+totalCarteiraLiquido) * 100;
             }
-
-            //fitness /= 10;
         }
 
         public const int AVG_DIAS_GOAL = 50;
         public const int MAX_DISTANCE_VLR_ENTRADA_VLR_STOP = 20;
 
-        public const int BONUS = 1000;
+        public const int BONUS = 10000;
         public const int PENALTY = 100000;
         public const int PERC_MINIMA_ACERTO = 50;
         public const int QTD_MINIMA_TRADES = 100;
@@ -187,5 +225,6 @@ namespace Backtester.backend.model.system
         }
 
 
+     
     }
 }

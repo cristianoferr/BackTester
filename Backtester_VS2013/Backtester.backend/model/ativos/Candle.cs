@@ -92,12 +92,19 @@ namespace Backtester.backend.model.ativos
             {
                 return valores[name];
             }
-            return f.Calc(this);
+            float calc= f.Calc(this);
+            SetValor(name, calc);
+            return calc;
         }
 
         public float GetValor(Formula f)
         {
-            if (!valores.ContainsKey(f.GetCode())) return f.Calc(this);
+            if (!valores.ContainsKey(f.GetCode()))
+            {
+                float calc = f.Calc(this);
+                SetValor(f, calc);
+                return calc;
+            }
             return valores[f.GetCode()];
         }
 

@@ -133,7 +133,7 @@ namespace Backtester.backend
             Estatistica stat = runSingleBackTest(caller, mC);
             stat.setDesc(getVarsValues());
             mC.setEstatistica(stat);
-            mC.FinishStats();
+            mC.FinishStats(carteira);
             mC.printPerformance("");
             caller.UpdateApplication(carteira, mC, countLoops_, totalLoops_);
             //monteCarlo.Add(mC);
@@ -160,14 +160,13 @@ namespace Backtester.backend
         }
         public int[] GetRandomOrder(int percMax)
         {
-            Random rnd = new Random();
             int[] rd = new int[ativos.Count];
             for (int i = 0; i < ativos.Count; i++)
                 rd[i] = i;
 
             for (int i = 0; i < ativos.Count - 1; i++)
                 for (int j = i; j < ativos.Count; j++)
-                    if (rnd.Next(1) > 0.5f)
+                    if (Utils.Random(0,100) > 50)
                     {
                         int x = rd[i];
                         rd[i] = rd[j];
@@ -196,6 +195,7 @@ namespace Backtester.backend
                 caller.SimpleUpdate();
                 //System.out.println("Periodo:"+periodo.getPeriodo());
                 carteira.EndTurn(periodo, !mesA.Equals(periodo.GetMes()));
+                mc.AnalizaPeriodo(carteira);
                 if (!mesA.Equals(periodo.GetMes())) mesA = periodo.GetMes() + "";
 
                 for (int i = 0; i < rd.Length; i++)
@@ -234,6 +234,7 @@ namespace Backtester.backend
 
                     }
                 }
+                
                 periodo = periodo.proximoPeriodo;
             }
             carteira.FechaPosicoes(periodo);

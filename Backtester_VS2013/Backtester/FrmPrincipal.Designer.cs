@@ -28,19 +28,20 @@
         /// </summary>
         public void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
             this.mainTab = new System.Windows.Forms.TabControl();
             this.tabBackTester = new System.Windows.Forms.TabPage();
             this.tabControlBacktester = new System.Windows.Forms.TabControl();
@@ -67,6 +68,7 @@
             this.labelStatus = new System.Windows.Forms.Label();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.btnRodaSingleGP = new System.Windows.Forms.Button();
             this.btnRodaSingle = new System.Windows.Forms.Button();
             this.cbTradeSystem = new System.Windows.Forms.ComboBox();
@@ -182,10 +184,10 @@
             this.totalGanho = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.totalPerdido = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.percAcerto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.percUso = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.maxdias = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.minDias = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Avg_dias = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button1 = new System.Windows.Forms.Button();
             this.mainTab.SuspendLayout();
             this.tabBackTester.SuspendLayout();
             this.tabControlBacktester.SuspendLayout();
@@ -289,6 +291,7 @@
             this.totalGanho,
             this.totalPerdido,
             this.percAcerto,
+            this.percUso,
             this.maxdias,
             this.minDias,
             this.Avg_dias});
@@ -468,6 +471,17 @@
             this.panel5.Name = "panel5";
             this.panel5.Size = new System.Drawing.Size(1098, 43);
             this.panel5.TabIndex = 1;
+            // 
+            // button1
+            // 
+            this.button1.Dock = System.Windows.Forms.DockStyle.Left;
+            this.button1.Location = new System.Drawing.Point(200, 0);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(74, 43);
+            this.button1.TabIndex = 6;
+            this.button1.Text = "Roda GP";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.btnRodaGP_Click);
             // 
             // btnRodaSingleGP
             // 
@@ -1485,148 +1499,147 @@
             // 
             this.Fitness.HeaderText = "Fitness";
             this.Fitness.Name = "Fitness";
-            this.Fitness.Visible = false;
+            this.Fitness.Width = 80;
             // 
             // resultado
             // 
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle14.Format = "N2";
-            dataGridViewCellStyle14.NullValue = null;
-            this.resultado.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle1.Format = "N2";
+            dataGridViewCellStyle1.NullValue = null;
+            this.resultado.DefaultCellStyle = dataGridViewCellStyle1;
             this.resultado.HeaderText = "Resultado";
             this.resultado.Name = "resultado";
             this.resultado.Width = 80;
             // 
             // maxCapital
             // 
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle15.Format = "N2";
-            dataGridViewCellStyle15.NullValue = null;
-            this.maxCapital.DefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle2.Format = "N2";
+            dataGridViewCellStyle2.NullValue = null;
+            this.maxCapital.DefaultCellStyle = dataGridViewCellStyle2;
             this.maxCapital.HeaderText = "Max Capital";
             this.maxCapital.Name = "maxCapital";
             this.maxCapital.Width = 80;
             // 
             // minCapital
             // 
-            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle16.Format = "N2";
-            dataGridViewCellStyle16.NullValue = null;
-            this.minCapital.DefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle3.Format = "N2";
+            dataGridViewCellStyle3.NullValue = null;
+            this.minCapital.DefaultCellStyle = dataGridViewCellStyle3;
             this.minCapital.HeaderText = "Min Capital";
             this.minCapital.Name = "minCapital";
             this.minCapital.Width = 80;
             // 
             // winLoss
             // 
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle17.Format = "N2";
-            dataGridViewCellStyle17.NullValue = null;
-            this.winLoss.DefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle4.Format = "N2";
+            dataGridViewCellStyle4.NullValue = null;
+            this.winLoss.DefaultCellStyle = dataGridViewCellStyle4;
             this.winLoss.HeaderText = "$W/$L";
             this.winLoss.Name = "winLoss";
             this.winLoss.Width = 50;
             // 
             // trades
             // 
-            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle18.Format = "N0";
-            dataGridViewCellStyle18.NullValue = null;
-            this.trades.DefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle5.Format = "N0";
+            dataGridViewCellStyle5.NullValue = null;
+            this.trades.DefaultCellStyle = dataGridViewCellStyle5;
             this.trades.HeaderText = "Trades";
             this.trades.Name = "trades";
             this.trades.Width = 50;
             // 
             // ganhos
             // 
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle19.Format = "N0";
-            dataGridViewCellStyle19.NullValue = null;
-            this.ganhos.DefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle6.Format = "N0";
+            dataGridViewCellStyle6.NullValue = null;
+            this.ganhos.DefaultCellStyle = dataGridViewCellStyle6;
             this.ganhos.HeaderText = "Ganhos";
             this.ganhos.Name = "ganhos";
             this.ganhos.Width = 50;
             // 
             // perdidos
             // 
-            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle20.Format = "N0";
-            dataGridViewCellStyle20.NullValue = null;
-            this.perdidos.DefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle7.Format = "N0";
+            dataGridViewCellStyle7.NullValue = null;
+            this.perdidos.DefaultCellStyle = dataGridViewCellStyle7;
             this.perdidos.HeaderText = "Perdidos";
             this.perdidos.Name = "perdidos";
             this.perdidos.Width = 50;
             // 
             // totalGanho
             // 
-            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle21.Format = "N2";
-            dataGridViewCellStyle21.NullValue = null;
-            this.totalGanho.DefaultCellStyle = dataGridViewCellStyle21;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle8.Format = "N2";
+            dataGridViewCellStyle8.NullValue = null;
+            this.totalGanho.DefaultCellStyle = dataGridViewCellStyle8;
             this.totalGanho.HeaderText = "Total Ganho";
             this.totalGanho.Name = "totalGanho";
             this.totalGanho.Width = 80;
             // 
             // totalPerdido
             // 
-            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle22.Format = "N2";
-            dataGridViewCellStyle22.NullValue = null;
-            this.totalPerdido.DefaultCellStyle = dataGridViewCellStyle22;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle9.Format = "N2";
+            dataGridViewCellStyle9.NullValue = null;
+            this.totalPerdido.DefaultCellStyle = dataGridViewCellStyle9;
             this.totalPerdido.HeaderText = "Total Perdido";
             this.totalPerdido.Name = "totalPerdido";
             this.totalPerdido.Width = 80;
             // 
             // percAcerto
             // 
-            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle23.Format = "N2";
-            dataGridViewCellStyle23.NullValue = null;
-            this.percAcerto.DefaultCellStyle = dataGridViewCellStyle23;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle10.Format = "N2";
+            dataGridViewCellStyle10.NullValue = null;
+            this.percAcerto.DefaultCellStyle = dataGridViewCellStyle10;
             this.percAcerto.HeaderText = "%Acerto";
             this.percAcerto.Name = "percAcerto";
             this.percAcerto.Width = 50;
             // 
+            // percUso
+            // 
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle11.Format = "N2";
+            dataGridViewCellStyle11.NullValue = null;
+            this.percUso.DefaultCellStyle = dataGridViewCellStyle11;
+            this.percUso.HeaderText = "%Uso";
+            this.percUso.Name = "percUso";
+            this.percUso.Width = 50;
+            // 
             // maxdias
             // 
-            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle24.Format = "N0";
-            dataGridViewCellStyle24.NullValue = null;
-            this.maxdias.DefaultCellStyle = dataGridViewCellStyle24;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle12.Format = "N0";
+            dataGridViewCellStyle12.NullValue = null;
+            this.maxdias.DefaultCellStyle = dataGridViewCellStyle12;
             this.maxdias.HeaderText = "Max.Dias";
             this.maxdias.Name = "maxdias";
             this.maxdias.Width = 50;
             // 
             // minDias
             // 
-            dataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle25.Format = "N0";
-            dataGridViewCellStyle25.NullValue = null;
-            this.minDias.DefaultCellStyle = dataGridViewCellStyle25;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle13.Format = "N0";
+            dataGridViewCellStyle13.NullValue = null;
+            this.minDias.DefaultCellStyle = dataGridViewCellStyle13;
             this.minDias.HeaderText = "Min.Dias";
             this.minDias.Name = "minDias";
             this.minDias.Width = 50;
             // 
             // Avg_dias
             // 
-            dataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle26.Format = "N0";
-            dataGridViewCellStyle26.NullValue = null;
-            this.Avg_dias.DefaultCellStyle = dataGridViewCellStyle26;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle14.Format = "N0";
+            dataGridViewCellStyle14.NullValue = null;
+            this.Avg_dias.DefaultCellStyle = dataGridViewCellStyle14;
             this.Avg_dias.HeaderText = "Avg.Dias";
             this.Avg_dias.Name = "Avg_dias";
             this.Avg_dias.Width = 50;
-            // 
-            // button1
-            // 
-            this.button1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.button1.Location = new System.Drawing.Point(200, 0);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(74, 43);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Roda GP";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.btnRodaGP_Click);
             // 
             // FrmPrincipal
             // 
@@ -1817,6 +1830,7 @@
         public System.Windows.Forms.Label label24;
         public System.Windows.Forms.TextBox txtVarsDebug;
         public System.Windows.Forms.Button btnRodaSingleGP;
+        public System.Windows.Forms.Button button1;
         private System.Windows.Forms.DataGridViewTextBoxColumn MCObjeto;
         private System.Windows.Forms.DataGridViewTextBoxColumn Carteira;
         private System.Windows.Forms.DataGridViewTextBoxColumn colNr;
@@ -1832,10 +1846,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn totalGanho;
         private System.Windows.Forms.DataGridViewTextBoxColumn totalPerdido;
         private System.Windows.Forms.DataGridViewTextBoxColumn percAcerto;
+        private System.Windows.Forms.DataGridViewTextBoxColumn percUso;
         private System.Windows.Forms.DataGridViewTextBoxColumn maxdias;
         private System.Windows.Forms.DataGridViewTextBoxColumn minDias;
         private System.Windows.Forms.DataGridViewTextBoxColumn Avg_dias;
-        public System.Windows.Forms.Button button1;
     }
 }
 

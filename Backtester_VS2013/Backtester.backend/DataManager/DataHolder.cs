@@ -37,7 +37,7 @@ namespace Backtester.backend.model
             if (!f.gravar) return;
             Utils.Info("Carregando formula : " + f.GetCode());
 
-            foreach (Ativo ativo in ativos.Values)
+            /*foreach (Ativo ativo in ativos.Values)
             {
                 Candle candle = ativo.firstCandle;
 
@@ -49,7 +49,7 @@ namespace Backtester.backend.model
                         candle = candle.proximoCandle;
                     }
                 }
-            }
+            }*/
         }
 
 

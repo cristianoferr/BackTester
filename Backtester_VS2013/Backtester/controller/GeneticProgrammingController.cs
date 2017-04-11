@@ -63,6 +63,7 @@ namespace Backtester.controller
 
             frmPrincipal.dataGridRuns.Rows.Clear();
             Thread t = new Thread(staticSingleRun);
+            t.Name = "BacktestRunner";
             t.Start();
             int runs = 0;
             while (t.IsAlive)
