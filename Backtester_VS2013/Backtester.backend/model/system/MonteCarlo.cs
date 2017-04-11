@@ -100,7 +100,7 @@ namespace Backtester.backend.model.system
 
             int difTrades = QTD_MINIMA_TRADES - qtdTrades;
             if (difTrades < 0) difTrades = 0;
-            fitness -= difTrades * PENALTY / QTD_MINIMA_TRADES * 50;
+            fitness -= difTrades * PENALTY / QTD_MINIMA_TRADES * 100;
 
 
             float avgDias = global.getGeral().getAmbasPontas().getTodosTrades().getAvgDias();
@@ -138,7 +138,7 @@ namespace Backtester.backend.model.system
                 }
                 else
                 {
-                    fitness += BONUS * avgAcoes;
+                    fitness += BONUS * avgAcoes*50;
                 }
             }
         }
