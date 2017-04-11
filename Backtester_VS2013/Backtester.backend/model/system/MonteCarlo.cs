@@ -73,51 +73,51 @@ namespace Backtester.backend.model.system
             float difPerc = Math.Abs((valorAcao / vlrStop - 1) * 100);
             if (difPerc > MAX_DISTANCE_VLR_ENTRADA_VLR_STOP)
             {
-                ERROR_DISTANCIA_SUPERADA = true;
+                if (difPerc > ERROR_DISTANCIA_SUPERADA) ERROR_DISTANCIA_SUPERADA = difPerc;
             }
             totalQtdAcoes += qtd;
         }
 
         bool ERROR_STOP_0 = false;
         bool ERROR_VLR_STOP_ERRADO = false;
-        bool ERROR_DISTANCIA_SUPERADA = false;
+        float ERROR_DISTANCIA_SUPERADA = 0;
 
         public void FinishStats(Carteira carteira)
         {
-            if (ERROR_STOP_0) fitness -= PENALTY;
-            if (ERROR_VLR_STOP_ERRADO) fitness -= PENALTY;
-            if (ERROR_DISTANCIA_SUPERADA) fitness -= PENALTY;
+            if (ERROR_STOP_0) fitness -= PENALTY * 10;
+            if (ERROR_VLR_STOP_ERRADO) fitness -= PENALTY * 10;
+            if (ERROR_DISTANCIA_SUPERADA > 0) fitness -= PENALTY * ERROR_DISTANCIA_SUPERADA / 10;
 
             if (qtdTrades == 0)
             {
                 fitness -= PENALTY * 100;
             }
+            float difCapital = carteira.GetCapital() - carteira.capitalInicial;
+            fitness += BONUS * difCapital / 100;
+            if (difCapital == 0) fitness -= PENALTY * 100;
 
-            FitnessQtdAcoes();
-            FitnessPercUsoCapital();
-
-            fitness += BONUS * percAcerto;
 
             int difTrades = QTD_MINIMA_TRADES - qtdTrades;
-            if (difTrades < 0) difTrades = 0;
-            fitness -= difTrades * PENALTY / QTD_MINIMA_TRADES * 100;
-
-
-            float avgDias = global.getGeral().getAmbasPontas().getTodosTrades().getAvgDias();
-            //bonus até 50 dias...
-            if (avgDias < AVG_DIAS_GOAL)
+            if (difTrades > 0) fitness -= PENALTY * difTrades;
+            /*//só dou bonus de acerto para os que estiverem acima do objetivo de qtd minima de trades
+            if (difTrades == 0)
             {
-                fitness += BONUS * avgDias;
+                FitnessQtdAcoes();
+                FitnessPercUsoCapital();
+                fitness += BONUS * percAcerto / 10;
+                float avgDias = global.getGeral().getAmbasPontas().getTodosTrades().getAvgDias();
+                //bonus até 50 dias...
+                if (avgDias < AVG_DIAS_GOAL)
+                {
+                    fitness += BONUS;
+                }
             }
+            */
 
-            
-            float difCapital = carteira.GetCapital()-carteira.capitalInicial;
-            if (difCapital < 0)
-            {
-                fitness -= PENALTY*100;
-            }
 
-            fitness /= 100;
+
+
+            // fitness /= 100;
         }
 
         private void FitnessPercUsoCapital()
@@ -138,7 +138,7 @@ namespace Backtester.backend.model.system
                 }
                 else
                 {
-                    fitness += BONUS * avgAcoes*50;
+                    fitness += BONUS * avgAcoes;
                 }
             }
         }
@@ -147,7 +147,7 @@ namespace Backtester.backend.model.system
         {
             get
             {
-                return totalCarteiraEmPosicao / (totalCarteiraEmPosicao+totalCarteiraLiquido) * 100;
+                return totalCarteiraEmPosicao / (totalCarteiraEmPosicao + totalCarteiraLiquido) * 100;
             }
         }
 
@@ -155,9 +155,9 @@ namespace Backtester.backend.model.system
         public const int MAX_DISTANCE_VLR_ENTRADA_VLR_STOP = 20;
 
         public const int BONUS = 10000;
-        public const int PENALTY = 100000;
+        public const int PENALTY = 10000;
         public const int PERC_MINIMA_ACERTO = 50;
-        public const int QTD_MINIMA_TRADES = 100;
+        public const int QTD_MINIMA_TRADES = 75;
 
         public int qtdTrades
         {
@@ -225,6 +225,6 @@ namespace Backtester.backend.model.system
         }
 
 
-     
+
     }
 }
