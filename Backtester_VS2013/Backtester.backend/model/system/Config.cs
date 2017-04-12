@@ -20,7 +20,7 @@ namespace Backtester.backend.model.system
             campoCompra = FormulaManager.CLOSE;
             papeis = new List<string>();
             maxTestes = 20;
-            qtdPercPapeis = 50;//se eu tenho 100 papeis a testar então isso fará com que seja retornado uma lsita com x perc de 100
+            qtdPercPapeis = 30;//se eu tenho 100 papeis a testar então isso fará com que seja retornado uma lsita com x perc de 100
             InitDefaultPapeis();
         }
 
@@ -29,31 +29,49 @@ namespace Backtester.backend.model.system
             papeis.Add("ABEV3");
             papeis.Add("BBAS3");
             papeis.Add("BBDC4");
+            papeis.Add("BBSE3");
             papeis.Add("BRAP4");
             papeis.Add("BRFS3");
             papeis.Add("BRKM5");
+            papeis.Add("BRML3");
             papeis.Add("BVMF3");
             papeis.Add("CCRO3");
             papeis.Add("CIEL3");
             papeis.Add("CMIG4");
             papeis.Add("CPFE3");
+            papeis.Add("CPLE3");
+            papeis.Add("CSAN3");
             papeis.Add("CSNA3");
             papeis.Add("CYRE3");
             papeis.Add("EMBR3");
+            papeis.Add("ENBR3");
             papeis.Add("FIBR3");
             papeis.Add("GGBR4");
+            papeis.Add("GOAU4");
+            papeis.Add("HYPE3");
             papeis.Add("ITSA4");
             papeis.Add("ITUB4");
             papeis.Add("JBSS3");
+            papeis.Add("KLBN11");
+            papeis.Add("KROT3");
             papeis.Add("LAME4");
             papeis.Add("LREN3");
             papeis.Add("MRFG3");
+            papeis.Add("MRVE3");
+            papeis.Add("MULT3");
             papeis.Add("NATU3");
             papeis.Add("PCAR4");
             papeis.Add("PETR4");
+            papeis.Add("QUAL3");
+            papeis.Add("RENT3");
+            papeis.Add("SBSP3");
+            papeis.Add("SMLE3");
             papeis.Add("SUZB5");
-            papeis.Add("VALE5");
+            papeis.Add("TIMP3");
+            papeis.Add("UGPA3");
             papeis.Add("USIM5");
+            papeis.Add("VALE5");
+            papeis.Add("VIVT4");
             papeis.Add("WEGE3");
         }
 

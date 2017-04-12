@@ -84,9 +84,9 @@ namespace Backtester.backend.model.system
 
         public void FinishStats(Carteira carteira)
         {
-            if (ERROR_STOP_0) fitness -= PENALTY * 10;
-            if (ERROR_VLR_STOP_ERRADO) fitness -= PENALTY * 10;
-            if (ERROR_DISTANCIA_SUPERADA > 0) fitness -= PENALTY * ERROR_DISTANCIA_SUPERADA / 10;
+            if (ERROR_STOP_0) fitness -= PENALTY * 100;
+            if (ERROR_VLR_STOP_ERRADO) fitness -= PENALTY * 100;
+            if (ERROR_DISTANCIA_SUPERADA > 0) fitness -= PENALTY * ERROR_DISTANCIA_SUPERADA * 100;
 
             if (qtdTrades == 0)
             {
@@ -94,11 +94,11 @@ namespace Backtester.backend.model.system
             }
             float difCapital = carteira.GetCapital() - carteira.capitalInicial;
             fitness += BONUS * difCapital / 100;
-            if (difCapital == 0) fitness -= PENALTY * 100;
+            if (difCapital == 0) fitness -= PENALTY * 10;
 
 
             int difTrades = QTD_MINIMA_TRADES - qtdTrades;
-            if (difTrades > 0) fitness -= PENALTY * difTrades;
+            if (difTrades > 0) fitness -= PENALTY * difTrades * 100;
             /*//só dou bonus de acerto para os que estiverem acima do objetivo de qtd minima de trades
             if (difTrades == 0)
             {
@@ -117,7 +117,7 @@ namespace Backtester.backend.model.system
 
 
 
-            // fitness /= 100;
+            fitness /= 100;
         }
 
         private void FitnessPercUsoCapital()

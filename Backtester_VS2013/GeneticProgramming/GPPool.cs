@@ -15,7 +15,7 @@ namespace GeneticProgramming
     [DataContract]
     public class GPPool
     {
-        public const float PENALTY = 100000;
+        public const float PENALTY = 10000;
 
         #region IO
         internal static GPPool LoadSaved(GPConfig config, GPSolutionDefinition definition)
@@ -100,18 +100,18 @@ namespace GeneticProgramming
         {
             //penalizando solucoes com mesmo fitness (parece que a mesma solução se alastra, ficando todos iguais)
 
-            /*  for (int i = 0; i < solutions.Count - 1; i++)
-              {
-                  GPSolution solI = solutions[i];
-                  for (int j = i + 1; j < solutions.Count; j++)
-                  {
-                      GPSolution solJ = solutions[j];
-                      if (solI.fitnessResult == solJ.fitnessResult)
-                      {
-                          solJ.fitnessResult -= Utils.Random(PENALTY, PENALTY * 2);
-                      }
-                  }
-              }*/
+            for (int i = 0; i < solutions.Count - 1; i++)
+            {
+                GPSolution solI = solutions[i];
+                for (int j = i + 1; j < solutions.Count; j++)
+                {
+                    GPSolution solJ = solutions[j];
+                    if (solI.fitnessResult == solJ.fitnessResult)
+                    {
+                        solJ.fitnessResult -= Utils.Random(PENALTY, PENALTY * 2);
+                    }
+                }
+            }
             SortFitness();
 
         }

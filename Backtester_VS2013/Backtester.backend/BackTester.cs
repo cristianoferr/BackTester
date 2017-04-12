@@ -47,7 +47,7 @@ namespace Backtester.backend
         {
             if (tradeSystem.vm.Count == 0)
             {
-                runSingleBackTest(caller,new MonteCarlo("??"));
+                runSingleBackTest(caller, new MonteCarlo("??"));
                 return;
             }
             if (!useVars)
@@ -160,13 +160,17 @@ namespace Backtester.backend
         }
         public int[] GetRandomOrder(int percMax)
         {
+            List<int> lista = new List<int>();
             int[] rd = new int[ativos.Count];
             for (int i = 0; i < ativos.Count; i++)
+            {
                 rd[i] = i;
+                lista.Add(i);
+            }
 
             for (int i = 0; i < ativos.Count - 1; i++)
                 for (int j = i; j < ativos.Count; j++)
-                    if (Utils.Random(0,100) > 50)
+                    if (Utils.Random(0, 100) > 75)
                     {
                         int x = rd[i];
                         rd[i] = rd[j];
@@ -174,8 +178,16 @@ namespace Backtester.backend
                     }
 
             int[] ret = new int[rd.Length * percMax / 100];
-            for (int i = 0; i < ret.Length; i++)
-                ret[i] = rd[i];
+            /*for (int i = 0; i < ret.Length; i++)
+                ret[i] = rd[i];*/
+            int cont = 0;
+            while (cont < ret.Length)
+            {
+                int rndIndex = Utils.Random(0, lista.Count);
+                ret[cont] = lista[rndIndex];
+                lista.RemoveAt(rndIndex);
+                cont++;
+            }
 
             return ret;
         }
@@ -183,7 +195,7 @@ namespace Backtester.backend
         /*
          * Método principal que vai verificar as condições e fazer entradas (um integrador por assim dizer)
          */
-        public Estatistica runSingleBackTest(ICaller caller,MonteCarlo mc)
+        public Estatistica runSingleBackTest(ICaller caller, MonteCarlo mc)
         {
             init();
             carteira.monteCarlo = mc;
@@ -234,7 +246,7 @@ namespace Backtester.backend
 
                     }
                 }
-                
+
                 periodo = periodo.proximoPeriodo;
             }
             carteira.FechaPosicoes(periodo);
