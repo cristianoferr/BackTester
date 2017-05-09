@@ -41,7 +41,7 @@ namespace Backtester.controller
 
         internal void Run()
         {
-            configController.facade.LoadAtivos(ConfigController.config.papeis);
+            configController.facade.LoadAtivos(ConfigController.config.papeis, ConfigController.config.tipoPeriodo);
             while (true)
             {
                 StartSingleRun();
@@ -50,8 +50,8 @@ namespace Backtester.controller
 
         internal void RunSingle()
         {
-            configController.facade.LoadAtivos(ConfigController.config.papeis);
-            configController.facade.LoadAtivos(ConfigController.config.papeis);
+            configController.facade.LoadAtivos(ConfigController.config.papeis,ConfigController.config.tipoPeriodo);
+            configController.facade.LoadAtivos(ConfigController.config.papeis, ConfigController.config.tipoPeriodo);
             StartSingleRun();
         }
 

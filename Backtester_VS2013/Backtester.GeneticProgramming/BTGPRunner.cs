@@ -117,7 +117,14 @@ namespace Backtester.GeneticProgramming
             TradeSystem ts = new TradeSystem(config);
             foreach (string var in listVariaveis)
             {
-                ts.vm.SetVariavel(var, solution.GetValueAsNumber(var));
+                if (config.IsGPVarDefined(var))
+                {
+                    ts.vm.SetVariavel(var, config.GetGPVarValue(var));
+                }
+                else
+                {
+                    ts.vm.SetVariavel(var, solution.GetValueAsNumber(var));
+                }
             }
             if (config.flagCompra)
             {

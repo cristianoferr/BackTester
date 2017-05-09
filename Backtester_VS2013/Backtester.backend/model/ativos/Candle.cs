@@ -26,6 +26,21 @@ namespace Backtester.backend.model.ativos
             SetValor(FormulaManager.VOL, vol);
         }
 
+        internal void AddData(float open, float close, float high, float low, float vol)
+        {
+            SetValor(FormulaManager.CLOSE, close);
+            if (high > GetValor(FormulaManager.HIGH))
+            {
+                SetValor(FormulaManager.HIGH, high);
+            }
+
+            if (low < GetValor(FormulaManager.LOW))
+            {
+                SetValor(FormulaManager.LOW, low);
+            }
+            SetValor(FormulaManager.VOL, vol + GetValor(FormulaManager.VOL));
+        }
+
         List<string> keysToRemove = new List<string>();
         internal void ClearData()
         {
@@ -134,6 +149,8 @@ namespace Backtester.backend.model.ativos
             }
             set { proximoCandle_ = value; }
         }
+
+
 
 
 

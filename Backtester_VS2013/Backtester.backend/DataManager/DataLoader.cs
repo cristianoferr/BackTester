@@ -43,30 +43,63 @@ namespace Backtester.backend.DataManager
                         //DataDTO data = item.data[i];
                         DateTime data = Utils.UnixTimeStampToDateTime(item.t[i]);
 
-                        Periodo periodo = facade.GetPeriodo(data.ToShortDateString());
-                        if (ativo.GetCandle(periodo) == null)
+                        if (periodoAcao == Consts.PERIODO_ACAO.DIARIO)
                         {
-
-                            Candle candle = new Candle(periodo, ativo, item.o[i], item.c[i], item.h[i], item.l[i], item.v[i]);
-                            candle.candleAnterior = candleAnterior;
-                            LimitaCandle(candle, 50);
-                            candle.periodo.AddCandle(candle);
-                            if (candle.periodo.periodoAnterior == null && periodoAnterior != null)
-                            {
-                                candle.periodo.periodoAnterior = periodoAnterior;
-                                periodoAnterior.proximoPeriodo = candle.periodo;
-                            }
-                            periodoAnterior = candle.periodo;
-                            ativo.AddCandle(candle);
-                            if (candleAnterior == null) ativo.firstCandle = candle;
-                            if (candleAnterior != null) candleAnterior.proximoCandle = candle;
-                            candleAnterior = candle;
+                            ProcessaPeriodoDiario(ativo, item, ref candleAnterior, ref periodoAnterior, i, data);
+                        }
+                        if (periodoAcao == Consts.PERIODO_ACAO.SEMANAL)
+                        {
+                            ProcessaPeriodoSemanal(ativo, item, ref candleAnterior, ref periodoAnterior, i, data);
                         }
                     }
                 }
                 return true;
             }
 
+        }
+
+        private void ProcessaPeriodoSemanal(Ativo ativo, CargaADVFN item, ref Candle candleAnterior, ref Periodo periodoAnterior, int i, DateTime data)
+        {
+            Periodo periodo = facade.GetPeriodo(data, Consts.PERIODO_ACAO.SEMANAL);
+            Candle candle = ativo.GetCandle(periodo);
+            if (candle == null)
+            {
+
+                candle = new Candle(periodo, ativo, item.o[i], item.c[i], item.h[i], item.l[i], item.v[i]);
+                ProcessaCandle(ativo, ref candleAnterior, ref periodoAnterior, candle);
+            }
+            else
+            {
+                candle.AddData(item.o[i], item.c[i], item.h[i], item.l[i], item.v[i]);
+            }
+        }
+
+        private void ProcessaPeriodoDiario(Ativo ativo, CargaADVFN item, ref Candle candleAnterior, ref Periodo periodoAnterior, int i, DateTime data)
+        {
+            Periodo periodo = facade.GetPeriodo(data);
+            if (ativo.GetCandle(periodo) == null)
+            {
+
+                Candle candle = new Candle(periodo, ativo, item.o[i], item.c[i], item.h[i], item.l[i], item.v[i]);
+                ProcessaCandle(ativo, ref candleAnterior, ref periodoAnterior, candle);
+            }
+        }
+
+        private void ProcessaCandle(Ativo ativo, ref Candle candleAnterior, ref Periodo periodoAnterior, Candle candle)
+        {
+            candle.candleAnterior = candleAnterior;
+            LimitaCandle(candle, 50);
+            candle.periodo.AddCandle(candle);
+            if (candle.periodo.periodoAnterior == null && periodoAnterior != null)
+            {
+                candle.periodo.periodoAnterior = periodoAnterior;
+                periodoAnterior.proximoPeriodo = candle.periodo;
+            }
+            periodoAnterior = candle.periodo;
+            ativo.AddCandle(candle);
+            if (candleAnterior == null) ativo.firstCandle = candle;
+            if (candleAnterior != null) candleAnterior.proximoCandle = candle;
+            candleAnterior = candle;
         }
 
         //tem alguns dados que parecem com problema... 

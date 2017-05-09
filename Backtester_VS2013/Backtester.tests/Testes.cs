@@ -19,6 +19,17 @@ namespace Backtester.tests
 
 
         [TestMethod]
+        public void TestConfigGPVars()
+        {
+            Config config = new Config();
+            config.AddGPVar("VAR1", 10);
+            config.AddGPVar("//VAR2", 10);
+            Assert.IsTrue(config.IsGPVarDefined("VAR1"));
+            Assert.IsFalse(config.IsGPVarDefined("VAR2"));
+            Assert.IsTrue(config.GetGPVarValue("VAR1")==10);
+        }
+
+        [TestMethod]
         public void TestBacktesterVars()
         {
             Config config = new Config();

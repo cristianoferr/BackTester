@@ -152,6 +152,21 @@ namespace Backtester
             
         }
 
+        private void darioTPDiario_CheckedChanged(object sender, System.EventArgs e)
+        {
+            radioTPSemanal.Checked = !radioTPDiario.Checked;
+            if (configController == null) return;
+            configController.UpdateValuesFromUI();
+        }
+
+        private void radioTPSemanal_CheckedChanged(object sender, System.EventArgs e)
+        {
+            radioTPDiario.Checked = !radioTPSemanal.Checked;
+            if (configController == null) return;
+            configController.UpdateValuesFromUI();
+        }
+
+
 
 
 

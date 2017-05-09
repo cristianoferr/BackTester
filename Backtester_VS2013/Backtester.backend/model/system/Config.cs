@@ -22,6 +22,23 @@ namespace Backtester.backend.model.system
             maxTestes = 20;
             qtdPercPapeis = 30;//se eu tenho 100 papeis a testar então isso fará com que seja retornado uma lsita com x perc de 100
             InitDefaultPapeis();
+            tipoPeriodo = Consts.PERIODO_ACAO.DIARIO;
+
+            gpVars = "";
+            AddGPVar(Consts.VAR_MAX_CAPITAL_TRADE, 20000);
+            AddGPVar(Consts.VAR_MULTIPLAS_ENTRADAS, 1);
+            AddGPVar(Consts.VAR_PERC_TRADE, 20);
+            AddGPVar(Consts.VAR_RISCO_GLOBAL, 6);
+            AddGPVar(Consts.VAR_RISCO_TRADE, 2);
+            AddGPVar(Consts.VAR_STOP_GAP, 3);
+            AddGPVar(Consts.VAR_STOP_MENSAL, 10);
+            AddGPVar(Consts.VAR_USA_STOP_MOVEL, 1);
+
+        }
+
+        public void AddGPVar(string var, int valor)
+        {
+            gpVars += var + "=" + valor + "\r\n";
         }
 
         private void InitDefaultPapeis()
@@ -98,6 +115,9 @@ namespace Backtester.backend.model.system
         [DataMember]
         public string campoCompra { get; set; }
 
+        [DataMember]
+        public Consts.PERIODO_ACAO tipoPeriodo { get; set; }
+
         public static Config LoadSaved()
         {
             try
@@ -143,5 +163,38 @@ namespace Backtester.backend.model.system
 
         [DataMember]
         public int qtdPercPapeis { get; set; }
+
+        [DataMember]
+        public string gpVars { get; set; }
+
+        public bool IsGPVarDefined(string var)
+        {
+            string[] vars = gpVars.Split('\n');
+            foreach (string v in vars)
+            {
+                if (v.StartsWith(var+"="))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public float GetGPVarValue(string var)
+        {
+            string[] vars = gpVars.Split('\n');
+            foreach (string v in vars)
+            {
+                if (v.StartsWith(var + "="))
+                {
+                    string valor = v.Substring(v.IndexOf("=") + 1);
+                    valor = valor.Substring(0, valor.IndexOf('\r'));
+                    return int.Parse(valor);
+                }
+            }
+            return 0;
+        }
+
+        
     }
 }

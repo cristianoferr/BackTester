@@ -7,6 +7,6 @@ G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\UsoComum\obj\Debug\UsoC
 F:\Java\repositorios\BackTester\Backtester_VS2013\UsoComum\bin\Debug\UsoComum.dll
 F:\Java\repositorios\BackTester\Backtester_VS2013\UsoComum\bin\Debug\UsoComum.pdb
 F:\Java\repositorios\BackTester\Backtester_VS2013\UsoComum\bin\Debug\log4net.dll
-F:\Java\repositorios\BackTester\Backtester_VS2013\UsoComum\obj\Debug\UsoComum.csprojResolveAssemblyReference.cache
 F:\Java\repositorios\BackTester\Backtester_VS2013\UsoComum\obj\Debug\UsoComum.dll
 F:\Java\repositorios\BackTester\Backtester_VS2013\UsoComum\obj\Debug\UsoComum.pdb
+F:\Java\repositorios\BackTester\Backtester_VS2013\UsoComum\obj\Debug\UsoComum.csprojResolveAssemblyReference.cache

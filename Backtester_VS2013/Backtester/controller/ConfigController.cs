@@ -50,6 +50,12 @@ namespace Backtester.controller
             frmPrincipal.txtCustoOperacao.Text = config.custoOperacao.ToString();
             frmPrincipal.txtVarsDebug.Text = config.varsDebug;
             frmPrincipal.txtTestesNaTela.Text = config.maxTestes.ToString();
+            frmPrincipal.textGPVars.Text = config.gpVars;
+
+            frmPrincipal.radioTPDiario.Checked = config.tipoPeriodo == Consts.PERIODO_ACAO.DIARIO;
+
+            frmPrincipal.radioTPSemanal.Checked = config.tipoPeriodo == Consts.PERIODO_ACAO.SEMANAL;
+           
         }
 
         internal void Salva()
@@ -63,6 +69,11 @@ namespace Backtester.controller
             config.flagCompra = frmPrincipal.chkFlagCompra.Checked;
             config.flagVenda = frmPrincipal.chkFlagVenda.Checked;
             config.varsDebug = frmPrincipal.txtVarsDebug.Text;
+            config.gpVars = frmPrincipal.textGPVars.Text;
+
+
+            config.tipoPeriodo = frmPrincipal.radioTPDiario.Checked ? Consts.PERIODO_ACAO.DIARIO : Consts.PERIODO_ACAO.SEMANAL;
+
             try
             {
                 config.maxTestes = int.Parse(frmPrincipal.txtTestesNaTela.Text);
@@ -99,7 +110,7 @@ namespace Backtester.controller
         internal void Run(TradeSystem ts)
         {
             contaTestes = 0;
-            facade.LoadAtivos(config.papeis);
+            facade.LoadAtivos(config.papeis,config.tipoPeriodo);
             frmPrincipal.dataGridRuns.Rows.Clear();
             //facade.RunSingleTS();
             facade.Run(this, config, ts);
@@ -108,7 +119,7 @@ namespace Backtester.controller
 
         internal void RunSingle(TradeSystem ts)
         {
-            facade.LoadAtivos(config.papeis);
+            facade.LoadAtivos(config.papeis, config.tipoPeriodo);
             frmPrincipal.dataGridRuns.Rows.Clear();
             //facade.RunSingleTS();
             facade.RunSingle("Run Single",this, config, ts);

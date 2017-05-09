@@ -12,6 +12,8 @@ namespace GeneticProgramming.tests
 
         static GPConfig config = new GPConfig();
 
+        
+
         [TestMethod]
         public void TestGPTemplate()
         {

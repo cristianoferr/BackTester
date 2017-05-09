@@ -54,7 +54,7 @@ namespace Backtester.backend.model.system
 
         internal void AnalisaEntrada(int direcao, float valorAcao, float vlrStop, int qtd)
         {
-            if (vlrStop == 0)
+            if (vlrStop == 0 || float.IsNaN(vlrStop))
             {
                 ERROR_STOP_0 = true;
                 return;
