@@ -13,13 +13,14 @@ namespace Backtester.backend.model
         public IList<Operacao> operacoesFechadas { get; private set; }
         public int direcao { get; set; }
 
-        public Posicao(Carteira carteira, Ativo ativo)
+        public Posicao(Carteira carteira, Ativo ativo, int idPosicao)
         {
             this.carteira = carteira;
             this.ativo = ativo;
             operacoesAbertas = new List<Operacao>();
             operacoesFechadas = new List<Operacao>();
             saldo = 0;
+            this.idPosicao = idPosicao;
             direcao = 0;
         }
 
@@ -80,6 +81,7 @@ namespace Backtester.backend.model
             saldo += qtd;
             //System.out.println("Efetuando entrada no "+ativo.getName()+" em "+periodo+" a "+formatCurrency(valorAcao)+"x"+qtd+"="+formatCurrency(valorAcao*qtd)+" stop em: "+formatCurrency(vlrStop)+" saldo:"+saldo+" direcao:"+direcao);
             Operacao oper = new Operacao(carteira, candle, valorAcao, vlrStop, qtd, direcao, carteira.tradeSystem.GetStopMovel(direcao));
+            oper.posicao = this;
             operacoesAbertas.Add(oper);
             return qtd * valorAcao;
         }
@@ -133,5 +135,7 @@ namespace Backtester.backend.model
             }
             return capitalSobRisco;
         }
+
+        public int idPosicao { get; set; }
     }
 }

@@ -41,7 +41,7 @@ namespace Backtester.backend.model
             {
                 return posicoesAbertas[ativo];
             }
-            Posicao posicao = new Posicao(this, ativo);
+            Posicao posicao = new Posicao(this, ativo, countPosicoes++);
             posicoesAbertas.Add(ativo, posicao);
             return posicao;
         }
@@ -54,12 +54,13 @@ namespace Backtester.backend.model
  * Efetua a entrada no ativo e deduz do saldo o capital do trade 
  * não importando se é compra ou venda
  */
+        int countPosicoes = 0;
         public void EfetuaEntrada(Ativo ativo, Periodo periodo, float perc, float vlrEntrada, float vlrStop, int direcao)
         {
             Posicao posicao = null;
             if (!posicoesAbertas.ContainsKey(ativo))
             {
-                posicao = new Posicao(this, ativo);
+                posicao = new Posicao(this, ativo, countPosicoes++);
                 posicoesAbertas.Add(ativo, posicao);
             }
             else
@@ -141,8 +142,10 @@ namespace Backtester.backend.model
             {
                 MovimentaSaldo(oper.vlrEntrada * oper.qtd + dif);
             }
-            //System.out.println("Fechando posicao em "+posicao.ativo+" em "+candle.getPeriodo()+ " a "+formatCurrency(vlrSaida)+"x"+oper.qtd+"="+formatCurrency(vlrSaida*oper.qtd)+" dif:"+formatCurrency(dif)+" Stop? "+oper.isStopado()+" direcao:"+posicao.direcao+" saldo:"+getSaldo());
 
+            AtualizaPosicao(false);
+            oper.capitalOnClose = GetCapital();
+            monteCarlo.AddOperacao(oper);
         }
 
         public void MovimentaSaldo(float valor)
@@ -167,7 +170,7 @@ namespace Backtester.backend.model
             return capitalTrade;
         }
 
-        internal int QueryQtdAcoes(float vlrEntrada, float vlrStop, float perc,Periodo periodoAtual)
+        internal int QueryQtdAcoes(float vlrEntrada, float vlrStop, float perc, Periodo periodoAtual)
         {
             float capitalTrade = CalculaCapitalTrade(perc);
             float qtd = capitalTrade / vlrEntrada;
@@ -185,7 +188,7 @@ namespace Backtester.backend.model
      * Essa função serve para limitar baseado no risco do trade... se for muito arriscado então a quantidade é menor.
      * O Stop não é alterado apenas a quantidade é reduzida.
      */
-        public float CalculaQtdTrade(float qtd, float vlrStop, float vlrEntrada,Periodo periodoAtual)
+        public float CalculaQtdTrade(float qtd, float vlrStop, float vlrEntrada, Periodo periodoAtual)
         {
 
             float riscoGlobal = tradeSystem.riscoGlobal;
@@ -207,7 +210,7 @@ namespace Backtester.backend.model
                 if (qtdR < qtd) qtd = qtdR;
             }
 
-           
+
 
             //Calculo quanto poderia arriscar para não passar o stop mensal
             if (tradeSystem.stopMensal > 0)
@@ -236,13 +239,13 @@ namespace Backtester.backend.model
             if (flagEndMes) capitalMes = GetCapital();
         }
 
-        public void AtualizaPosicao()
+        public void AtualizaPosicao(bool verificaStop = true)
         {
             capitalPosicao = 0;
             foreach (Posicao p in posicoesAbertas.Values)
             {
                 Candle candle = p.ativo.GetCandle(periodoAtual);
-                if (candle != null) p.VerificaStops(candle);
+                if (verificaStop && candle != null) p.VerificaStops(candle);
                 capitalPosicao += p.GetCapital(periodoAtual);
 
             }
@@ -266,9 +269,9 @@ namespace Backtester.backend.model
 
         public float GetRiscoCarteiraPercent(Periodo periodo)
         {
-            float capitalTotal=GetCapital();
+            float capitalTotal = GetCapital();
             float capitalSobRisco = GetCapitalSobRisco(periodo);
-            return capitalSobRisco / capitalTotal*100;
+            return capitalSobRisco / capitalTotal * 100;
         }
 
         public float GetCapitalSobRisco(Periodo periodo)

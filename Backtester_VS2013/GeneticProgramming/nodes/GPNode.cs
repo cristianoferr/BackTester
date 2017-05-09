@@ -14,7 +14,7 @@ namespace GeneticProgramming.nodes
 
         public override void Mutate(SemanticaList semanticaList)
         {
-            semantica= semanticaList.GetEquivalent(semantica,children.Count);
+            semantica = semanticaList.GetEquivalent(semantica, children.Count);
         }
 
     }

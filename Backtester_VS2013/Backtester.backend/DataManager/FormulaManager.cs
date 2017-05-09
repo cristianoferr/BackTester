@@ -8,7 +8,7 @@ namespace Backtester.backend.DataManager
     {
 
 
-        
+
         public List<string> formulasDisp = new List<string>();
         public Dictionary<string, Formula> formulasInst = new Dictionary<string, Formula>();
         public List<string> formulasCache = new List<string>();
@@ -25,6 +25,8 @@ namespace Backtester.backend.DataManager
         public static string IFR = "RSI";
         public static string HV = "HV";
         public static string LV = "LV";
+        public static string TRIX = "TRIX";
+
         public static string REF = "REF";
         public static string AVGGAIN = "AVGGAIN";
         public static string AVGLOSS = "AVGLOSS";
@@ -32,7 +34,7 @@ namespace Backtester.backend.DataManager
         public static string UPPERBB = "UPPERBB";
         public static string MIDDLEBB = "MIDDLEBB";
         public static string LOWERBB = "LOWERBB";
-      //  public static string BB = "BB";
+        //  public static string BB = "BB";
         public static string SUM = "SUM";
         public static string SUBTRACT = "SUBTRACT";
         public static string MULTIPLY = "MULTIPLY";
@@ -82,6 +84,7 @@ namespace Backtester.backend.DataManager
             //formulasDisp.Add(DIFHL);
             formulasDisp.Add(MMS);
             formulasDisp.Add(MME);
+            formulasDisp.Add(TRIX);
             formulasDisp.Add(IFR);
             formulasDisp.Add(HV);
             formulasDisp.Add(LV);
@@ -92,7 +95,7 @@ namespace Backtester.backend.DataManager
             formulasDisp.Add(UPPERBB);
             formulasDisp.Add(MIDDLEBB);
             formulasDisp.Add(LOWERBB);
-          //  formulasDisp.Add(BB);
+            //  formulasDisp.Add(BB);
             formulasDisp.Add(SUM);
             formulasDisp.Add(SUBTRACT);
             // formulasDisp.Add(DAYOFWEEK);
@@ -101,17 +104,17 @@ namespace Backtester.backend.DataManager
             formulasDisp.Add(STOCH);
             formulasDisp.Add(PERCENTIL);
 
-            
+
         }
 
         public void ClearFormulas()
         {
-           /* while (formulasInst.Count > Consts.QTD_MAXIMA_FORMULAS_CACHE)
-            {
-                string key=formulasCache[0];
-                formulasInst.Remove(key);
-                formulasCache.RemoveAt(0);
-            }*/
+            /* while (formulasInst.Count > Consts.QTD_MAXIMA_FORMULAS_CACHE)
+             {
+                 string key=formulasCache[0];
+                 formulasInst.Remove(key);
+                 formulasCache.RemoveAt(0);
+             }*/
             formulasInst.Clear();
             formulasCache.Clear();
         }
@@ -142,7 +145,7 @@ namespace Backtester.backend.DataManager
             string par = getFormulaParFromCode(code);
 
             Formula formula = CreateFormula(name, par);
-          //  facade.dh.AddFormula(name, par);
+            //  facade.dh.AddFormula(name, par);
             facade.dh.AddFormula(formula);
             return formula;
 
@@ -211,6 +214,7 @@ namespace Backtester.backend.DataManager
             if (name == REF) f = new FormulaREF(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
             if (name == IFR) f = new FormulaRSI(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
             if (name == HV) f = new FormulaHV(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
+            if (name == TRIX) f = new FormulaTRIX(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
             if (name == LV) f = new FormulaLV(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
             if (name == AVGGAIN) f = new FormulaAvgGain(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
             if (name == AVGLOSS) f = new FormulaAvgLoss(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
@@ -218,12 +222,12 @@ namespace Backtester.backend.DataManager
             if (name == UPPERBB) f = new FormulaBB(facade, UPPERBB, GetFormula(pars[0]), "U", GetFormula(pars[1]), GetFormula(pars[2]));
             if (name == MIDDLEBB) f = new FormulaBB(facade, MIDDLEBB, GetFormula(pars[0]), "M", GetFormula(pars[1]), GetFormula(pars[2]));
             if (name == LOWERBB) f = new FormulaBB(facade, LOWERBB, GetFormula(pars[0]), "L", GetFormula(pars[1]), GetFormula(pars[2]));
-           // if (name == BB) f = new FormulaBB(facade, BB, GetFormula(pars[0]), pars[1], int.Parse(pars[2]), float.Parse(pars[3]));
+            // if (name == BB) f = new FormulaBB(facade, BB, GetFormula(pars[0]), pars[1], int.Parse(pars[2]), float.Parse(pars[3]));
 
             if (name == MME) f = new FormulaMME(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
             if (name == MMS) f = new FormulaMMS(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
             if (f == null) f = new Formula(facade, name);
-            string code=GetCode(name, par);
+            string code = GetCode(name, par);
             formulasInst.Add(code, f);
             formulasCache.Add(code);
 
@@ -281,6 +285,6 @@ namespace Backtester.backend.DataManager
             return f;
         }
 
-       
+
     }
 }

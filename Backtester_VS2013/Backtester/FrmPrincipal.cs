@@ -14,7 +14,7 @@ namespace Backtester
             InitializeComponent();
             configController = new ConfigController(this);
             tsController = new TradeSystemController(this);
-            gpController = new GeneticProgrammingController(this,configController);
+            gpController = new GeneticProgrammingController(this, configController);
 
         }
 
@@ -61,7 +61,7 @@ namespace Backtester
 
         private void btnAdicionaVar_Click(object sender, System.EventArgs e)
         {
-            tsController.AdicionaVariavel(Microsoft.VisualBasic.Interaction.InputBox("Nome:","Nova Variável","VAR_NAME").ToUpper());
+            tsController.AdicionaVariavel(Microsoft.VisualBasic.Interaction.InputBox("Nome:", "Nova Variável", "VAR_NAME").ToUpper());
         }
 
         private void btnRemoveVar_Click(object sender, System.EventArgs e)
@@ -76,11 +76,11 @@ namespace Backtester
             {
                 previousSelectedVar = listTSVars.SelectedIndex;
                 tsController.ChangeSelectedVariavel(listTSVars.SelectedIndex);
-                
+
             }
         }
 
-       
+
 
         private void btnAdicionaPapel_click(object sender, System.EventArgs e)
         {
@@ -114,7 +114,8 @@ namespace Backtester
             if (cbTradeSystem.SelectedIndex >= 0)
             {
                 TradeSystem ts = tsController.GetTS(cbTradeSystem.SelectedItem.ToString());
-                if (txtVarsDebug.Text!=""){
+                if (txtVarsDebug.Text != "")
+                {
                     ts.vm.LoadVars(txtVarsDebug.Text);
                 }
                 configController.RunSingle(ts);
@@ -149,7 +150,7 @@ namespace Backtester
         private void btnRodaSingleGP_Click(object sender, System.EventArgs e)
         {
             gpController.RunSingle();
-            
+
         }
 
         private void darioTPDiario_CheckedChanged(object sender, System.EventArgs e)

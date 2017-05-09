@@ -55,7 +55,7 @@ namespace Backtester.controller
             frmPrincipal.radioTPDiario.Checked = config.tipoPeriodo == Consts.PERIODO_ACAO.DIARIO;
 
             frmPrincipal.radioTPSemanal.Checked = config.tipoPeriodo == Consts.PERIODO_ACAO.SEMANAL;
-           
+
         }
 
         internal void Salva()
@@ -101,7 +101,7 @@ namespace Backtester.controller
             Salva();
         }
 
-        public virtual Carteira RunBackTester(TradeSystem ts,string name)
+        public virtual Carteira RunBackTester(TradeSystem ts, string name)
         {
             return null;
         }
@@ -110,7 +110,7 @@ namespace Backtester.controller
         internal void Run(TradeSystem ts)
         {
             contaTestes = 0;
-            facade.LoadAtivos(config.papeis,config.tipoPeriodo);
+            facade.LoadAtivos(config.papeis, config.tipoPeriodo);
             frmPrincipal.dataGridRuns.Rows.Clear();
             //facade.RunSingleTS();
             facade.Run(this, config, ts);
@@ -122,7 +122,7 @@ namespace Backtester.controller
             facade.LoadAtivos(config.papeis, config.tipoPeriodo);
             frmPrincipal.dataGridRuns.Rows.Clear();
             //facade.RunSingleTS();
-            facade.RunSingle("Run Single",this, config, ts);
+            facade.RunSingle("Run Single", this, config, ts);
         }
 
         public void UpdateApplication(Carteira carteira, MonteCarlo mC, int countLoops, int totalLoops)
@@ -212,44 +212,45 @@ namespace Backtester.controller
             IList<Posicao> posicoes = carteira.posicoesFechadas;
             float capital = config.capitalInicial;
             int contaOperacao = 0;
-            for (int i = 0; i < posicoes.Count; i++)
+
+
+
+            for (int i = 0; i < mc.operacoes.Count; i++)
             {
-                Posicao posicao = posicoes[i];
-                for (int j = 0; j < posicao.operacoesFechadas.Count; j++)
+                Operacao oper = mc.operacoes[i];
+                Posicao posicao = oper.posicao;
+                contaOperacao++;
+                int rowLine = frmPrincipal.dataGridOperacoes.Rows.Count - 1;
+                frmPrincipal.dataGridOperacoes.Rows.Add();
+                int colIndex = 0;
+                frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = contaOperacao;
+                frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = posicao.idPosicao;
+                frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = posicao.ativo.name;
+                frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = oper.candleInicial.periodo;
+                frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = oper.candleFinal.periodo;
+                frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = posicao.direcao > 0 ? "Compra" : "Venda";
+                frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = oper.qtd;
+                frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = Utils.FormatCurrency(oper.vlrEntrada);
+                frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = Utils.FormatCurrency(oper.vlrSaida);
+                frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = Utils.FormatCurrency(oper.vlrStopInicial);
+                frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = oper.stopado ? "Sim" : "Não";
+                frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = oper.qtd * oper.vlrEntrada;
+                frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = oper.GetDif();
+                frmPrincipal.dataGridOperacoes.Rows[rowLine].DefaultCellStyle.ForeColor = Color.Black;
+                if (oper.GetDif() > 0)
                 {
-                    Operacao oper = posicao.operacoesFechadas[j];
-                    contaOperacao++;
-                    int rowLine = frmPrincipal.dataGridOperacoes.Rows.Count - 1;
-                    frmPrincipal.dataGridOperacoes.Rows.Add();
-                    int colIndex = 0;
-                    frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = contaOperacao;
-                    frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = i;
-                    frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = posicao.ativo.name;
-                    frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = oper.candleInicial.periodo;
-                    frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = oper.candleFinal.periodo;
-                    frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = posicao.direcao > 0 ? "Compra" : "Venda";
-                    frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = oper.qtd;
-                    frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = Utils.FormatCurrency(oper.vlrEntrada);
-                    frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = Utils.FormatCurrency(oper.vlrSaida);
-                    frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = Utils.FormatCurrency(oper.vlrStopInicial);
-                    frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = oper.stopado ? "Sim" : "Não";
-                    frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = Utils.FormatCurrency(oper.qtd * oper.vlrEntrada);
-                    frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = Utils.FormatCurrency(oper.GetDif());
-                    frmPrincipal.dataGridOperacoes.Rows[rowLine].DefaultCellStyle.ForeColor = Color.Black;
-                    if (oper.GetDif() > 0)
-                    {
-                        frmPrincipal.dataGridOperacoes.Rows[rowLine].DefaultCellStyle.BackColor = Color.Blue;
-                        frmPrincipal.dataGridOperacoes.Rows[rowLine].DefaultCellStyle.ForeColor = Color.White;
-                    }
-                    if (oper.GetDif() < 0)
-                    {
-                        frmPrincipal.dataGridOperacoes.Rows[rowLine].DefaultCellStyle.BackColor = Color.Red;
-                        frmPrincipal.dataGridOperacoes.Rows[rowLine].DefaultCellStyle.ForeColor = Color.White;
-                    }
-                    capital += oper.GetDif() - 2 * config.custoOperacao;
-                    frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = Utils.FormatCurrency(capital);
-                    //  oper.
+                    frmPrincipal.dataGridOperacoes.Rows[rowLine].DefaultCellStyle.BackColor = Color.Blue;
+                    frmPrincipal.dataGridOperacoes.Rows[rowLine].DefaultCellStyle.ForeColor = Color.White;
                 }
+                if (oper.GetDif() < 0)
+                {
+                    frmPrincipal.dataGridOperacoes.Rows[rowLine].DefaultCellStyle.BackColor = Color.Red;
+                    frmPrincipal.dataGridOperacoes.Rows[rowLine].DefaultCellStyle.ForeColor = Color.White;
+                }
+                capital += oper.GetDif() - 2 * config.custoOperacao;
+                frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = capital;
+                frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = oper.capitalOnClose;
+                //  oper.
             }
         }
     }

@@ -1,5 +1,7 @@
-﻿using Backtester.backend.model.system.estatistica;
+﻿using Backtester.backend.model.system.condicoes;
+using Backtester.backend.model.system.estatistica;
 using System;
+using System.Collections.Generic;
 using UsoComum;
 
 namespace Backtester.backend.model.system
@@ -9,11 +11,13 @@ namespace Backtester.backend.model.system
         string name;
         Estatistica global;
         public float fitness = 0;
+        public IList<Operacao> operacoes { get; set; }
         public MonteCarlo(string name)
         {
             this.name = name;
             global = new Estatistica(0);
             fitness = 0;
+            operacoes = new List<Operacao>();
         }
 
         public void setEstatistica(Estatistica stat)
@@ -22,6 +26,11 @@ namespace Backtester.backend.model.system
 
         }
 
+
+        internal void AddOperacao(condicoes.Operacao oper)
+        {
+            operacoes.Add(oper);
+        }
 
         public override string ToString()
         {
@@ -157,7 +166,7 @@ namespace Backtester.backend.model.system
         public const int BONUS = 10000;
         public const int PENALTY = 10000;
         public const int PERC_MINIMA_ACERTO = 50;
-        public const int QTD_MINIMA_TRADES = 75;
+        public const int QTD_MINIMA_TRADES = 25;
 
         public int qtdTrades
         {
@@ -223,6 +232,8 @@ namespace Backtester.backend.model.system
         {
             return getCapitalFinal() + fitness;
         }
+
+
 
 
 

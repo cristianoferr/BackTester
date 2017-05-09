@@ -40,6 +40,7 @@ namespace Backtester.GeneticProgramming
             AddSemanticaFormula(FormulaManager.IFR, 2, 2);
             AddSemanticaFormula(FormulaManager.HV, 2, 2);
             AddSemanticaFormula(FormulaManager.LV, 2, 2);
+            AddSemanticaFormula(FormulaManager.TRIX, 2, 2);
             AddSemanticaFormula(FormulaManager.AVGGAIN, 2, 2);
             AddSemanticaFormula(FormulaManager.AVGLOSS, 2, 2);
             AddSemanticaFormula(FormulaManager.STDDEV, 2, 2);

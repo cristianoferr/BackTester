@@ -85,6 +85,7 @@
     <Compile Include="model\formulas\BOOLEAN\FormulaBoolean.cs" />
     <Compile Include="model\formulas\BOOLEAN\FormulaAND.cs" />
     <Compile Include="model\formulas\FormulaDivide.cs" />
+    <Compile Include="model\formulas\FormulaTRIX.cs" />
     <Compile Include="model\formulas\FormulaMultiply.cs" />
     <Compile Include="model\formulas\FormulaNumber.cs" />
     <Compile Include="model\formulas\FormulaSUM.cs" />

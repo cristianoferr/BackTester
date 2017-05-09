@@ -15,7 +15,7 @@ namespace Backtester.backend.model.system.condicoes
             this.candleInicial = candle;
             stopado = false;
             this.vlrEntrada = vlrEntrada;
-            if (formulaStop == "" || formulaStop==null)
+            if (formulaStop == "" || formulaStop == null)
                 stop = new Stop(carteira.tradeSystem, direcao, vlrStop);
             else
                 stop = new Stop(carteira.tradeSystem, direcao, vlrStop, carteira.facade.formulaManager.GetFormula(formulaStop));
@@ -27,7 +27,7 @@ namespace Backtester.backend.model.system.condicoes
 
         public override string ToString()
         {
-            string saida="";
+            string saida = "";
             if (direcao > 0) { saida += "Compra de "; }
             if (direcao < 0) { saida += "Venda de "; }
             saida += qtd + "x" + candleInicial.ativo.name + " a " + vlrEntrada + " com stop inicial em " + vlrStopInicial;
@@ -50,7 +50,7 @@ namespace Backtester.backend.model.system.condicoes
         {
             Candle candle = candleInicial.ativo.GetCandle(periodo);
             float vlrStop = stop.CalcStop(candle);
-            float risco = (vlrEntrada - vlrStop) * qtd*direcao;
+            float risco = (vlrEntrada - vlrStop) * qtd * direcao;
 
             //stop>vlrentrada
             if (risco < 0)
@@ -118,6 +118,8 @@ namespace Backtester.backend.model.system.condicoes
             return vlrEntrada * qtd;
         }
 
+        public float capitalOnClose { get; set; }
+
         public float vlrSaida { get; set; }
 
         public Candle candleFinal { get; set; }
@@ -138,6 +140,10 @@ namespace Backtester.backend.model.system.condicoes
         public Carteira carteira { get; set; }
 
 
-       
+
+
+
+
+        public Posicao posicao { get; set; }
     }
 }

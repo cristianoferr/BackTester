@@ -69,7 +69,7 @@ namespace Backtester.backend.model.system
             papeis.Add("ITSA4");
             papeis.Add("ITUB4");
             papeis.Add("JBSS3");
-            papeis.Add("KLBN11");
+            //papeis.Add("KLBN11");
             papeis.Add("KROT3");
             papeis.Add("LAME4");
             papeis.Add("LREN3");
@@ -172,7 +172,7 @@ namespace Backtester.backend.model.system
             string[] vars = gpVars.Split('\n');
             foreach (string v in vars)
             {
-                if (v.StartsWith(var+"="))
+                if (v.StartsWith(var + "="))
                 {
                     return true;
                 }
@@ -195,6 +195,6 @@ namespace Backtester.backend.model.system
             return 0;
         }
 
-        
+
     }
 }
