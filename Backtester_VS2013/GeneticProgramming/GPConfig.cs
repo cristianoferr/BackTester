@@ -19,7 +19,7 @@ namespace GeneticProgramming
             elitismRange = 10;
             mutationRange = 35;
             generateChildRange = 85;
-            maxLevels = 4;//Quantidade maxima que um nó pode ter
+            maxLevels = 12;//Quantidade maxima que um nó pode ter
             minLevels = 2;
 
             spliceChancePerc = 30;//chance de misturar o código com outra solution

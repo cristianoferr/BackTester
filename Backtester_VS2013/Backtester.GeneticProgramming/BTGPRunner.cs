@@ -6,6 +6,7 @@ using GeneticProgramming;
 using GeneticProgramming.semantica;
 using GeneticProgramming.solution;
 using System.Collections.Generic;
+using UsoComum;
 
 namespace Backtester.GeneticProgramming
 {
@@ -21,12 +22,10 @@ namespace Backtester.GeneticProgramming
         public const string PROP_COND_STOP_INICIAL_C = "STOP_INICIAL_C";
         public const string PROP_COND_STOP_INICIAL_V = "STOP_INICIAL_V";
 
-        public const string OBJ_TRADESYSTEM = "TRADESYSTEM";
-        public const string OBJ_MONTECARLO = "MONTERCARLO";
+
 
         IList<string> listFormulas = new List<string>();
         IList<string> listVariaveis = new List<string>();
-        private Config config1;
 
         public BTGPRunner(Config config, ICaller gpController)
             : base(LoadGPConfig())
@@ -102,9 +101,30 @@ namespace Backtester.GeneticProgramming
 
         public override void RunSolution(GPSolution solution)
         {
-            TradeSystem ts = solution.GetPropriedade(OBJ_TRADESYSTEM) as TradeSystem;
+            TradeSystem ts = solution.GetPropriedade(ConstsComuns.OBJ_TRADESYSTEM) as TradeSystem;
             Carteira carteira = gpController.RunBackTester(ts, solution.name);
+
+            carteira.monteCarlo.properties = solution;
             solution.fitnessResult = carteira.monteCarlo.CalcFitness();
+
+            float dif = carteira.GetCapital() - carteira.capitalInicial;
+            if (dif > 0)
+            {
+                float? vExist = solution.GetPropriedade(ConstsComuns.OBJ_TOTAL_PROFIT) as float?;
+                float v = vExist == null ? 0 : (float)vExist;
+                v += dif;
+                solution.SetPropriedade(ConstsComuns.OBJ_TOTAL_PROFIT, v);
+            }
+            else
+            {
+                float? vExist = solution.GetPropriedade(ConstsComuns.OBJ_TOTAL_LOSS) as float?;
+                float v = vExist == null ? 0 : (float)vExist;
+                v += dif;
+                solution.SetPropriedade(ConstsComuns.OBJ_TOTAL_LOSS, v);
+            }
+
+            solution.iterations++;
+            solution.SetPropriedade(ConstsComuns.OBJ_ITERATIONS, solution.iterations);
         }
 
         public override void EndSolution(GPSolution solution)
@@ -140,7 +160,7 @@ namespace Backtester.GeneticProgramming
                 ts.stopMovelV = solution.GetValueAsString(PROP_COND_STOP_MOVEL_V);
                 ts.stopInicialV = solution.GetValueAsString(PROP_COND_STOP_INICIAL_V);
             }
-            solution.SetPropriedade(OBJ_TRADESYSTEM, ts);
+            solution.SetPropriedade(ConstsComuns.OBJ_TRADESYSTEM, ts);
         }
 
         private static GPConfig LoadGPConfig()

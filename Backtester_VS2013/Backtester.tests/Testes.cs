@@ -26,7 +26,7 @@ namespace Backtester.tests
             config.AddGPVar("//VAR2", 10);
             Assert.IsTrue(config.IsGPVarDefined("VAR1"));
             Assert.IsFalse(config.IsGPVarDefined("VAR2"));
-            Assert.IsTrue(config.GetGPVarValue("VAR1")==10);
+            Assert.IsTrue(config.GetGPVarValue("VAR1") == 10);
         }
 
         [TestMethod]
@@ -55,7 +55,7 @@ namespace Backtester.tests
             // carteira.EfetuaEntrada(ativo, periodo, 1, 10, 9, 1);
 
             //entro com um valor fixo (direto na carteira)
-            Posicao posicao = new Posicao(carteira, ativo);
+            Posicao posicao = new Posicao(carteira, ativo, 0);
             carteira.posicoesAbertas.Add(ativo, posicao);
 
             int qtd = 1000;
@@ -296,7 +296,7 @@ namespace Backtester.tests
 
             Assert.IsNotNull(fm.GetFormula("3"));
 
-            Formula f=fm.GetFormula("RSI(HV(SUBTRACT(O,-9),L),C)");
+            Formula f = fm.GetFormula("RSI(HV(SUBTRACT(O,-9),L),C)");
             Assert.IsNotNull(f);
 
             f = fm.GetFormula("PERCENTIL(SUBTRACT(PERCENTIL(C),C))");
@@ -322,7 +322,7 @@ namespace Backtester.tests
             string codigoFormula = "MMS(" + fonte + "," + periodos + ")";
             Formula formulaMMS = fm.GetFormula(codigoFormula);
             Assert.IsNotNull(formulaMMS);
-            Assert.IsTrue(formulaMMS.GetCode() == codigoFormula, formulaMMS.GetCode() +"<>"+ codigoFormula);
+            Assert.IsTrue(formulaMMS.GetCode() == codigoFormula, formulaMMS.GetCode() + "<>" + codigoFormula);
 
             float soma = 0;
             Candle candle = ativo.firstCandle;
@@ -493,9 +493,9 @@ namespace Backtester.tests
             candle.SetValor("H", 10);
             candle.SetValor(tradeSystem.stopInicialC, 5);
 
-            Formula formulaGreater=facade.formulaManager.GetFormula(tradeSystem.condicaoEntradaC);
-            float value=formulaGreater.Calc(candle);
-            Assert.IsTrue(value>0,value+"<=0");
+            Formula formulaGreater = facade.formulaManager.GetFormula(tradeSystem.condicaoEntradaC);
+            float value = formulaGreater.Calc(candle);
+            Assert.IsTrue(value > 0, value + "<=0");
 
             Formula formulaLower = facade.formulaManager.GetFormula(tradeSystem.condicaoEntradaV);
             value = formulaLower.Calc(candle);

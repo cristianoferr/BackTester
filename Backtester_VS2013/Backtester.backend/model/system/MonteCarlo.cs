@@ -3,6 +3,7 @@ using Backtester.backend.model.system.estatistica;
 using System;
 using System.Collections.Generic;
 using UsoComum;
+using UsoComum.interfaces;
 
 namespace Backtester.backend.model.system
 {
@@ -237,5 +238,7 @@ namespace Backtester.backend.model.system
 
 
 
+
+        public IStoreProperties properties { get; set; }
     }
 }

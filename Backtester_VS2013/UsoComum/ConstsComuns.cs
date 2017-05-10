@@ -5,6 +5,12 @@ namespace UsoComum
     public class ConstsComuns
     {
 
+        public const string OBJ_TRADESYSTEM = "TRADESYSTEM";
+        public const string OBJ_MONTECARLO = "MONTERCARLO";
+        public const string OBJ_TOTAL_PROFIT = "TOTAL_PROFIT";
+        public const string OBJ_TOTAL_LOSS = "TOTAL_LOSS";
+        public const string OBJ_ITERATIONS = "ITERATIONS";
+
         public enum Operador
         {
             [Description("=")]
@@ -30,7 +36,9 @@ namespace UsoComum
             [Description("!")]
             NOT = 2,
             [Description("^")]
-            XOR=3
+            XOR = 3
         }
+
+
     }
 }

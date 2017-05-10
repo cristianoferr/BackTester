@@ -48,9 +48,6 @@ namespace GeneticProgramming.semantica
         }
         public GPAbstractNode InternalCreateRandomNode(GPConfig config, bool flagTerminal, GPAbstractNode parent = null, int countLevel = 0)
         {
-            int maxNodes = config.maxLevels;
-
-
             GPSemantica semantica = GetRandomSemantica(flagTerminal);
             GPAbstractNode node = semantica.InstantiateEmpty();
             if (parent == null)
@@ -119,18 +116,18 @@ namespace GeneticProgramming.semantica
 
         }
 
-        internal GPSemantica GetEquivalent(GPSemantica semanticaToAvoid,int qtdChild)
+        internal GPSemantica GetEquivalent(GPSemantica semanticaToAvoid, int qtdChild)
         {
             IList<GPSemantica> validOptions = new List<GPSemantica>();
             foreach (GPSemantica sem in lista)
             {
-                if (sem.minParams <= qtdChild && sem.maxParams >= qtdChild && semanticaToAvoid.name!=sem.name)
+                if (sem.minParams <= qtdChild && sem.maxParams >= qtdChild && semanticaToAvoid.name != sem.name)
                 {
                     validOptions.Add(sem);
                 }
             }
 
-            if (validOptions.Count==0)
+            if (validOptions.Count == 0)
                 return semanticaToAvoid;
             GPSemantica choosen = validOptions[Utils.Random(0, validOptions.Count)];
             return choosen;

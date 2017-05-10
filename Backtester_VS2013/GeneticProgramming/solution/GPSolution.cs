@@ -1,14 +1,14 @@
 ﻿
 using GeneticProgramming.nodes;
 using GeneticProgramming.semantica;
-using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 using UsoComum;
+using UsoComum.interfaces;
 namespace GeneticProgramming.solution
 {
     [DataContract]
-    public class GPSolution
+    public class GPSolution : IStoreProperties
     {
         static int countSolutions = 1;
         int idSolution = countSolutions++;
@@ -18,6 +18,8 @@ namespace GeneticProgramming.solution
             propriedadesDeNegocio = new Dictionary<string, object>();
             this.template = template;
             name = "Solution " + idSolution;
+            iterations = 0;
+
         }
 
         public override string ToString()
@@ -41,6 +43,9 @@ namespace GeneticProgramming.solution
         #region Properties
         private Dictionary<string, object> propriedadesDeNegocio { get; set; }
 
+
+        [DataMember]
+        public int iterations { get; set; }
         [DataMember]
         private Dictionary<string, GPAbstractNode> valores { get; set; }
         [DataMember]
@@ -198,5 +203,7 @@ namespace GeneticProgramming.solution
                 node.FinishLoading(definition);
             }
         }
+
+
     }
 }
