@@ -129,7 +129,8 @@ namespace Backtester.GeneticProgramming
 
         public override void EndSolution(GPSolution solution)
         {
-
+            solution.RemovePropriedade(UsoComum.ConstsComuns.OBJ_TRADESYSTEM);
+            solution.RemovePropriedade(UsoComum.ConstsComuns.OBJ_MONTECARLO);
         }
 
         public override void PrepareSolution(GPSolution solution)

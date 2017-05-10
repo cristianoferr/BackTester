@@ -41,6 +41,7 @@ namespace GeneticProgramming.solution
         }
 
         #region Properties
+        [DataMember]
         private Dictionary<string, object> propriedadesDeNegocio { get; set; }
 
 
@@ -71,6 +72,13 @@ namespace GeneticProgramming.solution
                 propriedadesDeNegocio.Remove(key);
             }
             propriedadesDeNegocio.Add(key, node);
+        }
+
+        public void RemovePropriedade(string key)
+        {
+            if (!propriedadesDeNegocio.ContainsKey(key)) return;
+            propriedadesDeNegocio.Remove(key);
+
         }
 
         public GPAbstractNode GetValue(string key)
@@ -203,6 +211,8 @@ namespace GeneticProgramming.solution
                 node.FinishLoading(definition);
             }
         }
+
+
 
 
     }
