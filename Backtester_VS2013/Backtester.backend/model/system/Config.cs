@@ -24,6 +24,12 @@ namespace Backtester.backend.model.system
             InitDefaultPapeis();
             tipoPeriodo = Consts.PERIODO_ACAO.DIARIO;
 
+            //Quantidade minima de iterações que a solution sobreviveu que a qualifica como viavel
+            saveMinIterations = 5;
+            //Ratio minimo para salvar calculado na forma: totalWin/(totalWin+totalLoss)
+            saveMinProfitRatio = 0.7f;
+
+
             gpVars = "";
             AddGPVar(Consts.VAR_MAX_CAPITAL_TRADE, 20000);
             AddGPVar(Consts.VAR_MULTIPLAS_ENTRADAS, 1);
@@ -157,7 +163,10 @@ namespace Backtester.backend.model.system
             papeis.Remove(papel);
         }
 
-
+        [DataMember]
+        public float saveMinProfitRatio { get; set; }
+        [DataMember]
+        public int saveMinIterations { get; set; }
         [DataMember]
         public int maxTestes { get; set; }
 
@@ -194,6 +203,10 @@ namespace Backtester.backend.model.system
             }
             return 0;
         }
+
+
+
+
 
 
     }

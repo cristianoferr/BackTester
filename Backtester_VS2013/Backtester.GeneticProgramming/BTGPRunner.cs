@@ -5,6 +5,7 @@ using Backtester.backend.model.system;
 using GeneticProgramming;
 using GeneticProgramming.semantica;
 using GeneticProgramming.solution;
+using System;
 using System.Collections.Generic;
 using UsoComum;
 
@@ -131,6 +132,24 @@ namespace Backtester.GeneticProgramming
         {
             solution.RemovePropriedade(UsoComum.ConstsComuns.OBJ_TRADESYSTEM);
             solution.RemovePropriedade(UsoComum.ConstsComuns.OBJ_MONTECARLO);
+
+            if (solution.iterations != config.saveMinIterations) return;
+
+            float totalProfit = solution.GetPropriedadeAsFloat(UsoComum.ConstsComuns.OBJ_TOTAL_PROFIT);
+            float totalLoss = Math.Abs(solution.GetPropriedadeAsFloat(UsoComum.ConstsComuns.OBJ_TOTAL_LOSS));
+            float profitRatio = totalProfit / (totalProfit + totalLoss + 1);
+            if (profitRatio > config.saveMinProfitRatio)
+            {
+                SaveSolutionToCheck(solution);
+            }
+
+        }
+
+        private void SaveSolutionToCheck(GPSolution solution)
+        {
+            Utils.CreateFolder(GPConsts.DIRECTORY_TO_CHECK);
+            Utils.CreateFolder(GPConsts.DIRECTORY_TO_CHECK + config.tipoPeriodo.ToString());
+            solution.SaveToFile(GPConsts.DIRECTORY_TO_CHECK + config.tipoPeriodo.ToString() + "/" + solution.name + ".json");
         }
 
         public override void PrepareSolution(GPSolution solution)

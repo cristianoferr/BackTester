@@ -146,12 +146,14 @@ namespace Backtester.controller
             frmPrincipal.dataGridRuns.Rows[rowLine].Cells[colIndex++].Value = contaTestes;
             frmPrincipal.dataGridRuns.Rows[rowLine].Cells[colIndex++].Value = mC.ToString();
 
-            int iterations = (int)mC.properties.GetPropriedade(UsoComum.ConstsComuns.OBJ_ITERATIONS);
+            object objIters = mC.properties.GetPropriedade(UsoComum.ConstsComuns.OBJ_ITERATIONS);
+            int iterations = (objIters == null ? 1 : (int)objIters);
 
 
             frmPrincipal.dataGridRuns.Rows[rowLine].Cells[colIndex++].Value = iterations;
             frmPrincipal.dataGridRuns.Rows[rowLine].Cells[colIndex++].Value = mC.properties.GetPropriedade(UsoComum.ConstsComuns.OBJ_TOTAL_PROFIT) == null ? 0 : (float)mC.properties.GetPropriedade(UsoComum.ConstsComuns.OBJ_TOTAL_PROFIT) / iterations;
             frmPrincipal.dataGridRuns.Rows[rowLine].Cells[colIndex++].Value = mC.properties.GetPropriedade(UsoComum.ConstsComuns.OBJ_TOTAL_LOSS) == null ? 0 : (float)mC.properties.GetPropriedade(UsoComum.ConstsComuns.OBJ_TOTAL_LOSS) / iterations;
+
 
             frmPrincipal.dataGridRuns.Rows[rowLine].Cells[colIndex++].Value = mC.CalcFitness();
             frmPrincipal.dataGridRuns.Rows[rowLine].Cells[colIndex++].Value = mC.getCapitalFinal();

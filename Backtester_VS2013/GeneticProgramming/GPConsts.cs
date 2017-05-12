@@ -5,6 +5,8 @@ namespace GeneticProgramming
     public class GPConsts
     {
 
+        public const string DIRECTORY_TO_CHECK = "to_check/";
+
         public static string COMP_DIF = UsoComum.ConstsComuns.Operador.DIFFERENT.ToString();
         public static string COMP_EQUAL = UsoComum.ConstsComuns.Operador.EQUAL.ToString();
         public static string COMP_GREATER = UsoComum.ConstsComuns.Operador.GREATER.ToString();
@@ -45,5 +47,7 @@ namespace GeneticProgramming
             NODE_BOOLEAN = 8,
             NODE_OPERATOR = 16
         }
+
+
     }
 }

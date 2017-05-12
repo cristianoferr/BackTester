@@ -2,7 +2,9 @@
 using GeneticProgramming.nodes;
 using GeneticProgramming.semantica;
 using System.Collections.Generic;
+using System.IO;
 using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
 using UsoComum;
 using UsoComum.interfaces;
 namespace GeneticProgramming.solution
@@ -11,12 +13,13 @@ namespace GeneticProgramming.solution
     public class GPSolution : IStoreProperties
     {
         static int countSolutions = 1;
-        int idSolution = countSolutions++;
+
         public GPSolution(GPTemplate template)
         {
             valores = new Dictionary<string, GPAbstractNode>();
             propriedadesDeNegocio = new Dictionary<string, object>();
             this.template = template;
+            idSolution = countSolutions++;
             name = "Solution " + idSolution;
             iterations = 0;
 
@@ -42,6 +45,8 @@ namespace GeneticProgramming.solution
 
         #region Properties
         [DataMember]
+        public int idSolution { get; set; }
+        [DataMember]
         private Dictionary<string, object> propriedadesDeNegocio { get; set; }
 
 
@@ -63,6 +68,12 @@ namespace GeneticProgramming.solution
         {
             if (!propriedadesDeNegocio.ContainsKey(key)) return null;
             return propriedadesDeNegocio[key];
+        }
+
+        public float GetPropriedadeAsFloat(string propriedade)
+        {
+            object vlr = GetPropriedade(propriedade);
+            return vlr == null ? 0 : (float)vlr;
         }
 
         public void SetPropriedade(string key, object node)
@@ -215,5 +226,15 @@ namespace GeneticProgramming.solution
 
 
 
+
+
+
+        public void SaveToFile(string fileName)
+        {
+            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(GPSolution));
+            var fileStream = File.Create(fileName);
+            ser.WriteObject(fileStream, this);
+            fileStream.Close();
+        }
     }
 }
