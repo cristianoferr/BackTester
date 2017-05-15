@@ -130,26 +130,31 @@ namespace Backtester.GeneticProgramming
 
         public override void EndSolution(GPSolution solution)
         {
-            solution.RemovePropriedade(UsoComum.ConstsComuns.OBJ_TRADESYSTEM);
             solution.RemovePropriedade(UsoComum.ConstsComuns.OBJ_MONTECARLO);
 
-            if (solution.iterations != config.saveMinIterations) return;
-
-            float totalProfit = solution.GetPropriedadeAsFloat(UsoComum.ConstsComuns.OBJ_TOTAL_PROFIT);
-            float totalLoss = Math.Abs(solution.GetPropriedadeAsFloat(UsoComum.ConstsComuns.OBJ_TOTAL_LOSS));
-            float profitRatio = totalProfit / (totalProfit + totalLoss + 1);
-            if (profitRatio > config.saveMinProfitRatio)
+            if (solution.iterations >= config.saveMinIterations)
             {
-                SaveSolutionToCheck(solution);
+
+                float totalProfit = solution.GetPropriedadeAsFloat(UsoComum.ConstsComuns.OBJ_TOTAL_PROFIT);
+                float totalLoss = Math.Abs(solution.GetPropriedadeAsFloat(UsoComum.ConstsComuns.OBJ_TOTAL_LOSS));
+                float profitRatio = totalProfit / (totalProfit + totalLoss + 1);
+                if (profitRatio > config.saveMinProfitRatio)
+                {
+                    GPSolutionProxy proxy = new GPSolutionProxy();
+                    proxy.solution = solution;
+                    proxy.tradeSystem = solution.GetPropriedade(UsoComum.ConstsComuns.OBJ_TRADESYSTEM) as TradeSystem;
+                    solution.RemovePropriedade(UsoComum.ConstsComuns.OBJ_TRADESYSTEM);
+                    SaveSolutionToCheck(proxy);
+                }
             }
 
         }
 
-        private void SaveSolutionToCheck(GPSolution solution)
+        private void SaveSolutionToCheck(GPSolutionProxy proxy)
         {
             Utils.CreateFolder(GPConsts.DIRECTORY_TO_CHECK);
             Utils.CreateFolder(GPConsts.DIRECTORY_TO_CHECK + config.tipoPeriodo.ToString());
-            solution.SaveToFile(GPConsts.DIRECTORY_TO_CHECK + config.tipoPeriodo.ToString() + "/" + solution.name + ".json");
+            proxy.SaveToFile(GPConsts.DIRECTORY_TO_CHECK + config.tipoPeriodo.ToString() + "/" + proxy.solution.name + ".json");
         }
 
         public override void PrepareSolution(GPSolution solution)

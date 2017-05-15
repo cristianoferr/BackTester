@@ -10,6 +10,7 @@ using UsoComum.interfaces;
 namespace GeneticProgramming.solution
 {
     [DataContract]
+    
     public class GPSolution : IStoreProperties
     {
         static int countSolutions = 1;
@@ -229,12 +230,6 @@ namespace GeneticProgramming.solution
 
 
 
-        public void SaveToFile(string fileName)
-        {
-            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(GPSolution));
-            var fileStream = File.Create(fileName);
-            ser.WriteObject(fileStream, this);
-            fileStream.Close();
-        }
+    
     }
 }

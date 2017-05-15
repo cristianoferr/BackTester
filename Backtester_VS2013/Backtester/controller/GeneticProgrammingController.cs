@@ -2,10 +2,13 @@
 using Backtester.backend.model;
 using Backtester.backend.model.system;
 using Backtester.GeneticProgramming;
+using GeneticProgramming;
+using GeneticProgramming.solution;
 using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Windows.Forms;
+using UsoComum;
 
 namespace Backtester.controller
 {
@@ -13,16 +16,15 @@ namespace Backtester.controller
     public class GeneticProgrammingController : IController, ICaller
     {
         private FrmPrincipal frmPrincipal;
-        private ConfigController configController;
-        static BTGPRunner runner;
-
+        static ConfigController configController;
+        static BTGPRunner gpRunner;
 
         public GeneticProgrammingController(FrmPrincipal frmPrincipal, ConfigController configController)
         {
             this.frmPrincipal = frmPrincipal;
-            this.configController = configController;
-            runner = new BTGPRunner(ConfigController.config, this);
-            runner.Init();
+            GeneticProgrammingController.configController = configController;
+            gpRunner = new BTGPRunner(ConfigController.config, this);
+            gpRunner.Init();
         }
         public void UpdateValuesFromUI()
         {
@@ -62,33 +64,40 @@ namespace Backtester.controller
             configController.facade.ClearFormulas();
 
             frmPrincipal.dataGridRuns.Rows.Clear();
-            Thread t = new Thread(staticSingleRun);
+            Thread t = new Thread(staticSingleRunGP);
             t.Name = "BacktestRunner";
             t.Start();
             int runs = 0;
             while (t.IsAlive)
             {
                 Thread.Sleep(100);
-                Application.DoEvents();
-                if (updatesToAdd.Count > 0)
-                {
-                    int count = updatesToAdd.Count;
-                    for (int i = 0; i < count; i++)
-                    {
-                        UpdatesToAdd updt = updatesToAdd[i];
-                        runs++;
-                        configController.UpdateApplication(updt.carteira, updt.mc, runs, updt.totalLoops);
-                    }
-                    updatesToAdd.Clear();
-                }
+                runs = UpdateThreadTick(runs);
             }
         }
 
-        static void staticSingleRun()
+        private int UpdateThreadTick(int runs)
         {
-            runner.SingleRun();
-
+            Application.DoEvents();
+            if (updatesToAdd.Count > 0)
+            {
+                int count = updatesToAdd.Count;
+                for (int i = 0; i < count; i++)
+                {
+                    UpdatesToAdd updt = updatesToAdd[i];
+                    runs++;
+                    configController.UpdateApplication(updt.carteira, updt.mc, runs, updt.totalLoops);
+                }
+                updatesToAdd.Clear();
+            }
+            return runs;
         }
+
+        static void staticSingleRunGP()
+        {
+            gpRunner.SingleRun();
+        }
+
+       
 
         public void SimpleUpdate()
         {
@@ -102,12 +111,59 @@ namespace Backtester.controller
             updt.carteira = carteira;
             updt.mc = mc;
             updt.countLoops = countLoops;
-            updt.totalLoops = runner.pool.iterationNumber;
+            updt.totalLoops = gpRunner.pool.iterationNumber;
             updatesToAdd.Add(updt);
 
         }
 
 
+
+
+        internal void ValidaCandidatos()
+        {
+
+            while (true)
+            {
+                Thread.Sleep(100);
+                Application.DoEvents();
+                string file = Utils.GetFirstFile(GPConsts.DIRECTORY_TO_CHECK + ConfigController.config.tipoPeriodo.ToString());
+                if (file != null)
+                {
+                    GPSolutionProxy solution = GPSolutionProxy.LoadFromFile(file);
+                    ValidaCandidato(solution);
+                }
+            }
+            
+        }
+
+        static GPSolutionProxy solutionToTest;
+        private void ValidaCandidato(GPSolutionProxy proxy)
+        {
+            solutionToTest = proxy;
+            frmPrincipal.txtStatus.Text = "Validando solution " + proxy.solution.name;
+            GC.Collect();
+            configController.facade.ClearData();
+            configController.facade.ClearFormulas();
+
+            frmPrincipal.dataGridRuns.Rows.Clear();
+            Thread t = new Thread(staticSingleRunValidaSolution);
+            t.Name = "BacktestRunner";
+            t.Start();
+            int runs = 0;
+            while (t.IsAlive)
+            {
+                Thread.Sleep(100);
+                runs = UpdateThreadTick(runs);
+            }
+          //  Utils.DeleteFile(file);
+        }
+
+        static void staticSingleRunValidaSolution()
+        {
+            //gpRunner.SingleRun();
+            TradeSystem ts=solutionToTest.tradeSystem;
+            configController.Run(ts);
+        }
 
     }
 

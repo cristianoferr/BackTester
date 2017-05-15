@@ -131,6 +131,18 @@ namespace UsoComum
             if (!exists)
                 System.IO.Directory.CreateDirectory(subPath);
         }
+
+        public static string GetFirstFile(string path)
+        {
+            string[] files = System.IO.Directory.GetFiles(path);
+            if (files == null || files.Length == 0) return null;
+            return files[0];
+        }
+
+        public static void DeleteFile(string file)
+        {
+            System.IO.File.Delete(file);
+        }
     }
 
 }

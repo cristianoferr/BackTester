@@ -167,6 +167,12 @@ namespace Backtester
             configController.UpdateValuesFromUI();
         }
 
+        private void btnValidaCandidatos_Click(object sender, System.EventArgs e)
+        {
+            txtStatus.Text = "";
+            gpController.ValidaCandidatos();
+        }
+
 
 
 

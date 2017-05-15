@@ -263,5 +263,7 @@ namespace Backtester.controller
                 //  oper.
             }
         }
+
+  
     }
 }

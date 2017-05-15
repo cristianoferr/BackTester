@@ -1,0 +1,1 @@
+F:\Java\repositorios\BackTester\Backtester_VS2013\Backtester.backend\obj\x64\Release\Backtester.backend.csprojResolveAssemblyReference.cache

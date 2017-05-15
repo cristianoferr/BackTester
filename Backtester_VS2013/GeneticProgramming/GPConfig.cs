@@ -14,7 +14,7 @@ namespace GeneticProgramming
         #region Constructors
         public GPConfig()
         {
-            poolSize = 100;
+            poolSize = 500;
 
             elitismRange = 10;
             mutationRange = 35;

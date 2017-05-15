@@ -158,5 +158,7 @@ namespace Backtester.controller
         {
             vc.ChangeSelectedVariavel(index);
         }
+
+       
     }
 }

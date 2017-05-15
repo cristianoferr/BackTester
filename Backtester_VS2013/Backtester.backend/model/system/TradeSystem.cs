@@ -6,6 +6,7 @@ using System.Runtime.Serialization;
 namespace Backtester.backend.model.system
 {
     [DataContract]
+    [KnownType(typeof(TradeSystem))]
     public class TradeSystem
     {
         /*A diferença entre stopInicial e stopMovel: 
