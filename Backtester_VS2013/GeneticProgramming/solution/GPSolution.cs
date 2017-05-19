@@ -10,7 +10,7 @@ using UsoComum.interfaces;
 namespace GeneticProgramming.solution
 {
     [DataContract]
-    
+
     public class GPSolution : IStoreProperties
     {
         static int countSolutions = 1;
@@ -198,10 +198,7 @@ namespace GeneticProgramming.solution
             {
                 /* GPAbstractNode node1 = child.valores[key];
                  GPAbstractNode node2 = child2.valores[key];*/
-                if (Utils.Random(0, 100) > 50)
-                {
-                    child.SpliceWith(child2, key);
-                }
+                child.SpliceWith(child2, key);
 
             }
 
@@ -230,6 +227,6 @@ namespace GeneticProgramming.solution
 
 
 
-    
+
     }
 }

@@ -14,11 +14,13 @@ namespace UsoComum
 
         public static void Info(string msg)
         {
+            Console.WriteLine("[INFO] " + msg);
             log.Info(msg);
         }
 
         public static void Error(string msg)
         {
+            Console.WriteLine("[ERROR] " + msg);
             log.Error(msg);
         }
 

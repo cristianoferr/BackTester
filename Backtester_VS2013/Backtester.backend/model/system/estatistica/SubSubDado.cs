@@ -24,9 +24,9 @@ namespace Backtester.backend.model.system.estatistica
 
         public void print(String tx)
         {
-            UsoComum.Utils.println(tx + ":  Trades:" + nTrades + " Total:" + UsoComum.Utils.FormatCurrency(total) + " Média:" + UsoComum.Utils.FormatCurrency(total / nTrades));
-            UsoComum.Utils.println(tx + ":  Maior Resultado: " + UsoComum.Utils.FormatCurrency(maxTrade) + " Menor Resultado: " + UsoComum.Utils.FormatCurrency(minTrade));
-            UsoComum.Utils.println(tx + ":  Tempo Médio: " + UsoComum.Utils.FormatCurrency(avgDias) + " Maior Tempo:" + maxDias + " Menor Tempo: " + minDias);
+            //  UsoComum.Utils.println(tx + ":  Trades:" + nTrades + " Total:" + UsoComum.Utils.FormatCurrency(total) + " Média:" + UsoComum.Utils.FormatCurrency(total / nTrades));
+            //   UsoComum.Utils.println(tx + ":  Maior Resultado: " + UsoComum.Utils.FormatCurrency(maxTrade) + " Menor Resultado: " + UsoComum.Utils.FormatCurrency(minTrade));
+            //  UsoComum.Utils.println(tx + ":  Tempo Médio: " + UsoComum.Utils.FormatCurrency(avgDias) + " Maior Tempo:" + maxDias + " Menor Tempo: " + minDias);
         }
 
         public int getnTrades()
