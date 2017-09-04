@@ -121,7 +121,10 @@ namespace Backtester.backend.model.system
             if (direcao > 0)
             {
                 float valor = candle.GetValor(vm.ReplaceVariavel(condicaoSaidaC));
-                if (valor >= 1) return 1;
+                if (valor >= 1)
+                {
+                    return 1;
+                }
             }
             if (direcao < 0)
             {

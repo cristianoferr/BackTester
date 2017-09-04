@@ -1,4 +1,5 @@
 ﻿
+using Backtester.backend.DataManager;
 using Backtester.backend.model.ativos;
 using Backtester.backend.model.system.condicoes;
 using System.Collections.Generic;
@@ -93,7 +94,7 @@ namespace Backtester.backend.model
             //Caso não tenha candle, tenta pegar o anterior... 
             if (c == null) c = ativo.GetCandle(periodo.periodoAnterior);
 
-            return saldo * c.GetValor(carteira.config.campoVenda);
+            return saldo * c.GetValor(FormulaManager.CLOSE);
         }
 
         public void VerificaStops(Candle candle)

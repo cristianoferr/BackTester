@@ -1,4 +1,5 @@
 ﻿
+using Backtester.backend.DataManager;
 using Backtester.backend.model.ativos;
 using Backtester.backend.model.system;
 using Backtester.backend.model.system.condicoes;
@@ -80,7 +81,17 @@ namespace Backtester.backend.model
         {
             Posicao posicao = posicoesAbertas[ativo];
             Candle candle = posicao.ativo.GetCandle(periodo);
-            if (vlrSaida == 0) vlrSaida = candle.GetValor(config.campoVenda);
+            if (vlrSaida == 0)
+            {
+                if (config.flagVendaMesmoDia)
+                {
+                    vlrSaida = candle.GetValor(FormulaManager.CLOSE);
+                } else
+                {
+                    vlrSaida = candle.proximoCandle.GetValor(FormulaManager.OPEN);
+                }
+                
+            }
             FechaPosicao(posicao, candle, vlrSaida);
 
         }
@@ -98,7 +109,7 @@ namespace Backtester.backend.model
                     periodo = periodo.periodoAnterior;
                     candle = p.ativo.GetCandle(periodo);
                 }
-                float vlrSaida = candle.GetValor(config.campoVenda);
+                float vlrSaida = candle.GetValor(FormulaManager.CLOSE);
                 posicoesARemover_.Add(FechaPosicao(p, candle, vlrSaida, false));
             }
 

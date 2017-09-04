@@ -1,4 +1,5 @@
-﻿using Backtester.backend.interfaces;
+﻿using Backtester.backend.DataManager;
+using Backtester.backend.interfaces;
 using Backtester.backend.model;
 using Backtester.backend.model.ativos;
 using Backtester.backend.model.system;
@@ -244,7 +245,14 @@ namespace Backtester.backend
             {
                 if (qtdAcoes == 0 || (qtdAcoes != 0 && tradeSystem.usaMultiplasEntradas))
                 {
-                    float valorAcao = candle.GetValor(carteira.config.campoCompra);
+                    float valorAcao = 0;
+                    if (config.flagCompraMesmoDia)
+                    {
+                        valorAcao = candle.GetValor(FormulaManager.CLOSE);
+                    } else
+                    {
+                        valorAcao = candle.proximoCandle.GetValor(FormulaManager.OPEN);
+                    }
                     carteira.EfetuaEntrada(ativo, periodo, 1, valorAcao, Math.Abs(direcao), (direcao > 0 ? 1 : -1));
                 }
             }

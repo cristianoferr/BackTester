@@ -100,7 +100,7 @@ namespace Backtester.tests
             Assert.IsTrue(posicao.saldo == 500, posicao.saldo + "<>"+ 500);
             Operacao oper = posicao.operacoesAbertas[0];
             Assert.IsTrue(oper.stop.CalcStop(candle) == stop);
-            Assert.IsTrue(carteira.capitalLiq == 100000 - 500 * candle.GetValor(FormulaManager.CLOSE));
+            Assert.IsTrue(carteira.capitalLiq == 100000 - 500 * candle.proximoCandle.GetValor(FormulaManager.OPEN));
             float capitalAtual = carteira.capitalLiq;
 
             //simulando um stop
@@ -122,7 +122,7 @@ namespace Backtester.tests
             backtester.BackTestCandle(periodo, ativo, candle);
             qtdAcoes = carteira.PossuiAtivo(ativo);
             Assert.IsTrue(qtdAcoes == 500, qtdAcoes + " <> 500");
-            Assert.IsTrue(carteira.capitalLiq == capitalAtual - 500 * candle.GetValor(FormulaManager.CLOSE));
+            Assert.IsTrue(carteira.capitalLiq == capitalAtual - 500 * candle.proximoCandle.GetValor(FormulaManager.OPEN));
             capitalAtual = carteira.capitalLiq;
 
             candle = candle.proximoCandle;
@@ -278,7 +278,7 @@ namespace Backtester.tests
             float riscoEsperado = capitalSobRisco / carteira.GetCapital() * 100;
             carteira.capitalLiq -= oper1.vlrEntrada * oper1.qtd;
 
-            candle.SetValor(config.campoVenda, 10);
+            candle.SetValor(FormulaManager.CLOSE, 10);
             carteira.periodoAtual = periodo;
             carteira.AtualizaPosicao();
             Assert.IsTrue(carteira.GetCapital() == 100000, carteira.GetCapital() + "<>" + 100000);

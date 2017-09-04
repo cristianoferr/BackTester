@@ -9,6 +9,7 @@ namespace Backtester.backend.model.system
     public class Config
     {
         public bool useVars=true;
+        
 
         public Config()
         {
@@ -17,15 +18,15 @@ namespace Backtester.backend.model.system
 
             capitalInicial = 10000;
             custoOperacao = 20;
-            campoVenda = FormulaManager.CLOSE;
-            campoCompra = FormulaManager.CLOSE;
+            flagCompraMesmoDia = false;
+            flagVendaMesmoDia = false;
             papeis = new List<string>();
             papeisValidation = new List<string>();
             maxTestes = 20;
             qtdPercPapeis = 30;//se eu tenho 100 papeis a testar então isso fará com que seja retornado uma lsita com x perc de 100
             InitDefaultPapeis();
             InitDefaultPapeisValidation();
-            tipoPeriodo = Consts.PERIODO_ACAO.DIARIO;
+            tipoPeriodo = Consts.PERIODO_ACAO.SEMANAL;
 
             //Quantidade minima de iterações que a solution sobreviveu que a qualifica como viavel
             saveMinIterations = 5;
@@ -129,6 +130,10 @@ namespace Backtester.backend.model.system
         }
 
         [DataMember]
+        public bool flagCompraMesmoDia { get; set; }
+        [DataMember]
+        public bool flagVendaMesmoDia { get; set; }
+        [DataMember]
         public string varsDebug { get; set; }
         [DataMember]
         public IList<string> papeis { get; set; }
@@ -147,11 +152,6 @@ namespace Backtester.backend.model.system
         [DataMember]
         public float custoOperacao { get; set; }
 
-        [DataMember]
-        public string campoVenda { get; set; }
-
-        [DataMember]
-        public string campoCompra { get; set; }
 
         [DataMember]
         public Consts.PERIODO_ACAO tipoPeriodo { get; set; }
