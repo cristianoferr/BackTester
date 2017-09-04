@@ -32,6 +32,11 @@ namespace Backtester.tests
             Clarify clarify = new Clarify(fm);
             //TradeSystem tradeSystem = new TradeSystem(config);
             ValidaClarify(clarify, "SUM(H,MULTIPLY(STD(C,10),2))","H + (STD(C,10) * 2)");
+            ValidaClarify(clarify, "GREATER(MME(C, 9), MME(C, 6))", "MME(C,9) > MME(C,6)");
+            ValidaClarify(clarify, "AND(LV(C, L), C)", "LV(C,L) && C");
+            
+
+
         }
 
         private void ValidaClarify(Clarify clarify, string original, string esperado)

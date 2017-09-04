@@ -218,12 +218,9 @@ namespace Backtester.backend
                         int qtdAcoes = carteira.PossuiAtivo(ativo);
                         float direcao = tradeSystem.checaCondicaoEntrada(candle, config);
 
-
-                        //Não tenho posicao em aberto E direcao de entrada foi ativada (por hora só vou permitir 1 posicao do ativo por vez
-
+                        //Não tenho posicao em aberto E direcao de entrada foi ativada
                         if ((direcao != 0))
                         {
-
                             if (qtdAcoes == 0 || (qtdAcoes != 0 && tradeSystem.usaMultiplasEntradas))
                             {
                                 float valorAcao = candle.GetValor(carteira.config.campoCompra);

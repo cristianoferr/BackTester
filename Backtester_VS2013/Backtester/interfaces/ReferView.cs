@@ -18,7 +18,7 @@ namespace Backtester.interfaces
                 }
 
 
-        internal void Register(string key, Control listPapeis)
+        public void Register(string key, Control listPapeis)
         {
             controles.Add(key, listPapeis);
         }
@@ -123,7 +123,7 @@ namespace Backtester.interfaces
             l.Items[index] = var;
         }
 
-        internal void SetStatusComponent(ToolStripStatusLabel txtStatus)
+        public void SetStatusComponent(ToolStripStatusLabel txtStatus)
         {
             this.status = txtStatus;
         }

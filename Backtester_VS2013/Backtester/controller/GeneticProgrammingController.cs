@@ -186,6 +186,7 @@ namespace Backtester.controller
         {
             //gpRunner.SingleRun();
             TradeSystem ts=solutionToTest.tradeSystem;
+            ts.name = solutionToTest.solution.name;
             Carteira carteira=configController.RunSingle(ts,name,true);
             CandidatoManager cm = CandidatoManager.LoadSaved();
             cm.AddTradeSystem(ts,carteira.estatistica);

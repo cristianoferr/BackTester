@@ -61,7 +61,7 @@ namespace Backtester.controller
 
         }
 
-        internal void Salva()
+        public void Salva()
         {
             UpdateValuesFromUI();
             config.SaveToFile();
@@ -124,6 +124,8 @@ namespace Backtester.controller
             
             if (flagValidation)
             {
+                //valido com todos os papeis disponíveis
+                config.qtdPercPapeis = 100;
                 facadeValidation.LoadAtivos(config.papeisValidation, config.tipoPeriodo,flagValidation);
                 return facadeValidation.RunValidation( this, config, ts, name);
             } else

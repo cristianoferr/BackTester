@@ -29,7 +29,12 @@ namespace Backtester.backend.DataManager
             this.estatistica = stat;
             this.finalScore = capitalFinal;
         }
+        public override string ToString()
+        {
+            return finalScore + " - " + tradeSystem.name;
+        }
     }
+
 
     [DataContract]
     public class CandidatoManager
@@ -45,12 +50,13 @@ namespace Backtester.backend.DataManager
             ranking = new List<CandidatoData>();
         }
 
-        public static CandidatoManager LoadSaved()
+        public static CandidatoManager LoadSaved(string path="")
         {
             if (singleton != null) return singleton;
             try
             {
-                var fileStream = File.Open("saved-candidatos.js", FileMode.Open);
+                if (File.Exists("saved-candidatos.js")) path = "";
+                var fileStream = File.Open(path+"saved-candidatos.js", FileMode.Open);
                 DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(CandidatoManager));
                 singleton = (CandidatoManager)ser.ReadObject(fileStream);
                 fileStream.Close();
@@ -79,7 +85,7 @@ namespace Backtester.backend.DataManager
 
         public int AddTradeSystem(TradeSystem ts,Estatistica stat)
         {
-            if (!RankingContains(ts))
+            if (!RankingContains(ts, stat.capitalFinal))
             {
                 ranking.Add(new CandidatoData(ts,stat,stat.capitalFinal));
             }
@@ -88,9 +94,12 @@ namespace Backtester.backend.DataManager
             return GetRanking(ts);
         }
 
-        private bool RankingContains(TradeSystem ts)
+        private bool RankingContains(TradeSystem ts,float finalScore)
         {
-            return ranking.FirstOrDefault(x => x.tradeSystem == ts) != null;
+            if (ranking.FirstOrDefault(x => x.tradeSystem == ts) != null) return true;
+
+            //se tem a mesma posição então eu desconsidero.  É variação do mesmo TS.
+            return ranking.FirstOrDefault(x => x.finalScore == finalScore) != null;
         }
 
         public int GetRanking(TradeSystem ts)

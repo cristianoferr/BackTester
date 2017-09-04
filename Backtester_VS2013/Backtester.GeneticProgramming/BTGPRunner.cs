@@ -103,6 +103,7 @@ namespace Backtester.GeneticProgramming
         public override void RunSolution(GPSolution solution)
         {
             TradeSystem ts = solution.GetPropriedade(ConstsComuns.OBJ_TRADESYSTEM) as TradeSystem;
+            ts.name = solution.name;
             Carteira carteira = gpController.RunBackTester(ts, solution.name);
 
             carteira.monteCarlo.properties = solution;
@@ -160,6 +161,7 @@ namespace Backtester.GeneticProgramming
         public override void PrepareSolution(GPSolution solution)
         {
             TradeSystem ts = new TradeSystem(config);
+            ts.name = solution.name;
             foreach (string var in listVariaveis)
             {
                 if (config.IsGPVarDefined(var))

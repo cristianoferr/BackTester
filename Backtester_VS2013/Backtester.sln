@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Backtester.frontend", "Backtester\Backtester.frontend.csproj", "{44C570C1-62D1-4F05-8EDA-D3D11EDFA848}"
 EndProject
@@ -25,6 +25,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		TODO.txt = TODO.txt
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FrontTester", "FrontTester", "{6E4DEB6F-C96C-4141-B766-EF80008BB614}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FrontTester.frontend", "FrontTester.frontend\FrontTester.frontend.csproj", "{2E94F41D-D478-4901-8BEA-659C7E930CB3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -84,6 +88,14 @@ Global
 		{02042338-51C1-4FB0-9156-4B0F46A545B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02042338-51C1-4FB0-9156-4B0F46A545B5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{02042338-51C1-4FB0-9156-4B0F46A545B5}.Release|x64.ActiveCfg = Release|Any CPU
+		{2E94F41D-D478-4901-8BEA-659C7E930CB3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E94F41D-D478-4901-8BEA-659C7E930CB3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E94F41D-D478-4901-8BEA-659C7E930CB3}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2E94F41D-D478-4901-8BEA-659C7E930CB3}.Debug|x64.Build.0 = Debug|Any CPU
+		{2E94F41D-D478-4901-8BEA-659C7E930CB3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E94F41D-D478-4901-8BEA-659C7E930CB3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E94F41D-D478-4901-8BEA-659C7E930CB3}.Release|x64.ActiveCfg = Release|Any CPU
+		{2E94F41D-D478-4901-8BEA-659C7E930CB3}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -95,5 +107,6 @@ Global
 		{E5B00111-7548-4973-8A54-4D1EF1F4D3DA} = {90CB6C33-3C23-4BA7-9796-383AD133E0F1}
 		{D644DBAA-149F-42D4-AB1A-31FEB2E54050} = {90CB6C33-3C23-4BA7-9796-383AD133E0F1}
 		{02042338-51C1-4FB0-9156-4B0F46A545B5} = {2EB8D004-0AA3-4D91-B9C3-2C68CF107ACB}
+		{2E94F41D-D478-4901-8BEA-659C7E930CB3} = {6E4DEB6F-C96C-4141-B766-EF80008BB614}
 	EndGlobalSection
 EndGlobal
