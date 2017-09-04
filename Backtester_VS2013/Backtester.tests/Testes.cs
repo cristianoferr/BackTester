@@ -1,5 +1,6 @@
 ﻿using Backtester.backend;
 using Backtester.backend.DataManager;
+using Backtester.backend.interfaces;
 using Backtester.backend.model;
 using Backtester.backend.model.ativos;
 using Backtester.backend.model.formulas;
@@ -17,12 +18,132 @@ using UsoComum;
 
 namespace Backtester.tests
 {
+    class MockCaller : ICaller
+    {
+        public Carteira RunBackTester(TradeSystem ts, string name)
+        {
+            return null;
+        }
+
+        public void SimpleUpdate()
+        {
+        }
+
+        public void UpdateApplication(Carteira carteira, MonteCarlo mc, int countLoops, int totalLoops)
+        {
+        }
+    }
+
     [TestClass]
     public class Testes
     {
 
         static FacadeBacktester facade = new FacadeBacktester();
-        
+
+
+        [TestMethod]
+        public void TestBacktester()
+        {
+
+            MockCaller mockCaller = new MockCaller();
+            Config config = new Config();
+            TradeSystem tradeSystem = new TradeSystem(config);
+            MonteCarlo mc = new MonteCarlo("Teste");
+            config.custoOperacao = 0f;
+            config.flagCompra = true;
+            config.flagVenda = false;
+            config.capitalInicial = 100000;
+
+
+            facade.LoadAtivo("PETR4", 100, Consts.PERIODO_ACAO.SEMANAL, "dados/petr4-diario.js");
+            Ativo ativo = facade.GetAtivo("PETR4");
+            Assert.IsNotNull(ativo);
+            Assert.IsTrue(ativo.candles.Count > 0);
+            Candle candle = ativo.firstCandle;
+            for (int i = 0; i < 30; i++)
+            {
+                candle = candle.proximoCandle;
+            }
+            Periodo periodo = candle.periodo;
+
+
+            Assert.IsTrue(Stop.CalcValorStop(10, 1, 10)==9);
+            Assert.IsTrue(Stop.CalcValorStop(10, -1, 10) == 11);
+
+            BackTester backtester = new BackTester(facade, periodo, config, tradeSystem);
+            Carteira carteira = backtester.carteira;
+            Assert.IsTrue(carteira.PossuiAtivo(ativo) == 0);
+
+            tradeSystem.condicaoEntradaC = "GREATER(MME(C,9),MME(C,6))";
+            tradeSystem.condicaoSaidaC = "LOWER(MME(C,9),MME(C,6))";
+            float mmec9=candle.GetValor("MME(C,9)");
+            float mmec6 = candle.GetValor("MME(C,6)");
+            Assert.IsTrue(mmec9 > 0);
+            Assert.IsTrue(mmec6 > 0);
+            Assert.IsTrue(candle.GetValor(tradeSystem.condicaoEntradaC) == 1);
+
+            tradeSystem.vm.SetVariavel(Consts.VAR_STOP_GAP, 2);
+            tradeSystem.vm.SetVariavel(Consts.VAR_USA_STOP_MOVEL, 1);
+
+            tradeSystem.stopInicialC = "LV(L,5)";
+            tradeSystem.stopMovelC = tradeSystem.stopInicialC;
+            float stop = candle.GetValor(tradeSystem.stopInicialC);
+            stop = stop * (1f - tradeSystem.stopGapPerc / 100f);
+
+            //realiza 1a entrada
+            backtester.BackTestCandle(periodo, ativo, candle);
+            int qtdAcoes = carteira.PossuiAtivo(ativo);
+            Assert.IsTrue(qtdAcoes  == 500,qtdAcoes+" <> 500");
+
+            Posicao posicao=carteira.GetPosicaoDoAtivo(ativo);
+            Assert.IsNotNull(posicao);
+            Assert.IsTrue(posicao.saldo == 500, posicao.saldo + "<>"+ 500);
+            Operacao oper = posicao.operacoesAbertas[0];
+            Assert.IsTrue(oper.stop.CalcStop(candle) == stop);
+            Assert.IsTrue(carteira.capitalLiq == 100000 - 500 * candle.GetValor(FormulaManager.CLOSE));
+            float capitalAtual = carteira.capitalLiq;
+
+            //simulando um stop
+            candle = candle.proximoCandle;
+            carteira.periodoAtual = candle.periodo;
+            float vlrStopado = stop / 2;
+            candle.SetValor(FormulaManager.OPEN, vlrStopado);
+            candle.SetValor(FormulaManager.LOW, vlrStopado);
+            posicao.VerificaStops(candle);
+
+            qtdAcoes = carteira.PossuiAtivo(ativo);
+            Assert.IsTrue(qtdAcoes == 0, qtdAcoes + " <> 0");
+            Assert.IsTrue(carteira.capitalLiq == capitalAtual + 500 * vlrStopado);
+            capitalAtual = carteira.capitalLiq;
+
+            //mais uma entrada
+            candle = candle.proximoCandle;
+            carteira.periodoAtual = candle.periodo;
+            backtester.BackTestCandle(periodo, ativo, candle);
+            qtdAcoes = carteira.PossuiAtivo(ativo);
+            Assert.IsTrue(qtdAcoes == 500, qtdAcoes + " <> 500");
+            Assert.IsTrue(carteira.capitalLiq == capitalAtual - 500 * candle.GetValor(FormulaManager.CLOSE));
+            capitalAtual = carteira.capitalLiq;
+
+            candle = candle.proximoCandle;
+            carteira.periodoAtual = candle.periodo;
+            posicao.VerificaStops(candle);
+            qtdAcoes = carteira.PossuiAtivo(ativo);
+            //não foi stopado...
+            Assert.IsTrue(qtdAcoes == 500, qtdAcoes + " <> 500");
+
+            /*  candle.SetValor(tradeSystem.stopInicialC, vlrStopado);
+              candle.SetValor(FormulaManager.OPEN, vlrStopado);
+              candle.SetValor(FormulaManager.LOW, vlrStopado-1);
+              posicao.VerificaStops(candle);
+              qtdAcoes = carteira.PossuiAtivo(ativo);
+              //foi stopado...
+              Assert.IsTrue(qtdAcoes == 0, qtdAcoes + " <> 0");*/
+
+            //MME(C,9)<MME(C,6)
+            Assert.IsTrue(tradeSystem.checaCondicaoSaida(candle, 1)==1);
+
+        }
 
         [TestMethod]
         public void TestClarificarTradeSystem()

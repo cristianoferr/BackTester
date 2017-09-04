@@ -101,7 +101,7 @@ namespace Backtester.backend.model
             for (int i = operacoesAbertas.Count - 1; i >= 0; i--)
             {
                 Operacao oper = operacoesAbertas[i];
-                float vlr = oper.atingiuStop(candle.periodo);
+                float vlr = oper.atingiuStop(candle);
 
                 //Se vlr > 0 então o stop foi atingido
                 if (vlr > 0)

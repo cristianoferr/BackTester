@@ -1,4 +1,5 @@
-﻿using Backtester.backend.model.formulas;
+﻿using System;
+using Backtester.backend.model.formulas;
 
 namespace Backtester.backend.model.system.condicoes
 {
@@ -28,7 +29,8 @@ namespace Backtester.backend.model.system.condicoes
         public float CalcStop(ativos.Candle candle)
         {
             if (stopCalc == null) return stopInicial;
-            float v = candle.GetValor(stopCalc) * (1f + (tradeSystem.stopGapPerc / 100f));
+            float v = candle.GetValor(stopCalc) ;
+            v = CalcValorStop(v, sentido, tradeSystem.stopGapPerc);
             //	System.out.println("StopInicial: "+stopInicial+" stopMovel:"+v+" "+(v>stopInicial));
             //Caso o valor da formula seja maior que o stopInicial então retorna o valor
             if (sentido > 0)
@@ -45,5 +47,17 @@ namespace Backtester.backend.model.system.condicoes
 
         public int sentido { get; set; }
 
+        public static float CalcValorStop(float valor, int direcao, float stopGapPerc)
+        {
+            if (direcao == 1)
+            {
+                valor *= (1f - stopGapPerc / 100f);
+            } else
+            {
+                valor*= (1f + stopGapPerc / 100f);
+
+            }
+            return valor;
+        }
     }
 }

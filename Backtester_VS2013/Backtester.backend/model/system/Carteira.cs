@@ -256,7 +256,7 @@ namespace Backtester.backend.model
 
         public Periodo periodoAtual { get; set; }
 
-        internal int PossuiAtivo(Ativo ativo)
+        public int PossuiAtivo(Ativo ativo)
         {
 
             if (!posicoesAbertas.ContainsKey(ativo)) return 0;

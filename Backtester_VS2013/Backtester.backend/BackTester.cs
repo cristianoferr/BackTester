@@ -201,47 +201,7 @@ namespace Backtester.backend
             int[] rd = GetRandomOrder(config.qtdPercPapeis);
             while (periodo.proximoPeriodo != null)
             {
-                caller.SimpleUpdate();
-                //System.out.println("Periodo:"+periodo.getPeriodo());
-                carteira.EndTurn(periodo, !mesA.Equals(periodo.GetMes()));
-                mc.AnalizaPeriodo(carteira);
-                if (!mesA.Equals(periodo.GetMes())) mesA = periodo.GetMes() + "";
-
-                for (int i = 0; i < rd.Length; i++)
-                {
-
-                    Ativo ativo = ativos[rd[i]];
-                    Candle candle = ativo.GetCandle(periodo);
-
-                    if (candle != null)
-                    {
-                        int qtdAcoes = carteira.PossuiAtivo(ativo);
-                        float direcao = tradeSystem.checaCondicaoEntrada(candle, config);
-
-                        //Não tenho posicao em aberto E direcao de entrada foi ativada
-                        if ((direcao != 0))
-                        {
-                            if (qtdAcoes == 0 || (qtdAcoes != 0 && tradeSystem.usaMultiplasEntradas))
-                            {
-                                float valorAcao = candle.GetValor(carteira.config.campoCompra);
-                                carteira.EfetuaEntrada(ativo, periodo, 1, valorAcao, Math.Abs(direcao), (direcao > 0 ? 1 : -1));
-                            }
-                        }
-
-                        //Se eu tiver posicao em aberto, verifico se foi ativado a saida, se sim, a saida será feita no vlrSaida padrao
-                        if (qtdAcoes != 0)
-                        {
-
-                            if (tradeSystem.checaCondicaoSaida(candle, (qtdAcoes > 0 ? 1 : -1)) != 0)
-                            {
-                                carteira.EfetuaSaida(ativo, periodo, 0);
-                            }
-                        }
-
-                    }
-                }
-
-                periodo = periodo.proximoPeriodo;
+                BackTestePeriodo(caller, mc, ref periodo, ref mesA, rd);
             }
             carteira.FechaPosicoes(periodo);
             carteira.EndTurn(periodo, !mesA.Equals(periodo.GetMes()));
@@ -250,9 +210,57 @@ namespace Backtester.backend
             return carteira;
         }
 
+        public void BackTestePeriodo(ICaller caller, MonteCarlo mc, ref Periodo periodo, ref string mesA, int[] rd)
+        {
+            caller.SimpleUpdate();
+            //System.out.println("Periodo:"+periodo.getPeriodo());
+            carteira.EndTurn(periodo, !mesA.Equals(periodo.GetMes()));
+            mc.AnalizaPeriodo(carteira);
+            if (!mesA.Equals(periodo.GetMes())) mesA = periodo.GetMes() + "";
+
+            for (int i = 0; i < rd.Length; i++)
+            {
+
+                Ativo ativo = ativos[rd[i]];
+                Candle candle = ativo.GetCandle(periodo);
+
+                if (candle != null)
+                {
+                    BackTestCandle(periodo, ativo, candle);
+
+                }
+            }
+
+            periodo = periodo.proximoPeriodo;
+        }
+
+        public void BackTestCandle(Periodo periodo, Ativo ativo, Candle candle)
+        {
+            int qtdAcoes = carteira.PossuiAtivo(ativo);
+            float direcao = tradeSystem.checaCondicaoEntrada(candle, config);
+
+            //Não tenho posicao em aberto E direcao de entrada foi ativada
+            if ((direcao != 0))
+            {
+                if (qtdAcoes == 0 || (qtdAcoes != 0 && tradeSystem.usaMultiplasEntradas))
+                {
+                    float valorAcao = candle.GetValor(carteira.config.campoCompra);
+                    carteira.EfetuaEntrada(ativo, periodo, 1, valorAcao, Math.Abs(direcao), (direcao > 0 ? 1 : -1));
+                }
+            }
+
+            //Se eu tiver posicao em aberto, verifico se foi ativado a saida, se sim, a saida será feita no vlrSaida padrao
+            if (qtdAcoes != 0)
+            {
+
+                if (tradeSystem.checaCondicaoSaida(candle, (qtdAcoes > 0 ? 1 : -1)) != 0)
+                {
+                    carteira.EfetuaSaida(ativo, periodo, 0);
+                }
+            }
+        }
 
 
-        
 
 
         public FacadeBacktester facade { get; set; }

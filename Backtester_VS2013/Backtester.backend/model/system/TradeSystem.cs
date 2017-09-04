@@ -102,13 +102,15 @@ namespace Backtester.backend.model.system
             {
                 float valor = candle.GetValor(vm.ReplaceVariavel(condicaoEntradaC));
                 if (valor >= 1)
-                    return candle.GetValor(stopInicialC) * (1f - stopGapPerc / 100f);
+                    return Stop.CalcValorStop(candle.GetValor(stopInicialC),1, stopGapPerc);
+                //return candle.GetValor(stopInicialC) * (1f - stopGapPerc / 100f);
             }
             if ((config.flagVenda && condicaoEntradaV != null))
             {
                 float valor = candle.GetValor(vm.ReplaceVariavel(condicaoEntradaV));
                 if (valor >= 1)
-                    return -candle.GetValor(stopInicialV) * (1f + stopGapPerc / 100f);
+                    return -Stop.CalcValorStop(candle.GetValor(stopInicialC), -1, stopGapPerc);
+                //return -candle.GetValor(stopInicialV) * (1f + stopGapPerc / 100f);
             }
             return 0;
         }

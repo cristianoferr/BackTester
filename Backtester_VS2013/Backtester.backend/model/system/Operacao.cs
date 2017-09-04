@@ -66,10 +66,8 @@ namespace Backtester.backend.model.system.condicoes
          * necessariamente pode ser o stop definido pois a ação pode ter aberto em gap.
          * 
          */
-        public float atingiuStop(Periodo periodo)
+        public float atingiuStop(Candle candle)
         {
-            Candle candle = candleInicial.ativo.GetCandle(periodo);
-
             float vlrStop = stop.CalcStop(candle);
             //Compra
             if (direcao == 1)
