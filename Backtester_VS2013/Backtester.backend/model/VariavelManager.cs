@@ -3,6 +3,8 @@ using Backtester.backend.model.system.condicoes;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using System;
+
 namespace Backtester.backend.model
 {
     [DataContract]
@@ -67,6 +69,11 @@ namespace Backtester.backend.model
                 txt = txt.Replace("%" + var + "%", varValue + "");
             }
             return txt.Trim();
+        }
+
+        public void Clear()
+        {
+            variaveis.Clear();
         }
 
         public void LoadVars(string vars)

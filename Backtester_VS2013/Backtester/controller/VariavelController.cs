@@ -1,5 +1,6 @@
 ﻿using Backtester.backend.model.system;
 using Backtester.backend.model.system.condicoes;
+using Backtester.interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,11 +11,11 @@ namespace Backtester.controller
 {
     public class VariavelController:IController
     {
-        private FrmPrincipal frmPrincipal;
+        private IReferView frmPrincipal;
         private TradeSystemController tsC;
         private int selectedVar=-1;
 
-        public VariavelController(TradeSystemController tradeSystemController, FrmPrincipal frmPrincipal)
+        public VariavelController(TradeSystemController tradeSystemController, IReferView frmPrincipal)
         {
             this.tsC = tradeSystemController;
             this.frmPrincipal = frmPrincipal;
@@ -32,27 +33,27 @@ namespace Backtester.controller
         {
             Variavel var = currentVar;
             if (var == null) return;
-            if (var.uniqueID.ToString() == frmPrincipal.labelVarId.Text)
+            if (var.uniqueID.ToString() == frmPrincipal.Text("labelVarId"))
             {
-                var.name = frmPrincipal.txtVarName.Text;
-                var.descricao = frmPrincipal.txtVarDescricao.Text;
-                var.vlrInicial = float.Parse(frmPrincipal.txtVarVlrInicial.Text);
-                var.vlrFinal = float.Parse(frmPrincipal.txtVarVlrFinal.Text);
-                var.steps = int.Parse(frmPrincipal.txtVarSteps.Text);
+                var.name = frmPrincipal.Text("txtVarName");
+                var.descricao = frmPrincipal.Text("txtVarDescricao");
+                var.vlrInicial = float.Parse(frmPrincipal.Text("txtVarVlrInicial"));
+                var.vlrFinal = float.Parse(frmPrincipal.Text("txtVarVlrFinal"));
+                var.steps = int.Parse(frmPrincipal.Text("txtVarSteps"));
 
-                frmPrincipal.listTSVars.Items[selectedVar] = var;
+                frmPrincipal.SetListItem("listTSVars",selectedVar,var);
             }
         }
 
         private void UpdateUI(int selectedVar)
         {
             Variavel var = currentVar;
-            frmPrincipal.txtVarName.Text = var.name;
-            frmPrincipal.txtVarDescricao.Text = var.descricao;
-            frmPrincipal.txtVarVlrInicial.Text = var.vlrInicial.ToString();
-            frmPrincipal.txtVarVlrFinal.Text = var.vlrFinal.ToString();
-            frmPrincipal.txtVarSteps.Text = var.steps.ToString();
-            frmPrincipal.labelVarId.Text = var.uniqueID.ToString();
+            frmPrincipal.SetText("txtVarName", var.name);
+            frmPrincipal.SetText("txtVarDescricao.", var.descricao);
+            frmPrincipal.SetText("txtVarVlrInicial", var.vlrInicial.ToString());
+            frmPrincipal.SetText("txtVarVlrFinal", var.vlrFinal.ToString());
+            frmPrincipal.SetText("txtVarSteps", var.steps.ToString());
+            frmPrincipal.SetText("labelVarId", var.uniqueID.ToString());
         }
 
         public void UpdateUI()
@@ -64,13 +65,13 @@ namespace Backtester.controller
 
         private void UpdateList()
         {
-            frmPrincipal.listTSVars.Items.Clear();
+            frmPrincipal.ClearList("listTSVars");
             TradeSystem ts = tsC.tradeSystem;
             if (ts != null)
             {
                 foreach (Variavel v in ts.vm.variaveis)
                 {
-                    frmPrincipal.listTSVars.Items.Add(v);
+                    frmPrincipal.AddItem("listTSVars",v);
                 }
             }
         }

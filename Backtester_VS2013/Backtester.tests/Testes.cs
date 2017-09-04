@@ -5,6 +5,12 @@ using Backtester.backend.model.ativos;
 using Backtester.backend.model.formulas;
 using Backtester.backend.model.system;
 using Backtester.backend.model.system.condicoes;
+using Backtester.backend.model.system.estatistica;
+using Backtester.controller;
+using Backtester.GeneticProgramming;
+using Backtester.interfaces;
+using GeneticProgramming.nodes;
+using GeneticProgramming.solution;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using UsoComum;
@@ -16,7 +22,87 @@ namespace Backtester.tests
     {
 
         static FacadeBacktester facade = new FacadeBacktester();
+        
 
+        [TestMethod]
+        public void TestClarificarTradeSystem()
+        {
+            Config config = new Config();
+            FormulaManager fm = facade.formulaManager;
+            Clarify clarify = new Clarify(fm);
+            //TradeSystem tradeSystem = new TradeSystem(config);
+            ValidaClarify(clarify, "SUM(H,MULTIPLY(STD(C,10),2))","H + (STD(C,10) * 2)");
+        }
+
+        private void ValidaClarify(Clarify clarify, string original, string esperado)
+        {
+            string[] elementos = Utils.SeparaEmElementos(original);
+            string resultado = clarify.ClarificaFormula(original);
+            Assert.IsTrue(resultado == esperado, "Em '" + original + "': '" + resultado + "'<>'" + esperado + "'");
+
+            Assert.IsNotNull(elementos);
+        }
+
+        [TestMethod]
+        public void TestValidaCandidato()
+        {
+            MockReferView rv = new MockReferView();
+            ConfigController configController = new ConfigController(rv);
+
+            GeneticProgrammingController gpc = new GeneticProgrammingController(rv, configController);
+            gpc.gpRunner.gpConfig.poolSize = 2;
+            gpc.InitPool();
+
+            gpc.solutionToTest = new GPSolutionProxy();
+            gpc.solutionToTest.tradeSystem = new TradeSystem(configController.config);
+            Assert.IsNotNull(gpc.solutionToTest.tradeSystem);
+            Carteira carteira=gpc.SingleRunValidaSolution("teste Validation");
+            Assert.IsTrue(carteira.estatistica.capitalFinal != carteira.estatistica.capitalInicial);
+
+            Assert.IsNotNull(carteira);
+            Assert.IsTrue(carteira.posicoesAbertas.Count == 0);
+            Assert.IsTrue(carteira.posicoesFechadas.Count > 0);
+
+            Assert.IsTrue(configController.facadeValidation.dh.ativos.Count > 0);
+
+            //adicionar o resultado da carteira em algum objeto persistido, ordenando pelo resultado final
+            CandidatoManager cm=CandidatoManager.LoadSaved();
+            CandidatoManager cm2 = CandidatoManager.LoadSaved();
+            Assert.IsTrue(cm == cm2);
+
+            Estatistica stat = new Estatistica(10000);
+
+            CandidatoManager cmTest = new CandidatoManager();
+            TradeSystem ts1 = new TradeSystem(configController.config);
+            TradeSystem ts2 = new TradeSystem(configController.config);
+            TradeSystem ts3 = new TradeSystem(configController.config);
+            stat.capitalFinal = 1000;
+            cmTest.AddTradeSystem(ts1,stat);
+            Assert.IsTrue(cmTest.GetRanking(ts1) == 0);
+            stat.capitalFinal = 2000;
+            cmTest.AddTradeSystem(ts2, stat);
+            Assert.IsTrue(cmTest.GetRanking(ts1) == 1);
+            Assert.IsTrue(cmTest.GetRanking(ts2) == 0);
+            stat.capitalFinal = 3000;
+            cmTest.AddTradeSystem(ts3, stat);
+            Assert.IsTrue(cmTest.GetRanking(ts1) == 2);
+            Assert.IsTrue(cmTest.GetRanking(ts2) == 1);
+            Assert.IsTrue(cmTest.GetRanking(ts3) == 0);
+
+        }
+
+        [TestMethod]
+        public void TestRandomSolution()
+        {
+            MockReferView rv = new MockReferView();
+            ConfigController configController = new ConfigController(rv);
+
+            GeneticProgrammingController gpc = new GeneticProgrammingController(rv, configController);
+            gpc.gpRunner.gpConfig.poolSize = 2;
+            gpc.InitPool();
+            GPSolution solution = gpc.gpRunner.pool.template.CreateRandomSolution();
+            Assert.IsNotNull(solution);
+        }
 
         [TestMethod]
         public void TestConfigGPVars()
@@ -194,9 +280,10 @@ namespace Backtester.tests
         {
             Config config = new Config();
             TradeSystem tradeSystem = new TradeSystem(config);
+            MonteCarlo mc = new MonteCarlo("Teste");
 
             float valorInicial = 100000;
-            Carteira carteira = new Carteira(facade, 100000, config, tradeSystem);
+            Carteira carteira = new Carteira(facade, 100000, config, tradeSystem,mc);
             config.custoOperacao = 20f;
 
             Assert.IsTrue(carteira.capitalInicial == valorInicial);
@@ -282,6 +369,66 @@ namespace Backtester.tests
             Assert.IsTrue(facade.dh.periodos[0].candles[0] != null);
             Assert.IsTrue(facade.dh.periodos[0].candles[0].periodo == facade.dh.periodos[0]);
             Assert.IsTrue(facade.dh.periodos[1].candles[0].candleAnterior == facade.dh.periodos[0].candles[0]);
+
+        }
+
+        [TestMethod]
+        public void TestaFormulasDiretamente()
+        {
+            facade = new FacadeBacktester();
+            FormulaManager fm = facade.formulaManager;
+            facade.LoadAtivo("PETR4", 100, Consts.PERIODO_ACAO.DIARIO, "dados/petr4-diario.js");
+            Ativo ativo = facade.GetAtivo("PETR4");
+            Formula fTeste = new Formula(facade, "TESTE");
+            Formula fTeste2 = new Formula(facade, "TESTE2");
+
+            Formula f = new FormulaPercentil(facade, "PERCENTIL", fTeste);
+            Candle candle = ativo.firstCandle;
+            candle.SetValor("TESTE", candle.GetValor(FormulaManager.LOW));
+            Assert.IsTrue(f.Calc(candle) == 0, f.Calc(candle) +" <> "+ 0);
+            candle.SetValor("TESTE", candle.GetValor(FormulaManager.HIGH));
+            Assert.IsTrue(f.Calc(candle) == 1, f.Calc(candle) + " <> " + 1);
+
+            f = new FormulaMultiply(facade, "MULT", fTeste, 10);
+            candle.SetValor(fTeste,10);
+            Assert.IsTrue(f.Calc(candle) == 100, f.Calc(candle) + " <> " + 100);
+            candle.SetValor(fTeste, 5);
+            Assert.IsTrue(f.Calc(candle) == 50, f.Calc(candle) + " <> " + 50);
+
+            f = new FormulaSUM(facade, "MULT", fTeste, fTeste2);
+            candle.SetValor(fTeste2, 10);
+            Assert.IsTrue(f.Calc(candle) == 15, f.Calc(candle) + " <> " + 15);
+
+            //HV e LV
+            Candle candle2 = candle.proximoCandle;
+            Candle candle3 = candle2.proximoCandle;
+            Candle candle4 = candle3.proximoCandle;
+            Formula fHV = new FormulaHV(facade, "HV", fm.GetFormula(FormulaManager.HIGH), fTeste2);
+            Formula fLV = new FormulaLV(facade, "LV", fm.GetFormula(FormulaManager.HIGH), fTeste2);
+
+            candle4.SetValor(fTeste2, 3);
+            float max = candle4.GetValor(fm.GetFormula(FormulaManager.HIGH));
+            float low = candle4.GetValor(fm.GetFormula(FormulaManager.HIGH));
+            Candle c = candle4;
+            for (int i = 0; i < 3; i++)
+            {
+                float value = c.GetValor(fm.GetFormula(FormulaManager.HIGH));
+                if (value > max) max = value;
+                if (value < low) low = value;
+                c = c.candleAnterior;
+            }
+            Assert.IsTrue(max == fHV.Calc(candle4), max + "<>" + fHV.Calc(candle4));
+            Assert.IsTrue(low == fLV.Calc(candle4), max + "<>" + fLV.Calc(candle4));
+
+            //REF
+            f = new FormulaREF(facade, "REF", fTeste, fTeste2);
+            candle4.SetValor(fTeste, 10);
+            candle3.SetValor(fTeste, 20);
+            candle2.SetValor(fTeste, 30);
+            candle4.SetValor(fTeste2, 1);
+            Assert.IsTrue(20 == f.Calc(candle4));
+            candle4.SetValor(fTeste2, 2);
+            Assert.IsTrue(30 == f.Calc(candle4));
 
         }
 
@@ -474,9 +621,10 @@ namespace Backtester.tests
             facade = new FacadeBacktester();
             Config config = new Config();
             TradeSystem tradeSystem = new TradeSystem(config);
+            MonteCarlo mc = new MonteCarlo("teste");
 
             float valorInicial = 100000;
-            Carteira carteira = new Carteira(facade, valorInicial, config, tradeSystem);
+            Carteira carteira = new Carteira(facade, valorInicial, config, tradeSystem,mc);
             config.custoOperacao = 20f;
 
             tradeSystem.condicaoEntradaC = "GREATER(MME(C,9),MME(C,3))";
@@ -499,16 +647,17 @@ namespace Backtester.tests
 
             Formula formulaLower = facade.formulaManager.GetFormula(tradeSystem.condicaoEntradaV);
             value = formulaLower.Calc(candle);
-            Assert.IsTrue(value <= 0, value + ">0");
+            Assert.IsTrue(value == 0, value + ">0");
 
             float result = tradeSystem.checaCondicaoEntrada(candle, config);
             Assert.IsTrue(result > 0, "result:" + result);
 
             candle.SetValor("MME(C,9)", 2);
             candle.SetValor("C", 2);
+            candle.RemoveValor(tradeSystem.condicaoEntradaC);
 
             result = tradeSystem.checaCondicaoEntrada(candle, config);
-            Assert.IsTrue(result < 0, "result:" + result);
+            Assert.IsTrue(result == 0, "result:" + result);
         }
 
     }

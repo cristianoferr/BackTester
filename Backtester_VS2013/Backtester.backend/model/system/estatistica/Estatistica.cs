@@ -2,16 +2,22 @@
 using Backtester.backend.model.system.condicoes;
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using UsoComum;
 
 namespace Backtester.backend.model.system.estatistica
 {
+    [DataContract]
     public class Estatistica
     {
+        [DataMember]
         private DadoEstatistico geral;
-        float capitalInicial, maxCapital, minCapital;
-        private float capitalFinal;
+        [DataMember]
+        public float capitalInicial, maxCapital, minCapital;
+        [DataMember]
+        public float capitalFinal { get; set; }
         public Dictionary<Periodo, DadoEstatistico> estatisticasDiarias { get; private set; }
+        [DataMember]
         String desc = "";//Descricao do que foi feito
 
         public Estatistica(float capitalInicial)
@@ -41,7 +47,7 @@ namespace Backtester.backend.model.system.estatistica
 
         public void AtualizaPeriodo(Periodo periodo, float capital)
         {
-            setCapitalFinal(capital);
+            capitalFinal=capital;
             if (capital > maxCapital) maxCapital = capital;
             if (capital < minCapital) minCapital = capital;
             DadoEstatistico stat = GetEstatisticaDia(periodo);
@@ -66,12 +72,12 @@ namespace Backtester.backend.model.system.estatistica
 
         public String getPerformance()
         {
-            return "CapitalFinal:" + Utils.FormatCurrency(getCapitalFinal()) + " Dif:" + Utils.FormatCurrency(getGeral().getAmbasPontas().todosTrades.getTotal()) + " GrossWin:" + Utils.FormatCurrency(getGeral().getAmbasPontas().tradesGanhos.getTotal()) + " GrossLoss:" + Utils.FormatCurrency(getGeral().getAmbasPontas().tradesPerdidos.getTotal());
+            return "CapitalFinal:" + Utils.FormatCurrency(capitalFinal) + " Dif:" + Utils.FormatCurrency(getGeral().getAmbasPontas().todosTrades.getTotal()) + " GrossWin:" + Utils.FormatCurrency(getGeral().getAmbasPontas().tradesGanhos.getTotal()) + " GrossLoss:" + Utils.FormatCurrency(getGeral().getAmbasPontas().tradesPerdidos.getTotal());
         }
 
         public String getMaxMinCapital()
         {
-            return "CapitalFinal:" + Utils.FormatCurrency(getCapitalFinal()) + " Max:" + Utils.FormatCurrency(maxCapital) + " Min:" + Utils.FormatCurrency(minCapital);
+            return "CapitalFinal:" + Utils.FormatCurrency(capitalFinal) + " Max:" + Utils.FormatCurrency(maxCapital) + " Min:" + Utils.FormatCurrency(minCapital);
         }
 
         public String getDesc()
@@ -94,15 +100,7 @@ namespace Backtester.backend.model.system.estatistica
             return geral;
         }
 
-        public void setCapitalFinal(float capitalFinal)
-        {
-            this.capitalFinal = capitalFinal;
-        }
-
-        public float getCapitalFinal()
-        {
-            return capitalFinal;
-        }
+       
 
         public float getMaxCapital()
         {

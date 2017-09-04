@@ -1,12 +1,16 @@
 ﻿using Backtester.backend.model.system.condicoes;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace Backtester.backend.model.system.estatistica
 {
+
+    [DataContract]
     public class DadoEstatistico
     {
-      //  public IList<Operacao> operacoes { get; private set; } //Contém as operações finalizadas nesse dia.
+        [DataMember]
         float capital;
+        [DataMember]
         SubDado compras, vendas, ambasPontas;
 
 

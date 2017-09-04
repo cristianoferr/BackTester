@@ -1,5 +1,10 @@
 Backtester_VS2013/GeneticProgramming.tests/bin/Release
 Backtester_VS2013/Backtester.tests/bin
+to_check/
+to_check_backup/
+Solution*.json
+Backtester_VS2013/Backtester/bin/Debug/to_check_backup/
+Backtester_VS2013/Backtester/bin/Debug/to_check/
 
 # Windows image file caches
 Thumbs.db

@@ -17,12 +17,12 @@ namespace Backtester.backend.DataManager
         }
 
 
-        internal bool LoadAtivo(Ativo ativo, Consts.PERIODO_ACAO periodoAcao, string fileName)
+        internal bool LoadAtivo(Ativo ativo, Consts.PERIODO_ACAO periodoAcao, string fileName, bool flagValidation=false)
         {
             if (!File.Exists(fileName))
             {
                 Utils.Info("Ativo " + ativo.name + " não encontrado... carregando via serviço...");
-                AcaoService.RequestData(ativo.name, fileName);
+                AcaoService.RequestData(ativo.name, fileName,flagValidation);
             }
             using (StreamReader r = new StreamReader(fileName))
             {

@@ -17,8 +17,6 @@ namespace Backtester.backend.model.system
         [DataMember]
         public VariavelManager vm { get; private set; }
 
-
-
         public TradeSystem(Config config)
         {
             vm = new VariavelManager();

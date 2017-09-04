@@ -2,6 +2,8 @@
 using Backtester.backend.DataManager;
 using Backtester.backend.model.formulas;
 using System.Collections.Generic;
+using System;
+
 namespace Backtester.backend.model.ativos
 {
     public class Candle
@@ -79,6 +81,10 @@ namespace Backtester.backend.model.ativos
             valores.Add(formula, valor);
         }
 
+        public void RemoveValor(string key)
+        {
+            valores.Remove(key);
+        }
 
         public override string ToString()
         {
@@ -150,12 +156,6 @@ namespace Backtester.backend.model.ativos
             set { proximoCandle_ = value; }
         }
 
-
-
-
-
-
-
-       
+        
     }
 }

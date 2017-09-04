@@ -12,7 +12,7 @@ namespace GeneticProgramming.tests
 
         static GPConfig config = new GPConfig();
 
-        
+
 
         [TestMethod]
         public void TestGPTemplate()
@@ -110,12 +110,13 @@ namespace GeneticProgramming.tests
             definition.CreateListByName(listName, config.minLevels, config.maxLevels);
             definition.AddSemanticaToList(listName, definition.GetSemantica(GPConsts.BOOL_AND));
             SemanticaList listSemantic = definition.GetListByName(listName);
+
             Assert.IsNotNull(listSemantic);
             Assert.IsTrue(listSemantic.Contains(definition.GetSemantica(GPConsts.BOOL_AND)));
-            Assert.IsFalse(listSemantic.Contains(definition.GetSemantica(GPConsts.BOOL_NOT)));
+            //Assert.IsFalse(listSemantic.Contains(definition.GetSemantica(GPConsts.BOOL_NOT)));
 
-            definition.AddSemanticaToList(listName, definition.GetSemantica(GPConsts.BOOL_NOT));
-            Assert.IsTrue(listSemantic.Contains(definition.GetSemantica(GPConsts.BOOL_NOT)));
+           // definition.AddSemanticaToList(listName, definition.GetSemantica(GPConsts.BOOL_NOT));
+            //Assert.IsTrue(listSemantic.Contains(definition.GetSemantica(GPConsts.BOOL_NOT)));
             definition.AddSemanticaToList(listName, definition.GetSemantica(GPConsts.BOOL_OR));
 
             definition.AddSemanticaToList(listName, definition.GetSemantica(GPConsts.COMP_DIF));
@@ -210,8 +211,9 @@ namespace GeneticProgramming.tests
             Assert.IsTrue(config.poolSize > 0);
             Assert.IsTrue(config.elitismRange > 0);
             Assert.IsTrue(config.mutationRatePerc > 0);
+            Assert.IsTrue(config.mutationRange > 0);
             Assert.IsTrue(config.poolSize > 0);
-
+            
             pool.InitPool(template);
 
 

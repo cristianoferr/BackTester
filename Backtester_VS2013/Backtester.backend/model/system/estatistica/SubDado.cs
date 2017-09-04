@@ -1,15 +1,21 @@
 ﻿using Backtester.backend.model.system.condicoes;
 using System;
+using System.Runtime.Serialization;
 using UsoComum;
 
 namespace Backtester.backend.model.system.estatistica
 {
+    [DataContract]
     public class SubDado
     {
+        [DataMember]
         int nTradesStopados;
 
+        [DataMember]
         public SubSubDado todosTrades { get; private set; }
+        [DataMember]
         public SubSubDado tradesGanhos { get; private set; }
+        [DataMember]
         public SubSubDado tradesPerdidos { get; private set; }
 
         public SubDado()

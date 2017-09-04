@@ -211,7 +211,7 @@ namespace Backtester.backend.model.system
 
         public float getCapitalFinal()
         {
-            return global.getCapitalFinal();
+            return global.capitalFinal;
         }
 
         public float getMaxCapital()

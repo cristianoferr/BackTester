@@ -3,6 +3,8 @@ namespace Backtester.backend
 {
     public class Consts
     {
+        
+        public const int MAX_CANDIDATOS = 100;
 
         public const string VAR_STOP_GAP = "STOP_GAP";
         public const string VAR_RISCO_TRADE = "RISCO_TRADE";

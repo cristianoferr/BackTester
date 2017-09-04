@@ -4,6 +4,7 @@ using Backtester.backend.model;
 using Backtester.backend.model.system;
 using Backtester.backend.model.system.condicoes;
 using Backtester.backend.model.system.estatistica;
+using Backtester.interfaces;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -13,14 +14,16 @@ namespace Backtester.controller
 {
     public class ConfigController : IController, ICaller
     {
-        private FrmPrincipal frmPrincipal;
-        public static Config config;
+        private IReferView frmPrincipal;
+        public Config config { get; private set; }
         public FacadeBacktester facade;
+        public FacadeBacktester facadeValidation;
 
-        public ConfigController(FrmPrincipal frmPrincipal)
+        public ConfigController(IReferView frmPrincipal)
         {
             this.frmPrincipal = frmPrincipal;
             facade = new FacadeBacktester();
+            facadeValidation = new FacadeBacktester();
             config = Config.LoadSaved();
 
             List<string> papeis = new List<string>();
@@ -35,26 +38,26 @@ namespace Backtester.controller
 
         private void ReloadPapeis()
         {
-            frmPrincipal.listPapeis.Items.Clear();
+            frmPrincipal.ClearList("listPapeis");
             foreach (string papel in config.papeis.OrderBy(x => x.ToString()).ToList())
             {
-                frmPrincipal.listPapeis.Items.Add(papel);
+                frmPrincipal.AddList("listPapeis",papel);
             }
         }
 
         public virtual void UpdateUI()
         {
-            frmPrincipal.chkFlagCompra.Checked = config.flagCompra;
-            frmPrincipal.chkFlagVenda.Checked = config.flagVenda;
-            frmPrincipal.txtCapitalInicial.Text = config.capitalInicial.ToString();
-            frmPrincipal.txtCustoOperacao.Text = config.custoOperacao.ToString();
-            frmPrincipal.txtVarsDebug.Text = config.varsDebug;
-            frmPrincipal.txtTestesNaTela.Text = config.maxTestes.ToString();
-            frmPrincipal.textGPVars.Text = config.gpVars;
+            frmPrincipal.SetChecked("chkFlagCompra",config.flagCompra);
+            frmPrincipal.SetChecked("chkFlagVenda",config.flagVenda);
+            frmPrincipal.SetText("txtCapitalInicial",config.capitalInicial.ToString());
+            frmPrincipal.SetText("txtCustoOperacao",config.custoOperacao.ToString());
+            frmPrincipal.SetText("txtVarsDebug", config.varsDebug);
+            frmPrincipal.SetText("txtTestesNaTela", config.maxTestes.ToString());
+            frmPrincipal.SetText("textGPVars", config.gpVars);
 
-            frmPrincipal.radioTPDiario.Checked = config.tipoPeriodo == Consts.PERIODO_ACAO.DIARIO;
+            frmPrincipal.SetChecked("radioTPDiario",config.tipoPeriodo == Consts.PERIODO_ACAO.DIARIO);
 
-            frmPrincipal.radioTPSemanal.Checked = config.tipoPeriodo == Consts.PERIODO_ACAO.SEMANAL;
+            frmPrincipal.SetChecked("radioTPSemanal",config.tipoPeriodo == Consts.PERIODO_ACAO.SEMANAL);
 
         }
 
@@ -66,19 +69,19 @@ namespace Backtester.controller
 
         public void UpdateValuesFromUI()
         {
-            config.flagCompra = frmPrincipal.chkFlagCompra.Checked;
-            config.flagVenda = frmPrincipal.chkFlagVenda.Checked;
-            config.varsDebug = frmPrincipal.txtVarsDebug.Text;
-            config.gpVars = frmPrincipal.textGPVars.Text;
+            config.flagCompra = frmPrincipal.IsChecked("chkFlagCompra");
+            config.flagVenda = frmPrincipal.IsChecked("chkFlagVenda");
+            config.varsDebug = frmPrincipal.Text("txtVarsDebug");
+            config.gpVars = frmPrincipal.Text("textGPVars");
 
 
-            config.tipoPeriodo = frmPrincipal.radioTPDiario.Checked ? Consts.PERIODO_ACAO.DIARIO : Consts.PERIODO_ACAO.SEMANAL;
+            config.tipoPeriodo = frmPrincipal.IsChecked("radioTPDiario")? Consts.PERIODO_ACAO.DIARIO : Consts.PERIODO_ACAO.SEMANAL;
 
             try
             {
-                config.maxTestes = int.Parse(frmPrincipal.txtTestesNaTela.Text);
-                config.capitalInicial = int.Parse(frmPrincipal.txtCapitalInicial.Text);
-                config.custoOperacao = int.Parse(frmPrincipal.txtCustoOperacao.Text);
+                config.maxTestes = int.Parse(frmPrincipal.Text("txtTestesNaTela"));
+                config.capitalInicial = int.Parse(frmPrincipal.Text("txtCapitalInicial"));
+                config.custoOperacao = int.Parse(frmPrincipal.Text("txtCustoOperacao"));
             }
             catch (System.Exception e)
             {
@@ -107,71 +110,78 @@ namespace Backtester.controller
         }
 
         int contaTestes = 0;
-        internal void Run(TradeSystem ts)
+        internal bool Run(TradeSystem ts)
         {
             contaTestes = 0;
-            facade.LoadAtivos(config.papeis, config.tipoPeriodo);
-            frmPrincipal.dataGridRuns.Rows.Clear();
+            facade.LoadAtivos(config.papeis, config.tipoPeriodo,false);
+            frmPrincipal.ClearRows("dataGridRuns");
             //facade.RunSingleTS();
-            facade.Run(this, config, ts);
-            //facade.RunSingle(this, config, ts);
+            return facade.Run(this, config, ts)!=null;
         }
 
-        internal void RunSingle(TradeSystem ts)
+        internal Carteira RunSingle(TradeSystem ts,string name,bool flagValidation)
         {
-            facade.LoadAtivos(config.papeis, config.tipoPeriodo);
-            frmPrincipal.dataGridRuns.Rows.Clear();
-            //facade.RunSingleTS();
-            facade.RunSingle("Run Single", this, config, ts);
+            
+            if (flagValidation)
+            {
+                facadeValidation.LoadAtivos(config.papeisValidation, config.tipoPeriodo,flagValidation);
+                return facadeValidation.RunValidation( this, config, ts, name);
+            } else
+            {
+                facade.LoadAtivos(config.papeis, config.tipoPeriodo, flagValidation);
+                return facade.RunSingle(name, this, config, ts);
+            }
         }
 
         public void UpdateApplication(Carteira carteira, MonteCarlo mC, int countLoops, int totalLoops)
         {
             Application.DoEvents();
             if (totalLoops <= 0) totalLoops = 1;
-            frmPrincipal.labelStatus.Text = countLoops + " / " + totalLoops;
+            frmPrincipal.SetText("labelStatus",countLoops + " / " + totalLoops);
             //frmPrincipal.dataSetBacktest.Tables[0].Rows.Add(mC);
             //DataGridViewRow row = new DataGridViewRow();
             //row.Cells.Add(new DataGridViewCell());
             //frmPrincipal.dataGridRuns.Rows.Add(row);
-            int rowLine = frmPrincipal.dataGridRuns.Rows.Count - 1;
-            frmPrincipal.dataGridRuns.Rows.Add();
+            DataGridViewRowCollection Rows = frmPrincipal.GetRows("dataGridRuns");
+            if (Rows == null) return;
+            int rowLine = Rows.Count - 1;
+            Rows.Add();
             int colIndex = 0;
             contaTestes++;
             SubSubDado todosTrades = mC.getGlobal().getGeral().getAmbasPontas().todosTrades;
             SubSubDado tradesGanhos = mC.getGlobal().getGeral().getAmbasPontas().tradesGanhos;
             SubSubDado tradesPerdidos = mC.getGlobal().getGeral().getAmbasPontas().tradesPerdidos;
-            frmPrincipal.dataGridRuns.Rows[rowLine].Cells[colIndex++].Value = mC;
-            frmPrincipal.dataGridRuns.Rows[rowLine].Cells[colIndex++].Value = carteira;
-            frmPrincipal.dataGridRuns.Rows[rowLine].Cells[colIndex++].Value = contaTestes;
-            frmPrincipal.dataGridRuns.Rows[rowLine].Cells[colIndex++].Value = mC.ToString();
+            Rows[rowLine].Cells[colIndex++].Value = mC;
+            Rows[rowLine].Cells[colIndex++].Value = carteira;
+            Rows[rowLine].Cells[colIndex++].Value = contaTestes;
+            Rows[rowLine].Cells[colIndex++].Value = mC.ToString();
 
             object objIters = mC.properties.GetPropriedade(UsoComum.ConstsComuns.OBJ_ITERATIONS);
             int iterations = (objIters == null ? 1 : (int)objIters);
 
 
-            frmPrincipal.dataGridRuns.Rows[rowLine].Cells[colIndex++].Value = iterations;
-            frmPrincipal.dataGridRuns.Rows[rowLine].Cells[colIndex++].Value = mC.properties.GetPropriedade(UsoComum.ConstsComuns.OBJ_TOTAL_PROFIT) == null ? 0 : (float)mC.properties.GetPropriedade(UsoComum.ConstsComuns.OBJ_TOTAL_PROFIT) / iterations;
-            frmPrincipal.dataGridRuns.Rows[rowLine].Cells[colIndex++].Value = mC.properties.GetPropriedade(UsoComum.ConstsComuns.OBJ_TOTAL_LOSS) == null ? 0 : (float)mC.properties.GetPropriedade(UsoComum.ConstsComuns.OBJ_TOTAL_LOSS) / iterations;
+            Rows[rowLine].Cells[colIndex++].Value = iterations;
+            Rows[rowLine].Cells[colIndex++].Value = mC.properties.GetPropriedade(UsoComum.ConstsComuns.OBJ_TOTAL_PROFIT) == null ? 0 : (float)mC.properties.GetPropriedade(UsoComum.ConstsComuns.OBJ_TOTAL_PROFIT) / iterations;
+            Rows[rowLine].Cells[colIndex++].Value = mC.properties.GetPropriedade(UsoComum.ConstsComuns.OBJ_TOTAL_LOSS) == null ? 0 : (float)mC.properties.GetPropriedade(UsoComum.ConstsComuns.OBJ_TOTAL_LOSS) / iterations;
 
 
-            frmPrincipal.dataGridRuns.Rows[rowLine].Cells[colIndex++].Value = mC.CalcFitness();
-            frmPrincipal.dataGridRuns.Rows[rowLine].Cells[colIndex++].Value = mC.getCapitalFinal();
-            frmPrincipal.dataGridRuns.Rows[rowLine].Cells[colIndex++].Value = mC.getMaxCapital();
-            frmPrincipal.dataGridRuns.Rows[rowLine].Cells[colIndex++].Value = mC.getMinCapital();
-            frmPrincipal.dataGridRuns.Rows[rowLine].Cells[colIndex++].Value = mC.winLossRatio;
-            frmPrincipal.dataGridRuns.Rows[rowLine].Cells[colIndex++].Value = mC.qtdTrades;
-            frmPrincipal.dataGridRuns.Rows[rowLine].Cells[colIndex++].Value = tradesGanhos.getnTrades();
-            frmPrincipal.dataGridRuns.Rows[rowLine].Cells[colIndex++].Value = tradesPerdidos.getnTrades();
-            frmPrincipal.dataGridRuns.Rows[rowLine].Cells[colIndex++].Value = mC.totalGanho;
-            frmPrincipal.dataGridRuns.Rows[rowLine].Cells[colIndex++].Value = mC.totalPerdido;
-            frmPrincipal.dataGridRuns.Rows[rowLine].Cells[colIndex++].Value = mC.percAcerto;
-            frmPrincipal.dataGridRuns.Rows[rowLine].Cells[colIndex++].Value = mC.capitalUsePercent;
-            frmPrincipal.dataGridRuns.Rows[rowLine].Cells[colIndex++].Value = todosTrades.getMaxDias();
-            frmPrincipal.dataGridRuns.Rows[rowLine].Cells[colIndex++].Value = todosTrades.getMinDias();
-            frmPrincipal.dataGridRuns.Rows[rowLine].Cells[colIndex++].Value = todosTrades.getAvgDias();
+            Rows[rowLine].Cells[colIndex++].Value = mC.CalcFitness();
+            Rows[rowLine].Cells[colIndex++].Value = mC.getCapitalFinal();
+            Rows[rowLine].Cells[colIndex++].Value = mC.getMaxCapital();
+            Rows[rowLine].Cells[colIndex++].Value = mC.getMinCapital();
+            Rows[rowLine].Cells[colIndex++].Value = mC.winLossRatio;
+            Rows[rowLine].Cells[colIndex++].Value = mC.qtdTrades;
+            Rows[rowLine].Cells[colIndex++].Value = tradesGanhos.getnTrades();
+            Rows[rowLine].Cells[colIndex++].Value = tradesPerdidos.getnTrades();
+            Rows[rowLine].Cells[colIndex++].Value = mC.totalGanho;
+            Rows[rowLine].Cells[colIndex++].Value = mC.totalPerdido;
+            Rows[rowLine].Cells[colIndex++].Value = mC.percAcerto;
+            Rows[rowLine].Cells[colIndex++].Value = mC.capitalUsePercent;
+            Rows[rowLine].Cells[colIndex++].Value = todosTrades.getMaxDias();
+            Rows[rowLine].Cells[colIndex++].Value = todosTrades.getMinDias();
+            Rows[rowLine].Cells[colIndex++].Value = todosTrades.getAvgDias();
 
-            if (frmPrincipal.dataGridRuns.Rows.Count > config.maxTestes)
+            if (Rows.Count > config.maxTestes)
             {
                 RemovePiorTeste();
             }
@@ -179,12 +189,13 @@ namespace Backtester.controller
 
         private void RemovePiorTeste()
         {
-            MonteCarlo mc = frmPrincipal.dataGridRuns.Rows[0].Cells[0].Value as MonteCarlo;
+            DataGridViewRowCollection Rows = frmPrincipal.GetRows("dataGridRuns");
+            MonteCarlo mc = Rows[0].Cells[0].Value as MonteCarlo;
             int piorIndex = 0;
             float piorResultado = mc.CalcFitness();
-            for (int i = 1; i < frmPrincipal.dataGridRuns.Rows.Count; i++)
+            for (int i = 1; i < Rows.Count; i++)
             {
-                mc = frmPrincipal.dataGridRuns.Rows[i].Cells[0].Value as MonteCarlo;
+                mc = Rows[i].Cells[0].Value as MonteCarlo;
                 if (mc != null)
                 {
                     float resultado = mc.CalcFitness();
@@ -195,7 +206,7 @@ namespace Backtester.controller
                     }
                 }
             }
-            frmPrincipal.dataGridRuns.Rows.RemoveAt(piorIndex);
+            Rows.RemoveAt(piorIndex);
         }
 
         public void SimpleUpdate()
@@ -210,56 +221,58 @@ namespace Backtester.controller
 
         internal void SelectMonteCarlo(int p)
         {
-            MonteCarlo mc = frmPrincipal.dataGridRuns.Rows[p].Cells[0].Value as MonteCarlo;
+            DataGridViewRowCollection RowsG = frmPrincipal.GetRows("dataGridRuns");
+            MonteCarlo mc = RowsG[p].Cells[0].Value as MonteCarlo;
             if (mc == null)
             {
                 return;
             }
-            Carteira carteira = frmPrincipal.dataGridRuns.Rows[p].Cells[1].Value as Carteira;
+            Carteira carteira = RowsG[p].Cells[1].Value as Carteira;
             Estatistica global = mc.getGlobal();
             // global.getGeral().getAmbasPontas().todosTrades.o
-            frmPrincipal.dataGridOperacoes.Rows.Clear();
+            frmPrincipal.ClearRows("dataGridOperacoes");
             IList<Posicao> posicoes = carteira.posicoesFechadas;
             float capital = config.capitalInicial;
             int contaOperacao = 0;
 
 
 
+                DataGridViewRowCollection Rows = frmPrincipal.GetRows("dataGridOperacoes");
             for (int i = 0; i < mc.operacoes.Count; i++)
             {
                 Operacao oper = mc.operacoes[i];
                 Posicao posicao = oper.posicao;
                 contaOperacao++;
-                int rowLine = frmPrincipal.dataGridOperacoes.Rows.Count - 1;
-                frmPrincipal.dataGridOperacoes.Rows.Add();
+                int rowLine = Rows.Count - 1;
+                Rows.Add();
                 int colIndex = 0;
-                frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = contaOperacao;
-                frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = posicao.idPosicao;
-                frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = posicao.ativo.name;
-                frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = oper.candleInicial.periodo;
-                frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = oper.candleFinal.periodo;
-                frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = posicao.direcao > 0 ? "Compra" : "Venda";
-                frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = oper.qtd;
-                frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = Utils.FormatCurrency(oper.vlrEntrada);
-                frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = Utils.FormatCurrency(oper.vlrSaida);
-                frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = Utils.FormatCurrency(oper.vlrStopInicial);
-                frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = oper.stopado ? "Sim" : "Não";
-                frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = oper.qtd * oper.vlrEntrada;
-                frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = oper.GetDif();
-                frmPrincipal.dataGridOperacoes.Rows[rowLine].DefaultCellStyle.ForeColor = Color.Black;
+                Rows[rowLine].Cells[colIndex++].Value = contaOperacao;
+                Rows[rowLine].Cells[colIndex++].Value = posicao.idPosicao;
+                Rows[rowLine].Cells[colIndex++].Value = posicao.ativo.name;
+                Rows[rowLine].Cells[colIndex++].Value = oper.candleInicial.periodo;
+                Rows[rowLine].Cells[colIndex++].Value = oper.candleFinal.periodo;
+                Rows[rowLine].Cells[colIndex++].Value = posicao.direcao > 0 ? "Compra" : "Venda";
+                Rows[rowLine].Cells[colIndex++].Value = oper.qtd;
+                Rows[rowLine].Cells[colIndex++].Value = Utils.FormatCurrency(oper.vlrEntrada);
+                Rows[rowLine].Cells[colIndex++].Value = Utils.FormatCurrency(oper.vlrSaida);
+                Rows[rowLine].Cells[colIndex++].Value = Utils.FormatCurrency(oper.vlrStopInicial);
+                Rows[rowLine].Cells[colIndex++].Value = oper.stopado ? "Sim" : "Não";
+                Rows[rowLine].Cells[colIndex++].Value = oper.qtd * oper.vlrEntrada;
+                Rows[rowLine].Cells[colIndex++].Value = oper.GetDif();
+                Rows[rowLine].DefaultCellStyle.ForeColor = Color.Black;
                 if (oper.GetDif() > 0)
                 {
-                    frmPrincipal.dataGridOperacoes.Rows[rowLine].DefaultCellStyle.BackColor = Color.Blue;
-                    frmPrincipal.dataGridOperacoes.Rows[rowLine].DefaultCellStyle.ForeColor = Color.White;
+                    Rows[rowLine].DefaultCellStyle.BackColor = Color.Blue;
+                    Rows[rowLine].DefaultCellStyle.ForeColor = Color.White;
                 }
                 if (oper.GetDif() < 0)
                 {
-                    frmPrincipal.dataGridOperacoes.Rows[rowLine].DefaultCellStyle.BackColor = Color.Red;
-                    frmPrincipal.dataGridOperacoes.Rows[rowLine].DefaultCellStyle.ForeColor = Color.White;
+                    Rows[rowLine].DefaultCellStyle.BackColor = Color.Red;
+                    Rows[rowLine].DefaultCellStyle.ForeColor = Color.White;
                 }
                 capital += oper.GetDif() - 2 * config.custoOperacao;
-                frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = capital;
-                frmPrincipal.dataGridOperacoes.Rows[rowLine].Cells[colIndex++].Value = oper.capitalOnClose;
+                Rows[rowLine].Cells[colIndex++].Value = capital;
+                Rows[rowLine].Cells[colIndex++].Value = oper.capitalOnClose;
                 //  oper.
             }
         }

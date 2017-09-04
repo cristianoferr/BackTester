@@ -1,7 +1,9 @@
-﻿using Backtester.backend.interfaces;
+﻿using Backtester.backend.DataManager;
+using Backtester.backend.interfaces;
 using Backtester.backend.model;
 using Backtester.backend.model.system;
 using Backtester.GeneticProgramming;
+using Backtester.interfaces;
 using GeneticProgramming;
 using GeneticProgramming.solution;
 using System;
@@ -15,16 +17,23 @@ namespace Backtester.controller
 
     public class GeneticProgrammingController : IController, ICaller
     {
-        private FrmPrincipal frmPrincipal;
-        static ConfigController configController;
-        static BTGPRunner gpRunner;
+        private IReferView frmPrincipal;
+        private ConfigController configController;
+        public BTGPRunner gpRunner;
 
-        public GeneticProgrammingController(FrmPrincipal frmPrincipal, ConfigController configController)
+        static GeneticProgrammingController singleton; 
+
+        public GeneticProgrammingController(IReferView frmPrincipal, ConfigController configController)
         {
+            singleton = this;
             this.frmPrincipal = frmPrincipal;
-            GeneticProgrammingController.configController = configController;
-            gpRunner = new BTGPRunner(ConfigController.config, this);
-            gpRunner.Init();
+            this.configController = configController;
+            gpRunner = new BTGPRunner(configController.config, this);
+        }
+
+        public void InitPool()
+        {
+            gpRunner.InitPool();
         }
         public void UpdateValuesFromUI()
         {
@@ -37,13 +46,14 @@ namespace Backtester.controller
 
         public Carteira RunBackTester(TradeSystem ts, string name)
         {
-            return configController.facade.RunSingle(name, this, ConfigController.config, ts);
+            return configController.facade.RunSingle(name, this, configController.config, ts);
         }
 
 
         internal void Run()
         {
-            configController.facade.LoadAtivos(ConfigController.config.papeis, ConfigController.config.tipoPeriodo);
+            frmPrincipal.SetTitle("Gerando Candidatos...");
+            configController.facade.LoadAtivos(configController.config.papeis, configController.config.tipoPeriodo,false);
             while (true)
             {
                 StartSingleRun();
@@ -52,8 +62,7 @@ namespace Backtester.controller
 
         internal void RunSingle()
         {
-            configController.facade.LoadAtivos(ConfigController.config.papeis,ConfigController.config.tipoPeriodo);
-            configController.facade.LoadAtivos(ConfigController.config.papeis, ConfigController.config.tipoPeriodo);
+            configController.facade.LoadAtivos(configController.config.papeis,configController.config.tipoPeriodo, false);
             StartSingleRun();
         }
 
@@ -63,7 +72,7 @@ namespace Backtester.controller
             configController.facade.ClearData();
             configController.facade.ClearFormulas();
 
-            frmPrincipal.dataGridRuns.Rows.Clear();
+            frmPrincipal.ClearRows("dataGridRuns");
             Thread t = new Thread(staticSingleRunGP);
             t.Name = "BacktestRunner";
             t.Start();
@@ -94,7 +103,7 @@ namespace Backtester.controller
 
         static void staticSingleRunGP()
         {
-            gpRunner.SingleRun();
+            singleton.gpRunner.SingleRun();
         }
 
        
@@ -119,50 +128,68 @@ namespace Backtester.controller
 
 
 
-        internal void ValidaCandidatos()
+        internal void ValidaCandidatos(bool deleteFile=false)
         {
 
             while (true)
             {
-                Thread.Sleep(100);
+                Thread.Sleep(1000);
                 Application.DoEvents();
-                string file = Utils.GetFirstFile(GPConsts.DIRECTORY_TO_CHECK + ConfigController.config.tipoPeriodo.ToString());
+                string file = Utils.GetFirstFile(GPConsts.DIRECTORY_TO_CHECK + configController.config.tipoPeriodo.ToString());
                 if (file != null)
                 {
                     GPSolutionProxy solution = GPSolutionProxy.LoadFromFile(file);
-                    ValidaCandidato(solution);
+                    if (solution.solution != null)
+                    {
+                        frmPrincipal.SetTitle("Validando: " + solution.solution.name);
+                        ValidaCandidato(solution);
+                    }
+                    if (deleteFile) Utils.DeleteFile(file);
+                } else
+                {
+                    frmPrincipal.SetTitle("NENHUM CANDIDATO A VALIDAR: "+ configController.config.tipoPeriodo.ToString());
                 }
             }
-            
+
         }
 
-        static GPSolutionProxy solutionToTest;
+        public GPSolutionProxy solutionToTest;
         private void ValidaCandidato(GPSolutionProxy proxy)
         {
             solutionToTest = proxy;
-            frmPrincipal.txtStatus.Text = "Validando solution " + proxy.solution.name;
+            //frmPrincipal.SetStatus("Validando solution " + proxy.solution.name);
             GC.Collect();
             configController.facade.ClearData();
             configController.facade.ClearFormulas();
 
-            frmPrincipal.dataGridRuns.Rows.Clear();
+            frmPrincipal.ClearRows("dataGridRuns");
             Thread t = new Thread(staticSingleRunValidaSolution);
             t.Name = "BacktestRunner";
             t.Start();
             int runs = 0;
+            frmPrincipal.ClearRows("dataGridRuns");
             while (t.IsAlive)
             {
                 Thread.Sleep(100);
                 runs = UpdateThreadTick(runs);
             }
-          //  Utils.DeleteFile(file);
+          
         }
 
-        static void staticSingleRunValidaSolution()
+        public static void staticSingleRunValidaSolution()
+        {
+            singleton.SingleRunValidaSolution();
+        }
+
+
+        public  Carteira SingleRunValidaSolution(string name="Single Run Validate")
         {
             //gpRunner.SingleRun();
             TradeSystem ts=solutionToTest.tradeSystem;
-            configController.Run(ts);
+            Carteira carteira=configController.RunSingle(ts,name,true);
+            CandidatoManager cm = CandidatoManager.LoadSaved();
+            cm.AddTradeSystem(ts,carteira.estatistica);
+            return carteira;
         }
 
     }

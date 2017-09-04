@@ -1,5 +1,6 @@
 ﻿
 using Backtester.backend.model.ativos;
+using Backtester.backend.model.system;
 using Backtester.backend.model.system.condicoes;
 using Backtester.backend.model.system.estatistica;
 using System;
@@ -14,7 +15,7 @@ namespace Backtester.backend.model
         public system.Config config { get; private set; }
         public IList<Posicao> posicoesFechadas { get; private set; }
         public Estatistica estatistica { get; private set; }
-        public Carteira(FacadeBacktester facade, float capitalInicial, system.Config config, system.TradeSystem tradeSystem)
+        public Carteira(FacadeBacktester facade, float capitalInicial, system.Config config, system.TradeSystem tradeSystem,MonteCarlo mc)
         {
             this.facade = facade;
             this.capitalInicial = capitalInicial;
@@ -26,6 +27,7 @@ namespace Backtester.backend.model
             this.tradeSystem = tradeSystem;
             estatistica = new Estatistica(capitalInicial);
             capitalMes = capitalInicial;
+            this.monteCarlo = mc;
         }
         public system.TradeSystem tradeSystem { get; set; }
 
@@ -285,6 +287,6 @@ namespace Backtester.backend.model
             return capitalSobRisco;
         }
 
-        public system.MonteCarlo monteCarlo { get; set; }
+        public system.MonteCarlo monteCarlo { get; private set; }
     }
 }

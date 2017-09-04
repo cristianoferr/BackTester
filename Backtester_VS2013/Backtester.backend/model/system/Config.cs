@@ -8,6 +8,7 @@ namespace Backtester.backend.model.system
     [DataContract]
     public class Config
     {
+        public bool useVars=true;
 
         public Config()
         {
@@ -19,9 +20,11 @@ namespace Backtester.backend.model.system
             campoVenda = FormulaManager.CLOSE;
             campoCompra = FormulaManager.CLOSE;
             papeis = new List<string>();
+            papeisValidation = new List<string>();
             maxTestes = 20;
             qtdPercPapeis = 30;//se eu tenho 100 papeis a testar então isso fará com que seja retornado uma lsita com x perc de 100
             InitDefaultPapeis();
+            InitDefaultPapeisValidation();
             tipoPeriodo = Consts.PERIODO_ACAO.DIARIO;
 
             //Quantidade minima de iterações que a solution sobreviveu que a qualifica como viavel
@@ -46,7 +49,34 @@ namespace Backtester.backend.model.system
         {
             gpVars += var + "=" + valor + "\r\n";
         }
-
+        private void InitDefaultPapeisValidation()
+        {
+            papeisValidation.Add("ABEV3");
+            papeisValidation.Add("BBAS3");
+            papeisValidation.Add("BBDC4");
+            papeisValidation.Add("BRAP4");
+            papeisValidation.Add("BVMF3");
+            papeisValidation.Add("CCRO3");
+            papeisValidation.Add("CMIG4");
+            papeisValidation.Add("CSNA3");
+            papeisValidation.Add("EMBR3");
+            papeisValidation.Add("ENBR3");
+            papeisValidation.Add("FIBR3");
+            papeisValidation.Add("GOAU4");
+            papeisValidation.Add("ITUB4");
+            papeisValidation.Add("KROT3");
+            papeisValidation.Add("LAME4");
+            papeisValidation.Add("MRFG3");
+            papeisValidation.Add("NATU3");
+            papeisValidation.Add("PETR4");
+            papeisValidation.Add("QUAL3");
+            papeisValidation.Add("SMLE3");
+            papeisValidation.Add("SUZB5");
+            papeisValidation.Add("TIMP3");
+            papeisValidation.Add("UGPA3");
+            papeisValidation.Add("USIM5");
+            papeisValidation.Add("VALE5");
+        }
         private void InitDefaultPapeis()
         {
             papeis.Add("ABEV3");
@@ -102,6 +132,8 @@ namespace Backtester.backend.model.system
         public string varsDebug { get; set; }
         [DataMember]
         public IList<string> papeis { get; set; }
+        [DataMember]
+        public IList<string> papeisValidation { get; set; }
 
         [DataMember]
         public bool flagCompra { get; set; }

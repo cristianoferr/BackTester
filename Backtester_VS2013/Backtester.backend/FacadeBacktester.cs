@@ -2,6 +2,7 @@
 using Backtester.backend.interfaces;
 using Backtester.backend.model;
 using Backtester.backend.model.ativos;
+using Backtester.backend.model.system;
 using System;
 
 namespace Backtester.backend
@@ -37,16 +38,17 @@ namespace Backtester.backend
 
         }
 
-        public void LoadAtivos(System.Collections.Generic.IList<string> list,Consts.PERIODO_ACAO periodo)
+
+        public void LoadAtivos(System.Collections.Generic.IList<string> list,Consts.PERIODO_ACAO periodo, bool flagValidation)
         {
             foreach (string papel in list)
             {
                 if (periodo == Consts.PERIODO_ACAO.DIARIO)
                 {
-                    LoadAtivoDiario(papel);
+                    LoadAtivoDiario(papel, flagValidation);
                 } else if (periodo == Consts.PERIODO_ACAO.SEMANAL)
                 {
-                    LoadAtivoSemanal(papel);
+                    LoadAtivoSemanal(papel, flagValidation);
                 }
                 else
                 {
@@ -55,23 +57,25 @@ namespace Backtester.backend
             }
         }
 
-        private void LoadAtivoDiario(string papel)
+        private void LoadAtivoDiario(string papel,bool flagValidation)
         {
-            LoadAtivo(papel.ToUpper(), 100, Consts.PERIODO_ACAO.DIARIO, "dados/" + papel.ToLower() + "-diario.js");
+            string suffix = flagValidation ? "-validate" : "";
+            LoadAtivo(papel.ToUpper(), 100, Consts.PERIODO_ACAO.DIARIO, "dados/" + papel.ToLower() + "-diario"+ suffix + ".js", flagValidation);
         }
-        private void LoadAtivoSemanal(string papel)
+        private void LoadAtivoSemanal(string papel, bool flagValidation)
         {
-            LoadAtivo(papel.ToUpper(), 100, Consts.PERIODO_ACAO.SEMANAL, "dados/" + papel.ToLower() + "-semanal.js");
+            string suffix = flagValidation ? "-validate" : "";
+            LoadAtivo(papel.ToUpper(), 100, Consts.PERIODO_ACAO.SEMANAL, "dados/" + papel.ToLower() + "-semanal"+ suffix + ".js", flagValidation);
         }
 
-        public void LoadAtivo(string papel, int loteMin, Consts.PERIODO_ACAO periodo, string fileName)
+        public void LoadAtivo(string papel, int loteMin, Consts.PERIODO_ACAO periodo, string fileName, bool flagValidation=false)
         {
             Ativo ativo = dh.GetOrCreateAtivo(papel, loteMin);
             if (ativo.candles.Count > 0)
             {
                 return;
             }
-            if (!dm.LoadAtivo(ativo, periodo, fileName))
+            if (!dm.LoadAtivo(ativo, periodo, fileName, flagValidation))
             {
                 dh.RemoveAtivo(ativo);
             }
@@ -98,12 +102,20 @@ namespace Backtester.backend
 
         BackTester backTester;
 
-        public void Run(ICaller caller,model.system.Config config, model.system.TradeSystem ts)
+        public Carteira Run(ICaller caller,model.system.Config config, model.system.TradeSystem ts, string name = "??")
         {
-
             backTester = new BackTester(this, dh.periodos[0],config,ts);
-            backTester.runBackTest(caller);
+            backTester.runBackTest(caller,name);
+            return backTester.carteira;
         }
+
+        public Carteira RunValidation(ICaller caller, model.system.Config config, model.system.TradeSystem ts, string name = "??")
+        {
+            backTester = new BackTester(this, dh.periodos[0], config, ts);
+            return backTester.runSingleBackTest(caller, new MonteCarlo(name));
+        }
+
+        
 
         public Carteira RunSingle(string name,ICaller caller, model.system.Config config, model.system.TradeSystem ts)
         {

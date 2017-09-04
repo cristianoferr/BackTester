@@ -26,10 +26,6 @@ namespace GeneticProgramming.nodes
 
         public GPAbstractNode(semantica.GPSemantica semantica)
         {
-            if (semantica == null)
-            {
-                throw new Exception("Semantica não definida!");
-            }
             this.semantica = semantica;
             children = new List<GPAbstractNode>();
 

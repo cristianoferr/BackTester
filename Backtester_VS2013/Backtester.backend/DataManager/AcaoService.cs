@@ -15,6 +15,10 @@ namespace Backtester.backend.DataManager
         //to=28/02/2017
         static string urlServico = "https://br.advfn.com/common/javascript/tradingview/advfn/history?symbol=BOV%5EACAO&resolution=D&from=1356998400&to=1488240000";
 
+        //from=26/03/2016
+        //to=30/08/2017
+        static string urlValidacao = "https://br.advfn.com/common/javascript/tradingview/advfn/history?symbol=BOV%5EACAO&resolution=D&from=1459000000&to=1504140000";
+
         static string token = "o3MmBo73LsxmDMRIoAT4uMn8q55Y2u1TNXnT0jhseKUIs0sjvt0yDVAEISamNtOV--2jccrly7mnPm1YUJkbWxQA==";
         static string urlAPI = "http://www.bitbolsa.com.br/api";
 
@@ -103,11 +107,11 @@ namespace Backtester.backend.DataManager
             return "";
         }
 
-        public static string LoadFromWeb(string papel)
+        public static string LoadFromWeb(string papel,string url)
         {
             WebProxy myProxy = CreateProxy();
 
-            string url = urlServico.Replace("ACAO", papel);
+            
             WebRequest request = WebRequest.Create(url);
             request.Credentials = CredentialCache.DefaultCredentials;
             request.Proxy = myProxy;
@@ -134,9 +138,18 @@ namespace Backtester.backend.DataManager
             return myProxy;
         }
 
-        internal static void RequestData(string papel, string fileName)
+        internal static void RequestData(string papel, string fileName, bool flagValidation=false)
         {
-            string saida = LoadFromWeb(papel);
+            string url = "";
+            if (flagValidation)
+            {
+                url = urlValidacao.Replace("ACAO", papel);
+            } else
+            {
+                url = urlServico.Replace("ACAO", papel);
+            }
+
+            string saida = LoadFromWeb(papel, url);
             using (StreamWriter outputFile = new StreamWriter(fileName))
             {
                 outputFile.WriteLine(saida);

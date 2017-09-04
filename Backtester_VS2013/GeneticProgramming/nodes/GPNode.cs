@@ -7,7 +7,7 @@ namespace GeneticProgramming.nodes
     public class GPNode : GPAbstractNode
     {
 
-        public GPNode(semantica.GPSemantica semantica)
+        public GPNode(semantica.GPSemantica semantica=null)
             : base(semantica)
         {
         }

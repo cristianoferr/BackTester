@@ -14,7 +14,7 @@ namespace GeneticProgramming
             this.pool = GPPool.LoadSaved(config, definitions);
 
         }
-        public void Init()
+        public void InitPool()
         {
 
             pool.InitPool(CreateTemplate());

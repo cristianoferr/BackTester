@@ -17,8 +17,6 @@ namespace Backtester.backend
         TradeSystem tradeSystem;
         Periodo periodoInicial;
 
-        //   IList<MonteCarlo> monteCarlo;
-        bool useVars = true;
         IList<Ativo> ativos = null;
 
 
@@ -32,27 +30,27 @@ namespace Backtester.backend
             this.periodoInicial = periodoInicial;
             // monteCarlo = new List<MonteCarlo>();
 
-            init();
+            Init(new MonteCarlo("single"));
 
         }
 
 
 
-        public void init()
+        public void Init(MonteCarlo mc)
         {
-            carteira = new Carteira(facade, config.capitalInicial, config, tradeSystem);
+            carteira = new Carteira(facade, config.capitalInicial, config, tradeSystem,mc);
         }
 
-        public void runBackTest(ICaller caller)
+        public bool runBackTest(ICaller caller,string name)
         {
             if (tradeSystem.vm.Count == 0)
             {
-                runSingleBackTest(caller, new MonteCarlo("??"));
-                return;
+                runSingleBackTest(caller, new MonteCarlo(name));
+                return true;
             }
-            if (!useVars)
+            if (!config.useVars)
             {
-                return;
+                return false;
             }
 
             totalLoops_ = 1;
@@ -61,8 +59,8 @@ namespace Backtester.backend
             {
                 totalLoops_ *= v.steps;
             }
-            if (useVars) loopVariavel(caller, 0); else runMonteCarlo(caller, "MC Run");
-
+            if (config.useVars) loopVariavel(caller, 0); else runMonteCarlo(caller, "MC Run");
+            return true;
         }
 
         private int totalLoops_ = 0;
@@ -130,7 +128,7 @@ namespace Backtester.backend
         {
             MonteCarlo mC = new MonteCarlo(name);
             Utils.println("runMonteCarlo:" + name);
-            Estatistica stat = runSingleBackTest(caller, mC);
+            Estatistica stat = runSingleBackTest(caller, mC).estatistica;
             stat.setDesc(getVarsValues());
             mC.setEstatistica(stat);
             mC.FinishStats(carteira);
@@ -195,10 +193,9 @@ namespace Backtester.backend
         /*
          * Método principal que vai verificar as condições e fazer entradas (um integrador por assim dizer)
          */
-        public Estatistica runSingleBackTest(ICaller caller, MonteCarlo mc)
+        public Carteira runSingleBackTest(ICaller caller, MonteCarlo mc)
         {
-            init();
-            carteira.monteCarlo = mc;
+            Init(mc);
             Periodo periodo = periodoInicial;
             string mesA = "";
             int[] rd = GetRandomOrder(config.qtdPercPapeis);
@@ -253,15 +250,12 @@ namespace Backtester.backend
             carteira.EndTurn(periodo, !mesA.Equals(periodo.GetMes()));
             Utils.println("Saldo final:" + carteira.GetCapital());
             carteira.PrintEstatistica();
-            return carteira.estatistica;
+            return carteira;
         }
 
 
 
-        public void setUseVars(bool b)
-        {
-            useVars = b;
-        }
+        
 
 
         public FacadeBacktester facade { get; set; }

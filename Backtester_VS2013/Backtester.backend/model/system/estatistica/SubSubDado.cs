@@ -1,11 +1,16 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace Backtester.backend.model.system.estatistica
 {
+    [DataContract]
     public class SubSubDado
     {
+        [DataMember]
         int nTrades = 0, maxDias = 0, minDias = 9999999, totDias = 0;
+        [DataMember]
         float avgDias, total;
+        [DataMember]
         float maxTrade = 0, minTrade = -1;
 
         public void addDado(int dias, float dif)

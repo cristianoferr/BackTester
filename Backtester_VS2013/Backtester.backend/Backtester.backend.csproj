@@ -72,7 +72,9 @@
   <ItemGroup>
     <Compile Include="BackTester.cs" />
     <Compile Include="DataManager\AcaoService.cs" />
+    <Compile Include="DataManager\CandidatoManager.cs" />
     <Compile Include="DataManager\CargaDTO.cs" />
+    <Compile Include="DataManager\Clarify.cs" />
     <Compile Include="DataManager\DataLoader.cs" />
     <Compile Include="DataManager\FormulaManager.cs" />
     <Compile Include="DataManager\TradeSystemHolder.cs" />

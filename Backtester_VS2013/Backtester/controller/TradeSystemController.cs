@@ -1,18 +1,20 @@
 ﻿using Backtester.backend.DataManager;
 using Backtester.backend.model.system;
+using Backtester.interfaces;
 
 namespace Backtester.controller
 {
     public class TradeSystemController : IController
     {
-        private FrmPrincipal frmPrincipal;
+        private IReferView frmPrincipal;
         TradeSystemHolder holder;
         VariavelController vc;
 
 
-        public TradeSystemController(FrmPrincipal frmPrincipal)
+        public TradeSystemController(IReferView frmPrincipal,ConfigController configController)
         {
             this.frmPrincipal = frmPrincipal;
+            this.configController = configController;
             holder = TradeSystemHolder.LoadSaved();
             vc = new VariavelController(this,frmPrincipal);
             UpdateUI();
@@ -34,7 +36,7 @@ namespace Backtester.controller
 
         internal void AdicionaTS()
         {
-            TradeSystem ts = new TradeSystem(ConfigController.config);
+            TradeSystem ts = new TradeSystem(configController.config);
             ts.name = "TradeSystem Novo..." + holder.Count;
             holder.AddTS(ts);
             selectedTS = holder.Count - 1;
@@ -49,7 +51,7 @@ namespace Backtester.controller
             set
             {
                 //panelTradeSystem
-                frmPrincipal.panelTradeSystem.Visible = value >= 0;
+                frmPrincipal.SetVisible("panelTradeSystem",value >= 0);
                 UpdateValuesFromUI();
                 selectedTS_ = value;
                 if (selectedTS_ >= 0)
@@ -69,24 +71,24 @@ namespace Backtester.controller
         {
             if (selectedTS < 0) return;
             TradeSystem ts = holder.GetTS(selectedTS);
-            ts.name = frmPrincipal.txtNameTs.Text;
-            ts.condicaoEntradaC=frmPrincipal.txtCondEntrC.Text;
+            ts.name = frmPrincipal.Text("txtNameTs");
+            ts.condicaoEntradaC=frmPrincipal.Text("txtCondEntrC");
             //ts.condicaoEntradaC.descricao = frmPrincipal.txtCondEntrCDesc.Text;
 
-            ts.condicaoSaidaC=frmPrincipal.txtCondSaidaC.Text;
+            ts.condicaoSaidaC=frmPrincipal.Text("txtCondSaidaC.Text");
             //ts.condicaoSaidaC.descricao = frmPrincipal.txtCondSaidaCDesc.Text;
 
 
-            ts.condicaoEntradaV=frmPrincipal.txtCondEntrV.Text;
+            ts.condicaoEntradaV=frmPrincipal.Text("txtCondEntrV.Text");
            // ts.condicaoEntradaV.descricao = frmPrincipal.txtCondEntrVDesc.Text;
 
-            ts.condicaoSaidaV=frmPrincipal.txtCondSaidaV.Text;
+            ts.condicaoSaidaV=frmPrincipal.Text("txtCondSaidaV.Text");
             //ts.condicaoSaidaV.descricao = frmPrincipal.txtCondSaidaVDesc.Text;
 
-            ts.stopMovelC = frmPrincipal.txtStopMovelCompra.Text;
-            ts.stopMovelV = frmPrincipal.txtStopMovelVenda.Text;
-            ts.stopInicialC= frmPrincipal.txtStopInicialCompra.Text;
-            ts.stopInicialV = frmPrincipal.txtStopInicialVenda.Text;
+            ts.stopMovelC = frmPrincipal.Text("txtStopMovelCompra.Text");
+            ts.stopMovelV = frmPrincipal.Text("txtStopMovelVenda.Text");
+            ts.stopInicialC= frmPrincipal.Text("txtStopInicialCompra.Text");
+            ts.stopInicialV = frmPrincipal.Text("txtStopInicialVenda.Text");
 
 
             vc.ChangeSelectedVariavel(0);
@@ -97,44 +99,45 @@ namespace Backtester.controller
         public virtual void UpdateUI()
         {
             UpdateUI(selectedTS);
-            frmPrincipal.listTradeSystems.Items.Clear();
-            frmPrincipal.cbTradeSystem.Items.Clear();
+            frmPrincipal.ClearList("listTradeSystems");
+            frmPrincipal.ClearList("cbTradeSystem");
             for (int i = 0; i < holder.Count; i++)
             {
-                frmPrincipal.listTradeSystems.Items.Add(holder.GetTS(i));
-                frmPrincipal.cbTradeSystem.Items.Add(holder.GetTS(i));
+                frmPrincipal.AddItem("listTradeSystems", holder.GetTS(i));
+                frmPrincipal.AddItem("cbTradeSystem", holder.GetTS(i));
+
             }
-            frmPrincipal.btnRun.Enabled = frmPrincipal.cbTradeSystem.Items.Count > 0;
+            frmPrincipal.SetEnabled("btnRun",holder.Count > 0);
         }
 
 
         private void UpdateUI(int index)
         {
-            frmPrincipal.panelTradeSystem.Visible = index >= 0;
+            frmPrincipal.SetVisible("panelTradeSystem",index >= 0);
             if (index < 0)
             {
                 return;
             }
             TradeSystem ts = holder.GetTS(index);
-            frmPrincipal.txtNameTs.Text = ts.name;
+            frmPrincipal.SetText("txtNameTs",ts.name);
 
 
-            UpdateUI(ts.condicaoEntradaC, frmPrincipal.txtCondEntrC, frmPrincipal.txtCondEntrCDesc);
-            UpdateUI(ts.condicaoSaidaC, frmPrincipal.txtCondSaidaC, frmPrincipal.txtCondSaidaCDesc);
-            UpdateUI(ts.condicaoEntradaV, frmPrincipal.txtCondEntrV, frmPrincipal.txtCondEntrVDesc);
-            UpdateUI(ts.condicaoSaidaV, frmPrincipal.txtCondSaidaV, frmPrincipal.txtCondSaidaVDesc);
+            UpdateUI(ts.condicaoEntradaC, "txtCondEntrC", "txtCondEntrCDesc");
+            UpdateUI(ts.condicaoSaidaC, "txtCondSaidaC", "txtCondSaidaCDesc");
+            UpdateUI(ts.condicaoEntradaV, "txtCondEntrV", "txtCondEntrVDesc");
+            UpdateUI(ts.condicaoSaidaV, "txtCondSaidaV", "txtCondSaidaVDesc");
 
-            frmPrincipal.txtStopMovelCompra.Text=ts.stopMovelC;
-            frmPrincipal.txtStopMovelVenda.Text=ts.stopMovelV;
-            frmPrincipal.txtStopInicialCompra.Text = ts.stopInicialC;
-            frmPrincipal.txtStopInicialVenda.Text = ts.stopInicialV;
+            frmPrincipal.SetText("txtStopMovelCompra",ts.stopMovelC);
+            frmPrincipal.SetText("txtStopMovelVenda", ts.stopMovelV);
+            frmPrincipal.SetText("txtStopInicialCompra", ts.stopInicialC);
+            frmPrincipal.SetText("txtStopInicialVenda", ts.stopInicialV);
 
             vc.UpdateUI();
         }
 
-        private void UpdateUI(string condicao, System.Windows.Forms.TextBox txtFormula, System.Windows.Forms.TextBox txtDesc)
+        private void UpdateUI(string condicao, string txtFormula, string txtDesc)
         {
-            txtFormula.Text = condicao;
+            frmPrincipal.SetText(txtFormula, condicao);
             //txtDesc.Text = condicao.descricao;
         }
 
@@ -143,6 +146,8 @@ namespace Backtester.controller
         public TradeSystem tradeSystem { get{
             return holder.GetTS(selectedTS);
         }  }
+
+        public ConfigController configController { get; private set; }
 
         internal void AdicionaVariavel(string name)
         {

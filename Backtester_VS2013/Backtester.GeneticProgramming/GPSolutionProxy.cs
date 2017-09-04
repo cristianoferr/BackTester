@@ -19,6 +19,7 @@ namespace Backtester.GeneticProgramming
         public GPSolution solution { get; set; }
         [DataMember]
         public TradeSystem tradeSystem { get; set; }
+        
 
 
         public void SaveToFile(string fileName)
