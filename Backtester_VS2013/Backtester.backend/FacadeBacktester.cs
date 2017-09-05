@@ -138,6 +138,10 @@ namespace Backtester.backend
             dh.ClearData();
         }
 
-        
+        public Ativo GenerateAtivoMock(int seed)
+        {
+            return dh.GenerateAtivoMock(seed);
+         
+        }
     }
 }

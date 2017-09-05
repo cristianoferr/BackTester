@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Backtester.backend.model.ativos
 {
@@ -50,6 +51,11 @@ namespace Backtester.backend.model.ativos
                 Candle candle = candles[per];
                 candle.ClearData();
             }
+        }
+
+        public void DrawIn(System.Drawing.Graphics graphics)
+        {
+            throw new NotImplementedException();
         }
     }
 }

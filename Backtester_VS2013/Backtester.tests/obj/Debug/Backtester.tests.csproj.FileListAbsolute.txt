@@ -75,3 +75,11 @@ G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester.tests\bin\De
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester.tests\obj\Debug\Backtester.tests.csprojResolveAssemblyReference.cache
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester.tests\obj\Debug\Backtester.tests.dll
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester.tests\obj\Debug\Backtester.tests.pdb
+F:\Java\repositorios\BackTester\Backtester_VS2013\Backtester.tests\bin\Debug\Backtester.exe
+F:\Java\repositorios\BackTester\Backtester_VS2013\Backtester.tests\bin\Debug\Backtester.GeneticProgramming.dll
+F:\Java\repositorios\BackTester\Backtester_VS2013\Backtester.tests\bin\Debug\GeneticProgramming.dll
+F:\Java\repositorios\BackTester\Backtester_VS2013\Backtester.tests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+F:\Java\repositorios\BackTester\Backtester_VS2013\Backtester.tests\bin\Debug\Backtester.GeneticProgramming.pdb
+F:\Java\repositorios\BackTester\Backtester_VS2013\Backtester.tests\bin\Debug\Backtester.pdb
+F:\Java\repositorios\BackTester\Backtester_VS2013\Backtester.tests\bin\Debug\Backtester.exe.config
+F:\Java\repositorios\BackTester\Backtester_VS2013\Backtester.tests\bin\Debug\GeneticProgramming.pdb

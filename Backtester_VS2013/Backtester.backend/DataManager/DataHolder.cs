@@ -2,6 +2,9 @@
 using Backtester.backend.model.formulas;
 using System.Collections.Generic;
 using System.Linq;
+using System;
+using UsoComum;
+
 namespace Backtester.backend.model
 {
     public class DataHolder
@@ -111,6 +114,43 @@ namespace Backtester.backend.model
             {
                 ativos[key].ClearData();
             }
+        }
+
+        internal Ativo GenerateAtivoMock(int seed)
+        {
+            Ativo ativo = GetOrCreateAtivo("Mock" + seed,100);
+            Random rnd = new Random(seed);
+            
+            float vlr= 10 + rnd.Next(90);
+            float vol = 100000 + rnd.Next(100000);
+            float percGap = rnd.Next(5);
+            for (int i = 0; i < Consts.QTD_ATIVOS_MOCK; i++)
+            {
+                Periodo periodo = GetPeriodo(DateTime.Now.AddDays(i).ToShortDateString());
+                float open = vlr;
+                float difClose = Utils.Random(rnd,-percGap,percGap);
+                vlr *= (1 + difClose / 100);
+                float close = vlr;
+
+                float vlrAlta = Utils.Random(0,2);
+                float high = (open > close ? open : close) * (1 + vlrAlta / 100);
+                float vlrBaixa = Utils.Random(0, 2);
+                float low = (open < close ? open : close) * (1 - vlrBaixa / 100);
+
+                vol = (100000 + rnd.Next(100000))*(1+Math.Abs(percGap) /100);
+                Candle candle = new Candle(periodo, ativo,open,close,high,low,vol);
+                ativo.AddCandle(candle);
+
+                percGap += Utils.Random(rnd, -1,1);
+                if (percGap < 1) percGap = 1;
+                if (percGap >5) percGap = 5;
+
+                float gapNext = Utils.Random(rnd,-2, 2);
+                vlr *= (1 + gapNext / 100);
+
+            }
+
+            return ativo;
         }
     }
 }

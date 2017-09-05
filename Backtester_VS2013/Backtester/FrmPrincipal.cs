@@ -3,6 +3,7 @@ using Backtester.controller;
 using Backtester.interfaces;
 using System.Windows.Forms;
 using System;
+using Backtester.backend.model.ativos;
 
 namespace Backtester
 {
@@ -299,5 +300,12 @@ namespace Backtester
             Text = "Backtester ["+v+"]";   
         }
         #endregion IReferView
+
+        private void btnGeraMockGrafico_Click(object sender, EventArgs e)
+        {
+            int seed = int.Parse(txtSeed.Text);
+            Ativo ativo = tsController.GenerateMockAtivo(seed);
+            ativo.DrawIn(panelGrafico.CreateGraphics());
+        }
     }
 }

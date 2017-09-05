@@ -128,6 +128,13 @@ namespace UsoComum
                 return value.ToString();
         }
 
+        public static float Random(Random rnd, float v, float percGap)
+        {
+            float min = v * 1000;
+            float val = percGap*1000;
+            return rnd.Next((int)min,(int)val)/1000f;
+        }
+
         public static string[] SeparaEmElementos(string par)
         {
             string[] pars = new string[3];

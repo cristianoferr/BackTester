@@ -42,6 +42,16 @@ namespace Backtester.tests
 
 
         [TestMethod]
+        public void TestMockAtivo()
+        {
+            Ativo ativo = facade.GenerateAtivoMock(500);
+            Assert.IsNotNull(ativo);
+            Assert.IsTrue(ativo.candles.Count == Consts.QTD_ATIVOS_MOCK);
+
+        }
+
+
+        [TestMethod]
         public void TestBacktester()
         {
 

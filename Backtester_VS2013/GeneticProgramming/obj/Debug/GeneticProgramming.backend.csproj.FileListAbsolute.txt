@@ -1,6 +1,5 @@
 F:\Java\repositorios\BackTester\Backtester_VS2013\GeneticProgramming\bin\Debug\GeneticProgramming.dll
 F:\Java\repositorios\BackTester\Backtester_VS2013\GeneticProgramming\bin\Debug\GeneticProgramming.pdb
-F:\Java\repositorios\BackTester\Backtester_VS2013\GeneticProgramming\bin\Debug\Newtonsoft.Json.dll
 F:\Java\repositorios\BackTester\Backtester_VS2013\GeneticProgramming\bin\Debug\UsoComum.dll
 F:\Java\repositorios\BackTester\Backtester_VS2013\GeneticProgramming\bin\Debug\log4net.dll
 F:\Java\repositorios\BackTester\Backtester_VS2013\GeneticProgramming\bin\Debug\UsoComum.pdb

@@ -17,6 +17,7 @@ namespace Backtester.backend
 
 
         public const int QTD_MAXIMA_FORMULAS_CACHE = 30000;
+        public const int QTD_ATIVOS_MOCK=200;
 
         public enum TIPO_OPERACAO
         {

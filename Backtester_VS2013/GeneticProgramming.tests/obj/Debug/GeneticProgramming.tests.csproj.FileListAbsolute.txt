@@ -3,7 +3,6 @@ F:\Java\repositorios\BackTester\Backtester_VS2013\GeneticProgramming.tests\bin\D
 F:\Java\repositorios\BackTester\Backtester_VS2013\GeneticProgramming.tests\bin\Debug\GeneticProgramming.tests.dll
 F:\Java\repositorios\BackTester\Backtester_VS2013\GeneticProgramming.tests\bin\Debug\GeneticProgramming.tests.pdb
 F:\Java\repositorios\BackTester\Backtester_VS2013\GeneticProgramming.tests\bin\Debug\GeneticProgramming.dll
-F:\Java\repositorios\BackTester\Backtester_VS2013\GeneticProgramming.tests\bin\Debug\Newtonsoft.Json.dll
 F:\Java\repositorios\BackTester\Backtester_VS2013\GeneticProgramming.tests\bin\Debug\UsoComum.dll
 F:\Java\repositorios\BackTester\Backtester_VS2013\GeneticProgramming.tests\bin\Debug\log4net.dll
 F:\Java\repositorios\BackTester\Backtester_VS2013\GeneticProgramming.tests\bin\Debug\GeneticProgramming.pdb
@@ -25,3 +24,4 @@ G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\GeneticProgramming.test
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\GeneticProgramming.tests\obj\Debug\GeneticProgramming.tests.csprojResolveAssemblyReference.cache
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\GeneticProgramming.tests\obj\Debug\GeneticProgramming.tests.dll
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\GeneticProgramming.tests\obj\Debug\GeneticProgramming.tests.pdb
+F:\Java\repositorios\BackTester\Backtester_VS2013\GeneticProgramming.tests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll

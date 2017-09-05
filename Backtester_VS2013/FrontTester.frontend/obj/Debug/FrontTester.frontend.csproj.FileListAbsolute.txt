@@ -33,3 +33,9 @@ G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\FrontTester.frontend\ob
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\FrontTester.frontend\obj\Debug\FrontTester.frontend.csproj.GenerateResource.Cache
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\FrontTester.frontend\obj\Debug\FrontTester.frontend.exe
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\FrontTester.frontend\obj\Debug\FrontTester.frontend.pdb
+F:\Java\repositorios\BackTester\Backtester_VS2013\FrontTester.frontend\obj\Debug\FrontTester.frontend.csprojResolveAssemblyReference.cache
+F:\Java\repositorios\BackTester\Backtester_VS2013\FrontTester.frontend\obj\Debug\FrontTester.frontend.FrmFront.resources
+F:\Java\repositorios\BackTester\Backtester_VS2013\FrontTester.frontend\obj\Debug\FrontTester.frontend.Properties.Resources.resources
+F:\Java\repositorios\BackTester\Backtester_VS2013\FrontTester.frontend\obj\Debug\FrontTester.frontend.csproj.GenerateResource.Cache
+F:\Java\repositorios\BackTester\Backtester_VS2013\FrontTester.frontend\obj\Debug\FrontTester.frontend.exe
+F:\Java\repositorios\BackTester\Backtester_VS2013\FrontTester.frontend\obj\Debug\FrontTester.frontend.pdb

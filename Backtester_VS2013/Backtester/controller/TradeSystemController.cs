@@ -1,4 +1,6 @@
-﻿using Backtester.backend.DataManager;
+﻿using System;
+using Backtester.backend.DataManager;
+using Backtester.backend.model.ativos;
 using Backtester.backend.model.system;
 using Backtester.interfaces;
 
@@ -164,6 +166,9 @@ namespace Backtester.controller
             vc.ChangeSelectedVariavel(index);
         }
 
-       
+        internal Ativo GenerateMockAtivo(int seed)
+        {
+            return configController.facade.GenerateAtivoMock(seed);
+        }
     }
 }
