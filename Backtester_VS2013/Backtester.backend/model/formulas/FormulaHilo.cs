@@ -35,8 +35,8 @@ namespace Backtester.backend.model.formulas
 
             float C = candle.GetValor(campo);
 
-            if (C > hiloH) return 1;
-            if (C < hiloL) return -1;
+            if (C > hiloH) return hiloH;
+            if (C < hiloL) return hiloL;
             return 0;
 
         }

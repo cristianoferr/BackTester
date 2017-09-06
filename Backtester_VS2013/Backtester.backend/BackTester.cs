@@ -240,6 +240,9 @@ namespace Backtester.backend
             int qtdAcoes = carteira.PossuiAtivo(ativo);
             float direcao = tradeSystem.checaCondicaoEntrada(candle, config);
 
+            if (direcao > 0 && !config.flagCompra) return;
+            if (direcao < 0 && !config.flagVenda) return;
+
             //Não tenho posicao em aberto E direcao de entrada foi ativada
             if ((direcao != 0))
             {
@@ -257,7 +260,7 @@ namespace Backtester.backend
                     if (sizing > 100) sizing = 100;
                     if (sizing < 0) sizing = 0;
 
-                    carteira.EfetuaEntrada(ativo, periodo, sizing/100, valorAcao, Math.Abs(direcao), (direcao > 0 ? 1 : -1));
+                    carteira.EfetuaEntrada(ativo, periodo, sizing/100f, valorAcao, Math.Abs(direcao), (direcao > 0 ? 1 : -1));
                 }
             }
 

@@ -34,7 +34,8 @@ namespace Backtester.backend.model.formulas
             vPer = LimitPeriodo(vPer);
             for (int i = 0; i < vPer; i++)
             {
-                c = c.candleAnterior;
+                if (c.candleAnterior!=null)
+                    c = c.candleAnterior;
             }
             return c.GetValor(campo);
         }

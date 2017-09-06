@@ -195,8 +195,8 @@ namespace Backtester.backend.DataManager
                 if (name == DIVIDE) f = new FormulaDivide(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
                 if (name == SUM) f = new FormulaSUM(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
                 if (name == ABS) f = new FormulaABS(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
-                if (name == DIF) f = new FormulaDif(facade, name, GetFormula(pars[0]), float.Parse(pars[1]));
-                if (name == INVERT_SIGNAL) f = new FormulaInvertSignal(facade, name, GetFormula(pars[0]), float.Parse(pars[1]));
+                if (name == DIF) f = new FormulaDif(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
+                if (name == INVERT_SIGNAL) f = new FormulaInvertSignal(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
                 
             }
 

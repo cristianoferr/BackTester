@@ -11,7 +11,7 @@ namespace Backtester.backend.model.system.estatistica
     public class Estatistica
     {
         [DataMember]
-        private DadoEstatistico geral;
+        public DadoEstatistico geral;
         [DataMember]
         public float capitalInicial, maxCapital, minCapital;
         [DataMember]

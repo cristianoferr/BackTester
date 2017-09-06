@@ -2,6 +2,7 @@
 using Backtester.backend.DataManager;
 using Backtester.backend.model.ativos;
 using Backtester.backend.model.system.condicoes;
+using System;
 using System.Runtime.Serialization;
 namespace Backtester.backend.model.system
 {
@@ -108,14 +109,14 @@ E caso o valor do stopMovel seja menor que o stopInicial então o valor retornad
             {
                 float valor = candle.GetValor(vm.ReplaceVariavel(condicaoEntradaC));
                 if (valor >= 1)
-                    return Stop.CalcValorStop(candle.GetValor(stopInicialC),1, stopGapPerc);
+                    return Math.Abs(Stop.CalcValorStop(candle.GetValor(stopInicialC),1, stopGapPerc));
                 //return candle.GetValor(stopInicialC) * (1f - stopGapPerc / 100f);
             }
             if ((config.flagVenda && condicaoEntradaV != null))
             {
                 float valor = candle.GetValor(vm.ReplaceVariavel(condicaoEntradaV));
                 if (valor >= 1)
-                    return -Stop.CalcValorStop(candle.GetValor(stopInicialC), -1, stopGapPerc);
+                    return -Math.Abs(Stop.CalcValorStop(candle.GetValor(stopInicialC), -1, stopGapPerc));
                 //return -candle.GetValor(stopInicialV) * (1f + stopGapPerc / 100f);
             }
             return 0;

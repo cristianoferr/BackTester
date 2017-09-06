@@ -250,7 +250,9 @@ namespace Backtester.controller
                 int colIndex = 0;
                 Rows[rowLine].Cells[colIndex++].Value = contaOperacao;
                 Rows[rowLine].Cells[colIndex++].Value = posicao.idPosicao;
-                Rows[rowLine].Cells[colIndex++].Value = posicao.ativo.name;
+                string ativoName = posicao.ativo.name;
+                if (ativoName.Contains("%5E")) ativoName = ativoName.Substring(ativoName.IndexOf("%5E" )+3);
+                Rows[rowLine].Cells[colIndex++].Value = ativoName;
                 Rows[rowLine].Cells[colIndex++].Value = oper.candleInicial.periodo;
                 Rows[rowLine].Cells[colIndex++].Value = oper.candleFinal.periodo;
                 Rows[rowLine].Cells[colIndex++].Value = posicao.direcao > 0 ? "Compra" : "Venda";

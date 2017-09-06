@@ -34,8 +34,6 @@ namespace Backtester.backend.model.system.estatistica
         {
             todosTrades.addDado(dias, dif);
 
-
-
             if (dif > 0)
             {
                 tradesGanhos.addDado(dias, dif);

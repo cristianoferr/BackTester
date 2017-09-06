@@ -144,15 +144,15 @@ namespace Backtester.backend.model
             posicao.FechaOperacao(oper, candle, vlrSaida);
             estatistica.AddTrade(oper, candle.periodo);
 
-            //movimentaSaldo(vlr);
-            float dif = vlr - oper.vlrEntrada * oper.qtd;
-            dif *= posicao.direcao;
             if (oper.direcao > 0)
             {
                 MovimentaSaldo(vlr);
             }
             else
             {
+                //movimentaSaldo(vlr);
+                float dif = vlr - oper.vlrEntrada * oper.qtd;
+                dif *= posicao.direcao;
                 MovimentaSaldo(oper.vlrEntrada * oper.qtd + dif);
             }
 
