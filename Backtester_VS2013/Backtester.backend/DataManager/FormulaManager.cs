@@ -29,6 +29,7 @@ namespace Backtester.backend.DataManager
 
         public static string REF = "REF";
         public static string AVGGAIN = "AVGGAIN";
+        public static string HILO = "HILO";
         public static string AVGLOSS = "AVGLOSS";
         public static string STDDEV = "STD";
         public static string UPPERBB = "UPPERBB";
@@ -36,6 +37,10 @@ namespace Backtester.backend.DataManager
         public static string LOWERBB = "LOWERBB";
         //  public static string BB = "BB";
         public static string SUM = "SUM";
+        public static string ABS = "ABS";
+        public static string DIF = "DIF";
+        public static string INVERT_SIGNAL = "INVERT_SIGNAL";
+        
         public static string SUBTRACT = "SUBTRACT";
         public static string MULTIPLY = "MULTIPLY";
         public static string DIVIDE = "DIVIDE";
@@ -95,8 +100,13 @@ namespace Backtester.backend.DataManager
             formulasDisp.Add(UPPERBB);
             formulasDisp.Add(MIDDLEBB);
             formulasDisp.Add(LOWERBB);
+            formulasDisp.Add(HILO);
             //  formulasDisp.Add(BB);
             formulasDisp.Add(SUM);
+            formulasDisp.Add(ABS);
+            formulasDisp.Add(INVERT_SIGNAL);
+            
+            formulasDisp.Add(DIF);
             formulasDisp.Add(SUBTRACT);
             // formulasDisp.Add(DAYOFWEEK);
             formulasDisp.Add(MULTIPLY);
@@ -174,6 +184,9 @@ namespace Backtester.backend.DataManager
                 if (name == MULTIPLY) f = new FormulaMultiply(facade, name, GetFormula(pars[0]), float.Parse(pars[1]));
                 if (name == DIVIDE) f = new FormulaDivide(facade, name, GetFormula(pars[0]), float.Parse(pars[1]));
                 if (name == SUM) f = new FormulaSUM(facade, name, GetFormula(pars[0]), float.Parse(pars[1]));
+                if (name == ABS) f = new FormulaABS(facade, name, GetFormula(pars[0]), float.Parse(pars[1]));
+                if (name == DIF) f = new FormulaDif(facade, name, GetFormula(pars[0]), float.Parse(pars[1]));
+                if (name == INVERT_SIGNAL) f = new FormulaInvertSignal(facade, name, GetFormula(pars[0]), float.Parse(pars[1]));
             }
             else
             {
@@ -181,6 +194,10 @@ namespace Backtester.backend.DataManager
                 if (name == MULTIPLY) f = new FormulaMultiply(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
                 if (name == DIVIDE) f = new FormulaDivide(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
                 if (name == SUM) f = new FormulaSUM(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
+                if (name == ABS) f = new FormulaABS(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
+                if (name == DIF) f = new FormulaDif(facade, name, GetFormula(pars[0]), float.Parse(pars[1]));
+                if (name == INVERT_SIGNAL) f = new FormulaInvertSignal(facade, name, GetFormula(pars[0]), float.Parse(pars[1]));
+                
             }
 
             if (f == null)
@@ -202,6 +219,7 @@ namespace Backtester.backend.DataManager
             if (name == HV) f = new FormulaHV(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
             if (name == TRIX) f = new FormulaTRIX(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
             if (name == LV) f = new FormulaLV(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
+            if (name == HILO) f = new FormulaHilo(facade, name, GetFormula(pars[0]), GetFormula(pars[1]), GetFormula(pars[2]), GetFormula(pars[3]));
             if (name == AVGGAIN) f = new FormulaAvgGain(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
             if (name == AVGLOSS) f = new FormulaAvgLoss(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
             if (name == STDDEV) f = new FormulaStdDev(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));

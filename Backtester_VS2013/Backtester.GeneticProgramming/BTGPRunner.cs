@@ -14,6 +14,9 @@ namespace Backtester.GeneticProgramming
     public class BTGPRunner : GPRunner
     {
         //formulas
+        
+            public const string PROP_SIZING_C = "PROP_SIZING_C";
+        public const string PROP_SIZING_V = "PROP_SIZING_V";
         public const string PROP_COND_ENTRADA_C = "COND_ENTRADA_C";
         public const string PROP_COND_ENTRADA_V = "COND_ENTRADA_V";
         public const string PROP_COND_SAIDA_C = "COND_SAIDA_C";
@@ -56,10 +59,13 @@ namespace Backtester.GeneticProgramming
             if (config.flagCompra)
             {
                 listFormulas.Add(PROP_COND_ENTRADA_C);
+                listFormulas.Add(PROP_SIZING_C);
+
                 listFormulas.Add(PROP_COND_SAIDA_C);
                 listFormulas.Add(PROP_COND_STOP_MOVEL_C);
                 listFormulas.Add(PROP_COND_STOP_INICIAL_C);
                 template.AddProperty(PROP_COND_ENTRADA_C, listaFormula);
+                template.AddProperty(PROP_SIZING_C, listaFormula);
                 template.AddProperty(PROP_COND_SAIDA_C, listaFormula);
                 template.AddProperty(PROP_COND_STOP_MOVEL_C, listaFormula);
                 template.AddProperty(PROP_COND_STOP_INICIAL_C, listaFormula);
@@ -67,12 +73,14 @@ namespace Backtester.GeneticProgramming
 
             if (config.flagVenda)
             {
+                listFormulas.Add(PROP_SIZING_V);
 
                 listFormulas.Add(PROP_COND_ENTRADA_V);
                 listFormulas.Add(PROP_COND_SAIDA_V);
                 listFormulas.Add(PROP_COND_STOP_MOVEL_V);
                 listFormulas.Add(PROP_COND_STOP_INICIAL_V);
                 template.AddProperty(PROP_COND_ENTRADA_V, listaFormula);
+                template.AddProperty(PROP_SIZING_V, listaFormula);
                 template.AddProperty(PROP_COND_SAIDA_V, listaFormula);
                 template.AddProperty(PROP_COND_STOP_MOVEL_V, listaFormula);
                 template.AddProperty(PROP_COND_STOP_INICIAL_V, listaFormula);
@@ -179,6 +187,7 @@ namespace Backtester.GeneticProgramming
                 ts.condicaoSaidaC = solution.GetValueAsString(PROP_COND_SAIDA_C);
                 ts.stopMovelC = solution.GetValueAsString(PROP_COND_STOP_MOVEL_C);
                 ts.stopInicialC = solution.GetValueAsString(PROP_COND_STOP_INICIAL_C);
+                ts.sizingCompra = solution.GetValueAsString(PROP_SIZING_C);
             }
             if (config.flagVenda)
             {
@@ -186,6 +195,7 @@ namespace Backtester.GeneticProgramming
                 ts.condicaoSaidaV = solution.GetValueAsString(PROP_COND_SAIDA_V);
                 ts.stopMovelV = solution.GetValueAsString(PROP_COND_STOP_MOVEL_V);
                 ts.stopInicialV = solution.GetValueAsString(PROP_COND_STOP_INICIAL_V);
+                ts.sizingVenda= solution.GetValueAsString(PROP_SIZING_V);
             }
             solution.SetPropriedade(ConstsComuns.OBJ_TRADESYSTEM, ts);
         }

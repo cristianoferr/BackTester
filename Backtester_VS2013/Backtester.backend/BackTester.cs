@@ -253,7 +253,11 @@ namespace Backtester.backend
                     {
                         valorAcao = candle.proximoCandle.GetValor(FormulaManager.OPEN);
                     }
-                    carteira.EfetuaEntrada(ativo, periodo, 1, valorAcao, Math.Abs(direcao), (direcao > 0 ? 1 : -1));
+                    float sizing = (direcao > 0) ? candle.GetValor(tradeSystem.sizingCompra) : candle.GetValor(tradeSystem.sizingVenda);
+                    if (sizing > 100) sizing = 100;
+                    if (sizing < 0) sizing = 0;
+
+                    carteira.EfetuaEntrada(ativo, periodo, sizing/100, valorAcao, Math.Abs(direcao), (direcao > 0 ? 1 : -1));
                 }
             }
 
