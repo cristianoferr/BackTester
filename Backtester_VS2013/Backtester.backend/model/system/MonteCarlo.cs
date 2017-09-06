@@ -113,6 +113,8 @@ namespace Backtester.backend.model.system
             //Conta a variedade nas ações ganhadoras: acerta 2 ações é melhor que 1 ação
             fitness += CalcBonusVariedade(carteira);
 
+            fitness += percAcerto * BONUS*10;
+
             float difCapital = carteira.GetCapital() - carteira.capitalInicial;
             fitness += BONUS * difCapital / 100;
             if (difCapital == 0) fitness -= PENALTY * 10;
@@ -144,6 +146,8 @@ namespace Backtester.backend.model.system
         private float CalcBonusVariedade(Carteira carteira)
         {
             //carteira.posicoesFechadas.
+            float totalGanho=0;
+            int countGanho = 0;
             List<string> ativosVencedores = new List<string>();
             foreach (Posicao pos in carteira.posicoesFechadas)
             {
@@ -155,10 +159,21 @@ namespace Backtester.backend.model.system
                         {
                             ativosVencedores.Add(pos.ativo.name);
                         }
+                        countGanho++;
+                        totalGanho += oper.GetDif();
                     }
                 }
             }
-            return ativosVencedores.Count*BONUS*10;
+            float bonusWinAvg = 0;
+            float avgGanho = 0;
+            if (countGanho > 0)
+            {
+                avgGanho = totalGanho / countGanho;
+                bonusWinAvg = avgGanho*10;
+            }
+            
+
+            return ativosVencedores.Count*BONUS*10+bonusWinAvg;
         }
 
         private void FitnessPercUsoCapital()
