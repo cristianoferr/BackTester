@@ -9,10 +9,12 @@ namespace Backtester.backend.model.system
     [KnownType(typeof(TradeSystem))]
     public class TradeSystem
     {
+        
+
         /*A diferença entre stopInicial e stopMovel: 
-     a formula stopInicial será usada para determinar o Stop Inicial  e o stopMovel é usado para determinar o stop daquele dia
-     E caso o valor do stopMovel seja menor que o stopInicial então o valor retornado será o stopInicial
-     */
+a formula stopInicial será usada para determinar o Stop Inicial  e o stopMovel é usado para determinar o stop daquele dia
+E caso o valor do stopMovel seja menor que o stopInicial então o valor retornado será o stopInicial
+*/
 
         [DataMember]
         public VariavelManager vm { get; private set; }
@@ -69,6 +71,10 @@ namespace Backtester.backend.model.system
         public string stopMovelV { get; set; }
 
 
+        [DataMember]
+        public string sizingCompra { get; set; }
+        [DataMember]
+        public string sizingVenda { get; set; }
 
         [DataMember]
         public string condicaoEntradaC { get; set; }

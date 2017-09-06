@@ -51,6 +51,14 @@ namespace Backtester.GeneticProgramming
             AddSemanticaFormula(FormulaManager.SUBTRACT, 2, 2);
             AddSemanticaFormula(FormulaManager.MULTIPLY, 2, 2);
             AddSemanticaFormula(FormulaManager.SUM, 2, 2);
+            AddSemanticaFormula(FormulaManager.ABS, 2, 2);
+            AddSemanticaFormula(FormulaManager.DIF, 2, 2);
+            AddSemanticaFormula(FormulaManager.HILO, 4, 4);
+            
+            AddSemanticaFormula(FormulaManager.INVERT_SIGNAL, 2, 2);
+            
+
+
             AddSemanticaFormula(FormulaManager.DIVIDE, 2, 2);
             AddSemanticaFormula(FormulaManager.STOCH, 2, 2);
             AddSemanticaFormula(FormulaManager.PERCENTIL, 1, 1);
