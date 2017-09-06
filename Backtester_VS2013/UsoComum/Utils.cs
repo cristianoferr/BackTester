@@ -130,9 +130,9 @@ namespace UsoComum
 
         public static float Random(Random rnd, float v, float percGap)
         {
-            float min = v * 1000;
-            float val = percGap*1000;
-            return rnd.Next((int)min,(int)val)/1000f;
+            float min = v * 10000;
+            float val = percGap*10000;
+            return rnd.Next((int)min,(int)val)/10000f;
         }
 
         public static string[] SeparaEmElementos(string par)

@@ -19,6 +19,7 @@ namespace Backtester.backend.DataManager
 
         internal bool LoadAtivo(Ativo ativo, Consts.PERIODO_ACAO periodoAcao, string fileName, bool flagValidation=false)
         {
+            fileName = fileName.Replace("%5e", "_");
             if (!File.Exists(fileName))
             {
                 Utils.Info("Ativo " + ativo.name + " não encontrado... carregando via serviço...");

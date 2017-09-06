@@ -57,6 +57,7 @@ namespace Backtester.backend.model.system.condicoes
                 valor*= (1f + stopGapPerc / 100f);
 
             }
+            if (float.IsNaN(valor)) valor = 0;
             return valor;
         }
     }

@@ -13,11 +13,13 @@ namespace Backtester.backend.DataManager
 
         //from=1/1/2013
         //to=28/02/2017
-        static string urlServico = "https://br.advfn.com/common/javascript/tradingview/advfn/history?symbol=BOV%5EACAO&resolution=D&from=1356998400&to=1488240000";
+        static string urlServico = "https://br.advfn.com/common/javascript/tradingview/advfn/history?symbol=ACAO&resolution=D&from=1356998400&to=1488240000";
+        static string urlValidacao = "https://br.advfn.com/common/javascript/tradingview/advfn/history?symbol=ACAO&resolution=D&from=1356998400&to=1488240000";
 
         //from=26/03/2016
         //to=30/08/2017
-        static string urlValidacao = "https://br.advfn.com/common/javascript/tradingview/advfn/history?symbol=BOV%5EACAO&resolution=D&from=1459000000&to=1504140000";
+        //static string urlValidacao = "https://br.advfn.com/common/javascript/tradingview/advfn/history?symbol=ACAO&resolution=D&from=1459000000&to=1504140000";
+
 
         static string token = "o3MmBo73LsxmDMRIoAT4uMn8q55Y2u1TNXnT0jhseKUIs0sjvt0yDVAEISamNtOV--2jccrly7mnPm1YUJkbWxQA==";
         static string urlAPI = "http://www.bitbolsa.com.br/api";

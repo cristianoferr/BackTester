@@ -5,6 +5,9 @@ to_check_backup/
 Solution*.json
 Backtester_VS2013/Backtester/bin/Debug/to_check_backup/
 Backtester_VS2013/Backtester/bin/Debug/to_check/
+*.dll
+*.pdb
+*.exe
 
 # Windows image file caches
 Thumbs.db

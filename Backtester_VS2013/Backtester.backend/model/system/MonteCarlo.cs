@@ -102,6 +102,14 @@ namespace Backtester.backend.model.system
             {
                 fitness -= PENALTY * 100;
             }
+
+            //
+            if (global.maxCapital > carteira.capitalInicial)
+            {
+                float difMaxCapital = (global.maxCapital - carteira.GetCapital()) * 10;
+                fitness -= difMaxCapital;
+            }
+
             float difCapital = carteira.GetCapital() - carteira.capitalInicial;
             fitness += BONUS * difCapital / 100;
             if (difCapital == 0) fitness -= PENALTY * 10;

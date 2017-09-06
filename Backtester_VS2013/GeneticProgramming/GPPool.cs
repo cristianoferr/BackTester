@@ -1,5 +1,7 @@
-﻿using GeneticProgramming.semantica;
+﻿using Backtester.backend.model.system;
+using GeneticProgramming.semantica;
 using GeneticProgramming.solution;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,8 +24,10 @@ namespace GeneticProgramming
         {
             try
             {
+                var lista = new List<Type>();
+                lista.Add(typeof(TradeSystem));
                 var fileStream = File.Open("saved-pool.js", FileMode.Open);
-                DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(GPPool));
+                DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(GPPool), lista);
                 fileStream.Flush();
                 fileStream.Position = 0;
                 GPPool pool = (GPPool)ser.ReadObject(fileStream);

@@ -15,3 +15,16 @@ G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\GeneticProgramming\bin\
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\GeneticProgramming\obj\Debug\GeneticProgramming.backend.csprojResolveAssemblyReference.cache
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\GeneticProgramming\obj\Debug\GeneticProgramming.dll
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\GeneticProgramming\obj\Debug\GeneticProgramming.pdb
+G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\GeneticProgramming\bin\Debug\dados\old\natu3-diario.js
+G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\GeneticProgramming\bin\Debug\dados\old\ccro3-diario.js
+G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\GeneticProgramming\bin\Debug\dados\old\ciel3-diario.js
+G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\GeneticProgramming\bin\Debug\dados\old\bvmf3-diario.js
+G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\GeneticProgramming\bin\Debug\dados\old\abev3-diario.js
+G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\GeneticProgramming\bin\Debug\dados\old\ggbr4-diario.js
+G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\GeneticProgramming\bin\Debug\dados\old\bbdc4-diario.js
+G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\GeneticProgramming\bin\Debug\dados\old\bbas3-diario.js
+G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\GeneticProgramming\bin\Debug\dados\old\vale5-diario.js
+G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\GeneticProgramming\bin\Debug\Backtester.backend.dll
+G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\GeneticProgramming\bin\Debug\RestSharp.dll
+G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\GeneticProgramming\bin\Debug\Backtester.backend.pdb
+G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\GeneticProgramming\bin\Debug\RestSharp.xml

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
+using System;
+
 namespace Backtester.backend.model.system
 {
     [DataContract]
@@ -23,7 +25,7 @@ namespace Backtester.backend.model.system
             papeis = new List<string>();
             papeisValidation = new List<string>();
             maxTestes = 20;
-            qtdPercPapeis = 30;//se eu tenho 100 papeis a testar então isso fará com que seja retornado uma lsita com x perc de 100
+            qtdPercPapeis = 60;//se eu tenho 100 papeis a testar então isso fará com que seja retornado uma lsita com x perc de 100
             InitDefaultPapeis();
             InitDefaultPapeisValidation();
             tipoPeriodo = Consts.PERIODO_ACAO.SEMANAL;
@@ -52,34 +54,62 @@ namespace Backtester.backend.model.system
         }
         private void InitDefaultPapeisValidation()
         {
-            papeisValidation.Add("ABEV3");
-            papeisValidation.Add("BBAS3");
-            papeisValidation.Add("BBDC4");
-            papeisValidation.Add("BRAP4");
-            papeisValidation.Add("BVMF3");
-            papeisValidation.Add("CCRO3");
-            papeisValidation.Add("CMIG4");
-            papeisValidation.Add("CSNA3");
-            papeisValidation.Add("EMBR3");
-            papeisValidation.Add("ENBR3");
-            papeisValidation.Add("FIBR3");
-            papeisValidation.Add("GOAU4");
-            papeisValidation.Add("ITUB4");
-            papeisValidation.Add("KROT3");
-            papeisValidation.Add("LAME4");
-            papeisValidation.Add("MRFG3");
-            papeisValidation.Add("NATU3");
-            papeisValidation.Add("PETR4");
-            papeisValidation.Add("QUAL3");
-            papeisValidation.Add("SMLE3");
-            papeisValidation.Add("SUZB5");
-            papeisValidation.Add("TIMP3");
-            papeisValidation.Add("UGPA3");
-            papeisValidation.Add("USIM5");
-            papeisValidation.Add("VALE5");
+            AddPapelValidacao("BMV", "ALFAA");
+            AddPapelValidacao("BMV", "BIMBOA");
+            AddPapelValidacao("BMV", "GMEXICOB");
+            AddPapelValidacao("BMV", "CULTIBAB");
+            AddPapelValidacao("BMV", "MASECAB");
+            AddPapelValidacao("BMV", "LABB");
+            AddPapelValidacao("BMV", "MEGACPO");
+            AddPapelValidacao("BMV", "AXTELCPO");
+            AddPapelValidacao("BMV", "CIEB");
+            AddPapelValidacao("BMV", "POCHTECB");
+            AddPapelValidacao("BMV", "ASURB");
+            AddPapelValidacao("BMV", "TMMA");
+            AddPapelValidacao("BMV", "CEMEXCPO");
+            AddPapelValidacao("BMV", "KOFL");
+            AddPapelValidacao("BMV", "AMXL");
+            AddPapelValidacao("BMV", "FEMSAUBD");
+            AddPapelValidacao("BMV", "GFNORTEO");
+            AddPapelValidacao("BMV", "SORIANAB");
+            AddPapelValidacao("BMV", "ALPEKA");
+            AddPapelValidacao("BMV", "GCARSOA1");
+            AddPapelValidacao("BMV", "LIVEPOL1");
+
+
         }
+
+        private void AddPapelValidacao(string bolsa, string acao)
+        {
+            papeisValidation.Add(bolsa+"%5E"+acao);
+        }
+        private void AddPapel(string bolsa, string acao)
+        {
+            papeis.Add(bolsa + "%5E" + acao);
+        }
+
         private void InitDefaultPapeis()
         {
+            AddPapel("NY", "BAC");
+            AddPapel("NY", "VALE");
+            AddPapel("NY", "F");
+            AddPapel("NY", "GE");
+            AddPapel("NY", "CHK");
+            AddPapel("NY", "AKS");
+            AddPapel("NY", "ABEV");
+            AddPapel("NY", "GGB");
+            AddPapel("NY", "WFC");
+            AddPapel("NY", "FCX");
+            AddPapel("NY", "TECK");
+            AddPapel("NY", "TEVA");
+            AddPapel("NY", "WLL");
+            AddPapel("NY", "AUY");
+            AddPapel("NY", "NOK");
+            AddPapel("NY", "HPE");
+            AddPapel("NY", "COL");
+            AddPapel("NY", "UTX");
+            AddPapel("NY", "JPM");
+/*
             papeis.Add("ABEV3");
             papeis.Add("BBAS3");
             papeis.Add("BBDC4");
@@ -126,7 +156,7 @@ namespace Backtester.backend.model.system
             papeis.Add("USIM5");
             papeis.Add("VALE5");
             papeis.Add("VIVT4");
-            papeis.Add("WEGE3");
+            papeis.Add("WEGE3");*/
         }
 
         [DataMember]
