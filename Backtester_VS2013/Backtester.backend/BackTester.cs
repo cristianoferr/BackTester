@@ -169,7 +169,7 @@ namespace Backtester.backend
 
             for (int i = 0; i < ativos.Count - 1; i++)
                 for (int j = i; j < ativos.Count; j++)
-                    if (Utils.Random(0, 100) > 75)
+                    if (Utils.RandomInt(0, 100) > 75)
                     {
                         int x = rd[i];
                         rd[i] = rd[j];
@@ -182,7 +182,7 @@ namespace Backtester.backend
             int cont = 0;
             while (cont < ret.Length)
             {
-                int rndIndex = Utils.Random(0, lista.Count);
+                int rndIndex = Utils.RandomInt(0, lista.Count);
                 ret[cont] = lista[rndIndex];
                 lista.RemoveAt(rndIndex);
                 cont++;

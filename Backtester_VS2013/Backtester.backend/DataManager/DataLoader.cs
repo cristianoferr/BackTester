@@ -17,14 +17,11 @@ namespace Backtester.backend.DataManager
         }
 
 
-        internal bool LoadAtivo(Ativo ativo, Consts.PERIODO_ACAO periodoAcao, string fileName, bool flagValidation=false)
+        internal bool LoadAtivo(Ativo ativo, Consts.PERIODO_ACAO periodoAcao, string fileName, Consts.TIPO_CARGA_ATIVOS tipoCarga)
         {
             fileName = fileName.Replace("%5e", "_");
-            if (!File.Exists(fileName))
-            {
-                Utils.Info("Ativo " + ativo.name + " não encontrado... carregando via serviço...");
-                AcaoService.RequestData(ativo.name, fileName,flagValidation);
-            }
+            CarregaDadosWebSeNaoExisteArquivo(ativo, fileName, tipoCarga);
+
             using (StreamReader r = new StreamReader(fileName))
             {
                 ativo.candles.Clear();
@@ -36,27 +33,42 @@ namespace Backtester.backend.DataManager
                     {
                         return false;
                     }
-                    Candle candleAnterior = null;
-                    Periodo periodoAnterior = null;
-                    //i=0 está bugado...
-                    for (int i = item.t.Count - 1; i > 0; i--)
-                    {
-                        //DataDTO data = item.data[i];
-                        DateTime data = Utils.UnixTimeStampToDateTime(item.t[i]);
-
-                        if (periodoAcao == Consts.PERIODO_ACAO.DIARIO)
-                        {
-                            ProcessaPeriodoDiario(ativo, item, ref candleAnterior, ref periodoAnterior, i, data);
-                        }
-                        if (periodoAcao == Consts.PERIODO_ACAO.SEMANAL)
-                        {
-                            ProcessaPeriodoSemanal(ativo, item, ref candleAnterior, ref periodoAnterior, i, data);
-                        }
-                    }
+                    ProcessaDia(ativo, periodoAcao, item);
                 }
                 return true;
             }
 
+        }
+
+        private void ProcessaDia(Ativo ativo, Consts.PERIODO_ACAO periodoAcao, CargaADVFN item)
+        {
+            Candle candleAnterior = null;
+            Periodo periodoAnterior = null;
+            //i=0 está bugado...
+            for (int i = item.t.Count - 1; i > 0; i--)
+            {
+                //DataDTO data = item.data[i];
+                DateTime data = Utils.UnixTimeStampToDateTime(item.t[i]);
+
+                if (periodoAcao == Consts.PERIODO_ACAO.DIARIO)
+                {
+                    ProcessaPeriodoDiario(ativo, item, ref candleAnterior, ref periodoAnterior, i, data);
+                }
+                if (periodoAcao == Consts.PERIODO_ACAO.SEMANAL)
+                {
+                    ProcessaPeriodoSemanal(ativo, item, ref candleAnterior, ref periodoAnterior, i, data);
+                }
+            }
+        }
+
+        private static void CarregaDadosWebSeNaoExisteArquivo(Ativo ativo, string fileName, Consts.TIPO_CARGA_ATIVOS tipoCarga)
+        {
+            //sempre carrego quando é dado atual...
+            if (!File.Exists(fileName) || tipoCarga == Consts.TIPO_CARGA_ATIVOS.DADOS_ATUAIS)
+            {
+                Utils.Info("Ativo " + ativo.name + " não encontrado... carregando via serviço...");
+                AcaoService.RequestData(ativo.name, fileName, tipoCarga);
+            }
         }
 
         private void ProcessaPeriodoSemanal(Ativo ativo, CargaADVFN item, ref Candle candleAnterior, ref Periodo periodoAnterior, int i, DateTime data)

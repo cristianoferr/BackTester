@@ -53,7 +53,7 @@ namespace Backtester.controller
         internal void Run()
         {
             frmPrincipal.SetTitle("Gerando Candidatos...");
-            configController.facade.LoadAtivos(configController.config.papeis, configController.config.tipoPeriodo,false);
+            configController.facade.LoadAtivos(configController.config.papeis, configController.config.tipoPeriodo, backend.Consts.TIPO_CARGA_ATIVOS.GERA_CANDIDATOS);
             while (true)
             {
                 StartSingleRun();
@@ -62,7 +62,7 @@ namespace Backtester.controller
 
         internal void RunSingle()
         {
-            configController.facade.LoadAtivos(configController.config.papeis,configController.config.tipoPeriodo, false);
+            configController.facade.LoadAtivos(configController.config.papeis,configController.config.tipoPeriodo, backend.Consts.TIPO_CARGA_ATIVOS.GERA_CANDIDATOS);
             StartSingleRun();
         }
 
@@ -186,7 +186,7 @@ namespace Backtester.controller
         {
             //gpRunner.SingleRun();
             TradeSystem ts=solutionToTest.tradeSystem;
-            Carteira carteira=configController.RunSingle(ts,name,true);
+            Carteira carteira=configController.RunSingle(ts,name,backend.Consts.TIPO_CARGA_ATIVOS.VALIDA_CANDIDATO);
             CandidatoManager cm = CandidatoManager.LoadSaved();
             cm.AddTradeSystem(ts,carteira.estatistica);
             return carteira;

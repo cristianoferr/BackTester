@@ -78,12 +78,10 @@ namespace Backtester.backend.DataManager
     }
     public class Clarify
     {
-        private FormulaManager fm;
         IList<ClarifyDict> dict;
 
-        public Clarify(FormulaManager fm)
+        public Clarify()
         {
-            this.fm = fm;
             dict = new List<ClarifyDict>();
             AddDict(FormulaManager.SUM, "+");
             AddDict(FormulaManager.MULTIPLY, "*");

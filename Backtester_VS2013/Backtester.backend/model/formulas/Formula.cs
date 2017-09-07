@@ -37,7 +37,7 @@ namespace Backtester.backend.model.formulas
             {
                 per = 40;
             }
-            if (per <= 0) per = 1;
+            if (per <= 0) per = 0;
             return per;
         }
 

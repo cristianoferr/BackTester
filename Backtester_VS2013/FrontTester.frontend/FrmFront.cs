@@ -1,4 +1,6 @@
-﻿using Backtester.controller;
+﻿using Backtester.backend.DataManager;
+using Backtester.backend.model.system;
+using Backtester.controller;
 using Backtester.interfaces;
 using FrontTester.frontend.controller;
 using System;
@@ -24,6 +26,9 @@ namespace FrontTester.frontend
             RegisterElements();
             configController = new ConfigController(this);
             frontController = new FrontController(this, configController);
+            frontController.Init();
+
+
         }
 
         private void RegisterElements()
@@ -38,11 +43,13 @@ namespace FrontTester.frontend
             referView.Register("textGPVars", textGPVars);
             referView.Register("radioTPDiario", radioTPDiario);
             referView.Register("radioTPSemanal", radioTPSemanal);
-            referView.Register("dataGridRuns", dataGridRuns);
-            referView.Register("dataGridOperacoes", dataGridOperacoes);
             referView.Register("cbTradeSystem", cbTradeSystem);
             referView.Register("labelStatus", labelStatus);
             referView.Register("txtVarsDebug", txtVarsDebug);
+            referView.Register("txtDescriber", txtDescriber);
+            referView.Register("cbTradeSystemEmUso", cbTradeSystemEmUso);
+            referView.Register("dataGridCarteira", dataGridCarteira);
+            referView.Register("dataGridEntradas", dataGridEntradas);
 
             /*
             referView.Register("panelTradeSystem", panelTradeSystem);
@@ -73,6 +80,11 @@ namespace FrontTester.frontend
         }
 
         #region IReferView
+        public Control GetControl(string v)
+        {
+            return ((IReferView)referView).GetControl(v);
+        }
+
         void IReferView.ClearList(string v)
         {
             referView.ClearList(v);
@@ -150,6 +162,39 @@ namespace FrontTester.frontend
         private void btnSalvaConfig_Click(object sender, EventArgs e)
         {
             configController.Salva();
+        }
+
+        private void btnAtualizaDados_Click(object sender, EventArgs e)
+        {
+            frontController.AtualizaDados();
+        }
+
+        private void btnCarregaAtivoIniciais_Click(object sender, EventArgs e)
+        {
+            frontController.AddPapeisDefault();
+        }
+
+        private void cbTradeSystem_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            frontController.Describe(cbTradeSystem.SelectedItem as CandidatoData);
+        }
+
+        private void cbTradeSystemEmUso_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            frontController.ChangeTradeSystemEmUso(cbTradeSystemEmUso.SelectedItem as CandidatoData);
+        }
+
+        private void txtCapitalAtual_TextChanged(object sender, EventArgs e)
+        {
+            float val = 0;
+            float.TryParse(txtCapitalAtual.Text, out val);
+            if (val>0)
+                frontController.ChangeCapitalAtual(val);
+        }
+
+        private void btnAnalisaEntradas_Click(object sender, EventArgs e)
+        {
+            frontController.AnalisaEntradas();
         }
     }
 }

@@ -54,6 +54,7 @@ namespace Backtester.controller
             frmPrincipal.SetText("txtVarsDebug", config.varsDebug);
             frmPrincipal.SetText("txtTestesNaTela", config.maxTestes.ToString());
             frmPrincipal.SetText("textGPVars", config.gpVars);
+            ReloadPapeis();
 
             frmPrincipal.SetChecked("radioTPDiario",config.tipoPeriodo == Consts.PERIODO_ACAO.DIARIO);
 
@@ -73,7 +74,7 @@ namespace Backtester.controller
             config.flagVenda = frmPrincipal.IsChecked("chkFlagVenda");
             config.varsDebug = frmPrincipal.Text("txtVarsDebug");
             config.gpVars = frmPrincipal.Text("textGPVars");
-
+            
 
             config.tipoPeriodo = frmPrincipal.IsChecked("radioTPDiario")? Consts.PERIODO_ACAO.DIARIO : Consts.PERIODO_ACAO.SEMANAL;
 
@@ -113,24 +114,24 @@ namespace Backtester.controller
         internal bool Run(TradeSystem ts)
         {
             contaTestes = 0;
-            facade.LoadAtivos(config.papeis, config.tipoPeriodo,false);
+            facade.LoadAtivos(config.papeis, config.tipoPeriodo,Consts.TIPO_CARGA_ATIVOS.GERA_CANDIDATOS);
             frmPrincipal.ClearRows("dataGridRuns");
             //facade.RunSingleTS();
             return facade.Run(this, config, ts)!=null;
         }
 
-        internal Carteira RunSingle(TradeSystem ts,string name,bool flagValidation)
+        internal Carteira RunSingle(TradeSystem ts,string name, Consts.TIPO_CARGA_ATIVOS tipoCarga)
         {
             
-            if (flagValidation)
+            if (tipoCarga==Consts.TIPO_CARGA_ATIVOS.VALIDA_CANDIDATO)
             {
                 //valido com todos os papeis disponíveis
                 config.qtdPercPapeis = 100;
-                facadeValidation.LoadAtivos(config.papeisValidation, config.tipoPeriodo,flagValidation);
+                facadeValidation.LoadAtivos(config.papeisValidation, config.tipoPeriodo, tipoCarga);
                 return facadeValidation.RunValidation( this, config, ts, name);
             } else
             {
-                facade.LoadAtivos(config.papeis, config.tipoPeriodo, flagValidation);
+                facade.LoadAtivos(config.papeis, config.tipoPeriodo, tipoCarga);
                 return facade.RunSingle(name, this, config, ts);
             }
         }

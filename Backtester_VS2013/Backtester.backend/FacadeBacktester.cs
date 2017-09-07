@@ -39,16 +39,16 @@ namespace Backtester.backend
         }
 
 
-        public void LoadAtivos(System.Collections.Generic.IList<string> list,Consts.PERIODO_ACAO periodo, bool flagValidation)
+        public void LoadAtivos(System.Collections.Generic.IList<string> list,Consts.PERIODO_ACAO periodo, Consts.TIPO_CARGA_ATIVOS tipoCarga)
         {
             foreach (string papel in list)
             {
                 if (periodo == Consts.PERIODO_ACAO.DIARIO)
                 {
-                    LoadAtivoDiario(papel, flagValidation);
+                    LoadAtivoDiario(papel, tipoCarga);
                 } else if (periodo == Consts.PERIODO_ACAO.SEMANAL)
                 {
-                    LoadAtivoSemanal(papel, flagValidation);
+                    LoadAtivoSemanal(papel, tipoCarga);
                 }
                 else
                 {
@@ -57,25 +57,25 @@ namespace Backtester.backend
             }
         }
 
-        private void LoadAtivoDiario(string papel,bool flagValidation)
+        private void LoadAtivoDiario(string papel, Consts.TIPO_CARGA_ATIVOS tipoCarga)
         {
-            string suffix = flagValidation ? "-validate" : "";
-            LoadAtivo(papel.ToUpper(), 100, Consts.PERIODO_ACAO.DIARIO, "dados/" + papel.ToLower() + "-diario"+ suffix + ".js", flagValidation);
+            string suffix = tipoCarga.ToString();
+            LoadAtivo(papel.ToUpper(), 100, Consts.PERIODO_ACAO.DIARIO, "dados/" + papel.ToLower() + "-diario"+ suffix + ".js", tipoCarga);
         }
-        private void LoadAtivoSemanal(string papel, bool flagValidation)
+        private void LoadAtivoSemanal(string papel, Consts.TIPO_CARGA_ATIVOS tipoCarga)
         {
-            string suffix = flagValidation ? "-validate" : "";
-            LoadAtivo(papel.ToUpper(), 100, Consts.PERIODO_ACAO.SEMANAL, "dados/" + papel.ToLower() + "-semanal"+ suffix + ".js", flagValidation);
+            string suffix = tipoCarga.ToString();
+            LoadAtivo(papel.ToUpper(), 100, Consts.PERIODO_ACAO.SEMANAL, "dados/" + papel.ToLower() + "-semanal"+ suffix + ".js", tipoCarga);
         }
 
-        public void LoadAtivo(string papel, int loteMin, Consts.PERIODO_ACAO periodo, string fileName, bool flagValidation=false)
+        public void LoadAtivo(string papel, int loteMin, Consts.PERIODO_ACAO periodo, string fileName, Consts.TIPO_CARGA_ATIVOS tipoCarga= backend.Consts.TIPO_CARGA_ATIVOS.GERA_CANDIDATOS)
         {
             Ativo ativo = dh.GetOrCreateAtivo(papel, loteMin);
             if (ativo.candles.Count > 0)
             {
                 return;
             }
-            if (!dm.LoadAtivo(ativo, periodo, fileName, flagValidation))
+            if (!dm.LoadAtivo(ativo, periodo, fileName, tipoCarga))
             {
                 dh.RemoveAtivo(ativo);
             }

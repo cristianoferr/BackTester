@@ -170,7 +170,7 @@ namespace Backtester
                 {
                     ts.vm.LoadVars(txtVarsDebug.Text);
                 }
-                configController.RunSingle(ts,"Roda Single",false);
+                configController.RunSingle(ts,"Roda Single",backend.Consts.TIPO_CARGA_ATIVOS.GERA_CANDIDATOS);
             }
         }
 
@@ -227,6 +227,11 @@ namespace Backtester
         }
 
         #region IReferView
+        public Control GetControl(string v)
+        {
+            return ((IReferView)referView).GetControl(v);
+        }
+
         void IReferView.ClearList(string v)
         {
             referView.ClearList(v);
@@ -307,5 +312,7 @@ namespace Backtester
             Ativo ativo = tsController.GenerateMockAtivo(seed);
             ativo.DrawIn(panelGrafico.CreateGraphics());
         }
+
+       
     }
 }

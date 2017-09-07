@@ -32,15 +32,15 @@ namespace Backtester.backend.model.system.estatistica
 
         public void addOperacao(float dif, int dias, bool isStopado)
         {
-            todosTrades.addDado(dias, dif);
+            todosTrades.addDado(dias, dif, isStopado);
 
             if (dif > 0)
             {
-                tradesGanhos.addDado(dias, dif);
+                tradesGanhos.addDado(dias, dif, isStopado);
             }
             else
             {
-                tradesPerdidos.addDado(dias, dif);
+                tradesPerdidos.addDado(dias, dif, isStopado);
 
             }
             if (isStopado) nTradesStopados++;

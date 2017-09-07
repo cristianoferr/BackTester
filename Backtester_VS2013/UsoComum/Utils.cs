@@ -72,9 +72,14 @@ namespace UsoComum
         }
 
         static Random rnd = new Random();
-        public static int Random(float min, float max)
+        public static float Random(float min, float max)
         {
-            return rnd.Next((int)min, (int)max);
+            return rnd.Next((int)min*1000, (int)max*1000)/1000f;
+        }
+
+        public static int RandomInt(float min, float max)
+        {
+            return rnd.Next((int)min , (int)max ) ;
         }
 
         public static string FormatCurrency(float valor)
@@ -172,12 +177,19 @@ namespace UsoComum
             return pars;
         }
 
-        public static DateTime UnixTimeStampToDateTime(Int64 unixTimeStamp)
+        public static DateTime UnixTimeStampToDateTime(double unixTimeStamp)
         {
             // Unix timestamp is seconds past epoch
             System.DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc);
             dtDateTime = dtDateTime.AddSeconds(unixTimeStamp).ToLocalTime();
+            
             return dtDateTime;
+        }
+
+        public static double DateTimeToUnixTimestamp(DateTime dateTime)
+        {
+            return (TimeZoneInfo.ConvertTimeToUtc(dateTime) -
+                   new DateTime(1970, 1, 1, 0, 0, 0, 0, System.DateTimeKind.Utc)).TotalSeconds;
         }
 
         public static void CreateFolder(string subPath)

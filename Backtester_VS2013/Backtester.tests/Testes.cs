@@ -33,13 +33,27 @@ namespace Backtester.tests
         {
         }
     }
-
+    
     [TestClass]
     public class Testes
     {
 
         static FacadeBacktester facade = new FacadeBacktester();
 
+
+        [TestMethod]
+        public void TestData()
+        {
+            int year = 2017;
+            int month = 10;
+            int day = 15;
+            DateTime data = new DateTime(year, month, day,15,0,0);
+            double dataUnix=Utils.DateTimeToUnixTimestamp(data);
+            DateTime dataFromUnix = Utils.UnixTimeStampToDateTime(dataUnix);
+            Assert.IsTrue(dataFromUnix.Year == data.Year);
+            Assert.IsTrue(dataFromUnix.Month == data.Month);
+            Assert.IsTrue(dataFromUnix.Day == data.Day);
+        }
 
         [TestMethod]
         public void TestMockAtivo()
@@ -160,7 +174,7 @@ namespace Backtester.tests
         {
             Config config = new Config();
             FormulaManager fm = facade.formulaManager;
-            Clarify clarify = new Clarify(fm);
+            Clarify clarify = new Clarify();
             //TradeSystem tradeSystem = new TradeSystem(config);
             ValidaClarify(clarify, "SUM(H,MULTIPLY(STD(C,10),2))","H + (STD(C,10) * 2)");
             ValidaClarify(clarify, "GREATER(MME(C, 9), MME(C, 6))", "MME(C,9) > MME(C,6)");
@@ -258,7 +272,7 @@ namespace Backtester.tests
             config.capitalInicial = 100000;
             TradeSystem tradeSystem = new TradeSystem(config);
 
-            facade.LoadAtivo("PETR4", 100, Consts.PERIODO_ACAO.DIARIO, "dados/petr4-diario.js");
+            facade.LoadAtivo("PETR4", 100, Consts.PERIODO_ACAO.DIARIO, "dados/petr4-diario.js", backend.Consts.TIPO_CARGA_ATIVOS.GERA_CANDIDATOS);
             Ativo ativo = facade.GetAtivo("PETR4");
             Assert.IsNotNull(ativo);
             Assert.IsTrue(ativo.candles.Count > 0);

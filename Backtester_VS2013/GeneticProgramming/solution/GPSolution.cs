@@ -116,7 +116,7 @@ namespace GeneticProgramming.solution
 
         public void Mutate()
         {
-            int rnd = Utils.Random(0, valores.Count);
+            int rnd = Utils.RandomInt(0, valores.Count);
             int i = 0;
             foreach (string key in valores.Keys)
             {
@@ -149,7 +149,7 @@ namespace GeneticProgramming.solution
 
             if (validKeys.Count > 0)
             {
-                string key = validKeys[Utils.Random(0, validKeys.Count)];
+                string key = validKeys[Utils.RandomInt(0, validKeys.Count)];
                 return SpliceWith(mateWith, key);
             }
             else
@@ -168,9 +168,9 @@ namespace GeneticProgramming.solution
             if (rootNode1.Size() > 1 && rootNode2.Size() > 1)
             {
                 int count = 0;
-                GPAbstractNode rndNode1 = rootNode1.GetNthChild(Utils.Random(2, rootNode1.Size()), ref count);
+                GPAbstractNode rndNode1 = rootNode1.GetNthChild(Utils.RandomInt(2, rootNode1.Size()), ref count);
                 count = 0;
-                GPAbstractNode rndNode2 = rootNode2.GetNthChild(Utils.Random(2, rootNode2.Size()), ref count);
+                GPAbstractNode rndNode2 = rootNode2.GetNthChild(Utils.RandomInt(2, rootNode2.Size()), ref count);
                 if (!rndNode1.nodePai.TransferNode(rndNode1, rndNode2))
                 {
                     Utils.Error("Erro fazendo transferNode!");

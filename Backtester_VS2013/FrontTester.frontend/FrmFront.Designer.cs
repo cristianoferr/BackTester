@@ -28,80 +28,54 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle127 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle128 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle129 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle130 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle131 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle132 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle133 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle134 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle135 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle136 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle137 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle138 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle139 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle140 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle141 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle142 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle143 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle144 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle145 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle146 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle147 = new System.Windows.Forms.DataGridViewCellStyle();
             this.panelRight = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.tabControlBacktester = new System.Windows.Forms.TabControl();
-            this.tabRuns = new System.Windows.Forms.TabPage();
-            this.dataGridRuns = new System.Windows.Forms.DataGridView();
-            this.MCObjeto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Carteira = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colNr = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colNome = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.iterations = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.allAvgWin = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AllAvgLoss = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Fitness = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.resultado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.maxCapital = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.minCapital = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.winLoss = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.trades = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ganhos = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.perdidos = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.totalGanho = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.totalPerdido = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.percAcerto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.percUso = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.maxdias = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.minDias = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Avg_dias = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.panelRunsBottom = new System.Windows.Forms.Panel();
-            this.dataGridOperacoes = new System.Windows.Forms.DataGridView();
-            this.number = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.posicao = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ativo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.periodoInicial = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.periodoFinal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sentido = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.quantidade = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.vlr_entrada = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.vlr_saida = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.stopInicial = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Stopado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.vlr_oper = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Dif = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Capital = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.capitalOnClose = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.panel7 = new System.Windows.Forms.Panel();
-            this.labelStatus = new System.Windows.Forms.Label();
-            this.tabConfig = new System.Windows.Forms.TabPage();
-            this.txtDescriber = new System.Windows.Forms.RichTextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.txtStatus = new System.Windows.Forms.ToolStripStatusLabel();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.btnAtualizaDados = new System.Windows.Forms.Button();
+            this.tabControlBacktester = new System.Windows.Forms.TabControl();
+            this.tabHistorico = new System.Windows.Forms.TabPage();
+            this.panelRunsBottom = new System.Windows.Forms.Panel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.dataGridView3 = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn6 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn7 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn8 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn9 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn10 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn11 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn12 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.tabSituacao = new System.Windows.Forms.TabPage();
+            this.panelAtual = new System.Windows.Forms.Panel();
+            this.dataGridCarteira = new System.Windows.Forms.DataGridView();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cartVlrAtual = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cartDif = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cartAtRisk = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cartStopAtual = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewButtonColumn1 = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.panel7 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.labelStatus = new System.Windows.Forms.Label();
+            this.panelEntradas = new System.Windows.Forms.Panel();
+            this.dataGridEntradas = new System.Windows.Forms.DataGridView();
+            this.entrPapel = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.entrQuantidade = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.entrVlrEntrada = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.entrAtRisk = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.entrStopInicial = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.entrAcao = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.btnAnalisaEntradas = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.tabConfig = new System.Windows.Forms.TabPage();
+            this.btnCarregaAtivoIniciais = new System.Windows.Forms.Button();
+            this.txtVarsDebug = new System.Windows.Forms.TextBox();
             this.radioTPSemanal = new System.Windows.Forms.RadioButton();
             this.radioTPDiario = new System.Windows.Forms.RadioButton();
             this.panelGPVars = new System.Windows.Forms.Panel();
@@ -120,470 +94,424 @@
             this.btnSalvaConfig = new System.Windows.Forms.Button();
             this.chkFlagVenda = new System.Windows.Forms.CheckBox();
             this.chkFlagCompra = new System.Windows.Forms.CheckBox();
+            this.tabTradeSystems = new System.Windows.Forms.TabPage();
+            this.txtDescriber = new System.Windows.Forms.RichTextBox();
             this.panel4 = new System.Windows.Forms.Panel();
             this.label3 = new System.Windows.Forms.Label();
             this.cbTradeSystem = new System.Windows.Forms.ComboBox();
-            this.txtVarsDebug = new System.Windows.Forms.TextBox();
-            this.panelRight.SuspendLayout();
-            this.panel3.SuspendLayout();
-            this.tabControlBacktester.SuspendLayout();
-            this.tabRuns.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridRuns)).BeginInit();
-            this.panelRunsBottom.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridOperacoes)).BeginInit();
-            this.panel7.SuspendLayout();
-            this.tabConfig.SuspendLayout();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.cbTradeSystemEmUso = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txtCapitalAtual = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.txtTotalPosicao = new System.Windows.Forms.TextBox();
+            this.txtTotalRisco = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.panel2.SuspendLayout();
             this.statusStrip1.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.tabControlBacktester.SuspendLayout();
+            this.tabHistorico.SuspendLayout();
+            this.panelRunsBottom.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
+            this.tabSituacao.SuspendLayout();
+            this.panelAtual.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridCarteira)).BeginInit();
+            this.panel7.SuspendLayout();
+            this.panelEntradas.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridEntradas)).BeginInit();
+            this.panel5.SuspendLayout();
+            this.tabConfig.SuspendLayout();
             this.panelGPVars.SuspendLayout();
+            this.tabTradeSystems.SuspendLayout();
             this.panel4.SuspendLayout();
+            this.panel3.SuspendLayout();
             this.SuspendLayout();
             // 
             // panelRight
             // 
-            this.panelRight.Controls.Add(this.panel4);
-            this.panelRight.Controls.Add(this.txtDescriber);
             this.panelRight.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelRight.Location = new System.Drawing.Point(818, 0);
+            this.panelRight.Location = new System.Drawing.Point(866, 0);
             this.panelRight.Name = "panelRight";
-            this.panelRight.Size = new System.Drawing.Size(214, 607);
+            this.panelRight.Size = new System.Drawing.Size(166, 532);
             this.panelRight.TabIndex = 0;
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.txtTotalRisco);
+            this.panel2.Controls.Add(this.label10);
+            this.panel2.Controls.Add(this.txtTotalPosicao);
+            this.panel2.Controls.Add(this.label9);
+            this.panel2.Controls.Add(this.txtCapitalAtual);
+            this.panel2.Controls.Add(this.label8);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panel2.Location = new System.Drawing.Point(0, 571);
+            this.panel2.Location = new System.Drawing.Point(0, 496);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(818, 36);
+            this.panel2.Size = new System.Drawing.Size(866, 36);
             this.panel2.TabIndex = 1;
             // 
-            // panel3
+            // statusStrip1
             // 
-            this.panel3.Controls.Add(this.tabControlBacktester);
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(0, 0);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(818, 571);
-            this.panel3.TabIndex = 2;
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.txtStatus});
+            this.statusStrip1.Location = new System.Drawing.Point(0, 532);
+            this.statusStrip1.Name = "statusStrip1";
+            this.statusStrip1.Size = new System.Drawing.Size(1032, 22);
+            this.statusStrip1.TabIndex = 3;
+            this.statusStrip1.Text = "statusStrip1";
+            // 
+            // txtStatus
+            // 
+            this.txtStatus.Name = "txtStatus";
+            this.txtStatus.Size = new System.Drawing.Size(0, 17);
+            // 
+            // panel1
+            // 
+            this.panel1.Controls.Add(this.btnAtualizaDados);
+            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel1.Location = new System.Drawing.Point(0, 0);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(866, 40);
+            this.panel1.TabIndex = 2;
+            // 
+            // btnAtualizaDados
+            // 
+            this.btnAtualizaDados.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnAtualizaDados.Location = new System.Drawing.Point(0, 0);
+            this.btnAtualizaDados.Name = "btnAtualizaDados";
+            this.btnAtualizaDados.Size = new System.Drawing.Size(92, 40);
+            this.btnAtualizaDados.TabIndex = 0;
+            this.btnAtualizaDados.Text = "Atualiza Dados";
+            this.btnAtualizaDados.UseVisualStyleBackColor = true;
+            this.btnAtualizaDados.Click += new System.EventHandler(this.btnAtualizaDados_Click);
             // 
             // tabControlBacktester
             // 
-            this.tabControlBacktester.Controls.Add(this.tabRuns);
+            this.tabControlBacktester.Controls.Add(this.tabSituacao);
+            this.tabControlBacktester.Controls.Add(this.tabHistorico);
             this.tabControlBacktester.Controls.Add(this.tabConfig);
+            this.tabControlBacktester.Controls.Add(this.tabTradeSystems);
             this.tabControlBacktester.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControlBacktester.Location = new System.Drawing.Point(0, 0);
+            this.tabControlBacktester.Location = new System.Drawing.Point(0, 40);
             this.tabControlBacktester.Name = "tabControlBacktester";
             this.tabControlBacktester.SelectedIndex = 0;
-            this.tabControlBacktester.Size = new System.Drawing.Size(818, 571);
+            this.tabControlBacktester.Size = new System.Drawing.Size(866, 456);
             this.tabControlBacktester.TabIndex = 1;
             // 
-            // tabRuns
+            // tabHistorico
             // 
-            this.tabRuns.Controls.Add(this.dataGridRuns);
-            this.tabRuns.Controls.Add(this.panelRunsBottom);
-            this.tabRuns.Controls.Add(this.panel7);
-            this.tabRuns.Location = new System.Drawing.Point(4, 22);
-            this.tabRuns.Name = "tabRuns";
-            this.tabRuns.Padding = new System.Windows.Forms.Padding(3);
-            this.tabRuns.Size = new System.Drawing.Size(810, 545);
-            this.tabRuns.TabIndex = 1;
-            this.tabRuns.Text = "Runs";
-            this.tabRuns.UseVisualStyleBackColor = true;
-            // 
-            // dataGridRuns
-            // 
-            this.dataGridRuns.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridRuns.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.MCObjeto,
-            this.Carteira,
-            this.colNr,
-            this.colNome,
-            this.iterations,
-            this.allAvgWin,
-            this.AllAvgLoss,
-            this.Fitness,
-            this.resultado,
-            this.maxCapital,
-            this.minCapital,
-            this.winLoss,
-            this.trades,
-            this.ganhos,
-            this.perdidos,
-            this.totalGanho,
-            this.totalPerdido,
-            this.percAcerto,
-            this.percUso,
-            this.maxdias,
-            this.minDias,
-            this.Avg_dias});
-            this.dataGridRuns.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridRuns.Location = new System.Drawing.Point(3, 32);
-            this.dataGridRuns.Name = "dataGridRuns";
-            this.dataGridRuns.Size = new System.Drawing.Size(804, 308);
-            this.dataGridRuns.TabIndex = 1;
-            // 
-            // MCObjeto
-            // 
-            this.MCObjeto.HeaderText = "MCObjeto";
-            this.MCObjeto.Name = "MCObjeto";
-            this.MCObjeto.Visible = false;
-            // 
-            // Carteira
-            // 
-            this.Carteira.HeaderText = "Carteira";
-            this.Carteira.Name = "Carteira";
-            this.Carteira.Visible = false;
-            // 
-            // colNr
-            // 
-            this.colNr.HeaderText = "#";
-            this.colNr.Name = "colNr";
-            this.colNr.Width = 30;
-            // 
-            // colNome
-            // 
-            this.colNome.HeaderText = "Nome";
-            this.colNome.Name = "colNome";
-            // 
-            // iterations
-            // 
-            dataGridViewCellStyle127.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle127.Format = "N0";
-            dataGridViewCellStyle127.NullValue = null;
-            this.iterations.DefaultCellStyle = dataGridViewCellStyle127;
-            this.iterations.HeaderText = "Iters.";
-            this.iterations.Name = "iterations";
-            this.iterations.Width = 30;
-            // 
-            // allAvgWin
-            // 
-            dataGridViewCellStyle128.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle128.Format = "N2";
-            dataGridViewCellStyle128.NullValue = null;
-            this.allAvgWin.DefaultCellStyle = dataGridViewCellStyle128;
-            this.allAvgWin.HeaderText = "All.Avg.Win";
-            this.allAvgWin.Name = "allAvgWin";
-            this.allAvgWin.Width = 50;
-            // 
-            // AllAvgLoss
-            // 
-            dataGridViewCellStyle129.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle129.Format = "N2";
-            dataGridViewCellStyle129.NullValue = null;
-            this.AllAvgLoss.DefaultCellStyle = dataGridViewCellStyle129;
-            this.AllAvgLoss.HeaderText = "All.Avg.Loss";
-            this.AllAvgLoss.Name = "AllAvgLoss";
-            this.AllAvgLoss.Width = 50;
-            // 
-            // Fitness
-            // 
-            this.Fitness.HeaderText = "Fitness";
-            this.Fitness.Name = "Fitness";
-            this.Fitness.Width = 80;
-            // 
-            // resultado
-            // 
-            dataGridViewCellStyle130.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle130.Format = "N2";
-            dataGridViewCellStyle130.NullValue = null;
-            this.resultado.DefaultCellStyle = dataGridViewCellStyle130;
-            this.resultado.HeaderText = "Resultado";
-            this.resultado.Name = "resultado";
-            this.resultado.Width = 80;
-            // 
-            // maxCapital
-            // 
-            dataGridViewCellStyle131.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle131.Format = "N2";
-            dataGridViewCellStyle131.NullValue = null;
-            this.maxCapital.DefaultCellStyle = dataGridViewCellStyle131;
-            this.maxCapital.HeaderText = "Max Capital";
-            this.maxCapital.Name = "maxCapital";
-            this.maxCapital.Width = 80;
-            // 
-            // minCapital
-            // 
-            dataGridViewCellStyle132.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle132.Format = "N2";
-            dataGridViewCellStyle132.NullValue = null;
-            this.minCapital.DefaultCellStyle = dataGridViewCellStyle132;
-            this.minCapital.HeaderText = "Min Capital";
-            this.minCapital.Name = "minCapital";
-            this.minCapital.Width = 80;
-            // 
-            // winLoss
-            // 
-            dataGridViewCellStyle133.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle133.Format = "N2";
-            dataGridViewCellStyle133.NullValue = null;
-            this.winLoss.DefaultCellStyle = dataGridViewCellStyle133;
-            this.winLoss.HeaderText = "$W/$L";
-            this.winLoss.Name = "winLoss";
-            this.winLoss.Width = 50;
-            // 
-            // trades
-            // 
-            dataGridViewCellStyle134.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle134.Format = "N0";
-            dataGridViewCellStyle134.NullValue = null;
-            this.trades.DefaultCellStyle = dataGridViewCellStyle134;
-            this.trades.HeaderText = "Trades";
-            this.trades.Name = "trades";
-            this.trades.Width = 50;
-            // 
-            // ganhos
-            // 
-            dataGridViewCellStyle135.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle135.Format = "N0";
-            dataGridViewCellStyle135.NullValue = null;
-            this.ganhos.DefaultCellStyle = dataGridViewCellStyle135;
-            this.ganhos.HeaderText = "Ganhos";
-            this.ganhos.Name = "ganhos";
-            this.ganhos.Width = 50;
-            // 
-            // perdidos
-            // 
-            dataGridViewCellStyle136.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle136.Format = "N0";
-            dataGridViewCellStyle136.NullValue = null;
-            this.perdidos.DefaultCellStyle = dataGridViewCellStyle136;
-            this.perdidos.HeaderText = "Perdidos";
-            this.perdidos.Name = "perdidos";
-            this.perdidos.Width = 50;
-            // 
-            // totalGanho
-            // 
-            dataGridViewCellStyle137.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle137.Format = "N2";
-            dataGridViewCellStyle137.NullValue = null;
-            this.totalGanho.DefaultCellStyle = dataGridViewCellStyle137;
-            this.totalGanho.HeaderText = "Total Ganho";
-            this.totalGanho.Name = "totalGanho";
-            this.totalGanho.Width = 80;
-            // 
-            // totalPerdido
-            // 
-            dataGridViewCellStyle138.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle138.Format = "N2";
-            dataGridViewCellStyle138.NullValue = null;
-            this.totalPerdido.DefaultCellStyle = dataGridViewCellStyle138;
-            this.totalPerdido.HeaderText = "Total Perdido";
-            this.totalPerdido.Name = "totalPerdido";
-            this.totalPerdido.Width = 80;
-            // 
-            // percAcerto
-            // 
-            dataGridViewCellStyle139.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle139.Format = "N2";
-            dataGridViewCellStyle139.NullValue = null;
-            this.percAcerto.DefaultCellStyle = dataGridViewCellStyle139;
-            this.percAcerto.HeaderText = "%Acerto";
-            this.percAcerto.Name = "percAcerto";
-            this.percAcerto.Width = 50;
-            // 
-            // percUso
-            // 
-            dataGridViewCellStyle140.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle140.Format = "N2";
-            dataGridViewCellStyle140.NullValue = null;
-            this.percUso.DefaultCellStyle = dataGridViewCellStyle140;
-            this.percUso.HeaderText = "%Uso";
-            this.percUso.Name = "percUso";
-            this.percUso.Width = 50;
-            // 
-            // maxdias
-            // 
-            dataGridViewCellStyle141.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle141.Format = "N0";
-            dataGridViewCellStyle141.NullValue = null;
-            this.maxdias.DefaultCellStyle = dataGridViewCellStyle141;
-            this.maxdias.HeaderText = "Max.Dias";
-            this.maxdias.Name = "maxdias";
-            this.maxdias.Width = 50;
-            // 
-            // minDias
-            // 
-            dataGridViewCellStyle142.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle142.Format = "N0";
-            dataGridViewCellStyle142.NullValue = null;
-            this.minDias.DefaultCellStyle = dataGridViewCellStyle142;
-            this.minDias.HeaderText = "Min.Dias";
-            this.minDias.Name = "minDias";
-            this.minDias.Width = 50;
-            // 
-            // Avg_dias
-            // 
-            dataGridViewCellStyle143.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle143.Format = "N0";
-            dataGridViewCellStyle143.NullValue = null;
-            this.Avg_dias.DefaultCellStyle = dataGridViewCellStyle143;
-            this.Avg_dias.HeaderText = "Avg.Dias";
-            this.Avg_dias.Name = "Avg_dias";
-            this.Avg_dias.Width = 50;
+            this.tabHistorico.Controls.Add(this.panelRunsBottom);
+            this.tabHistorico.Location = new System.Drawing.Point(4, 22);
+            this.tabHistorico.Name = "tabHistorico";
+            this.tabHistorico.Size = new System.Drawing.Size(858, 430);
+            this.tabHistorico.TabIndex = 2;
+            this.tabHistorico.Text = "Historico";
+            this.tabHistorico.UseVisualStyleBackColor = true;
             // 
             // panelRunsBottom
             // 
             this.panelRunsBottom.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panelRunsBottom.Controls.Add(this.label2);
-            this.panelRunsBottom.Controls.Add(this.dataGridOperacoes);
+            this.panelRunsBottom.Controls.Add(this.dataGridView3);
             this.panelRunsBottom.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelRunsBottom.Location = new System.Drawing.Point(3, 340);
+            this.panelRunsBottom.Location = new System.Drawing.Point(0, 228);
             this.panelRunsBottom.Name = "panelRunsBottom";
-            this.panelRunsBottom.Size = new System.Drawing.Size(804, 202);
-            this.panelRunsBottom.TabIndex = 2;
+            this.panelRunsBottom.Size = new System.Drawing.Size(858, 202);
+            this.panelRunsBottom.TabIndex = 6;
             // 
-            // dataGridOperacoes
+            // label2
             // 
-            this.dataGridOperacoes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridOperacoes.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.number,
-            this.posicao,
-            this.ativo,
-            this.periodoInicial,
-            this.periodoFinal,
-            this.sentido,
-            this.quantidade,
-            this.vlr_entrada,
-            this.vlr_saida,
-            this.stopInicial,
-            this.Stopado,
-            this.vlr_oper,
-            this.Dif,
-            this.Capital,
-            this.capitalOnClose});
-            this.dataGridOperacoes.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.dataGridOperacoes.Location = new System.Drawing.Point(0, 20);
-            this.dataGridOperacoes.Name = "dataGridOperacoes";
-            this.dataGridOperacoes.Size = new System.Drawing.Size(802, 180);
-            this.dataGridOperacoes.TabIndex = 5;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(3, 4);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(48, 13);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "Histórico";
             // 
-            // number
+            // dataGridView3
             // 
-            this.number.HeaderText = "#";
-            this.number.Name = "number";
-            this.number.Width = 30;
+            this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView3.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn5,
+            this.dataGridViewTextBoxColumn6,
+            this.dataGridViewTextBoxColumn7,
+            this.dataGridViewTextBoxColumn8,
+            this.dataGridViewTextBoxColumn9,
+            this.dataGridViewTextBoxColumn10,
+            this.dataGridViewTextBoxColumn11,
+            this.dataGridViewTextBoxColumn12});
+            this.dataGridView3.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.dataGridView3.Location = new System.Drawing.Point(0, 19);
+            this.dataGridView3.Name = "dataGridView3";
+            this.dataGridView3.Size = new System.Drawing.Size(856, 181);
+            this.dataGridView3.TabIndex = 7;
             // 
-            // posicao
+            // dataGridViewTextBoxColumn5
             // 
-            this.posicao.HeaderText = "Pos#";
-            this.posicao.Name = "posicao";
-            this.posicao.Width = 30;
+            this.dataGridViewTextBoxColumn5.HeaderText = "Papel";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.Width = 50;
             // 
-            // ativo
+            // dataGridViewTextBoxColumn6
             // 
-            this.ativo.HeaderText = "Papel";
-            this.ativo.Name = "ativo";
-            this.ativo.Width = 60;
+            this.dataGridViewTextBoxColumn6.HeaderText = "Quantidade";
+            this.dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            this.dataGridViewTextBoxColumn6.Width = 50;
             // 
-            // periodoInicial
+            // dataGridViewTextBoxColumn7
             // 
-            this.periodoInicial.HeaderText = "Per.Inicial";
-            this.periodoInicial.Name = "periodoInicial";
-            this.periodoInicial.Width = 75;
+            this.dataGridViewTextBoxColumn7.HeaderText = "Vlr.Entrada";
+            this.dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            this.dataGridViewTextBoxColumn7.Width = 50;
             // 
-            // periodoFinal
+            // dataGridViewTextBoxColumn8
             // 
-            this.periodoFinal.HeaderText = "Per.Final";
-            this.periodoFinal.Name = "periodoFinal";
-            this.periodoFinal.Width = 75;
+            this.dataGridViewTextBoxColumn8.HeaderText = "Valor Atual";
+            this.dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            this.dataGridViewTextBoxColumn8.Width = 50;
             // 
-            // sentido
+            // dataGridViewTextBoxColumn9
             // 
-            this.sentido.HeaderText = "Sentido";
-            this.sentido.Name = "sentido";
-            this.sentido.Width = 50;
+            this.dataGridViewTextBoxColumn9.HeaderText = "Diferença";
+            this.dataGridViewTextBoxColumn9.Name = "dataGridViewTextBoxColumn9";
+            this.dataGridViewTextBoxColumn9.Width = 50;
             // 
-            // quantidade
+            // dataGridViewTextBoxColumn10
             // 
-            this.quantidade.HeaderText = "Qtd.";
-            this.quantidade.Name = "quantidade";
-            this.quantidade.Width = 50;
+            this.dataGridViewTextBoxColumn10.HeaderText = "@Risk";
+            this.dataGridViewTextBoxColumn10.Name = "dataGridViewTextBoxColumn10";
+            this.dataGridViewTextBoxColumn10.Width = 50;
             // 
-            // vlr_entrada
+            // dataGridViewTextBoxColumn11
             // 
-            this.vlr_entrada.HeaderText = "Vlr.Entrada";
-            this.vlr_entrada.Name = "vlr_entrada";
-            this.vlr_entrada.Width = 50;
+            this.dataGridViewTextBoxColumn11.HeaderText = "Stop Inicial";
+            this.dataGridViewTextBoxColumn11.Name = "dataGridViewTextBoxColumn11";
+            this.dataGridViewTextBoxColumn11.Width = 50;
             // 
-            // vlr_saida
+            // dataGridViewTextBoxColumn12
             // 
-            this.vlr_saida.HeaderText = "Vlr.Saida";
-            this.vlr_saida.Name = "vlr_saida";
-            this.vlr_saida.Width = 50;
+            this.dataGridViewTextBoxColumn12.HeaderText = "Stop Atual";
+            this.dataGridViewTextBoxColumn12.Name = "dataGridViewTextBoxColumn12";
+            this.dataGridViewTextBoxColumn12.Width = 50;
             // 
-            // stopInicial
+            // tabSituacao
             // 
-            this.stopInicial.HeaderText = "StopInicial";
-            this.stopInicial.Name = "stopInicial";
-            this.stopInicial.Width = 50;
+            this.tabSituacao.Controls.Add(this.panelAtual);
+            this.tabSituacao.Controls.Add(this.panelEntradas);
+            this.tabSituacao.Location = new System.Drawing.Point(4, 22);
+            this.tabSituacao.Name = "tabSituacao";
+            this.tabSituacao.Padding = new System.Windows.Forms.Padding(3);
+            this.tabSituacao.Size = new System.Drawing.Size(858, 430);
+            this.tabSituacao.TabIndex = 1;
+            this.tabSituacao.Text = "Situação";
+            this.tabSituacao.UseVisualStyleBackColor = true;
             // 
-            // Stopado
+            // panelAtual
             // 
-            this.Stopado.HeaderText = "Stopado?";
-            this.Stopado.Name = "Stopado";
-            this.Stopado.Width = 50;
+            this.panelAtual.Controls.Add(this.dataGridCarteira);
+            this.panelAtual.Controls.Add(this.panel7);
+            this.panelAtual.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelAtual.Location = new System.Drawing.Point(3, 172);
+            this.panelAtual.Name = "panelAtual";
+            this.panelAtual.Size = new System.Drawing.Size(852, 255);
+            this.panelAtual.TabIndex = 8;
             // 
-            // vlr_oper
+            // dataGridCarteira
             // 
-            dataGridViewCellStyle144.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle144.Format = "N2";
-            dataGridViewCellStyle144.NullValue = null;
-            this.vlr_oper.DefaultCellStyle = dataGridViewCellStyle144;
-            this.vlr_oper.HeaderText = "Vlr.Oper";
-            this.vlr_oper.Name = "vlr_oper";
-            this.vlr_oper.Width = 70;
+            this.dataGridCarteira.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridCarteira.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2,
+            this.dataGridViewTextBoxColumn3,
+            this.cartVlrAtual,
+            this.cartDif,
+            this.cartAtRisk,
+            this.dataGridViewTextBoxColumn4,
+            this.cartStopAtual,
+            this.dataGridViewButtonColumn1});
+            this.dataGridCarteira.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridCarteira.Location = new System.Drawing.Point(0, 29);
+            this.dataGridCarteira.Name = "dataGridCarteira";
+            this.dataGridCarteira.Size = new System.Drawing.Size(852, 226);
+            this.dataGridCarteira.TabIndex = 8;
             // 
-            // Dif
+            // dataGridViewTextBoxColumn1
             // 
-            dataGridViewCellStyle145.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle145.Format = "N2";
-            dataGridViewCellStyle145.NullValue = null;
-            this.Dif.DefaultCellStyle = dataGridViewCellStyle145;
-            this.Dif.HeaderText = "Dif";
-            this.Dif.Name = "Dif";
-            this.Dif.Width = 65;
+            this.dataGridViewTextBoxColumn1.HeaderText = "Papel";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.Width = 50;
             // 
-            // Capital
+            // dataGridViewTextBoxColumn2
             // 
-            dataGridViewCellStyle146.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle146.Format = "N2";
-            dataGridViewCellStyle146.NullValue = null;
-            this.Capital.DefaultCellStyle = dataGridViewCellStyle146;
-            this.Capital.HeaderText = "Capital";
-            this.Capital.Name = "Capital";
-            this.Capital.Width = 80;
+            this.dataGridViewTextBoxColumn2.HeaderText = "Quantidade";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.Width = 50;
             // 
-            // capitalOnClose
+            // dataGridViewTextBoxColumn3
             // 
-            dataGridViewCellStyle147.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle147.Format = "N2";
-            dataGridViewCellStyle147.NullValue = null;
-            this.capitalOnClose.DefaultCellStyle = dataGridViewCellStyle147;
-            this.capitalOnClose.HeaderText = "Cap. Oper";
-            this.capitalOnClose.Name = "capitalOnClose";
-            this.capitalOnClose.Width = 80;
+            this.dataGridViewTextBoxColumn3.HeaderText = "Vlr.Entrada";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.Width = 50;
+            // 
+            // cartVlrAtual
+            // 
+            this.cartVlrAtual.HeaderText = "Valor Atual";
+            this.cartVlrAtual.Name = "cartVlrAtual";
+            this.cartVlrAtual.Width = 50;
+            // 
+            // cartDif
+            // 
+            this.cartDif.HeaderText = "Diferença";
+            this.cartDif.Name = "cartDif";
+            this.cartDif.Width = 50;
+            // 
+            // cartAtRisk
+            // 
+            this.cartAtRisk.HeaderText = "@Risk";
+            this.cartAtRisk.Name = "cartAtRisk";
+            this.cartAtRisk.Width = 50;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.HeaderText = "Stop Inicial";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.Width = 50;
+            // 
+            // cartStopAtual
+            // 
+            this.cartStopAtual.HeaderText = "Stop Atual";
+            this.cartStopAtual.Name = "cartStopAtual";
+            this.cartStopAtual.Width = 50;
+            // 
+            // dataGridViewButtonColumn1
+            // 
+            this.dataGridViewButtonColumn1.HeaderText = "Fechar";
+            this.dataGridViewButtonColumn1.Name = "dataGridViewButtonColumn1";
+            this.dataGridViewButtonColumn1.Text = "Fechar Posição";
             // 
             // panel7
             // 
             this.panel7.Controls.Add(this.label1);
             this.panel7.Controls.Add(this.labelStatus);
             this.panel7.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel7.Location = new System.Drawing.Point(3, 3);
+            this.panel7.Location = new System.Drawing.Point(0, 0);
             this.panel7.Name = "panel7";
-            this.panel7.Size = new System.Drawing.Size(804, 29);
-            this.panel7.TabIndex = 3;
+            this.panel7.Size = new System.Drawing.Size(852, 29);
+            this.panel7.TabIndex = 7;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(9, 8);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(36, 13);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Atuais";
             // 
             // labelStatus
             // 
             this.labelStatus.AutoSize = true;
             this.labelStatus.Dock = System.Windows.Forms.DockStyle.Right;
-            this.labelStatus.Location = new System.Drawing.Point(784, 0);
+            this.labelStatus.Location = new System.Drawing.Point(832, 0);
             this.labelStatus.Name = "labelStatus";
             this.labelStatus.Padding = new System.Windows.Forms.Padding(10);
             this.labelStatus.Size = new System.Drawing.Size(20, 33);
             this.labelStatus.TabIndex = 4;
             // 
+            // panelEntradas
+            // 
+            this.panelEntradas.Controls.Add(this.dataGridEntradas);
+            this.panelEntradas.Controls.Add(this.panel5);
+            this.panelEntradas.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panelEntradas.Location = new System.Drawing.Point(3, 3);
+            this.panelEntradas.Name = "panelEntradas";
+            this.panelEntradas.Size = new System.Drawing.Size(852, 169);
+            this.panelEntradas.TabIndex = 7;
+            // 
+            // dataGridEntradas
+            // 
+            this.dataGridEntradas.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridEntradas.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.entrPapel,
+            this.entrQuantidade,
+            this.entrVlrEntrada,
+            this.entrAtRisk,
+            this.entrStopInicial,
+            this.entrAcao});
+            this.dataGridEntradas.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridEntradas.Location = new System.Drawing.Point(0, 29);
+            this.dataGridEntradas.Name = "dataGridEntradas";
+            this.dataGridEntradas.Size = new System.Drawing.Size(852, 140);
+            this.dataGridEntradas.TabIndex = 7;
+            // 
+            // entrPapel
+            // 
+            this.entrPapel.HeaderText = "Papel";
+            this.entrPapel.Name = "entrPapel";
+            // 
+            // entrQuantidade
+            // 
+            this.entrQuantidade.HeaderText = "Quantidade";
+            this.entrQuantidade.Name = "entrQuantidade";
+            // 
+            // entrVlrEntrada
+            // 
+            this.entrVlrEntrada.HeaderText = "Vlr.Entrada";
+            this.entrVlrEntrada.Name = "entrVlrEntrada";
+            // 
+            // entrAtRisk
+            // 
+            this.entrAtRisk.HeaderText = "@Risk";
+            this.entrAtRisk.Name = "entrAtRisk";
+            // 
+            // entrStopInicial
+            // 
+            this.entrStopInicial.HeaderText = "Stop Inicial";
+            this.entrStopInicial.Name = "entrStopInicial";
+            // 
+            // entrAcao
+            // 
+            this.entrAcao.HeaderText = "Compra";
+            this.entrAcao.Name = "entrAcao";
+            this.entrAcao.Text = "Compra";
+            // 
+            // panel5
+            // 
+            this.panel5.Controls.Add(this.cbTradeSystemEmUso);
+            this.panel5.Controls.Add(this.label5);
+            this.panel5.Controls.Add(this.btnAnalisaEntradas);
+            this.panel5.Controls.Add(this.label7);
+            this.panel5.Dock = System.Windows.Forms.DockStyle.Top;
+            this.panel5.Location = new System.Drawing.Point(0, 0);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(852, 29);
+            this.panel5.TabIndex = 6;
+            // 
+            // btnAnalisaEntradas
+            // 
+            this.btnAnalisaEntradas.Dock = System.Windows.Forms.DockStyle.Left;
+            this.btnAnalisaEntradas.Location = new System.Drawing.Point(0, 0);
+            this.btnAnalisaEntradas.Name = "btnAnalisaEntradas";
+            this.btnAnalisaEntradas.Size = new System.Drawing.Size(128, 29);
+            this.btnAnalisaEntradas.TabIndex = 5;
+            this.btnAnalisaEntradas.Text = "Analisa Entradas";
+            this.btnAnalisaEntradas.UseVisualStyleBackColor = true;
+            this.btnAnalisaEntradas.Click += new System.EventHandler(this.btnAnalisaEntradas_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Dock = System.Windows.Forms.DockStyle.Right;
+            this.label7.Location = new System.Drawing.Point(832, 0);
+            this.label7.Name = "label7";
+            this.label7.Padding = new System.Windows.Forms.Padding(10);
+            this.label7.Size = new System.Drawing.Size(20, 33);
+            this.label7.TabIndex = 4;
+            // 
             // tabConfig
             // 
+            this.tabConfig.Controls.Add(this.btnCarregaAtivoIniciais);
             this.tabConfig.Controls.Add(this.txtVarsDebug);
             this.tabConfig.Controls.Add(this.radioTPSemanal);
             this.tabConfig.Controls.Add(this.radioTPDiario);
@@ -604,52 +532,27 @@
             this.tabConfig.Location = new System.Drawing.Point(4, 22);
             this.tabConfig.Name = "tabConfig";
             this.tabConfig.Padding = new System.Windows.Forms.Padding(3);
-            this.tabConfig.Size = new System.Drawing.Size(810, 545);
+            this.tabConfig.Size = new System.Drawing.Size(858, 430);
             this.tabConfig.TabIndex = 0;
             this.tabConfig.Text = "Config";
             this.tabConfig.UseVisualStyleBackColor = true;
             // 
-            // txtDescriber
+            // btnCarregaAtivoIniciais
             // 
-            this.txtDescriber.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txtDescriber.Location = new System.Drawing.Point(0, 0);
-            this.txtDescriber.Name = "txtDescriber";
-            this.txtDescriber.Size = new System.Drawing.Size(214, 607);
-            this.txtDescriber.TabIndex = 0;
-            this.txtDescriber.Text = "";
+            this.btnCarregaAtivoIniciais.Location = new System.Drawing.Point(3, 107);
+            this.btnCarregaAtivoIniciais.Name = "btnCarregaAtivoIniciais";
+            this.btnCarregaAtivoIniciais.Size = new System.Drawing.Size(138, 23);
+            this.btnCarregaAtivoIniciais.TabIndex = 42;
+            this.btnCarregaAtivoIniciais.Text = "Adiciona Ativos Default";
+            this.btnCarregaAtivoIniciais.UseVisualStyleBackColor = true;
+            this.btnCarregaAtivoIniciais.Click += new System.EventHandler(this.btnCarregaAtivoIniciais_Click);
             // 
-            // label1
+            // txtVarsDebug
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 8);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(36, 13);
-            this.label1.TabIndex = 5;
-            this.label1.Text = "Atuais";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 4);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(48, 13);
-            this.label2.TabIndex = 6;
-            this.label2.Text = "Histórico";
-            // 
-            // statusStrip1
-            // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.txtStatus});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 607);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1032, 22);
-            this.statusStrip1.TabIndex = 3;
-            this.statusStrip1.Text = "statusStrip1";
-            // 
-            // txtStatus
-            // 
-            this.txtStatus.Name = "txtStatus";
-            this.txtStatus.Size = new System.Drawing.Size(0, 17);
+            this.txtVarsDebug.Location = new System.Drawing.Point(264, 434);
+            this.txtVarsDebug.Name = "txtVarsDebug";
+            this.txtVarsDebug.Size = new System.Drawing.Size(475, 20);
+            this.txtVarsDebug.TabIndex = 41;
             // 
             // radioTPSemanal
             // 
@@ -789,7 +692,7 @@
             // 
             // btnSalvaConfig
             // 
-            this.btnSalvaConfig.Location = new System.Drawing.Point(264, 401);
+            this.btnSalvaConfig.Location = new System.Drawing.Point(267, 380);
             this.btnSalvaConfig.Name = "btnSalvaConfig";
             this.btnSalvaConfig.Size = new System.Drawing.Size(110, 23);
             this.btnSalvaConfig.TabIndex = 27;
@@ -817,6 +720,26 @@
             this.chkFlagCompra.Text = "Opera na Compra?";
             this.chkFlagCompra.UseVisualStyleBackColor = true;
             // 
+            // tabTradeSystems
+            // 
+            this.tabTradeSystems.Controls.Add(this.txtDescriber);
+            this.tabTradeSystems.Controls.Add(this.panel4);
+            this.tabTradeSystems.Location = new System.Drawing.Point(4, 22);
+            this.tabTradeSystems.Name = "tabTradeSystems";
+            this.tabTradeSystems.Size = new System.Drawing.Size(858, 430);
+            this.tabTradeSystems.TabIndex = 3;
+            this.tabTradeSystems.Text = "TradeSystems";
+            this.tabTradeSystems.UseVisualStyleBackColor = true;
+            // 
+            // txtDescriber
+            // 
+            this.txtDescriber.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.txtDescriber.Location = new System.Drawing.Point(0, 43);
+            this.txtDescriber.Name = "txtDescriber";
+            this.txtDescriber.Size = new System.Drawing.Size(858, 387);
+            this.txtDescriber.TabIndex = 9;
+            this.txtDescriber.Text = "";
+            // 
             // panel4
             // 
             this.panel4.Controls.Add(this.label3);
@@ -824,8 +747,8 @@
             this.panel4.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel4.Location = new System.Drawing.Point(0, 0);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(214, 43);
-            this.panel4.TabIndex = 7;
+            this.panel4.Size = new System.Drawing.Size(858, 43);
+            this.panel4.TabIndex = 8;
             // 
             // label3
             // 
@@ -844,43 +767,138 @@
             this.cbTradeSystem.Name = "cbTradeSystem";
             this.cbTradeSystem.Size = new System.Drawing.Size(196, 21);
             this.cbTradeSystem.TabIndex = 7;
+            this.cbTradeSystem.SelectedIndexChanged += new System.EventHandler(this.cbTradeSystem_SelectedIndexChanged);
             // 
-            // txtVarsDebug
+            // panel3
             // 
-            this.txtVarsDebug.Location = new System.Drawing.Point(264, 434);
-            this.txtVarsDebug.Name = "txtVarsDebug";
-            this.txtVarsDebug.Size = new System.Drawing.Size(475, 20);
-            this.txtVarsDebug.TabIndex = 41;
+            this.panel3.Controls.Add(this.tabControlBacktester);
+            this.panel3.Controls.Add(this.panel1);
+            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel3.Location = new System.Drawing.Point(0, 0);
+            this.panel3.Name = "panel3";
+            this.panel3.Size = new System.Drawing.Size(866, 496);
+            this.panel3.TabIndex = 2;
+            // 
+            // cbTradeSystemEmUso
+            // 
+            this.cbTradeSystemEmUso.Dock = System.Windows.Forms.DockStyle.Left;
+            this.cbTradeSystemEmUso.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cbTradeSystemEmUso.FormattingEnabled = true;
+            this.cbTradeSystemEmUso.Location = new System.Drawing.Point(244, 0);
+            this.cbTradeSystemEmUso.Name = "cbTradeSystemEmUso";
+            this.cbTradeSystemEmUso.Size = new System.Drawing.Size(196, 21);
+            this.cbTradeSystemEmUso.TabIndex = 8;
+            this.cbTradeSystemEmUso.SelectedIndexChanged += new System.EventHandler(this.cbTradeSystemEmUso_SelectedIndexChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label5.Location = new System.Drawing.Point(128, 0);
+            this.label5.Name = "label5";
+            this.label5.Padding = new System.Windows.Forms.Padding(5);
+            this.label5.Size = new System.Drawing.Size(116, 23);
+            this.label5.TabIndex = 9;
+            this.label5.Text = "TradeSystem em uso";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label8.Location = new System.Drawing.Point(0, 0);
+            this.label8.Name = "label8";
+            this.label8.Padding = new System.Windows.Forms.Padding(5, 3, 5, 5);
+            this.label8.Size = new System.Drawing.Size(76, 21);
+            this.label8.TabIndex = 7;
+            this.label8.Text = "Capital Atual";
+            // 
+            // txtCapitalAtual
+            // 
+            this.txtCapitalAtual.Dock = System.Windows.Forms.DockStyle.Left;
+            this.txtCapitalAtual.Location = new System.Drawing.Point(76, 0);
+            this.txtCapitalAtual.Name = "txtCapitalAtual";
+            this.txtCapitalAtual.Size = new System.Drawing.Size(111, 20);
+            this.txtCapitalAtual.TabIndex = 8;
+            this.txtCapitalAtual.TextChanged += new System.EventHandler(this.txtCapitalAtual_TextChanged);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label9.Location = new System.Drawing.Point(187, 0);
+            this.label9.Name = "label9";
+            this.label9.Padding = new System.Windows.Forms.Padding(5, 3, 5, 5);
+            this.label9.Size = new System.Drawing.Size(104, 21);
+            this.label9.TabIndex = 9;
+            this.label9.Text = "Total em Posições";
+            // 
+            // txtTotalPosicao
+            // 
+            this.txtTotalPosicao.Dock = System.Windows.Forms.DockStyle.Left;
+            this.txtTotalPosicao.Location = new System.Drawing.Point(291, 0);
+            this.txtTotalPosicao.Name = "txtTotalPosicao";
+            this.txtTotalPosicao.ReadOnly = true;
+            this.txtTotalPosicao.Size = new System.Drawing.Size(111, 20);
+            this.txtTotalPosicao.TabIndex = 10;
+            // 
+            // txtTotalRisco
+            // 
+            this.txtTotalRisco.Dock = System.Windows.Forms.DockStyle.Left;
+            this.txtTotalRisco.Location = new System.Drawing.Point(490, 0);
+            this.txtTotalRisco.Name = "txtTotalRisco";
+            this.txtTotalRisco.ReadOnly = true;
+            this.txtTotalRisco.Size = new System.Drawing.Size(111, 20);
+            this.txtTotalRisco.TabIndex = 12;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Dock = System.Windows.Forms.DockStyle.Left;
+            this.label10.Location = new System.Drawing.Point(402, 0);
+            this.label10.Name = "label10";
+            this.label10.Padding = new System.Windows.Forms.Padding(5, 3, 5, 5);
+            this.label10.Size = new System.Drawing.Size(88, 21);
+            this.label10.TabIndex = 11;
+            this.label10.Text = "Total em Risco";
             // 
             // FrmFront
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1032, 629);
+            this.ClientSize = new System.Drawing.Size(1032, 554);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panelRight);
             this.Controls.Add(this.statusStrip1);
             this.Name = "FrmFront";
             this.Text = "FrontTester";
-            this.panelRight.ResumeLayout(false);
-            this.panel3.ResumeLayout(false);
-            this.tabControlBacktester.ResumeLayout(false);
-            this.tabRuns.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridRuns)).EndInit();
-            this.panelRunsBottom.ResumeLayout(false);
-            this.panelRunsBottom.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridOperacoes)).EndInit();
-            this.panel7.ResumeLayout(false);
-            this.panel7.PerformLayout();
-            this.tabConfig.ResumeLayout(false);
-            this.tabConfig.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.tabControlBacktester.ResumeLayout(false);
+            this.tabHistorico.ResumeLayout(false);
+            this.panelRunsBottom.ResumeLayout(false);
+            this.panelRunsBottom.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
+            this.tabSituacao.ResumeLayout(false);
+            this.panelAtual.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridCarteira)).EndInit();
+            this.panel7.ResumeLayout(false);
+            this.panel7.PerformLayout();
+            this.panelEntradas.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridEntradas)).EndInit();
+            this.panel5.ResumeLayout(false);
+            this.panel5.PerformLayout();
+            this.tabConfig.ResumeLayout(false);
+            this.tabConfig.PerformLayout();
             this.panelGPVars.ResumeLayout(false);
             this.panelGPVars.PerformLayout();
+            this.tabTradeSystems.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            this.panel3.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -890,60 +908,46 @@
 
         private System.Windows.Forms.Panel panelRight;
         private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Panel panel3;
-        public System.Windows.Forms.TabControl tabControlBacktester;
-        public System.Windows.Forms.TabPage tabRuns;
-        public System.Windows.Forms.DataGridView dataGridRuns;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MCObjeto;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Carteira;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colNr;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colNome;
-        private System.Windows.Forms.DataGridViewTextBoxColumn iterations;
-        private System.Windows.Forms.DataGridViewTextBoxColumn allAvgWin;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AllAvgLoss;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Fitness;
-        private System.Windows.Forms.DataGridViewTextBoxColumn resultado;
-        private System.Windows.Forms.DataGridViewTextBoxColumn maxCapital;
-        private System.Windows.Forms.DataGridViewTextBoxColumn minCapital;
-        private System.Windows.Forms.DataGridViewTextBoxColumn winLoss;
-        private System.Windows.Forms.DataGridViewTextBoxColumn trades;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ganhos;
-        private System.Windows.Forms.DataGridViewTextBoxColumn perdidos;
-        private System.Windows.Forms.DataGridViewTextBoxColumn totalGanho;
-        private System.Windows.Forms.DataGridViewTextBoxColumn totalPerdido;
-        private System.Windows.Forms.DataGridViewTextBoxColumn percAcerto;
-        private System.Windows.Forms.DataGridViewTextBoxColumn percUso;
-        private System.Windows.Forms.DataGridViewTextBoxColumn maxdias;
-        private System.Windows.Forms.DataGridViewTextBoxColumn minDias;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Avg_dias;
-        public System.Windows.Forms.Panel panelRunsBottom;
-        public System.Windows.Forms.DataGridView dataGridOperacoes;
-        private System.Windows.Forms.DataGridViewTextBoxColumn number;
-        private System.Windows.Forms.DataGridViewTextBoxColumn posicao;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ativo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn periodoInicial;
-        private System.Windows.Forms.DataGridViewTextBoxColumn periodoFinal;
-        private System.Windows.Forms.DataGridViewTextBoxColumn sentido;
-        private System.Windows.Forms.DataGridViewTextBoxColumn quantidade;
-        private System.Windows.Forms.DataGridViewTextBoxColumn vlr_entrada;
-        private System.Windows.Forms.DataGridViewTextBoxColumn vlr_saida;
-        private System.Windows.Forms.DataGridViewTextBoxColumn stopInicial;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Stopado;
-        private System.Windows.Forms.DataGridViewTextBoxColumn vlr_oper;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Dif;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Capital;
-        private System.Windows.Forms.DataGridViewTextBoxColumn capitalOnClose;
-        public System.Windows.Forms.Panel panel7;
-        public System.Windows.Forms.Label labelStatus;
-        public System.Windows.Forms.TabPage tabConfig;
-        private System.Windows.Forms.RichTextBox txtDescriber;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.StatusStrip statusStrip1;
         public System.Windows.Forms.ToolStripStatusLabel txtStatus;
-        private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.Label label3;
-        public System.Windows.Forms.ComboBox cbTradeSystem;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button btnAtualizaDados;
+        public System.Windows.Forms.TabControl tabControlBacktester;
+        private System.Windows.Forms.TabPage tabHistorico;
+        public System.Windows.Forms.Panel panelRunsBottom;
+        private System.Windows.Forms.Label label2;
+        public System.Windows.Forms.DataGridView dataGridView3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn9;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn10;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn11;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn12;
+        public System.Windows.Forms.TabPage tabSituacao;
+        private System.Windows.Forms.Panel panelAtual;
+        public System.Windows.Forms.DataGridView dataGridCarteira;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cartVlrAtual;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cartDif;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cartAtRisk;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn cartStopAtual;
+        private System.Windows.Forms.DataGridViewButtonColumn dataGridViewButtonColumn1;
+        public System.Windows.Forms.Panel panel7;
+        private System.Windows.Forms.Label label1;
+        public System.Windows.Forms.Label labelStatus;
+        private System.Windows.Forms.Panel panelEntradas;
+        public System.Windows.Forms.DataGridView dataGridEntradas;
+        public System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Button btnAnalisaEntradas;
+        public System.Windows.Forms.Label label7;
+        public System.Windows.Forms.TabPage tabConfig;
+        public System.Windows.Forms.Button btnCarregaAtivoIniciais;
+        public System.Windows.Forms.TextBox txtVarsDebug;
         public System.Windows.Forms.RadioButton radioTPSemanal;
         public System.Windows.Forms.RadioButton radioTPDiario;
         private System.Windows.Forms.Panel panelGPVars;
@@ -962,7 +966,26 @@
         public System.Windows.Forms.Button btnSalvaConfig;
         public System.Windows.Forms.CheckBox chkFlagVenda;
         public System.Windows.Forms.CheckBox chkFlagCompra;
-        public System.Windows.Forms.TextBox txtVarsDebug;
+        private System.Windows.Forms.Panel panel3;
+        private System.Windows.Forms.DataGridViewTextBoxColumn entrPapel;
+        private System.Windows.Forms.DataGridViewTextBoxColumn entrQuantidade;
+        private System.Windows.Forms.DataGridViewTextBoxColumn entrVlrEntrada;
+        private System.Windows.Forms.DataGridViewTextBoxColumn entrAtRisk;
+        private System.Windows.Forms.DataGridViewTextBoxColumn entrStopInicial;
+        private System.Windows.Forms.DataGridViewButtonColumn entrAcao;
+        private System.Windows.Forms.TabPage tabTradeSystems;
+        private System.Windows.Forms.RichTextBox txtDescriber;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Label label3;
+        public System.Windows.Forms.ComboBox cbTradeSystem;
+        public System.Windows.Forms.ComboBox cbTradeSystemEmUso;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TextBox txtCapitalAtual;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox txtTotalRisco;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.TextBox txtTotalPosicao;
+        private System.Windows.Forms.Label label9;
     }
 }
 
