@@ -42,6 +42,16 @@ namespace Backtester.tests
 
 
         [TestMethod]
+        public void TestGeracaoFormulas()
+        {
+            string formula = "MME(O,LV(PERCENTIL(MOD(L,H)),C))";
+            FormulaManager fm = facade.formulaManager;
+            Formula f1=fm.GetFormula(formula);
+            Assert.IsNotNull(f1);
+            Assert.IsTrue(f1.GetCode() == formula);
+        }
+
+        [TestMethod]
         public void TestData()
         {
             int year = 2017;

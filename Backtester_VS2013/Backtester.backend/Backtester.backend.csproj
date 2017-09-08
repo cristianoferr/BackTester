@@ -93,6 +93,8 @@
     <Compile Include="model\formulas\BOOLEAN\FormulaBoolean.cs" />
     <Compile Include="model\formulas\BOOLEAN\FormulaAND.cs" />
     <Compile Include="model\formulas\FormulaHilo.cs" />
+    <Compile Include="model\formulas\FormulaPercVariation.cs" />
+    <Compile Include="model\formulas\MATH\FormulaMod.cs" />
     <Compile Include="model\formulas\MATH\FormulaInvertSignal.cs" />
     <Compile Include="model\formulas\MATH\FormulaABS.cs" />
     <Compile Include="model\formulas\MATH\FormulaDif.cs" />

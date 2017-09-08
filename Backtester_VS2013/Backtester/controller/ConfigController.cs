@@ -136,10 +136,23 @@ namespace Backtester.controller
             }
         }
 
+        float _totalDif = 0;
+
         public void UpdateApplication(Carteira carteira, MonteCarlo mC, int countLoops, int totalLoops)
         {
             Application.DoEvents();
-            if (totalLoops <= 0) totalLoops = 1;
+            if (totalLoops <= 0)
+            {
+                totalLoops = 1;
+            }
+            if (countLoops <= 1) { 
+                _totalDif = 0;
+            }
+
+            float dif = carteira.GetCapital()-carteira.capitalInicial;
+            _totalDif += dif;
+            frmPrincipal.SetText("labelAvgDif", "Avg.Dif.:" + Utils.FormatCurrency(_totalDif/countLoops));
+
             frmPrincipal.SetText("labelStatus",countLoops + " / " + totalLoops);
             //frmPrincipal.dataSetBacktest.Tables[0].Rows.Add(mC);
             //DataGridViewRow row = new DataGridViewRow();

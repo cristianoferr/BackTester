@@ -86,6 +86,7 @@ namespace Backtester.backend.DataManager
             AddDict(FormulaManager.SUM, "+");
             AddDict(FormulaManager.MULTIPLY, "*");
             AddDict(FormulaManager.DIVIDE, "/");
+            AddDict(FormulaManager.MOD, "%");
             AddDict(FormulaManager.BOOL_AND, "&&");
             AddDict(FormulaManager.BOOL_OR, "||");
             AddDict(FormulaManager.BOOL_XOR, "^^");

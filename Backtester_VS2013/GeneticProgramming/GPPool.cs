@@ -107,6 +107,7 @@ namespace GeneticProgramming
             for (int i = 0; i < solutions.Count - 1; i++)
             {
                 GPSolution solI = solutions[i];
+                
                 for (int j = i + 1; j < solutions.Count; j++)
                 {
                     GPSolution solJ = solutions[j];

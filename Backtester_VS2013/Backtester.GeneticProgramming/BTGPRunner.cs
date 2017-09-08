@@ -115,7 +115,6 @@ namespace Backtester.GeneticProgramming
             Carteira carteira = gpController.RunBackTester(ts, solution.name);
 
             carteira.monteCarlo.properties = solution;
-            solution.fitnessResult = carteira.monteCarlo.CalcFitness();
 
             float dif = carteira.GetCapital() - carteira.capitalInicial;
             if (dif > 0)
@@ -135,6 +134,7 @@ namespace Backtester.GeneticProgramming
 
             solution.iterations++;
             solution.SetPropriedade(ConstsComuns.OBJ_ITERATIONS, solution.iterations);
+            solution.fitnessResult = carteira.monteCarlo.CalcFitness();
         }
 
         public override void EndSolution(GPSolution solution)

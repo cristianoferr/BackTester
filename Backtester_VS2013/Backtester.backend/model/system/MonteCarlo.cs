@@ -98,9 +98,11 @@ namespace Backtester.backend.model.system
             if (ERROR_VLR_STOP_ERRADO) fitness -= PENALTY * 100;
             if (ERROR_DISTANCIA_SUPERADA > 0) fitness -= PENALTY * ERROR_DISTANCIA_SUPERADA * 100;
 
+
+
             if (qtdTrades == 0)
             {
-                fitness -= PENALTY * 100;
+                fitness -= PENALTY * 10000;
             }
 
             //
@@ -113,7 +115,7 @@ namespace Backtester.backend.model.system
             //Conta a variedade nas ações ganhadoras: acerta 2 ações é melhor que 1 ação
             fitness += CalcBonusVariedade(carteira);
 
-            fitness += percAcerto * BONUS*10;
+            fitness += percAcerto * BONUS;
 
             float difCapital = carteira.GetCapital() - carteira.capitalInicial;
             fitness += BONUS * difCapital / 100;
@@ -141,6 +143,24 @@ namespace Backtester.backend.model.system
 
 
             fitness /= 10;
+        }
+
+        private float CalcFitnessAntigoSemResultados()
+        {
+            object objIters = properties.GetPropriedade(UsoComum.ConstsComuns.OBJ_ITERATIONS);
+            int iterations = (objIters == null ? 1 : (int)objIters);
+            
+
+            if (iterations > 5 )
+            {
+                float tp = properties.GetPropriedade(UsoComum.ConstsComuns.OBJ_TOTAL_PROFIT)!=null?(float)properties.GetPropriedade(UsoComum.ConstsComuns.OBJ_TOTAL_PROFIT):0;
+                float tl = properties.GetPropriedade(UsoComum.ConstsComuns.OBJ_TOTAL_LOSS) != null ? (float)properties.GetPropriedade(UsoComum.ConstsComuns.OBJ_TOTAL_LOSS):0;
+                if (tl == 0) return 0;
+                float ratio = Math.Abs(tp / tl);
+                if (ratio < 1) return -PENALTY * 100000;
+            }
+
+            return 0;
         }
 
         private float CalcBonusVariedade(Carteira carteira)
@@ -277,6 +297,8 @@ namespace Backtester.backend.model.system
 
         public float CalcFitness()
         {
+            fitness += CalcFitnessAntigoSemResultados();
+
             return getCapitalFinal() + fitness;
         }
 

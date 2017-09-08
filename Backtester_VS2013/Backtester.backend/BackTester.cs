@@ -199,7 +199,8 @@ namespace Backtester.backend
             Init(mc);
             Periodo periodo = periodoInicial;
             string mesA = "";
-            int[] rd = GetRandomOrder(config.qtdPercPapeis);
+            //int[] rd = GetRandomOrder(config.qtdPercPapeis);
+            int[] rd = GetRandomOrder(100);
             while (periodo.proximoPeriodo != null)
             {
                 BackTestePeriodo(caller, mc, ref periodo, ref mesA, rd);

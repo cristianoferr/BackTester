@@ -35,6 +35,8 @@ namespace Backtester.backend.DataManager
         public static string UPPERBB = "UPPERBB";
         public static string MIDDLEBB = "MIDDLEBB";
         public static string LOWERBB = "LOWERBB";
+        public static string MOD = "MOD";
+        
         //  public static string BB = "BB";
         public static string SUM = "SUM";
         public static string ABS = "ABS";
@@ -49,6 +51,8 @@ namespace Backtester.backend.DataManager
         // public static string TICK = "TICK";
         public static string STOCH = "STOCH";
         public static string PERCENTIL = "PERCENTIL";
+        public static string PERC_VAR = "PERC_VAR";
+        
 
         //LOGICAL
         public static string COMP_DIF = UsoComum.ConstsComuns.Operador.DIFFERENT.ToString();
@@ -103,6 +107,7 @@ namespace Backtester.backend.DataManager
             formulasDisp.Add(HILO);
             //  formulasDisp.Add(BB);
             formulasDisp.Add(SUM);
+            formulasDisp.Add(MOD);
             formulasDisp.Add(ABS);
             formulasDisp.Add(INVERT_SIGNAL);
             
@@ -113,7 +118,8 @@ namespace Backtester.backend.DataManager
             // formulasDisp.Add(TICK);
             formulasDisp.Add(STOCH);
             formulasDisp.Add(PERCENTIL);
-
+            formulasDisp.Add(PERC_VAR);
+            
 
         }
 
@@ -212,6 +218,8 @@ namespace Backtester.backend.DataManager
 
             if (name == STOCH) f = new FormulaStoch(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
             if (name == PERCENTIL) f = new FormulaPercentil(facade, name, GetFormula(pars[0]));
+            if (name == PERC_VAR) f = new FormulaPercVariation(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
+            
             //if (name == TICK) f = new FormulaTick(facade, name);
             // if (name == DAYOFWEEK) f = new FormulaDayOfWeek(facade, name);
             if (name == REF) f = new FormulaREF(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
@@ -227,6 +235,8 @@ namespace Backtester.backend.DataManager
             if (name == MIDDLEBB) f = new FormulaBB(facade, MIDDLEBB, GetFormula(pars[0]), "M", GetFormula(pars[1]), GetFormula(pars[2]));
             if (name == LOWERBB) f = new FormulaBB(facade, LOWERBB, GetFormula(pars[0]), "L", GetFormula(pars[1]), GetFormula(pars[2]));
             // if (name == BB) f = new FormulaBB(facade, BB, GetFormula(pars[0]), pars[1], int.Parse(pars[2]), float.Parse(pars[3]));
+            if (name == MOD) f = new FormulaMod(facade, MOD, GetFormula(pars[0]),  GetFormula(pars[1]));
+            
 
             if (name == MME) f = new FormulaMME(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
             if (name == MMS) f = new FormulaMMS(facade, name, GetFormula(pars[0]), GetFormula(pars[1]));
