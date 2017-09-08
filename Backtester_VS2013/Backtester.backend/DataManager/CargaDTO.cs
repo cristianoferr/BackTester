@@ -18,28 +18,7 @@ namespace Backtester.backend.DataManager
 
         public float vol { get { return e; } }
     }
-    public class ObjectDTO
-    {
-        string id;
-        string tool;
-        string panel;
-        string x0;
-        string y0;
-        string x;
-        string y;
-        string color;
-        string text;
-    }
-    public class CargaDTO
-    {
-        string descr;
-        bool favorite;
-        string feed;
-        int precision;
-        string ds;
-        List<ObjectDTO> objects;
-        public List<DataDTO> data;
-    }
+   
 
     public class CargaADVFN
     {

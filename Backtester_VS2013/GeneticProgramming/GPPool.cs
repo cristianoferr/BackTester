@@ -17,7 +17,7 @@ namespace GeneticProgramming
     [DataContract]
     public class GPPool
     {
-        public const float PENALTY = 10000;
+        public const float PENALTY = 1000;
 
         #region IO
         internal static GPPool LoadSaved(GPConfig config, GPSolutionDefinition definition)
@@ -147,8 +147,8 @@ namespace GeneticProgramming
                 }
                 else if (i <= config.generateChildRange * solutions.Count / 100)
                 {
-                    GPSolution solution1 = solutions[Utils.Random(0, config.generateChildRange / 100f * solutions.Count)];
-                    GPSolution solution2 = solutions[Utils.Random(0, config.generateChildRange / 100f * solutions.Count)];
+                    GPSolution solution1 = solutions[Utils.RandomInt(0, config.generateChildRange / 100f * solutions.Count)];
+                    GPSolution solution2 = solutions[Utils.RandomInt(0, config.generateChildRange / 100f * solutions.Count)];
                     GPSolution child2 = null;
                     GPSolution child = solution1.CreateChildWith(solution2, out child2);
                     nextSolutions.Add(child);

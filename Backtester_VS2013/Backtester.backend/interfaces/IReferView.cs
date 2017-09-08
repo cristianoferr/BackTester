@@ -25,5 +25,6 @@ namespace Backtester.interfaces
         void SetListItem(string v, int index,Object var);
         void SetStatus(string v);
         void SetTitle(string v);
+        Control GetControl(string v);
     }
 }

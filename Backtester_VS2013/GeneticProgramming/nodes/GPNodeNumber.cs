@@ -24,7 +24,15 @@ namespace GeneticProgramming.nodes
         }
         public override void Mutate(SemanticaList semanticaList)
         {
-            valor += Utils.Random(- 2, + 2);
+            //tratamento especial para booleanos...
+            if (semanticaNumber.maxValue == 1 && semanticaNumber.minValue == 0) {
+                valor = valor < 1 ? 1 : 0;
+                return;
+            }
+
+
+            float rnd= Utils.Random(-semanticaNumber.maxValue / 10f, semanticaNumber.maxValue / 10f);
+            valor += rnd;
         }
 
         float valor_;

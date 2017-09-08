@@ -7,22 +7,52 @@ namespace Backtester.backend.model.system.estatistica
     public class SubSubDado
     {
         [DataMember]
-        int nTrades = 0, maxDias = 0, minDias = 9999999, totDias = 0;
+        public int nTrades {get;private set;}
         [DataMember]
-        float avgDias, total;
+        public int nTradesStopados {get;private set;}
         [DataMember]
-        float maxTrade = 0, minTrade = -1;
+        public int maxDias {get;private set;}
+        [DataMember]
+        public int minDias{get;private set;} 
+        [DataMember]
+        public int totDias {get;private set;}
 
-        public void addDado(int dias, float dif)
+        [DataMember]
+        public float avgDias { get; private set; }
+        [DataMember]
+        public float total {get;private set;}
+        [DataMember]
+        public float maxTrade { get; private set; }
+        [DataMember]
+        public float minTrade  {get;private set;}
+
+        public SubSubDado()
+        {
+            nTrades = 0;
+            nTradesStopados = 0;
+            maxDias = 0;
+            minDias = 0;
+            totDias = 0;
+            avgDias=0;
+            total =0;
+            maxTrade = 0;
+            minTrade = 0;
+        }
+
+        public void addDado(int dias, float dif, bool isStopado)
         {
             nTrades++;
+            if (isStopado)
+            {
+                nTradesStopados++;
+            }
 
-            if (Math.Abs(dif) > Math.Abs(maxTrade)) maxTrade = dif;
-            if ((minTrade == -1) || (Math.Abs(dif) < Math.Abs(minTrade))) minTrade = dif;
+            if (dif > maxTrade) maxTrade = dif;
+            if (minTrade == 0 || dif < minTrade) minTrade = dif;
 
             totDias += dias;
             if (dias > maxDias) maxDias = dias;
-            if (dias < minDias) minDias = dias;
+            if (dias < minDias || minDias==0) minDias = dias;
             avgDias = totDias / nTrades;
             total += dif;
         }

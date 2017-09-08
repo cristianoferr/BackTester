@@ -18,6 +18,11 @@ namespace Backtester.interfaces
                 }
 
 
+        public Control GetControl(string v)
+        {
+            return controles[v];
+        }
+
         public void Register(string key, Control listPapeis)
         {
             controles.Add(key, listPapeis);

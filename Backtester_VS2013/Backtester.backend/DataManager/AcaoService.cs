@@ -4,12 +4,13 @@ using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using UsoComum;
 
 namespace Backtester.backend.DataManager
 {
     public class AcaoService
     {
-        static string urlServico1 = "http://www.bitbolsa.com.br/charts/fetch.aspx?symbol=ACAO&interval=D&profileId=0&bars=1200&objects=true&adjustment=false&windowIndex=1&snapshot=&ts=1490981109557";
+        static string urlAtual = "https://br.advfn.com/common/javascript/tradingview/advfn/history?symbol=ACAO&resolution=D&from=FROMDATA&to=TODATA";
 
         //from=1/1/2013
         //to=28/02/2017
@@ -140,15 +141,20 @@ namespace Backtester.backend.DataManager
             return myProxy;
         }
 
-        internal static void RequestData(string papel, string fileName, bool flagValidation=false)
+        internal static void RequestData(string papel, string fileName, Consts.TIPO_CARGA_ATIVOS tipoCarga)
         {
+            papel = papel.Replace("_", "%5E");
             string url = "";
-            if (flagValidation)
+            if (tipoCarga==Consts.TIPO_CARGA_ATIVOS.VALIDA_CANDIDATO)
             {
                 url = urlValidacao.Replace("ACAO", papel);
-            } else
+            } else if (tipoCarga == Consts.TIPO_CARGA_ATIVOS.GERA_CANDIDATOS)
             {
                 url = urlServico.Replace("ACAO", papel);
+            }
+            else
+            {
+                url = GeraUrlAtual(urlAtual, papel);
             }
 
             string saida = LoadFromWeb(papel, url);
@@ -156,6 +162,21 @@ namespace Backtester.backend.DataManager
             {
                 outputFile.WriteLine(saida);
             }
+        }
+
+        private static string GeraUrlAtual(string url,string papel)
+        {
+            DateTime now = DateTime.Now;
+            DateTime fromData = now.AddMonths(-18);
+            string fromS = Utils.DateTimeToUnixTimestamp(fromData).ToString();
+            fromS = fromS.Substring(0, fromS.LastIndexOf(",") );
+            string toS = Utils.DateTimeToUnixTimestamp(now).ToString();
+            toS = toS.Substring(0, toS.LastIndexOf(",") );
+
+            url = url.Replace("ACAO", papel);
+            url = url.Replace("FROMDATA", ""+ fromS);
+            url = url.Replace("TODATA", "" + toS);
+            return url;
         }
     }
 }

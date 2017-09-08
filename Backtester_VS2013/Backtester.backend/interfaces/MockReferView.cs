@@ -27,6 +27,11 @@ namespace Backtester.interfaces
         {
         }
 
+        public Control GetControl(string v)
+        {
+            return null;
+        }
+
         public DataGridViewRowCollection GetRows(string v)
         {
             //return new DataGridViewRowCollection(null);

@@ -129,7 +129,7 @@ namespace GeneticProgramming.semantica
 
             if (validOptions.Count == 0)
                 return semanticaToAvoid;
-            GPSemantica choosen = validOptions[Utils.Random(0, validOptions.Count)];
+            GPSemantica choosen = validOptions[Utils.RandomInt(0, validOptions.Count)];
             return choosen;
         }
     }

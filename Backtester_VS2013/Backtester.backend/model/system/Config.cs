@@ -81,11 +81,11 @@ namespace Backtester.backend.model.system
 
         private void AddPapelValidacao(string bolsa, string acao)
         {
-            papeisValidation.Add(bolsa+"%5E"+acao);
+            papeisValidation.Add(bolsa+"_"+acao);
         }
-        private void AddPapel(string bolsa, string acao)
+        public void AddPapel(string bolsa, string acao)
         {
-            papeis.Add(bolsa + "%5E" + acao);
+            papeis.Add(bolsa + "_" + acao);
         }
 
         private void InitDefaultPapeis()

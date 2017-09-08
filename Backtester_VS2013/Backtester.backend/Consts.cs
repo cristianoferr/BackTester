@@ -3,7 +3,15 @@ namespace Backtester.backend
 {
     public class Consts
     {
-        
+
+        public enum TIPO_CARGA_ATIVOS
+        {
+            GERA_CANDIDATOS=1,
+            VALIDA_CANDIDATO=2,
+            DADOS_ATUAIS=3
+        }
+
+
         public const int MAX_CANDIDATOS = 100;
 
         public const string VAR_STOP_GAP = "STOP_GAP";
