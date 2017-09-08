@@ -157,7 +157,7 @@ namespace Backtester.backend.model.system
                 float tl = properties.GetPropriedade(UsoComum.ConstsComuns.OBJ_TOTAL_LOSS) != null ? (float)properties.GetPropriedade(UsoComum.ConstsComuns.OBJ_TOTAL_LOSS):0;
                 if (tl == 0) return 0;
                 float ratio = Math.Abs(tp / tl);
-                if (ratio < 1) return -PENALTY * 100000;
+                if (ratio < 1) return - (1-ratio)*PENALTY * 10000;
             }
 
             return 0;
