@@ -96,6 +96,10 @@ namespace Backtester.backend.model
 
         }
 
+
+
+       
+
         List<Posicao> posicoesARemover_ = new List<Posicao>();
         public void FechaPosicoes(Periodo periodo)
         {
@@ -139,7 +143,10 @@ namespace Backtester.backend.model
 
         public void FechaOperacao(Posicao posicao, Candle candle, Operacao oper, float vlrSaida)
         {
-            float vlr = oper.qtd * vlrSaida;
+            int qtd = oper.qtd;
+            float vlr = qtd * vlrSaida;
+
+            //TODO: continuar logica multiplas saidas...
 
             posicao.FechaOperacao(oper, candle, vlrSaida);
             estatistica.AddTrade(oper, candle.periodo);
@@ -151,9 +158,9 @@ namespace Backtester.backend.model
             else
             {
                 //movimentaSaldo(vlr);
-                float dif = vlr - oper.vlrEntrada * oper.qtd;
+                float dif = vlr - oper.vlrEntrada * qtd;
                 dif *= posicao.direcao;
-                MovimentaSaldo(oper.vlrEntrada * oper.qtd + dif);
+                MovimentaSaldo(oper.vlrEntrada * qtd + dif);
             }
 
             AtualizaPosicao(false);

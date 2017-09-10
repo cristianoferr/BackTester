@@ -143,7 +143,7 @@ namespace GeneticProgramming
                 else if (i <= config.mutationRange * solutions.Count / 100)
                 {
                     GPSolution solution = solutions[i];
-                    solution.Mutate();
+                    solution.Mutate(20);
                     nextSolutions.Add(solutions[i]);
                 }
                 else if (i <= config.generateChildRange * solutions.Count / 100)
@@ -153,7 +153,9 @@ namespace GeneticProgramming
                     GPSolution child2 = null;
                     GPSolution child = solution1.CreateChildWith(solution2, out child2);
                     nextSolutions.Add(child);
+                    child.Mutate(50);
                     nextSolutions.Add(child2);
+                    child2.Mutate(50);
                     i += 1;
                 }
                 else

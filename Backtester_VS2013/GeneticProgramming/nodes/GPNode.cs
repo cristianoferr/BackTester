@@ -1,6 +1,8 @@
 ﻿
 using GeneticProgramming.semantica;
 using System.Runtime.Serialization;
+using UsoComum;
+
 namespace GeneticProgramming.nodes
 {
     [DataContract]
@@ -14,7 +16,16 @@ namespace GeneticProgramming.nodes
 
         public override void Mutate(SemanticaList semanticaList)
         {
-            semantica = semanticaList.GetEquivalent(semantica, children.Count);
+            if (children.Count == 0 || Utils.RandomInt(0, 100) < 50)
+            {
+                semantica = semanticaList.GetEquivalent(semantica, children.Count);
+            }
+            else
+            {
+                int rnd = Utils.RandomInt(0, children.Count);
+                children[rnd].Mutate(semanticaList);
+            }
+            
         }
 
     }

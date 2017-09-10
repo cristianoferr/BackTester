@@ -10,6 +10,9 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using UsoComum;
+using Backtester.backend.DataManager;
+using System;
+
 namespace Backtester.controller
 {
     public class ConfigController : IController, ICaller
@@ -120,6 +123,13 @@ namespace Backtester.controller
             return facade.Run(this, config, ts)!=null;
         }
 
+        public void Describe(CandidatoData candidatoData)
+        {
+            Clarify clarify = new Clarify();
+            RichTextBox txt = frmPrincipal.GetControl("txtDescriber") as RichTextBox;
+            clarify.Describe(txt,candidatoData,config);
+        }
+
         internal Carteira RunSingle(TradeSystem ts,string name, Consts.TIPO_CARGA_ATIVOS tipoCarga)
         {
             
@@ -137,6 +147,7 @@ namespace Backtester.controller
         }
 
         float _totalDif = 0;
+        float _validCount = 0;
 
         public void UpdateApplication(Carteira carteira, MonteCarlo mC, int countLoops, int totalLoops)
         {
@@ -147,11 +158,20 @@ namespace Backtester.controller
             }
             if (countLoops <= 1) { 
                 _totalDif = 0;
+                _validCount = 0;
             }
 
+
             float dif = carteira.GetCapital()-carteira.capitalInicial;
-            _totalDif += dif;
-            frmPrincipal.SetText("labelAvgDif", "Avg.Dif.:" + Utils.FormatCurrency(_totalDif/countLoops));
+            if (dif != 0)
+            {
+                _totalDif += dif;
+                _validCount++;
+            }
+            if (_validCount>0)
+                frmPrincipal.SetText("labelAvgDif", "Avg.Dif.:" + Utils.FormatCurrency(_totalDif/ _validCount)+" ("+ _validCount+")");
+
+            
 
             frmPrincipal.SetText("labelStatus",countLoops + " / " + totalLoops);
             //frmPrincipal.dataSetBacktest.Tables[0].Rows.Add(mC);
@@ -208,13 +228,13 @@ namespace Backtester.controller
             DataGridViewRowCollection Rows = frmPrincipal.GetRows("dataGridRuns");
             MonteCarlo mc = Rows[0].Cells[0].Value as MonteCarlo;
             int piorIndex = 0;
-            float piorResultado = mc.CalcFitness();
+            double piorResultado = mc.CalcFitness();
             for (int i = 1; i < Rows.Count; i++)
             {
                 mc = Rows[i].Cells[0].Value as MonteCarlo;
                 if (mc != null)
                 {
-                    float resultado = mc.CalcFitness();
+                    double resultado = mc.CalcFitness();
                     if (resultado < piorResultado)
                     {
                         piorResultado = resultado;
@@ -245,6 +265,10 @@ namespace Backtester.controller
             }
             Carteira carteira = RowsG[p].Cells[1].Value as Carteira;
             Estatistica global = mc.getGlobal();
+
+            CandidatoData candData = new CandidatoData(carteira.tradeSystem, mc.getGlobal(), carteira.GetCapital());
+            Describe(candData);
+
             // global.getGeral().getAmbasPontas().todosTrades.o
             frmPrincipal.ClearRows("dataGridOperacoes");
             IList<Posicao> posicoes = carteira.posicoesFechadas;

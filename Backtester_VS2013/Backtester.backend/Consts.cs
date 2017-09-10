@@ -22,6 +22,8 @@ namespace Backtester.backend
         public const string VAR_USA_STOP_MOVEL = "USA_STOP_MOVEL";
         public const string VAR_RISCO_GLOBAL = "RISCO_GLOBAL";
         public const string VAR_MULTIPLAS_ENTRADAS = "MULTIPLAS_ENTRADAS";
+        public const string VAR_MULTIPLAS_SAIDAS = "MULTIPLAS_SAIDAS ";
+        
 
 
         public const int QTD_MAXIMA_FORMULAS_CACHE = 30000;

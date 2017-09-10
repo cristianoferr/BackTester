@@ -3,6 +3,7 @@ using Backtester.backend.DataManager;
 using Backtester.backend.model.ativos;
 using Backtester.backend.model.system.condicoes;
 using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 namespace Backtester.backend.model.system
 {
@@ -22,6 +23,7 @@ E caso o valor do stopMovel seja menor que o stopInicial então o valor retornad
 
         public TradeSystem(Config config)
         {
+            mensagens = new List<string>();
             vm = new VariavelManager();
             stopInicialC = "SUBTRACT(L,MULTIPLY(" + FormulaManager.STDDEV + "(C,10),2))";
             stopInicialV = "SUM(H,MULTIPLY(" + FormulaManager.STDDEV + "(C,10),2))";//"HV(H,6)";
@@ -35,6 +37,7 @@ E caso o valor do stopMovel seja menor que o stopInicial então o valor retornad
             GetVariavel(Consts.VAR_PERC_TRADE, "informa quanto do capital eu posso ter por ativo", 10, 5, 100);
             GetVariavel(Consts.VAR_USA_STOP_MOVEL, "Usa stop movel? 0=nao, 1=sim", 0, 1, 1);
             GetVariavel(Consts.VAR_MULTIPLAS_ENTRADAS, "A posição pode ter mais de uma entrada(operacao)? 0=nao, 1=sim", 0, 1, 1);
+            GetVariavel(Consts.VAR_MULTIPLAS_SAIDAS, "A posição pode ter mais de uma saida(operacao)? 0=nao, 1=sim", 0, 5, 20);
 
             /*  condicaoEntradaC = new CondicaoComplexa();
               condicaoEntradaV = new CondicaoComplexa();
@@ -68,6 +71,18 @@ E caso o valor do stopMovel seja menor que o stopInicial então o valor retornad
         public string stopInicialV { get; set; }
         [DataMember]
         public string stopMovelC { get; set; }
+
+        [DataMember]
+        public IList<string> mensagens { get; private set; }
+        internal void AddError(string v)
+        {
+            if (!mensagens.Contains(v)) mensagens.Add("ERROR:" + v);
+        }
+        internal void AddWarning(string v)
+        {
+            if (!mensagens.Contains(v)) mensagens.Add("WARNING:" + v);
+        }
+
         [DataMember]
         public string stopMovelV { get; set; }
 
@@ -108,14 +123,14 @@ E caso o valor do stopMovel seja menor que o stopInicial então o valor retornad
             if ((config.flagCompra && condicaoEntradaC != null))
             {
                 float valor = candle.GetValor(vm.ReplaceVariavel(condicaoEntradaC));
-                if (valor >= 1)
+                if (valor > 0)
                     return Math.Abs(Stop.CalcValorStop(candle.GetValor(stopInicialC),1, stopGapPerc));
                 //return candle.GetValor(stopInicialC) * (1f - stopGapPerc / 100f);
             }
             if ((config.flagVenda && condicaoEntradaV != null))
             {
                 float valor = candle.GetValor(vm.ReplaceVariavel(condicaoEntradaV));
-                if (valor >= 1)
+                if (valor > 0)
                     return -Math.Abs(Stop.CalcValorStop(candle.GetValor(stopInicialC), -1, stopGapPerc));
                 //return -candle.GetValor(stopInicialV) * (1f + stopGapPerc / 100f);
             }
@@ -165,6 +180,17 @@ E caso o valor do stopMovel seja menor que o stopInicial então o valor retornad
             }
         }
 
+
+        public bool usaMultiplasSaidas
+        {
+            get
+            {
+                return vm.GetVariavel(Consts.VAR_MULTIPLAS_SAIDAS).vlrAtual == 1;
+            }
+        }
+
+
+        
 
         public float riscoGlobal
         {

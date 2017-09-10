@@ -59,7 +59,7 @@ namespace GeneticProgramming.solution
         public string name { get; set; }
 
         //Será usado como base para o processo de ordenação de resultados e deve ser calculado pelo programa mestre...
-        public float fitnessResult { get; set; }
+        public double fitnessResult { get; set; }
 
         public GPTemplate template { get; set; }
         #endregion
@@ -106,7 +106,8 @@ namespace GeneticProgramming.solution
 
         public float GetValueAsNumber(string var)
         {
-            return float.Parse(GetValue(var).ToString());
+            if (GetValue(var) == null) return 0;
+            return float.Parse(GetValue(var).ToString().Replace(".",","));
         }
 
         public string GetValueAsString(string var)
@@ -114,17 +115,15 @@ namespace GeneticProgramming.solution
             return GetValue(var).ToString();
         }
 
-        public void Mutate()
+        public void Mutate(int chance)
         {
-            int rnd = Utils.RandomInt(0, valores.Count);
-            int i = 0;
             foreach (string key in valores.Keys)
             {
-                if (i == rnd)
+                int rnd = Utils.RandomInt(0, 100);
+                if (rnd < chance) 
                 {
                     Mutate(valores[key], key);
                 }
-                i++;
             }
 
         }
@@ -162,6 +161,8 @@ namespace GeneticProgramming.solution
 
         private string SpliceWith(GPSolution mateWith, string key)
         {
+            if (!valores.ContainsKey(key)) return null;
+            if (!mateWith.valores.ContainsKey(key)) return null;
             GPAbstractNode rootNode1 = valores[key];
             GPAbstractNode rootNode2 = mateWith.valores[key];
 

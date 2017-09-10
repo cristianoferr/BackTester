@@ -95,6 +95,7 @@ namespace Backtester.GeneticProgramming
             listVariaveis.Add(Consts.VAR_USA_STOP_MOVEL);
             listVariaveis.Add(Consts.VAR_RISCO_GLOBAL);
             listVariaveis.Add(Consts.VAR_MULTIPLAS_ENTRADAS);
+         //   listVariaveis.Add(Consts.VAR_MULTIPLAS_SAIDAS);
 
             template.AddProperty(Consts.VAR_STOP_GAP, listaNumerosPercentuais);
             template.AddProperty(Consts.VAR_RISCO_TRADE, listaNumerosPercentuais);
@@ -104,6 +105,7 @@ namespace Backtester.GeneticProgramming
             template.AddProperty(Consts.VAR_USA_STOP_MOVEL, listaBooleanos);
             template.AddProperty(Consts.VAR_RISCO_GLOBAL, listaNumerosPercentuais);
             template.AddProperty(Consts.VAR_MULTIPLAS_ENTRADAS, listaBooleanos);
+            template.AddProperty(Consts.VAR_MULTIPLAS_SAIDAS, listaBooleanos);
 
             return template;
         }

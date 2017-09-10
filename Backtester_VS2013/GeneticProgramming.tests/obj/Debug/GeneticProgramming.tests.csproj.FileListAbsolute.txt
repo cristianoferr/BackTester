@@ -29,6 +29,10 @@ F:\Java\repositorios\BackTester\Backtester_VS2013\GeneticProgramming.tests\bin\D
 F:\Java\repositorios\BackTester\Backtester_VS2013\GeneticProgramming.tests\obj\Debug\GeneticProgramming.tests.csprojResolveAssemblyReference.cache
 F:\Java\repositorios\BackTester\Backtester_VS2013\GeneticProgramming.tests\obj\Debug\GeneticProgramming.tests.dll
 F:\Java\repositorios\BackTester\Backtester_VS2013\GeneticProgramming.tests\obj\Debug\GeneticProgramming.tests.pdb
+G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\GeneticProgramming.tests\bin\Debug\Backtester.backend.dll
+G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\GeneticProgramming.tests\bin\Debug\RestSharp.dll
+G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\GeneticProgramming.tests\bin\Debug\Backtester.backend.pdb
+G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\GeneticProgramming.tests\bin\Debug\RestSharp.xml
 F:\Java\repositorios\BackTester\Backtester_VS2013\GeneticProgramming.tests\bin\Debug\dados\old\natu3-diario.js
 F:\Java\repositorios\BackTester\Backtester_VS2013\GeneticProgramming.tests\bin\Debug\dados\old\ccro3-diario.js
 F:\Java\repositorios\BackTester\Backtester_VS2013\GeneticProgramming.tests\bin\Debug\dados\old\ciel3-diario.js
@@ -38,7 +42,3 @@ F:\Java\repositorios\BackTester\Backtester_VS2013\GeneticProgramming.tests\bin\D
 F:\Java\repositorios\BackTester\Backtester_VS2013\GeneticProgramming.tests\bin\Debug\dados\old\bbdc4-diario.js
 F:\Java\repositorios\BackTester\Backtester_VS2013\GeneticProgramming.tests\bin\Debug\dados\old\bbas3-diario.js
 F:\Java\repositorios\BackTester\Backtester_VS2013\GeneticProgramming.tests\bin\Debug\dados\old\vale5-diario.js
-G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\GeneticProgramming.tests\bin\Debug\Backtester.backend.dll
-G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\GeneticProgramming.tests\bin\Debug\RestSharp.dll
-G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\GeneticProgramming.tests\bin\Debug\Backtester.backend.pdb
-G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\GeneticProgramming.tests\bin\Debug\RestSharp.xml

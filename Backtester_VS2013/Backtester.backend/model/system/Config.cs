@@ -96,8 +96,12 @@ namespace Backtester.backend.model.system
             AddPapel("NY", "GE");
             AddPapel("NY", "CHK");
             AddPapel("NY", "AKS");
-            AddPapel("NY", "ABEV");
+            //AddPapel("NY", "ABEV");
             AddPapel("NY", "GGB");
+            AddPapel("NY", "KO");
+            AddPapel("NY", "HPQ");
+            AddPapel("NY", "DIS");
+            AddPapel("NY", "MCD");
             AddPapel("NY", "WFC");
             AddPapel("NY", "FCX");
             AddPapel("NY", "TECK");
@@ -240,14 +244,14 @@ namespace Backtester.backend.model.system
 
         public bool IsGPVarDefined(string var)
         {
-            string[] vars = gpVars.Split('\n');
+          /*  string[] vars = gpVars.Split('\n');
             foreach (string v in vars)
             {
                 if (v.StartsWith(var + "="))
                 {
                     return true;
                 }
-            }
+            }*/
             return false;
         }
 

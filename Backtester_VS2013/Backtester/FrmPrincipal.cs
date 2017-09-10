@@ -66,7 +66,8 @@ namespace Backtester
             referView.Register("listTSVars", listTSVars);
             referView.Register("labelStatus", labelStatus);
             referView.Register("labelAvgDif", labelAvgDif);
-            
+            referView.Register("txtDescriber", txtDescriber);
+
 
 
             referView.SetStatusComponent(txtStatus);

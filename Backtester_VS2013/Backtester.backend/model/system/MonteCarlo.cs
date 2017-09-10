@@ -11,7 +11,7 @@ namespace Backtester.backend.model.system
     {
         string name;
         Estatistica global;
-        public float fitness = 0;
+        public double fitness = 0;
         public IList<Operacao> operacoes { get; set; }
         public MonteCarlo(string name)
         {
@@ -55,6 +55,10 @@ namespace Backtester.backend.model.system
         float totalCarteiraEmPosicao = 0;
         int totalPeriodos = 0;
 
+        public bool tentouEntrarTodoCandle = true;
+        public bool flagSizingForaRange = false;
+        
+
         internal void AnalizaPeriodo(Carteira carteira)
         {
             totalCarteiraLiquido += carteira.capitalLiq;
@@ -84,6 +88,7 @@ namespace Backtester.backend.model.system
             if (difPerc > MAX_DISTANCE_VLR_ENTRADA_VLR_STOP)
             {
                 if (difPerc > ERROR_DISTANCIA_SUPERADA) ERROR_DISTANCIA_SUPERADA = difPerc;
+                
             }
             totalQtdAcoes += qtd;
         }
@@ -94,36 +99,61 @@ namespace Backtester.backend.model.system
 
         public void FinishStats(Carteira carteira)
         {
-            if (ERROR_STOP_0) fitness -= PENALTY * 100;
+            if (ERROR_STOP_0)
+            {
+                fitness -= PENALTY * 100;
+                carteira.tradeSystem.AddError("Stop 0");
+            }
             if (ERROR_VLR_STOP_ERRADO) fitness -= PENALTY * 100;
             if (ERROR_DISTANCIA_SUPERADA > 0) fitness -= PENALTY * ERROR_DISTANCIA_SUPERADA * 100;
 
+            //O tradesystem tentou entrar em todo candle... o que é ruim...
+            if (tentouEntrarTodoCandle)
+            {
+                fitness -= PENALTY * 100000;
+                carteira.tradeSystem.AddError("Tentou entrar em todo candle (condicao entrada sempre true)");
+            }
+
+            //tentou usar um de sizing fora do range 0 a 100
+            if (flagSizingForaRange)
+            {
+                fitness -= PENALTY * 1000;
+                carteira.tradeSystem.AddError("Sizing fora do range");
+            }
 
 
             if (qtdTrades == 0)
             {
-                fitness -= PENALTY * 10000;
+                fitness -= PENALTY * 1000000f;
+                carteira.tradeSystem.AddError("Zero trades Gerados");
             }
 
-            //
-            if (global.maxCapital > carteira.capitalInicial)
+            //TODO: Rever essa conta... acho que está prejudicando os que começam a dar lucro...
+           /* if (global.maxCapital > carteira.capitalInicial)
             {
                 float difMaxCapital = (global.maxCapital - carteira.GetCapital()) * 10;
                 fitness -= difMaxCapital;
-            }
+            }*/
 
             //Conta a variedade nas ações ganhadoras: acerta 2 ações é melhor que 1 ação
             fitness += CalcBonusVariedade(carteira);
 
-            fitness += percAcerto * BONUS;
+            
 
             float difCapital = carteira.GetCapital() - carteira.capitalInicial;
-            fitness += BONUS * difCapital / 100;
-            if (difCapital == 0) fitness -= PENALTY * 10;
+            fitness += BONUS * difCapital ;
+            if (difCapital == 0) fitness -= PENALTY * 100;
 
 
             int difTrades = QTD_MINIMA_TRADES - qtdTrades;
-            if (difTrades > 0) fitness -= PENALTY * difTrades * 100;
+            if (difTrades > 0)
+            {
+                fitness -= PENALTY * difTrades * 1000;
+                carteira.tradeSystem.AddWarning("Não atingiu a quantidade mínima de trades.");
+            } else
+            {
+                fitness += percAcerto * BONUS * 10;
+            }
             /*//só dou bonus de acerto para os que estiverem acima do objetivo de qtd minima de trades
             if (difTrades == 0)
             {
@@ -142,7 +172,7 @@ namespace Backtester.backend.model.system
 
 
 
-            fitness /= 10;
+            fitness /= 1000;
         }
 
         private float CalcFitnessAntigoSemResultados()
@@ -295,7 +325,7 @@ namespace Backtester.backend.model.system
             return global;
         }
 
-        public float CalcFitness()
+        public double CalcFitness()
         {
             fitness += CalcFitnessAntigoSemResultados();
 

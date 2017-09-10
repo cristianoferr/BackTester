@@ -200,7 +200,7 @@ namespace Backtester.backend
             Periodo periodo = periodoInicial;
             string mesA = "";
             //int[] rd = GetRandomOrder(config.qtdPercPapeis);
-            int[] rd = GetRandomOrder(100);
+            int[] rd = GetRandomOrder(80);
             while (periodo.proximoPeriodo != null)
             {
                 BackTestePeriodo(caller, mc, ref periodo, ref mesA, rd);
@@ -257,12 +257,25 @@ namespace Backtester.backend
                     {
                         valorAcao = candle.proximoCandle.GetValor(FormulaManager.OPEN);
                     }
-                    float sizing = (direcao > 0) ? candle.GetValor(tradeSystem.sizingCompra) : candle.GetValor(tradeSystem.sizingVenda);
-                    if (sizing > 100) sizing = 100;
-                    if (sizing < 0) sizing = 0;
+                    float sizing = 1;
+                    if (tradeSystem.sizingCompra!=null)
+                        sizing=(direcao > 0) ? candle.GetValor(tradeSystem.sizingCompra) : candle.GetValor(tradeSystem.sizingVenda);
+                    if (sizing> 1)
+                    {
+                        sizing = 1;
+                        carteira.monteCarlo.flagSizingForaRange = true;
+                    }
+                    if (sizing < 0)
+                    {
+                        sizing = 0;
+                        carteira.monteCarlo.flagSizingForaRange = true;
+                    }
 
-                    carteira.EfetuaEntrada(ativo, periodo, sizing/100f, valorAcao, Math.Abs(direcao), (direcao > 0 ? 1 : -1));
+                    carteira.EfetuaEntrada(ativo, periodo, sizing, valorAcao, Math.Abs(direcao), (direcao > 0 ? 1 : -1));
                 }
+            } else
+            {
+                carteira.monteCarlo.tentouEntrarTodoCandle = false;
             }
 
             //Se eu tiver posicao em aberto, verifico se foi ativado a saida, se sim, a saida será feita no vlrSaida padrao

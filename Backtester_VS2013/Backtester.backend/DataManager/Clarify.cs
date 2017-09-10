@@ -1,8 +1,12 @@
-﻿using System;
+﻿using Backtester.backend.model.system;
+using Backtester.backend.model.system.estatistica;
+using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using UsoComum;
 
 namespace Backtester.backend.DataManager
@@ -118,5 +122,161 @@ namespace Backtester.backend.DataManager
         {
             return dict.Where(x => x.code == formula).FirstOrDefault();
         }
+
+#region Describe
+
+        public void Describe(RichTextBox txt ,CandidatoData candidatoData,Config config)
+        {
+            
+            txt.Text = "";
+            TradeSystem ts = candidatoData.tradeSystem;
+            AddTitle(txt, ts.name);
+            AddQuebraLinha(txt);
+            Clarify clarify = new Clarify();
+
+            DescreveCaracteristicas(txt, ts);
+            AddQuebraLinha(txt);
+            DescreveFormulas(txt, ts, config);
+            AddQuebraLinha(txt);
+            AddQuebraLinha(txt);
+
+            AddTitle(txt, "ESTATÍSTICAS");
+            Estatistica stat = candidatoData.estatistica;
+            AddText(txt, "Max.Capital", Utils.FormatCurrency(stat.maxCapital));
+            AddText(txt, "Min.Capital", Utils.FormatCurrency(stat.minCapital));
+            AddQuebraLinha(txt);
+            txt.SelectionIndent += 10;
+            if (config.flagCompra)
+            {
+                AddTitle(txt, "Ponta Comprada");
+                SubDado dado = stat.geral.getCompras();
+                DescreveDado(txt, dado);
+            }
+            if (config.flagVenda)
+            {
+                AddTitle(txt, "Ponta Vendida");
+                SubDado dado = stat.geral.getVendas();
+                DescreveDado(txt, dado);
+            }
+            txt.SelectionIndent -= 10;
+
+            AddQuebraLinha(txt);
+            AddTitle(txt, "MENSAGENS");
+            foreach (string msg in candidatoData.tradeSystem.mensagens)
+            {
+                AddText(txt, msg);
+            }
+
+
+        }
+
+        private void DescreveDado(RichTextBox txt, SubDado dado)
+        {
+
+            txt.SelectionBullet = true;
+            AddText(txt, "% Acerto", Utils.FormatCurrency(dado.percAcerto) + "%");
+            AddText(txt, "$Win/$Loss", Utils.FormatCurrency(dado.winLossRatio));
+            AddText(txt, "Total Ganho", Utils.FormatCurrency(dado.totalGanho));
+            AddText(txt, "Total Perdido", Utils.FormatCurrency(dado.totalPerdido));
+            AddText(txt, "Trades Stopados", "" + dado.getnTradesStopados());
+
+            txt.SelectionIndent += 10;
+            SubSubDado ssd = dado.getTodosTrades();
+            DescreveSubDado(txt, "TODOS TRADES:", ssd);
+            ssd = dado.getTradesGanhos();
+            DescreveSubDado(txt, "TRADES GANHOS:", ssd);
+            ssd = dado.getTradesPerdidos();
+            DescreveSubDado(txt, "TRADES PERDIDOS:", ssd);
+            txt.SelectionIndent -= 10;
+
+        }
+
+        private void DescreveSubDado(RichTextBox txt, string titulo, SubSubDado ssd)
+        {
+            txt.SelectionBullet = false;
+            AddQuebraLinha(txt);
+            AddTitle(txt, titulo);
+            txt.SelectionBullet = true;
+            AddText(txt, "Qtd Trades", "" + ssd.getnTrades());
+
+            AddText(txt, "Duração Média", "" + ssd.getAvgDias());
+            AddText(txt, "Duração Máxima", "" + ssd.getMaxDias());
+            AddText(txt, "Duração Mínima", "" + ssd.getMinDias());
+            AddText(txt, "Maior Variação", "" + Utils.FormatCurrency(ssd.getMaxTrade()));
+            AddText(txt, "Menor Variação", "" + Utils.FormatCurrency(ssd.getMinTrade()));
+            AddText(txt, "Variação Total", "" + Utils.FormatCurrency(ssd.getTotal()));
+            txt.SelectionBullet = false;
+        }
+
+        private void DescreveFormulas(RichTextBox txt, TradeSystem ts, Config config)
+        {
+            if (config.flagCompra)
+            {
+                AddTitle(txt, "CONDIÇÕES COMPRA");
+                AddText(txt, "Cond.Compra", ClarificaFormula(ts.condicaoEntradaC));
+                AddText(txt, "Sizing Compra", ClarificaFormula(ts.sizingCompra));
+                AddText(txt, "Stop Inicial Compra", ClarificaFormula(ts.stopInicialC));
+                if (ts.usaStopMovel)
+                {
+                    AddText(txt, "Stop Movel Compra", ClarificaFormula(ts.stopMovelC));
+                }
+            }
+            if (config.flagVenda)
+            {
+                AddTitle(txt, "CONDIÇÕES VENDA");
+                AddText(txt, "Cond.Venda", ClarificaFormula(ts.condicaoEntradaC));
+                AddText(txt, "Sizing Venda", ClarificaFormula(ts.sizingCompra));
+                AddText(txt, "Stop Inicial Venda", ClarificaFormula(ts.stopInicialC));
+                if (ts.usaStopMovel)
+                {
+                    AddText(txt, "Stop Movel Venda", ClarificaFormula(ts.stopMovelC));
+                }
+            }
+        }
+
+        private void DescreveCaracteristicas(RichTextBox txt, TradeSystem ts)
+        {
+            AddTitle(txt, "CARACTERÍSTICAS");
+            txt.SelectionBullet = true;
+            AddText(txt, ts.usaMultiplasEntradas ? "Usa Múltiplas Entradas" : "Não usa Múltiplas Entradas");
+            AddText(txt, ts.usaStopMovel ? "Usa Stop Móvel" : "Não Usa Stop Móvel");
+            AddText(txt, "Risco por trade", Utils.FormatCurrency(ts.riscoTrade) + "%");
+            AddText(txt, "Risco Global", Utils.FormatCurrency(ts.riscoGlobal) + "%");
+            AddText(txt, "Gap Stop Inicial", Utils.FormatCurrency(ts.stopGapPerc) + "%");
+            AddText(txt, "% capital máximo por trade", Utils.FormatCurrency(ts.percTrade) + "%");
+            AddText(txt, "Capital máximo por trade", "$ " + Utils.FormatCurrency(ts.maxCapitalTrade));
+            AddText(txt, "Stop Mensal", Utils.FormatCurrency(ts.stopMensal) + "%");
+            txt.SelectionBullet = false;
+        }
+
+        private void AddText(RichTextBox txt, string v)
+        {
+            txt.AppendText(v);
+            AddQuebraLinha(txt);
+        }
+
+        private void AddText(RichTextBox txt, string v1, string v2)
+        {
+            txt.SelectionFont = new Font(txt.Font, FontStyle.Bold);
+            txt.AppendText(v1 + ": ");
+            txt.SelectionFont = new Font(txt.Font, FontStyle.Regular);
+            txt.AppendText(v2);
+            AddQuebraLinha(txt);
+        }
+
+        private void AddQuebraLinha(RichTextBox txt)
+        {
+            txt.AppendText("\r\n");
+        }
+
+        private void AddTitle(RichTextBox txt, string name)
+        {
+            txt.SelectionFont = new Font(txt.Font, FontStyle.Bold);
+            txt.AppendText(name);
+            txt.SelectionFont = new Font(txt.Font, FontStyle.Regular);
+            AddQuebraLinha(txt);
+        }
+
+#endregion
     }
 }
