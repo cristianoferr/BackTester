@@ -33,8 +33,8 @@ namespace Backtester.backend.model.formulas
                 float hh = candle.GetValor(facade.formulaManager.GetFormula(FormulaManager.HV, "H," + per));
                 float close = candle.GetValor("C");
                 k += (close - ll) / (hh - ll) * 100;
+                if (candle.candleAnterior == null) break;
                 candle = candle.candleAnterior;
-                if (candle == null) return 0;
             }
             k /= smooth.Calc(candle);
 

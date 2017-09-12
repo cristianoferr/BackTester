@@ -39,7 +39,7 @@ namespace Backtester.backend
         }
 
 
-        public void LoadAtivos(System.Collections.Generic.IList<string> list,Consts.PERIODO_ACAO periodo, Consts.TIPO_CARGA_ATIVOS tipoCarga)
+        public void LoadAtivos(string  list,Consts.PERIODO_ACAO periodo, Consts.TIPO_CARGA_ATIVOS tipoCarga)
         {
             foreach (string papel in list)
             {

@@ -29,12 +29,12 @@ namespace Backtester.controller
             facadeValidation = new FacadeBacktester();
             config = Config.LoadSaved();
 
-            List<string> papeis = new List<string>();
+            /*List<string> papeis = new List<string>();
             foreach (string papel in config.papeis)
             {
                 papeis.Add(papel);
             }
-            config.papeis = papeis;
+            config.papeis = papeis;*/
             UpdateUI();
             ReloadPapeis();
         }
@@ -42,10 +42,10 @@ namespace Backtester.controller
         private void ReloadPapeis()
         {
             frmPrincipal.ClearList("listPapeis");
-            foreach (string papel in config.papeis.OrderBy(x => x.ToString()).ToList())
+            /*foreach (string papel in config.papeis.OrderBy(x => x.ToString()).ToList())
             {
                 frmPrincipal.AddList("listPapeis",papel);
-            }
+            }*/
         }
 
         public virtual void UpdateUI()
@@ -96,14 +96,14 @@ namespace Backtester.controller
 
         internal void AdicionaPapel(string papel)
         {
-            config.AddPapel(papel);
+            //config.AddPapel(papel);
             ReloadPapeis();
             Salva();
         }
 
         internal void RemovePapel(string papel)
         {
-            config.RemovePapel(papel);
+           // config.RemovePapel(papel);
             ReloadPapeis();
             Salva();
         }

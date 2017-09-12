@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Reflection;
+using System.Linq;
 namespace UsoComum
 {
     public class Utils
@@ -198,6 +199,11 @@ namespace UsoComum
 
             if (!exists)
                 System.IO.Directory.CreateDirectory(subPath);
+        }
+
+        public static bool ContemNumero(string input)
+        {
+            return input.Any(c => char.IsDigit(c));
         }
 
         public static string GetFirstFile(string path)

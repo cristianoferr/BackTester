@@ -275,7 +275,8 @@ namespace Backtester.backend
                 }
             } else
             {
-                carteira.monteCarlo.tentouEntrarTodoCandle = false;
+                if (candle.GetValor(carteira.tradeSystem.condicaoEntradaC)<=0)
+                    carteira.monteCarlo.tentouEntrarTodoCandle = false;
             }
 
             //Se eu tiver posicao em aberto, verifico se foi ativado a saida, se sim, a saida será feita no vlrSaida padrao

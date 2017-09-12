@@ -8,6 +8,24 @@ using System;
 namespace Backtester.backend.model.system
 {
     [DataContract]
+    public class PapelDictionary
+    {
+        [DataMember]
+        IList<string> listaPapeis;
+
+        public PapelDictionary()
+        {
+            listaPapeis = new List<string>();
+        }
+
+        internal void Add(string v)
+        {
+            if (!listaPapeis.Contains(v))
+            listaPapeis.Add(v);
+        }
+    }
+
+    [DataContract]
     public class Config
     {
         public bool useVars=true;
@@ -22,8 +40,7 @@ namespace Backtester.backend.model.system
             custoOperacao = 20;
             flagCompraMesmoDia = false;
             flagVendaMesmoDia = false;
-            papeis = new List<string>();
-            papeisValidation = new List<string>();
+            papeis = new Dictionary<string, PapelDictionary>();
             maxTestes = 20;
             qtdPercPapeis = 60;//se eu tenho 100 papeis a testar então isso fará com que seja retornado uma lsita com x perc de 100
             InitDefaultPapeis();
@@ -54,113 +71,125 @@ namespace Backtester.backend.model.system
         }
         private void InitDefaultPapeisValidation()
         {
-            AddPapelValidacao("BMV", "ALFAA");
-            AddPapelValidacao("BMV", "BIMBOA");
-            AddPapelValidacao("BMV", "GMEXICOB");
-            AddPapelValidacao("BMV", "CULTIBAB");
-            AddPapelValidacao("BMV", "MASECAB");
-            AddPapelValidacao("BMV", "LABB");
-            AddPapelValidacao("BMV", "MEGACPO");
-            AddPapelValidacao("BMV", "AXTELCPO");
-            AddPapelValidacao("BMV", "CIEB");
-            AddPapelValidacao("BMV", "POCHTECB");
-            AddPapelValidacao("BMV", "ASURB");
-            AddPapelValidacao("BMV", "TMMA");
-            AddPapelValidacao("BMV", "CEMEXCPO");
-            AddPapelValidacao("BMV", "KOFL");
-            AddPapelValidacao("BMV", "AMXL");
-            AddPapelValidacao("BMV", "FEMSAUBD");
-            AddPapelValidacao("BMV", "GFNORTEO");
-            AddPapelValidacao("BMV", "SORIANAB");
-            AddPapelValidacao("BMV", "ALPEKA");
-            AddPapelValidacao("BMV", "GCARSOA1");
-            AddPapelValidacao("BMV", "LIVEPOL1");
+            AddPapelValidacao(0,"BMV", "ALFAA");
+            AddPapelValidacao(0, "BMV", "BIMBOA");
+            AddPapelValidacao(0, "BMV", "GMEXICOB");
+            AddPapelValidacao(0, "BMV", "CULTIBAB");
+            AddPapelValidacao(0, "BMV", "MASECAB");
+            AddPapelValidacao(0, "BMV", "LABB");
+            AddPapelValidacao(0, "BMV", "MEGACPO");
+            AddPapelValidacao(0, "BMV", "AXTELCPO");
+            AddPapelValidacao(0, "BMV", "CIEB");
+            AddPapelValidacao(0, "BMV", "POCHTECB");
+            AddPapelValidacao(0, "BMV", "ASURB");
+            AddPapelValidacao(0, "BMV", "TMMA");
+            AddPapelValidacao(0, "BMV", "CEMEXCPO");
+            AddPapelValidacao(0, "BMV", "KOFL");
+            AddPapelValidacao(0, "BMV", "AMXL");
+            AddPapelValidacao(0, "BMV", "FEMSAUBD");
+            AddPapelValidacao(0, "BMV", "GFNORTEO");
+            AddPapelValidacao(0, "BMV", "SORIANAB");
+            AddPapelValidacao(0, "BMV", "ALPEKA");
+            AddPapelValidacao(0, "BMV", "GCARSOA1");
+            AddPapelValidacao(0, "BMV", "LIVEPOL1");
 
 
         }
 
-        private void AddPapelValidacao(string bolsa, string acao)
+        private void AddPapelValidacao(int lista,string bolsa, string acao)
         {
-            papeisValidation.Add(bolsa+"_"+acao);
+            AddPapel(NOME_LISTA_VALIDACAO + lista, bolsa, acao);
         }
-        public void AddPapel(string bolsa, string acao)
+        public void AddPapel(string lista,string bolsa, string acao)
         {
-            papeis.Add(bolsa + "_" + acao);
+            PapelDictionary dict = GetDictionary(lista);
+            dict.Add(bolsa + "_" + acao);
         }
+
+        private PapelDictionary GetDictionary(string lista)
+        {
+            if (papeis.ContainsKey(lista)) { return papeis[lista]; }
+            PapelDictionary dict = new PapelDictionary();
+            papeis.Add(lista, dict);
+            return dict;
+        }
+
+        public int MAX_LISTA_GERACAO = 2;
+        public int MAX_LISTA_VALIDACAO = 2;
+        public const string NOME_LISTA_GERACAO = "LISTA_GERACAO";
+        public const string NOME_LISTA_VALIDACAO = "LISTA_VALIDACAO";
 
         private void InitDefaultPapeis()
         {
-            AddPapel("NY", "BAC");
-            AddPapel("NY", "VALE");
-            AddPapel("NY", "F");
-            AddPapel("NY", "GE");
-            AddPapel("NY", "CHK");
-            AddPapel("NY", "AKS");
-            //AddPapel("NY", "ABEV");
-            AddPapel("NY", "GGB");
-            AddPapel("NY", "KO");
-            AddPapel("NY", "HPQ");
-            AddPapel("NY", "DIS");
-            AddPapel("NY", "MCD");
-            AddPapel("NY", "WFC");
-            AddPapel("NY", "FCX");
-            AddPapel("NY", "TECK");
-            AddPapel("NY", "TEVA");
-            AddPapel("NY", "WLL");
-            AddPapel("NY", "AUY");
-            AddPapel("NY", "NOK");
-            AddPapel("NY", "HPE");
-            AddPapel("NY", "COL");
-            AddPapel("NY", "UTX");
-            AddPapel("NY", "JPM");
-/*
-            papeis.Add("ABEV3");
-            papeis.Add("BBAS3");
-            papeis.Add("BBDC4");
-            papeis.Add("BBSE3");
-            papeis.Add("BRAP4");
-            papeis.Add("BRFS3");
-            papeis.Add("BRKM5");
-            papeis.Add("BRML3");
-            papeis.Add("BVMF3");
-            papeis.Add("CCRO3");
-            papeis.Add("CIEL3");
-            papeis.Add("CMIG4");
-            papeis.Add("CPFE3");
-            papeis.Add("CPLE3");
-            papeis.Add("CSAN3");
-            papeis.Add("CSNA3");
-            papeis.Add("CYRE3");
-            papeis.Add("EMBR3");
-            papeis.Add("ENBR3");
-            papeis.Add("FIBR3");
-            papeis.Add("GGBR4");
-            papeis.Add("GOAU4");
-            papeis.Add("HYPE3");
-            papeis.Add("ITSA4");
-            papeis.Add("ITUB4");
-            papeis.Add("JBSS3");
-            //papeis.Add("KLBN11");
-            papeis.Add("KROT3");
-            papeis.Add("LAME4");
-            papeis.Add("LREN3");
-            papeis.Add("MRFG3");
-            papeis.Add("MRVE3");
-            papeis.Add("MULT3");
-            papeis.Add("NATU3");
-            papeis.Add("PCAR4");
-            papeis.Add("PETR4");
-            papeis.Add("QUAL3");
-            papeis.Add("RENT3");
-            papeis.Add("SBSP3");
-            papeis.Add("SMLE3");
-            papeis.Add("SUZB5");
-            papeis.Add("TIMP3");
-            papeis.Add("UGPA3");
-            papeis.Add("USIM5");
-            papeis.Add("VALE5");
-            papeis.Add("VIVT4");
-            papeis.Add("WEGE3");*/
+            AddPapel(NOME_LISTA_GERACAO+"0","NY", "BAC");
+            AddPapel(NOME_LISTA_GERACAO + "0", "NY", "VALE");
+            AddPapel(NOME_LISTA_GERACAO + "0", "NY", "F");
+            AddPapel(NOME_LISTA_GERACAO + "0", "NY", "GE");
+            AddPapel(NOME_LISTA_GERACAO + "0", "NY", "CHK");
+            AddPapel(NOME_LISTA_GERACAO + "0", "NY", "AKS");
+            AddPapel(NOME_LISTA_GERACAO + "0", "NY", "GGB");
+            AddPapel(NOME_LISTA_GERACAO + "0", "NY", "KO");
+            AddPapel(NOME_LISTA_GERACAO + "0", "NY", "HPQ");
+            AddPapel(NOME_LISTA_GERACAO + "0", "NY", "DIS");
+            AddPapel(NOME_LISTA_GERACAO + "0", "NY", "MCD");
+            AddPapel(NOME_LISTA_GERACAO + "0", "NY", "WFC");
+            AddPapel(NOME_LISTA_GERACAO + "0", "NY", "FCX");
+            AddPapel(NOME_LISTA_GERACAO + "0", "NY", "TECK");
+            AddPapel(NOME_LISTA_GERACAO + "0", "NY", "TEVA");
+            AddPapel(NOME_LISTA_GERACAO + "0", "NY", "WLL");
+            AddPapel(NOME_LISTA_GERACAO + "0", "NY", "AUY");
+            AddPapel(NOME_LISTA_GERACAO + "0", "NY", "NOK");
+            AddPapel(NOME_LISTA_GERACAO + "0", "NY", "HPE");
+            AddPapel(NOME_LISTA_GERACAO + "0", "NY", "COL");
+            AddPapel(NOME_LISTA_GERACAO + "0", "NY", "UTX");
+            AddPapel(NOME_LISTA_GERACAO + "0", "NY", "JPM");
+
+            AddPapel(NOME_LISTA_GERACAO + "1","BOV", "ABEV3");
+            AddPapel(NOME_LISTA_GERACAO + "1", "BOV", "BBAS3");
+            AddPapel(NOME_LISTA_GERACAO + "1", "BOV", "BBDC4");
+            AddPapel(NOME_LISTA_GERACAO + "1", "BOV", "BBSE3");
+            AddPapel(NOME_LISTA_GERACAO + "1", "BOV", "BRAP4");
+            AddPapel(NOME_LISTA_GERACAO + "1", "BOV", "BRFS3");
+            AddPapel(NOME_LISTA_GERACAO + "1", "BOV", "BRKM5");
+            AddPapel(NOME_LISTA_GERACAO + "1", "BOV", "BRML3");
+            AddPapel(NOME_LISTA_GERACAO + "1","BOV","BVMF3");
+            AddPapel(NOME_LISTA_GERACAO + "1","BOV","CCRO3");
+            AddPapel(NOME_LISTA_GERACAO + "1","BOV","CIEL3");
+            AddPapel(NOME_LISTA_GERACAO + "1","BOV","CMIG4");
+            AddPapel(NOME_LISTA_GERACAO + "1","BOV","CPFE3");
+            AddPapel(NOME_LISTA_GERACAO + "1","BOV","CPLE3");
+            AddPapel(NOME_LISTA_GERACAO + "1","BOV","CSAN3");
+            AddPapel(NOME_LISTA_GERACAO + "1","BOV","CSNA3");
+            AddPapel(NOME_LISTA_GERACAO + "1","BOV","CYRE3");
+            AddPapel(NOME_LISTA_GERACAO + "1","BOV","EMBR3");
+            AddPapel(NOME_LISTA_GERACAO + "1","BOV","ENBR3");
+            AddPapel(NOME_LISTA_GERACAO + "1","BOV","FIBR3");
+            AddPapel(NOME_LISTA_GERACAO + "1","BOV","GGBR4");
+            AddPapel(NOME_LISTA_GERACAO + "1","BOV","GOAU4");
+            AddPapel(NOME_LISTA_GERACAO + "1","BOV","HYPE3");
+            AddPapel(NOME_LISTA_GERACAO + "1","BOV","ITSA4");
+            AddPapel(NOME_LISTA_GERACAO + "1","BOV","ITUB4");
+            AddPapel(NOME_LISTA_GERACAO + "1","BOV","JBSS3");
+            AddPapel(NOME_LISTA_GERACAO + "1","BOV","KROT3");
+            AddPapel(NOME_LISTA_GERACAO + "1","BOV","LAME4");
+            AddPapel(NOME_LISTA_GERACAO + "1","BOV","LREN3");
+            AddPapel(NOME_LISTA_GERACAO + "1","BOV","MRFG3");
+            AddPapel(NOME_LISTA_GERACAO + "1","BOV","MRVE3");
+            AddPapel(NOME_LISTA_GERACAO + "1","BOV","MULT3");
+            AddPapel(NOME_LISTA_GERACAO + "1","BOV","NATU3");
+            AddPapel(NOME_LISTA_GERACAO + "1","BOV","PCAR4");
+            AddPapel(NOME_LISTA_GERACAO + "1","BOV","PETR4");
+            AddPapel(NOME_LISTA_GERACAO + "1","BOV","QUAL3");
+            AddPapel(NOME_LISTA_GERACAO + "1","BOV","RENT3");
+            AddPapel(NOME_LISTA_GERACAO + "1","BOV","SBSP3");
+            AddPapel(NOME_LISTA_GERACAO + "1","BOV","SMLE3");
+            AddPapel(NOME_LISTA_GERACAO + "1","BOV","SUZB5");
+            AddPapel(NOME_LISTA_GERACAO + "1","BOV","TIMP3");
+            AddPapel(NOME_LISTA_GERACAO + "1","BOV","UGPA3");
+            AddPapel(NOME_LISTA_GERACAO + "1","BOV","USIM5");
+            AddPapel(NOME_LISTA_GERACAO + "1","BOV","VALE5");
+            AddPapel(NOME_LISTA_GERACAO + "1","BOV","VIVT4");
+            AddPapel(NOME_LISTA_GERACAO + "1","BOV","WEGE3");
         }
 
         [DataMember]
@@ -169,10 +198,11 @@ namespace Backtester.backend.model.system
         public bool flagVendaMesmoDia { get; set; }
         [DataMember]
         public string varsDebug { get; set; }
+
+
+
         [DataMember]
-        public IList<string> papeis { get; set; }
-        [DataMember]
-        public IList<string> papeisValidation { get; set; }
+        public Dictionary<string,PapelDictionary> papeis { get; set; }
 
         [DataMember]
         public bool flagCompra { get; set; }
@@ -217,17 +247,7 @@ namespace Backtester.backend.model.system
         }
 
 
-
-        public void AddPapel(string papel)
-        {
-            if (!papeis.Contains(papel))
-                papeis.Add(papel);
-        }
-
-        public void RemovePapel(string papel)
-        {
-            papeis.Remove(papel);
-        }
+      
 
         [DataMember]
         public float saveMinProfitRatio { get; set; }

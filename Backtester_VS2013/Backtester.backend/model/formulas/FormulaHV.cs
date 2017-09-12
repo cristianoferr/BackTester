@@ -37,7 +37,7 @@ namespace Backtester.backend.model.formulas
                 float x = cp.GetValor(campo);
                 if (x > v) v = x;
                 cp = cp.candleAnterior;
-                if (cp == null) return 0;
+                if (cp == null) return v;
             }
 
             return v;

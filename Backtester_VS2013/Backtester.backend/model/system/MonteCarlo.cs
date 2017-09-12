@@ -110,7 +110,7 @@ namespace Backtester.backend.model.system
             //O tradesystem tentou entrar em todo candle... o que é ruim...
             if (tentouEntrarTodoCandle)
             {
-                fitness -= PENALTY * 100000;
+                fitness -= PENALTY * 10000;
                 carteira.tradeSystem.AddError("Tentou entrar em todo candle (condicao entrada sempre true)");
             }
 
@@ -120,11 +120,12 @@ namespace Backtester.backend.model.system
                 fitness -= PENALTY * 1000;
                 carteira.tradeSystem.AddError("Sizing fora do range");
             }
+            
 
 
             if (qtdTrades == 0)
             {
-                fitness -= PENALTY * 1000000f;
+                fitness -= PENALTY * 10000f;
                 carteira.tradeSystem.AddError("Zero trades Gerados");
             }
 
@@ -141,8 +142,10 @@ namespace Backtester.backend.model.system
             
 
             float difCapital = carteira.GetCapital() - carteira.capitalInicial;
-            fitness += BONUS * difCapital ;
-            if (difCapital == 0) fitness -= PENALTY * 100;
+            fitness += BONUS * difCapital /1000;
+            if (difCapital <= 0) fitness -= PENALTY * 100;
+
+            fitness += VerificaNumerosFormula(carteira);
 
 
             int difTrades = QTD_MINIMA_TRADES - qtdTrades;
@@ -152,7 +155,7 @@ namespace Backtester.backend.model.system
                 carteira.tradeSystem.AddWarning("Não atingiu a quantidade mínima de trades.");
             } else
             {
-                fitness += percAcerto * BONUS * 10;
+                fitness += percAcerto * BONUS*100;
             }
             /*//só dou bonus de acerto para os que estiverem acima do objetivo de qtd minima de trades
             if (difTrades == 0)
@@ -173,6 +176,31 @@ namespace Backtester.backend.model.system
 
 
             fitness /= 1000;
+        }
+
+        //necessario porque algumas soluções usavam muito de números... o que não é ideal pois vicia o resultado
+        private double VerificaNumerosFormula(Carteira carteira)
+        {
+            /* TradeSystem ts = carteira.tradeSystem;
+             bool contemNumeroFormula = false;
+             if (carteira.config.flagCompra)
+             {
+                 contemNumeroFormula = contemNumeroFormula || Utils.ContemNumero(ts.condicaoEntradaC);
+                 contemNumeroFormula = contemNumeroFormula || Utils.ContemNumero(ts.stopInicialC);
+                 contemNumeroFormula = contemNumeroFormula || Utils.ContemNumero(ts.stopMovelC);
+             }
+             if (carteira.config.flagVenda)
+             {
+                 contemNumeroFormula = contemNumeroFormula || Utils.ContemNumero(ts.condicaoEntradaV);
+                 contemNumeroFormula = contemNumeroFormula || Utils.ContemNumero(ts.stopInicialV);
+                 contemNumeroFormula = contemNumeroFormula || Utils.ContemNumero(ts.stopMovelV);
+             }
+             if (contemNumeroFormula)
+             {
+                 ts.AddWarning("Formula contém números.");
+             }
+             return contemNumeroFormula?-PENALTY*1000:0;*/
+            return 0;
         }
 
         private float CalcFitnessAntigoSemResultados()
@@ -223,7 +251,7 @@ namespace Backtester.backend.model.system
             }
             
 
-            return ativosVencedores.Count*BONUS*10+bonusWinAvg;
+            return ativosVencedores.Count*BONUS+bonusWinAvg;
         }
 
         private void FitnessPercUsoCapital()
