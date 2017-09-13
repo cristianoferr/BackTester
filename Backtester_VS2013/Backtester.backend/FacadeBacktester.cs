@@ -4,6 +4,7 @@ using Backtester.backend.model;
 using Backtester.backend.model.ativos;
 using Backtester.backend.model.system;
 using System;
+using System.Collections.Generic;
 
 namespace Backtester.backend
 {
@@ -39,8 +40,11 @@ namespace Backtester.backend
         }
 
 
-        public void LoadAtivos(string  list,Consts.PERIODO_ACAO periodo, Consts.TIPO_CARGA_ATIVOS tipoCarga)
+        public void LoadAtivos(Config config,int loopNumber,Consts.PERIODO_ACAO periodo, Consts.TIPO_CARGA_ATIVOS tipoCarga)
         {
+            dh.ClearAtivos();
+            IList<string> list = config.GetLista(tipoCarga, loopNumber);
+
             foreach (string papel in list)
             {
                 if (periodo == Consts.PERIODO_ACAO.DIARIO)

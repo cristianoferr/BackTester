@@ -46,7 +46,7 @@ namespace FrontTester.frontend.controller
             }
 
             facade = new FacadeBacktester();
-            facade.LoadAtivos(configController.config.papeis, configController.config.tipoPeriodo, Consts.TIPO_CARGA_ATIVOS.DADOS_ATUAIS);
+           // facade.LoadAtivos(configController.config.papeis, configController.config.tipoPeriodo, Consts.TIPO_CARGA_ATIVOS.DADOS_ATUAIS);
         }
 
         private void LoadCandidatos()
@@ -65,31 +65,6 @@ namespace FrontTester.frontend.controller
         internal void AtualizaDados()
         {
             throw new NotImplementedException();
-        }
-
-        internal void AddPapeisDefault()
-        {
-            configController.config.papeis.Clear();
-            configController.config.AddPapel("BOV", "ABEV3");
-            configController.config.AddPapel("BOV", "BBAS3");
-            configController.config.AddPapel("BOV", "BBDC4");
-            configController.config.AddPapel("BOV", "BRAP4");
-            configController.config.AddPapel("BOV", "BRFS3");
-            configController.config.AddPapel("BOV", "BVMF3");
-            configController.config.AddPapel("BOV", "CMIG4");
-            configController.config.AddPapel("BOV", "CSNA3");
-            configController.config.AddPapel("BOV", "GGBR4");
-            configController.config.AddPapel("BOV", "ITUB4");
-            configController.config.AddPapel("BOV", "EMBR3");
-            configController.config.AddPapel("BOV", "VALE5");
-            configController.config.AddPapel("BOV", "PETR4");
-            configController.config.AddPapel("BOV", "CMIG4");
-            configController.config.AddPapel("BOV", "PETR4");
-            configController.config.AddPapel("BOV", "SUZB5");
-            configController.config.AddPapel("BOV", "NATU3");
-            configController.config.AddPapel("BOV", "WEGE3");
-            configController.config.AddPapel("BOV", "CCRO3");
-            configController.UpdateUI();
         }
 
         internal void Describe(CandidatoData candidatoData)

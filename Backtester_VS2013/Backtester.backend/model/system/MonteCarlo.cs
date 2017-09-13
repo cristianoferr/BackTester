@@ -153,7 +153,7 @@ namespace Backtester.backend.model.system
             {
                 fitness -= PENALTY * difTrades * 1000;
                 carteira.tradeSystem.AddWarning("Não atingiu a quantidade mínima de trades.");
-            } else
+            } else if (difCapital>0)
             {
                 fitness += percAcerto * BONUS*100;
             }

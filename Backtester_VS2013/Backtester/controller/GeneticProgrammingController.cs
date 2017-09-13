@@ -53,16 +53,18 @@ namespace Backtester.controller
         internal void Run()
         {
             frmPrincipal.SetTitle("Gerando Candidatos...");
-            configController.facade.LoadAtivos(configController.config.papeis, configController.config.tipoPeriodo, backend.Consts.TIPO_CARGA_ATIVOS.GERA_CANDIDATOS);
+            int loopCount = 0;
             while (true)
             {
+                configController.facade.LoadAtivos(configController.config,loopCount, configController.config.tipoPeriodo, backend.Consts.TIPO_CARGA_ATIVOS.GERA_CANDIDATOS);
                 StartSingleRun();
+                loopCount++;
             }
         }
 
         internal void RunSingle()
         {
-            configController.facade.LoadAtivos(configController.config.papeis,configController.config.tipoPeriodo, backend.Consts.TIPO_CARGA_ATIVOS.GERA_CANDIDATOS);
+            configController.facade.LoadAtivos(configController.config,0, configController.config.tipoPeriodo, backend.Consts.TIPO_CARGA_ATIVOS.GERA_CANDIDATOS);
             StartSingleRun();
         }
 
@@ -181,14 +183,15 @@ namespace Backtester.controller
             singleton.SingleRunValidaSolution();
         }
 
-
+        int loopCount=0;
         public  Carteira SingleRunValidaSolution(string name="Single Run Validate")
         {
             //gpRunner.SingleRun();
             TradeSystem ts=solutionToTest.tradeSystem;
-            Carteira carteira=configController.RunSingle(ts,name,backend.Consts.TIPO_CARGA_ATIVOS.VALIDA_CANDIDATO);
+            Carteira carteira=configController.RunSingle(loopCount,ts, name,backend.Consts.TIPO_CARGA_ATIVOS.VALIDA_CANDIDATO);
             CandidatoManager cm = CandidatoManager.LoadSaved();
             cm.AddTradeSystem(ts,carteira.estatistica);
+            loopCount++;
             return carteira;
         }
 

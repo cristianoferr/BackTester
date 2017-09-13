@@ -171,7 +171,7 @@ namespace FrontTester.frontend
 
         private void btnCarregaAtivoIniciais_Click(object sender, EventArgs e)
         {
-            frontController.AddPapeisDefault();
+           // frontController.AddPapeisDefault();
         }
 
         private void cbTradeSystem_SelectedIndexChanged(object sender, EventArgs e)

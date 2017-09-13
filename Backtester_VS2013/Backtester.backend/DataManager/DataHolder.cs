@@ -107,6 +107,7 @@ namespace Backtester.backend.model
         internal void ClearAtivos()
         {
             ativos.Clear();
+            periodos.Clear();
         }
 
         internal void ClearData()

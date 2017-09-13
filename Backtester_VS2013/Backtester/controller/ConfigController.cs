@@ -117,7 +117,7 @@ namespace Backtester.controller
         internal bool Run(TradeSystem ts)
         {
             contaTestes = 0;
-            facade.LoadAtivos(config.papeis, config.tipoPeriodo,Consts.TIPO_CARGA_ATIVOS.GERA_CANDIDATOS);
+            facade.LoadAtivos(config,0, config.tipoPeriodo,Consts.TIPO_CARGA_ATIVOS.GERA_CANDIDATOS);
             frmPrincipal.ClearRows("dataGridRuns");
             //facade.RunSingleTS();
             return facade.Run(this, config, ts)!=null;
@@ -130,18 +130,18 @@ namespace Backtester.controller
             clarify.Describe(txt,candidatoData,config);
         }
 
-        internal Carteira RunSingle(TradeSystem ts,string name, Consts.TIPO_CARGA_ATIVOS tipoCarga)
+        internal Carteira RunSingle(int loop,TradeSystem ts,string name, Consts.TIPO_CARGA_ATIVOS tipoCarga)
         {
             
             if (tipoCarga==Consts.TIPO_CARGA_ATIVOS.VALIDA_CANDIDATO)
             {
                 //valido com todos os papeis disponíveis
                 config.qtdPercPapeis = 100;
-                facadeValidation.LoadAtivos(config.papeisValidation, config.tipoPeriodo, tipoCarga);
+                facadeValidation.LoadAtivos(config,loop, config.tipoPeriodo, tipoCarga);
                 return facadeValidation.RunValidation( this, config, ts, name);
             } else
             {
-                facade.LoadAtivos(config.papeis, config.tipoPeriodo, tipoCarga);
+                facade.LoadAtivos(config,loop, config.tipoPeriodo, tipoCarga);
                 return facade.RunSingle(name, this, config, ts);
             }
         }

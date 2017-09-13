@@ -174,7 +174,7 @@ namespace Backtester
                 {
                     ts.vm.LoadVars(txtVarsDebug.Text);
                 }
-                configController.RunSingle(ts,"Roda Single",backend.Consts.TIPO_CARGA_ATIVOS.GERA_CANDIDATOS);
+                configController.RunSingle(0,ts,"Roda Single",backend.Consts.TIPO_CARGA_ATIVOS.GERA_CANDIDATOS);
             }
         }
 
