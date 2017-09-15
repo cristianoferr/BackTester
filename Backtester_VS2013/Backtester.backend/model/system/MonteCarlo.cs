@@ -1,4 +1,5 @@
-﻿using Backtester.backend.model.system.condicoes;
+﻿using Backtester.backend.DataManager;
+using Backtester.backend.model.system.condicoes;
 using Backtester.backend.model.system.estatistica;
 using System;
 using System.Collections.Generic;
@@ -13,12 +14,14 @@ namespace Backtester.backend.model.system
         Estatistica global;
         public double fitness = 0;
         public IList<Operacao> operacoes { get; set; }
+        Clarify clarify;
         public MonteCarlo(string name)
         {
             this.name = name;
             global = new Estatistica(0);
             fitness = 0;
             operacoes = new List<Operacao>();
+            clarify = new Clarify();
         }
 
         public void setEstatistica(Estatistica stat)
@@ -96,9 +99,11 @@ namespace Backtester.backend.model.system
         bool ERROR_STOP_0 = false;
         bool ERROR_VLR_STOP_ERRADO = false;
         float ERROR_DISTANCIA_SUPERADA = 0;
+        
 
-        public void FinishStats(Carteira carteira)
+        public void FinishStats(FormulaManager fm,Carteira carteira)
         {
+            TradeSystem tradeSystem = carteira.tradeSystem;
             if (ERROR_STOP_0)
             {
                 fitness -= PENALTY * 100;
@@ -129,15 +134,32 @@ namespace Backtester.backend.model.system
                 carteira.tradeSystem.AddError("Zero trades Gerados");
             }
 
-            //TODO: Rever essa conta... acho que está prejudicando os que começam a dar lucro...
-           /* if (global.maxCapital > carteira.capitalInicial)
-            {
-                float difMaxCapital = (global.maxCapital - carteira.GetCapital()) * 10;
-                fitness -= difMaxCapital;
-            }*/
+            fitness += qtdTradesGanhadores* BONUS *10f;
 
-            //Conta a variedade nas ações ganhadoras: acerta 2 ações é melhor que 1 ação
-            fitness += CalcBonusVariedade(carteira);
+            if (qtdTradesGanhadores< QTD_MINIMA_TRADES / 4)
+            {
+                fitness -= PENALTY * 10000f;
+                carteira.tradeSystem.AddWarning("Qtd. Trades Ganhadores muito baixa.");
+            }
+
+            bool viciadaCompra = carteira.config.flagCompra && ((tradeSystem.usaStopMovel && clarify.VerificaFormulaViciada(fm, tradeSystem.stopMovelC)) ||  clarify.VerificaFormulaViciada(fm,tradeSystem.condicaoEntradaC) || clarify.VerificaFormulaViciada(fm, tradeSystem.stopInicialC));
+            bool viciadaVenda = carteira.config.flagVenda && ((tradeSystem.usaStopMovel && clarify.VerificaFormulaViciada(fm, tradeSystem.stopMovelV)) || clarify.VerificaFormulaViciada(fm, tradeSystem.condicaoEntradaV) || clarify.VerificaFormulaViciada(fm, tradeSystem.stopInicialV));
+
+            if (viciadaCompra || viciadaVenda)
+            {
+                fitness -= PENALTY * 10000f;
+                carteira.tradeSystem.AddError("TradeSystem dependendo de números para gerar resultados.");
+            }
+
+            //TODO: Rever essa conta... acho que está prejudicando os que começam a dar lucro...
+            /* if (global.maxCapital > carteira.capitalInicial)
+             {
+                 float difMaxCapital = (global.maxCapital - carteira.GetCapital()) * 10;
+                 fitness -= difMaxCapital;
+             }*/
+
+                //Conta a variedade nas ações ganhadoras: acerta 2 ações é melhor que 1 ação
+                fitness += CalcBonusVariedade(carteira);
 
             
 
@@ -298,6 +320,14 @@ namespace Backtester.backend.model.system
             get
             {
                 return global.getGeral().getAmbasPontas().getTodosTrades().getnTrades();
+            }
+        }
+
+        public int qtdTradesGanhadores
+        {
+            get
+            {
+                return global.getGeral().getAmbasPontas().getTradesGanhos().getnTrades();
             }
         }
 

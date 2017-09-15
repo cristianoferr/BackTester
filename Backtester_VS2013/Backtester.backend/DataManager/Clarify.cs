@@ -1,4 +1,5 @@
-﻿using Backtester.backend.model.system;
+﻿using Backtester.backend.model.formulas;
+using Backtester.backend.model.system;
 using Backtester.backend.model.system.estatistica;
 using System;
 using System.Collections.Generic;
@@ -79,6 +80,16 @@ namespace Backtester.backend.DataManager
             if (dict == null) return formula;
             return dict.resultado;
         }
+
+        internal bool VerificaFormulaViciada(FormulaManager fm,bool flagOriginal)
+        {
+            foreach(ClarifyNode node in children )
+            {
+                if (node.VerificaFormulaViciada(fm, flagOriginal)) return true;
+            }
+            Formula f=fm.GetFormula(original);
+            return flagOriginal || f.CheckFormulaViciada();
+        }
     }
     public class Clarify
     {
@@ -116,6 +127,13 @@ namespace Backtester.backend.DataManager
                 result = result.Substring(1, result.Length - 2);
             }
             return result;
+        }
+
+
+        public bool VerificaFormulaViciada(FormulaManager fm,string formula)
+        {
+            ClarifyNode node = new ClarifyNode(this, formula);
+            return node.VerificaFormulaViciada(fm,false);
         }
 
         internal ClarifyDict GetDictFor(string formula)
@@ -169,6 +187,7 @@ namespace Backtester.backend.DataManager
 
 
         }
+
 
         private void DescreveDado(RichTextBox txt, SubDado dado)
         {

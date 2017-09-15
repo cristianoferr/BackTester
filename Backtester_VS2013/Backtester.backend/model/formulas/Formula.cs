@@ -45,6 +45,16 @@ namespace Backtester.backend.model.formulas
         {
             return GetCode();
         }
+
+        public virtual bool CheckFormulaViciada()
+        {
+            return false;
+        }
+
+        public virtual bool IsNumber()
+        {
+            return false;
+        }
     }
 
 }

@@ -24,7 +24,10 @@ namespace Backtester.backend.model.formulas
             return name + "(" + campo.GetCode() + ")";
         }
 
-
+        public override bool CheckFormulaViciada()
+        {
+            return campo.IsNumber() || campo.CheckFormulaViciada();
+        }
 
 
         public override float Calc(Candle candle)

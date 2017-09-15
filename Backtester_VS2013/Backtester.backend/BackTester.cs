@@ -132,7 +132,7 @@ namespace Backtester.backend
             Estatistica stat = runSingleBackTest(caller, mC).estatistica;
             stat.setDesc(getVarsValues());
             mC.setEstatistica(stat);
-            mC.FinishStats(carteira);
+            mC.FinishStats(facade.formulaManager,carteira); 
             mC.printPerformance("");
             caller.UpdateApplication(carteira, mC, countLoops_, totalLoops_);
             //monteCarlo.Add(mC);

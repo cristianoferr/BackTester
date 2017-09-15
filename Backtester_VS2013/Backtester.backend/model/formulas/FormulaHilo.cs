@@ -19,6 +19,10 @@ namespace Backtester.backend.model.formulas
             this.campo = campo;
         }
 
+        public override bool CheckFormulaViciada()
+        {
+            return campo.IsNumber() || campo.CheckFormulaViciada() || campoH.IsNumber() || campoH.CheckFormulaViciada() || campoL.IsNumber() || campoL.CheckFormulaViciada();
+        }
 
 
         public override string GetCode()

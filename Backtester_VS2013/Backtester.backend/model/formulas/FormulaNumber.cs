@@ -16,7 +16,10 @@ namespace Backtester.backend.model.formulas
             gravar = false;
         }
 
-
+        public override bool IsNumber()
+        {
+            return true;
+        }
 
         public override string GetCode()
         {

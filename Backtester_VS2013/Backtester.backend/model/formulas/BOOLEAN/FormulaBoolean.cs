@@ -13,7 +13,15 @@ namespace Backtester.backend.model.formulas
             gravar = false;
         }
 
-      
+        public override bool IsNumber()
+        {
+            return true;
+        }
+
+        public override bool CheckFormulaViciada()
+        {
+            return (campo1.IsNumber() || campo1.CheckFormulaViciada()) && (campo2.IsNumber() || campo2.CheckFormulaViciada());
+        }
 
         public override string GetCode()
         {

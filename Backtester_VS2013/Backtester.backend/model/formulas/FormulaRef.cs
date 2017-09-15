@@ -16,6 +16,10 @@ namespace Backtester.backend.model.formulas
             gravar = false;
         }
 
+        public override bool CheckFormulaViciada()
+        {
+            return campo.IsNumber() || campo.CheckFormulaViciada();
+        }
 
 
         public override string GetCode()

@@ -17,6 +17,14 @@ namespace Backtester.backend.model.formulas
             return (c.GetValor(campo1)>0 ^ c.GetValor(campo2)>0)?1:0;
         }
 
+        public override bool IsNumber()
+        {
+            return true;
+        }
 
+        public override bool CheckFormulaViciada()
+        {
+            return (campo1.IsNumber() || campo1.CheckFormulaViciada()) && (campo2.IsNumber() || campo2.CheckFormulaViciada());
+        }
     }
 }

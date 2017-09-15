@@ -21,7 +21,10 @@ namespace Backtester.backend.model.formulas
         {
             return name + "(" + campo.GetCode() + "," + per.GetCode() + ")";
         }
-
+        public override bool CheckFormulaViciada()
+        {
+            return campo.IsNumber() || campo.CheckFormulaViciada();
+        }
 
 
 

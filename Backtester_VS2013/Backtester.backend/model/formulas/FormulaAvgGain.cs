@@ -15,13 +15,16 @@ namespace Backtester.backend.model.formulas
             this.campo = campo;
         }
 
-
+       
 
         public override string GetCode()
         {
             return name + "(" + campo.GetCode() + "," + per.GetCode() + ")";
         }
-
+        public override bool CheckFormulaViciada()
+        {
+            return campo.IsNumber() || campo.CheckFormulaViciada();
+        }
 
         public float GetFirstRSI(Candle candle)
         {

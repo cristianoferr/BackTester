@@ -189,9 +189,17 @@ namespace Backtester.tests
             ValidaClarify(clarify, "SUM(H,MULTIPLY(STD(C,10),2))","H + (STD(C,10) * 2)");
             ValidaClarify(clarify, "GREATER(MME(C, 9), MME(C, 6))", "MME(C,9) > MME(C,6)");
             ValidaClarify(clarify, "AND(LV(C, L), C)", "LV(C,L) && C");
+
             
+            ValidaClarifyViciado(clarify, "MME(C, 9)", false);
+            ValidaClarifyViciado(clarify, "MME(9, C)", true);
 
+        }
 
+        private void ValidaClarifyViciado(Clarify clarify, string formula, bool esperado)
+        {
+            FormulaManager fm = facade.formulaManager;
+            Assert.IsTrue(clarify.VerificaFormulaViciada(fm,formula) == esperado,"Formula '"+formula+"' retornou diferente de "+esperado);
         }
 
         private void ValidaClarify(Clarify clarify, string original, string esperado)
