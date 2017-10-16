@@ -2,6 +2,7 @@
 using Backtester.backend.interfaces;
 using Backtester.backend.model;
 using Backtester.backend.model.system;
+using Backtester.backend.model.system.estatistica;
 using Backtester.GeneticProgramming;
 using Backtester.interfaces;
 using GeneticProgramming;
@@ -188,10 +189,23 @@ namespace Backtester.controller
         {
             //gpRunner.SingleRun();
             TradeSystem ts=solutionToTest.tradeSystem;
-            Carteira carteira=configController.RunSingle(loopCount,ts, name,backend.Consts.TIPO_CARGA_ATIVOS.VALIDA_CANDIDATO);
+            int loops = configController.config.CountValidationLoops;
+            Carteira carteira=null;
+            Estatistica stat = null;
+            for (int i = 0; i < loops; i++)
+            {
+                carteira = configController.RunSingle(loopCount, ts, name, backend.Consts.TIPO_CARGA_ATIVOS.VALIDA_CANDIDATO);
+                if (stat != null)
+                {
+                    stat.MergeWith(carteira.estatistica);
+                } else
+                {
+                    stat = carteira.estatistica;
+                }
+                loopCount++;
+            }
             CandidatoManager cm = CandidatoManager.LoadSaved();
-            cm.AddTradeSystem(ts,carteira.estatistica);
-            loopCount++;
+            cm.AddTradeSystem(ts,stat);
             return carteira;
         }
 

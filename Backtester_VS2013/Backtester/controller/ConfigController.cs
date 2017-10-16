@@ -184,9 +184,9 @@ namespace Backtester.controller
             Rows.Add();
             int colIndex = 0;
             contaTestes++;
-            SubSubDado todosTrades = mC.getGlobal().getGeral().getAmbasPontas().todosTrades;
-            SubSubDado tradesGanhos = mC.getGlobal().getGeral().getAmbasPontas().tradesGanhos;
-            SubSubDado tradesPerdidos = mC.getGlobal().getGeral().getAmbasPontas().tradesPerdidos;
+            SubSubDado todosTrades = mC.getGlobal().geral.getAmbasPontas().todosTrades;
+            SubSubDado tradesGanhos = mC.getGlobal().geral.getAmbasPontas().tradesGanhos;
+            SubSubDado tradesPerdidos = mC.getGlobal().geral.getAmbasPontas().tradesPerdidos;
             Rows[rowLine].Cells[colIndex++].Value = mC;
             Rows[rowLine].Cells[colIndex++].Value = carteira;
             Rows[rowLine].Cells[colIndex++].Value = contaTestes;
@@ -207,15 +207,15 @@ namespace Backtester.controller
             Rows[rowLine].Cells[colIndex++].Value = mC.getMinCapital();
             Rows[rowLine].Cells[colIndex++].Value = mC.winLossRatio;
             Rows[rowLine].Cells[colIndex++].Value = mC.qtdTrades;
-            Rows[rowLine].Cells[colIndex++].Value = tradesGanhos.getnTrades();
-            Rows[rowLine].Cells[colIndex++].Value = tradesPerdidos.getnTrades();
+            Rows[rowLine].Cells[colIndex++].Value = tradesGanhos.nTrades;
+            Rows[rowLine].Cells[colIndex++].Value = tradesPerdidos.nTrades;
             Rows[rowLine].Cells[colIndex++].Value = mC.totalGanho;
             Rows[rowLine].Cells[colIndex++].Value = mC.totalPerdido;
             Rows[rowLine].Cells[colIndex++].Value = mC.percAcerto;
             Rows[rowLine].Cells[colIndex++].Value = mC.capitalUsePercent;
-            Rows[rowLine].Cells[colIndex++].Value = todosTrades.getMaxDias();
-            Rows[rowLine].Cells[colIndex++].Value = todosTrades.getMinDias();
-            Rows[rowLine].Cells[colIndex++].Value = todosTrades.getAvgDias();
+            Rows[rowLine].Cells[colIndex++].Value = todosTrades.maxDias;
+            Rows[rowLine].Cells[colIndex++].Value = todosTrades.minDias;
+            Rows[rowLine].Cells[colIndex++].Value = todosTrades.avgDias;
 
             if (Rows.Count > config.maxTestes)
             {

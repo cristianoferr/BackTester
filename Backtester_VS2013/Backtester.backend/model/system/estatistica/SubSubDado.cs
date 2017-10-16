@@ -39,6 +39,19 @@ namespace Backtester.backend.model.system.estatistica
             minTrade = 0;
         }
 
+        internal void MergeWith(SubSubDado dado)
+        {
+            nTrades = (nTrades + dado.nTrades) / 2;
+            nTradesStopados = (nTradesStopados + dado.nTradesStopados) / 2;
+            maxDias = (maxDias + dado.maxDias) / 2;
+            minDias = (minDias + dado.minDias) / 2;
+            totDias = (totDias + dado.totDias) / 2;
+            avgDias = (avgDias + dado.avgDias) / 2;
+            total = (total + dado.total) / 2;
+            maxTrade = (maxTrade + dado.maxTrade) / 2;
+            minTrade = (minTrade + dado.minTrade) / 2;
+        }
+
         public void addDado(int dias, float dif, bool isStopado)
         {
             nTrades++;
@@ -62,76 +75,6 @@ namespace Backtester.backend.model.system.estatistica
             //  UsoComum.Utils.println(tx + ":  Trades:" + nTrades + " Total:" + UsoComum.Utils.FormatCurrency(total) + " Média:" + UsoComum.Utils.FormatCurrency(total / nTrades));
             //   UsoComum.Utils.println(tx + ":  Maior Resultado: " + UsoComum.Utils.FormatCurrency(maxTrade) + " Menor Resultado: " + UsoComum.Utils.FormatCurrency(minTrade));
             //  UsoComum.Utils.println(tx + ":  Tempo Médio: " + UsoComum.Utils.FormatCurrency(avgDias) + " Maior Tempo:" + maxDias + " Menor Tempo: " + minDias);
-        }
-
-        public int getnTrades()
-        {
-            return nTrades;
-        }
-
-        public void setnTrades(int nTrades)
-        {
-            this.nTrades = nTrades;
-        }
-
-        public int getMaxDias()
-        {
-            return maxDias;
-        }
-
-        public void setMaxDias(int maxDias)
-        {
-            this.maxDias = maxDias;
-        }
-
-        public int getMinDias()
-        {
-            return minDias;
-        }
-
-        public void setMinDias(int minDias)
-        {
-            this.minDias = minDias;
-        }
-
-        public int getTotDias()
-        {
-            return totDias;
-        }
-
-        public void setTotDias(int totDias)
-        {
-            this.totDias = totDias;
-        }
-
-        public float getAvgDias()
-        {
-            return avgDias;
-        }
-
-        public void setAvgDias(float avgDias)
-        {
-            this.avgDias = avgDias;
-        }
-
-        public float getTotal()
-        {
-            return total;
-        }
-
-        public void setTotal(float total)
-        {
-            this.total = total;
-        }
-
-        public float getMaxTrade()
-        {
-            return maxTrade;
-        }
-
-        public float getMinTrade()
-        {
-            return minTrade;
         }
 
     }

@@ -49,7 +49,7 @@ namespace Backtester.backend.model.system
 
         public void printPerformance(string s)
         {
-            Utils.println(s + ": " + name + "=>" + global.getMaxMinCapital() + " Trades:" + global.getGeral().getAmbasPontas().getTodosTrades().getnTrades());
+            Utils.println(s + ": " + name + "=>" + global.getMaxMinCapital() + " Trades:" + global.geral.getAmbasPontas().getTodosTrades().nTrades);
         }
 
         int totalQtdAcoes = 0;
@@ -319,7 +319,7 @@ namespace Backtester.backend.model.system
         {
             get
             {
-                return global.getGeral().getAmbasPontas().getTodosTrades().getnTrades();
+                return global.geral.getAmbasPontas().getTodosTrades().nTrades;
             }
         }
 
@@ -327,7 +327,7 @@ namespace Backtester.backend.model.system
         {
             get
             {
-                return global.getGeral().getAmbasPontas().getTradesGanhos().getnTrades();
+                return global.geral.getAmbasPontas().getTradesGanhos().nTrades;
             }
         }
 
@@ -335,7 +335,7 @@ namespace Backtester.backend.model.system
         {
             get
             {
-                return global.getGeral().getAmbasPontas().winLossRatio;
+                return global.geral.getAmbasPontas().winLossRatio;
             }
         }
 
@@ -343,7 +343,7 @@ namespace Backtester.backend.model.system
         {
             get
             {
-                return global.getGeral().getAmbasPontas().percAcerto;
+                return global.geral.getAmbasPontas().percAcerto;
             }
         }
 
@@ -352,14 +352,14 @@ namespace Backtester.backend.model.system
         {
             get
             {
-                return global.getGeral().getAmbasPontas().totalGanho;
+                return global.geral.getAmbasPontas().totalGanho;
             }
         }
         public float totalPerdido
         {
             get
             {
-                return global.getGeral().getAmbasPontas().totalPerdido;
+                return global.geral.getAmbasPontas().totalPerdido;
             }
         }
 
@@ -370,12 +370,12 @@ namespace Backtester.backend.model.system
 
         public float getMaxCapital()
         {
-            return global.getMaxCapital();
+            return global.maxCapital;
         }
 
         public float getMinCapital()
         {
-            return global.getMinCapital();
+            return global.minCapital;
         }
 
         public Estatistica getGlobal()

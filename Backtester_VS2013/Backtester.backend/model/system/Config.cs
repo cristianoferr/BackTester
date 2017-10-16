@@ -49,6 +49,11 @@ namespace Backtester.backend.model.system
             IList<PapelList> lista = dictPapeis[nomeLista];
             return lista[loop%lista.Count];
         }
+
+        internal int CountLista(string nomeLista)
+        {
+            return dictPapeis[nomeLista].Count;
+        }
     }
 
         [DataContract]
@@ -158,6 +163,25 @@ namespace Backtester.backend.model.system
             AddPapelValidacao(0, "BMV", "GCARSOA1");
             AddPapelValidacao(0, "BMV", "LIVEPOL1");
 
+            AddPapelValidacao(1, "L", "CCL");
+            AddPapelValidacao(1, "L", "BARC");
+            AddPapelValidacao(1, "L", "BG.");
+            AddPapelValidacao(1, "L", "BLT");
+            AddPapelValidacao(1, "L", "BOIL");
+            AddPapelValidacao(1, "L", "BP.");
+            AddPapelValidacao(1, "L", "BT.A");
+            AddPapelValidacao(1, "L", "CCL");
+            AddPapelValidacao(1, "L", "BT.A");
+            AddPapelValidacao(1, "L", "EME");
+            AddPapelValidacao(1, "L", "GKP");
+            AddPapelValidacao(1, "L", "LLOY");
+            AddPapelValidacao(1, "L", "MKS");
+            AddPapelValidacao(1, "L", "MRW");
+            AddPapelValidacao(1, "L", "RBS");
+            AddPapelValidacao(1, "L", "RDSA");
+            AddPapelValidacao(1, "L", "RR.");
+
+
 
         }
 
@@ -169,6 +193,11 @@ namespace Backtester.backend.model.system
         {
             PapelList dict = GetDictionary(lista,index);
             dict.Add(bolsa + "_" + acao);
+        }
+
+        public int CountValidationLoops { get {
+                return papeis.CountLista(NOME_LISTA_VALIDACAO);
+            }
         }
 
         private PapelList GetDictionary(string lista,int loop)
@@ -230,26 +259,27 @@ namespace Backtester.backend.model.system
             AddPapel(NOME_LISTA_GERACAO ,1,"BOV","ITSA4");
             AddPapel(NOME_LISTA_GERACAO ,1,"BOV","ITUB4");
             AddPapel(NOME_LISTA_GERACAO ,1,"BOV","JBSS3");
-            AddPapel(NOME_LISTA_GERACAO ,1,"BOV","KROT3");
-            AddPapel(NOME_LISTA_GERACAO ,1,"BOV","LAME4");
-            AddPapel(NOME_LISTA_GERACAO ,1,"BOV","LREN3");
-            AddPapel(NOME_LISTA_GERACAO ,1,"BOV","MRFG3");
-            AddPapel(NOME_LISTA_GERACAO ,1,"BOV","MRVE3");
-            AddPapel(NOME_LISTA_GERACAO ,1,"BOV","MULT3");
-            AddPapel(NOME_LISTA_GERACAO ,1,"BOV","NATU3");
-            AddPapel(NOME_LISTA_GERACAO ,1,"BOV","PCAR4");
-            AddPapel(NOME_LISTA_GERACAO ,1,"BOV","PETR4");
-            AddPapel(NOME_LISTA_GERACAO ,1,"BOV","QUAL3");
-            AddPapel(NOME_LISTA_GERACAO ,1,"BOV","RENT3");
-            AddPapel(NOME_LISTA_GERACAO ,1,"BOV","SBSP3");
-            AddPapel(NOME_LISTA_GERACAO ,1,"BOV","SMLE3");
-            AddPapel(NOME_LISTA_GERACAO ,1,"BOV","SUZB5");
-            AddPapel(NOME_LISTA_GERACAO ,1,"BOV","TIMP3");
-            AddPapel(NOME_LISTA_GERACAO ,1,"BOV","UGPA3");
-            AddPapel(NOME_LISTA_GERACAO ,1,"BOV","USIM5");
-            AddPapel(NOME_LISTA_GERACAO ,1,"BOV","VALE5");
-            AddPapel(NOME_LISTA_GERACAO ,1,"BOV","VIVT4");
-            AddPapel(NOME_LISTA_GERACAO ,1,"BOV","WEGE3");
+
+            AddPapel(NOME_LISTA_GERACAO ,2,"BOV","KROT3");
+            AddPapel(NOME_LISTA_GERACAO ,2,"BOV","LAME4");
+            AddPapel(NOME_LISTA_GERACAO ,2,"BOV","LREN3");
+            AddPapel(NOME_LISTA_GERACAO ,2,"BOV","MRFG3");
+            AddPapel(NOME_LISTA_GERACAO ,2,"BOV","MRVE3");
+            AddPapel(NOME_LISTA_GERACAO ,2,"BOV","MULT3");
+            AddPapel(NOME_LISTA_GERACAO ,2,"BOV","NATU3");
+            AddPapel(NOME_LISTA_GERACAO ,2,"BOV","PCAR4");
+            AddPapel(NOME_LISTA_GERACAO ,2,"BOV","PETR4");
+            AddPapel(NOME_LISTA_GERACAO ,2,"BOV","QUAL3");
+            AddPapel(NOME_LISTA_GERACAO ,2,"BOV","RENT3");
+            AddPapel(NOME_LISTA_GERACAO ,2,"BOV","SBSP3");
+            AddPapel(NOME_LISTA_GERACAO ,2,"BOV","SMLE3");
+            AddPapel(NOME_LISTA_GERACAO ,2,"BOV","SUZB5");
+            AddPapel(NOME_LISTA_GERACAO ,2,"BOV","TIMP3");
+            AddPapel(NOME_LISTA_GERACAO ,2,"BOV","UGPA3");
+            AddPapel(NOME_LISTA_GERACAO ,2,"BOV","USIM5");
+            AddPapel(NOME_LISTA_GERACAO ,2,"BOV","VALE5");
+            AddPapel(NOME_LISTA_GERACAO ,2,"BOV","VIVT4");
+            AddPapel(NOME_LISTA_GERACAO ,2,"BOV","WEGE3");
         }
 
         [DataMember]
@@ -321,6 +351,8 @@ namespace Backtester.backend.model.system
 
         [DataMember]
         public string gpVars { get; set; }
+
+        
 
         public bool IsGPVarDefined(string var)
         {

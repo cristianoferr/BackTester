@@ -26,7 +26,7 @@ namespace Backtester.backend.model.system.estatistica
             maxCapital = capitalInicial;
             estatisticasDiarias = new Dictionary<Periodo, DadoEstatistico>();
             minCapital = capitalInicial;
-            setGeral(new DadoEstatistico());
+            geral=new DadoEstatistico();
         }
 
         public void AddTrade(Operacao oper, Periodo periodo)
@@ -59,7 +59,7 @@ namespace Backtester.backend.model.system.estatistica
         {
 
             Utils.println("-------------------------------------------------------------");
-            getGeral().print();
+            geral.print();
             Utils.println("------------------Estatistica--------------------------------");
             Utils.println(getPerformance());
             Utils.println("Max Capital:" + Utils.FormatCurrency(maxCapital) + " Menor Capital:" + Utils.FormatCurrency(minCapital));
@@ -72,7 +72,7 @@ namespace Backtester.backend.model.system.estatistica
 
         public String getPerformance()
         {
-            return "CapitalFinal:" + Utils.FormatCurrency(capitalFinal) + " Dif:" + Utils.FormatCurrency(getGeral().getAmbasPontas().todosTrades.getTotal()) + " GrossWin:" + Utils.FormatCurrency(getGeral().getAmbasPontas().tradesGanhos.getTotal()) + " GrossLoss:" + Utils.FormatCurrency(getGeral().getAmbasPontas().tradesPerdidos.getTotal());
+            return "CapitalFinal:" + Utils.FormatCurrency(capitalFinal) + " Dif:" + Utils.FormatCurrency(geral.getAmbasPontas().todosTrades.total) + " GrossWin:" + Utils.FormatCurrency(geral.getAmbasPontas().tradesGanhos.total) + " GrossLoss:" + Utils.FormatCurrency(geral.getAmbasPontas().tradesPerdidos.total);
         }
 
         public String getMaxMinCapital()
@@ -90,40 +90,18 @@ namespace Backtester.backend.model.system.estatistica
             this.desc = desc;
         }
 
-        public void setGeral(DadoEstatistico geral)
+
+
+        public void MergeWith(Estatistica estatistica)
         {
-            this.geral = geral;
+            maxCapital = (maxCapital + estatistica.maxCapital) / 2;
+            minCapital = (minCapital + estatistica.minCapital) / 2;
+            capitalFinal = (capitalFinal + estatistica.capitalFinal) / 2;
+            geral.MergeWith(estatistica.geral);
+
         }
+        
 
-        public DadoEstatistico getGeral()
-        {
-            return geral;
-        }
-
-       
-
-        public float getMaxCapital()
-        {
-            return maxCapital;
-        }
-
-        public float getMinCapital()
-        {
-            return minCapital;
-        }
-
-
-
-        public void setMaxCapital(float maxCapital)
-        {
-            this.maxCapital = maxCapital;
-        }
-
-        public void setMinCapital(float minCapital)
-        {
-            this.minCapital = minCapital;
-        }
-
-
+        
     }
 }

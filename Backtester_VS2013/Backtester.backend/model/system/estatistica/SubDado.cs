@@ -25,6 +25,14 @@ namespace Backtester.backend.model.system.estatistica
             tradesPerdidos = new SubSubDado();
         }
 
+        internal void MergeWith(SubDado subDado)
+        {
+            nTradesStopados = (nTradesStopados + subDado.nTradesStopados) / 2;
+            todosTrades.MergeWith(subDado.todosTrades);
+            tradesGanhos.MergeWith(subDado.tradesGanhos);
+            tradesPerdidos.MergeWith(subDado.tradesPerdidos);
+        }
+
         public void addOperacao(Operacao oper)
         {
             addOperacao(oper.GetDif(), oper.getQtdPeriodosOper(), oper.stopado);
@@ -51,11 +59,13 @@ namespace Backtester.backend.model.system.estatistica
             Utils.println("------------------" + txt + "--------------------------------");
             string percAcerto = Utils.FormatCurrency(this.percAcerto);
             string winLossRatio = Utils.FormatCurrency(this.winLossRatio);
-            Utils.println("DIF: " + Utils.FormatCurrency(todosTrades.getTotal()) + " %Acerto:" + percAcerto + "%   $W/$L:" + winLossRatio + " Stops:" + nTradesStopados);
+            Utils.println("DIF: " + Utils.FormatCurrency(todosTrades.total) + " %Acerto:" + percAcerto + "%   $W/$L:" + winLossRatio + " Stops:" + nTradesStopados);
             todosTrades.print("TODOS:     ");
             tradesGanhos.print("GANHADORES:");
             tradesPerdidos.print("PERDEDORES:");
         }
+
+        
 
         public int getnTradesStopados()
         {
@@ -66,9 +76,9 @@ namespace Backtester.backend.model.system.estatistica
         {
             get
             {
-                float nTrades = todosTrades.getnTrades();
+                float nTrades = todosTrades.nTrades;
                 if (nTrades == 0) return 0;
-                return (Math.Abs((float)tradesGanhos.getnTrades() / nTrades)) * 100;
+                return (Math.Abs((float)tradesGanhos.nTrades / nTrades)) * 100;
             }
         }
 
@@ -76,9 +86,9 @@ namespace Backtester.backend.model.system.estatistica
         {
             get
             {
-                float total = tradesPerdidos.getTotal();
+                float total = tradesPerdidos.total;
                 if (total == 0) return 0;
-                return Math.Abs(tradesGanhos.getTotal() / total);
+                return Math.Abs(tradesGanhos.total / total);
             }
         }
 
@@ -86,14 +96,14 @@ namespace Backtester.backend.model.system.estatistica
         {
             get
             {
-                return tradesGanhos.getTotal();
+                return tradesGanhos.total;
             }
         }
         public float totalPerdido
         {
             get
             {
-                return tradesPerdidos.getTotal();
+                return tradesPerdidos.total;
             }
         }
 

@@ -1,6 +1,7 @@
 ﻿using Backtester.backend.model.system.condicoes;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
+using System;
 
 namespace Backtester.backend.model.system.estatistica
 {
@@ -70,5 +71,12 @@ namespace Backtester.backend.model.system.estatistica
             return ambasPontas;
         }
 
+        internal void MergeWith(DadoEstatistico geral)
+        {
+            capital = (capital + geral.capital) / 2;
+            compras.MergeWith(geral.compras);
+            vendas.MergeWith(geral.vendas);
+            ambasPontas.MergeWith(geral.ambasPontas);
+        }
     }
 }

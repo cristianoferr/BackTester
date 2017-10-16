@@ -216,14 +216,14 @@ namespace Backtester.backend.DataManager
             AddQuebraLinha(txt);
             AddTitle(txt, titulo);
             txt.SelectionBullet = true;
-            AddText(txt, "Qtd Trades", "" + ssd.getnTrades());
+            AddText(txt, "Qtd Trades", "" + ssd.nTrades);
 
-            AddText(txt, "Duração Média", "" + ssd.getAvgDias());
-            AddText(txt, "Duração Máxima", "" + ssd.getMaxDias());
-            AddText(txt, "Duração Mínima", "" + ssd.getMinDias());
-            AddText(txt, "Maior Variação", "" + Utils.FormatCurrency(ssd.getMaxTrade()));
-            AddText(txt, "Menor Variação", "" + Utils.FormatCurrency(ssd.getMinTrade()));
-            AddText(txt, "Variação Total", "" + Utils.FormatCurrency(ssd.getTotal()));
+            AddText(txt, "Duração Média", "" + ssd.avgDias);
+            AddText(txt, "Duração Máxima", "" + ssd.maxDias);
+            AddText(txt, "Duração Mínima", "" + ssd.minDias);
+            AddText(txt, "Maior Variação", "" + Utils.FormatCurrency(ssd.maxTrade));
+            AddText(txt, "Menor Variação", "" + Utils.FormatCurrency(ssd.minTrade));
+            AddText(txt, "Variação Total", "" + Utils.FormatCurrency(ssd.total));
             txt.SelectionBullet = false;
         }
 
