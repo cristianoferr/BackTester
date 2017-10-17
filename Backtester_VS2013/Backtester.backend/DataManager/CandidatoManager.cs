@@ -50,12 +50,12 @@ namespace Backtester.backend.DataManager
             ranking = new List<CandidatoData>();
         }
 
-        public static CandidatoManager LoadSaved(string path="")
+        public static CandidatoManager LoadSaved(Consts.PERIODO_ACAO periodo,string path="")
         {
             if (singleton != null) return singleton;
             try
             {
-                if (File.Exists("saved-candidatos.js")) path = "";
+                if (File.Exists("saved-candidatos-"+ periodo.ToString()+ ".js")) path = "";
                 var fileStream = File.Open(path+"saved-candidatos.js", FileMode.Open);
                 DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(CandidatoManager));
                 singleton = (CandidatoManager)ser.ReadObject(fileStream);
@@ -72,25 +72,25 @@ namespace Backtester.backend.DataManager
             return singleton;
         }
 
-        public void SaveToFile()
+        public void SaveToFile(Consts.PERIODO_ACAO periodo)
         {
             //objeto de teste
             if (this != singleton) return;
             DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(CandidatoManager));
-            var fileStream = File.Create("saved-candidatos.js");
+            var fileStream = File.Create("saved-candidatos-" + periodo.ToString() + ".js");
             ser.WriteObject(fileStream, this);
             fileStream.Close();
 
         }
 
-        public int AddTradeSystem(TradeSystem ts,Estatistica stat)
+        public int AddTradeSystem(TradeSystem ts,Estatistica stat, Consts.PERIODO_ACAO periodo)
         {
             if (!RankingContains(ts, stat.capitalFinal))
             {
                 ranking.Add(new CandidatoData(ts,stat,stat.capitalFinal));
             }
             SortRanking();
-            SaveToFile();
+            SaveToFile(periodo);
             return GetRanking(ts);
         }
 

@@ -20,13 +20,13 @@ namespace GeneticProgramming
         public const float PENALTY = 1000;
 
         #region IO
-        internal static GPPool LoadSaved(GPConfig config, GPSolutionDefinition definition)
+        internal static GPPool LoadSaved(GPConfig config, GPSolutionDefinition definition, string periodoAcao)
         {
             try
             {
                 var lista = new List<Type>();
                 lista.Add(typeof(TradeSystem));
-                var fileStream = File.Open("saved-pool.js", FileMode.Open);
+                var fileStream = File.Open("saved-pool-"+ periodoAcao + ".js", FileMode.Open);
                 DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(GPPool), lista);
                 fileStream.Flush();
                 fileStream.Position = 0;
@@ -52,10 +52,10 @@ namespace GeneticProgramming
                 solution.FinishLoading(definition);
             }
         }
-        internal void SaveState()
+        internal void SaveState(string periodoAcao)
         {
             DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(GPPool));
-            var fileStream = File.Create("saved-pool.js");
+            var fileStream = File.Create("saved-pool-" + periodoAcao + ".js");
             ser.WriteObject(fileStream, this);
             fileStream.Close();
         }

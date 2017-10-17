@@ -15,6 +15,8 @@ namespace Backtester.backend.DataManager
         {
             this.facade = facadeBacktester;
         }
+        bool minDateSet = false;
+        DateTime minDate;
 
 
         internal bool LoadAtivo(Ativo ativo, Consts.PERIODO_ACAO periodoAcao, string fileName, Consts.TIPO_CARGA_ATIVOS tipoCarga)
@@ -45,18 +47,27 @@ namespace Backtester.backend.DataManager
             Candle candleAnterior = null;
             Periodo periodoAnterior = null;
             //i=0 está bugado...
+            
             for (int i = item.t.Count - 1; i > 0; i--)
             {
                 //DataDTO data = item.data[i];
                 DateTime data = Utils.UnixTimeStampToDateTime(item.t[i]);
-
-                if (periodoAcao == Consts.PERIODO_ACAO.DIARIO)
+                if (!minDateSet)
                 {
-                    ProcessaPeriodoDiario(ativo, item, ref candleAnterior, ref periodoAnterior, i, data);
+                    minDate = data;
+                    minDateSet = true;
                 }
-                if (periodoAcao == Consts.PERIODO_ACAO.SEMANAL)
+                if (data.CompareTo(minDate)>=0)
                 {
-                    ProcessaPeriodoSemanal(ativo, item, ref candleAnterior, ref periodoAnterior, i, data);
+
+                    if (periodoAcao == Consts.PERIODO_ACAO.DIARIO)
+                    {
+                        ProcessaPeriodoDiario(ativo, item, ref candleAnterior, ref periodoAnterior, i, data);
+                    }
+                    if (periodoAcao == Consts.PERIODO_ACAO.SEMANAL)
+                    {
+                        ProcessaPeriodoSemanal(ativo, item, ref candleAnterior, ref periodoAnterior, i, data);
+                    }
                 }
             }
         }

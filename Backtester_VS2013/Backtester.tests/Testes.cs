@@ -234,8 +234,8 @@ namespace Backtester.tests
             Assert.IsTrue(configController.facadeValidation.dh.ativos.Count > 0);
 
             //adicionar o resultado da carteira em algum objeto persistido, ordenando pelo resultado final
-            CandidatoManager cm=CandidatoManager.LoadSaved();
-            CandidatoManager cm2 = CandidatoManager.LoadSaved();
+            CandidatoManager cm=CandidatoManager.LoadSaved(configController.config.tipoPeriodo);
+            CandidatoManager cm2 = CandidatoManager.LoadSaved(configController.config.tipoPeriodo);
             Assert.IsTrue(cm == cm2);
 
             Estatistica stat = new Estatistica(10000);
@@ -245,14 +245,14 @@ namespace Backtester.tests
             TradeSystem ts2 = new TradeSystem(configController.config);
             TradeSystem ts3 = new TradeSystem(configController.config);
             stat.capitalFinal = 1000;
-            cmTest.AddTradeSystem(ts1,stat);
+            cmTest.AddTradeSystem(ts1,stat, configController.config.tipoPeriodo);
             Assert.IsTrue(cmTest.GetRanking(ts1) == 0);
             stat.capitalFinal = 2000;
-            cmTest.AddTradeSystem(ts2, stat);
+            cmTest.AddTradeSystem(ts2, stat, configController.config.tipoPeriodo);
             Assert.IsTrue(cmTest.GetRanking(ts1) == 1);
             Assert.IsTrue(cmTest.GetRanking(ts2) == 0);
             stat.capitalFinal = 3000;
-            cmTest.AddTradeSystem(ts3, stat);
+            cmTest.AddTradeSystem(ts3, stat, configController.config.tipoPeriodo);
             Assert.IsTrue(cmTest.GetRanking(ts1) == 2);
             Assert.IsTrue(cmTest.GetRanking(ts2) == 1);
             Assert.IsTrue(cmTest.GetRanking(ts3) == 0);

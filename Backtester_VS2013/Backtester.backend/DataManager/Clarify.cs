@@ -232,7 +232,8 @@ namespace Backtester.backend.DataManager
             if (config.flagCompra)
             {
                 AddTitle(txt, "CONDIÇÕES COMPRA");
-                AddText(txt, "Cond.Compra", ClarificaFormula(ts.condicaoEntradaC));
+                AddText(txt, "Cond.Entrada", ClarificaFormula(ts.condicaoEntradaC));
+                AddText(txt, "Cond.Saida", ClarificaFormula(ts.condicaoSaidaC));
                 AddText(txt, "Sizing Compra", ClarificaFormula(ts.sizingCompra));
                 AddText(txt, "Stop Inicial Compra", ClarificaFormula(ts.stopInicialC));
                 if (ts.usaStopMovel)
@@ -243,9 +244,10 @@ namespace Backtester.backend.DataManager
             if (config.flagVenda)
             {
                 AddTitle(txt, "CONDIÇÕES VENDA");
-                AddText(txt, "Cond.Venda", ClarificaFormula(ts.condicaoEntradaC));
+                AddText(txt, "Cond.Entrada", ClarificaFormula(ts.condicaoEntradaV));
+                AddText(txt, "Cond.Saida", ClarificaFormula(ts.condicaoSaidaV));
                 AddText(txt, "Sizing Venda", ClarificaFormula(ts.sizingCompra));
-                AddText(txt, "Stop Inicial Venda", ClarificaFormula(ts.stopInicialC));
+                AddText(txt, "Stop Inicial Venda", ClarificaFormula(ts.stopInicialV));
                 if (ts.usaStopMovel)
                 {
                     AddText(txt, "Stop Movel Venda", ClarificaFormula(ts.stopMovelC));

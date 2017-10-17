@@ -53,7 +53,7 @@ namespace FrontTester.frontend.controller
         {
             string path = System.AppDomain.CurrentDomain.BaseDirectory;
             path = path.Replace("FrontTester.frontend", "Backtester");
-            candidatoManager = CandidatoManager.LoadSaved(path);
+            candidatoManager = CandidatoManager.LoadSaved(configController.config.tipoPeriodo,path);
             for (int i = 0; i < candidatoManager.ranking.Count; i++)
             {
                 CandidatoData data = candidatoManager.ranking[i];

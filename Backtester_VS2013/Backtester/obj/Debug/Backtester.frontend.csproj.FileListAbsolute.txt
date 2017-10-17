@@ -64,3 +64,6 @@ G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester\obj\Debug\Ba
 F:\Java\repositorios\BackTester\Backtester_VS2013\Backtester\bin\Debug\Microsoft.VisualBasic.PowerPacks.dll
 F:\Java\repositorios\BackTester\Backtester_VS2013\Backtester\bin\Debug\Microsoft.VisualBasic.PowerPacks.xml
 F:\Java\repositorios\BackTester\Backtester_VS2013\Backtester\obj\Debug\Backtester.FrmGraph.resources
+G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester\obj\Debug\Backtester.FrmGraph.resources
+G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester\bin\Debug\Microsoft.VisualBasic.PowerPacks.dll
+G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester\bin\Debug\Microsoft.VisualBasic.PowerPacks.xml

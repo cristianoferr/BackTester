@@ -5,13 +5,15 @@ namespace GeneticProgramming
 {
     public abstract class GPRunner
     {
+        private string periodoAcao;
 
-        public GPRunner(GPConfig config)
+        public GPRunner(GPConfig config,string periodoAcao)
         {
             this.gpConfig = config;
 
             this.definitions = CreateSolutionDefinition();
-            this.pool = GPPool.LoadSaved(config, definitions);
+            this.periodoAcao = periodoAcao;
+            this.pool = GPPool.LoadSaved(config, definitions, periodoAcao);
 
         }
         public void InitPool()
@@ -38,7 +40,7 @@ namespace GeneticProgramming
 
             pool.EndTurn();
             pool.Mutate();
-            pool.SaveState();
+            pool.SaveState(periodoAcao);
         }
 
         public abstract void RunSolution(GPSolution solution);

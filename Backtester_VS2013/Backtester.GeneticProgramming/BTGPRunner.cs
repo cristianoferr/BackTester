@@ -32,7 +32,7 @@ namespace Backtester.GeneticProgramming
         IList<string> listVariaveis = new List<string>();
 
         public BTGPRunner(Config config, ICaller gpController)
-            : base(LoadGPConfig())
+            : base(LoadGPConfig(),config.tipoPeriodo.ToString())
         {
             this.config = config;
             this.gpController = gpController;

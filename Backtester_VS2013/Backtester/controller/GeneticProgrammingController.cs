@@ -98,7 +98,8 @@ namespace Backtester.controller
                 {
                     UpdatesToAdd updt = updatesToAdd[i];
                     runs++;
-                    configController.UpdateApplication(updt.carteira, updt.mc, runs, updt.totalLoops);
+                    if (updt!=null)
+                        configController.UpdateApplication(updt.carteira, updt.mc, runs, updt.totalLoops);
                 }
                 updatesToAdd.Clear();
             }
@@ -205,8 +206,8 @@ namespace Backtester.controller
                 }
                 loopCount++;
             }
-            CandidatoManager cm = CandidatoManager.LoadSaved();
-            cm.AddTradeSystem(ts,stat);
+            CandidatoManager cm = CandidatoManager.LoadSaved(configController.config.tipoPeriodo);
+            cm.AddTradeSystem(ts,stat, configController.config.tipoPeriodo);
             return carteira;
         }
 
