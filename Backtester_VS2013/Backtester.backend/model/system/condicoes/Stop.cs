@@ -8,14 +8,15 @@ namespace Backtester.backend.model.system.condicoes
         private TradeSystem tradeSystem;
         private float vlrStop;
         private formulas.Formula stopCalc;
-        float stopInicial = 0;
-        float stopAtual = 0;
+        public float stopInicial { get; private set; }
+        public float stopAtual {get;set;}
 
 
         public Stop(TradeSystem tradeSystem, int sentido, float stopInicial)
         {
             this.tradeSystem = tradeSystem;
             this.sentido = sentido;
+            stopAtual = 0;
             this.stopInicial = stopInicial;
             stopAtual = stopInicial;
         }
@@ -24,13 +25,21 @@ namespace Backtester.backend.model.system.condicoes
             : this(tradeSystem, sentido, stopInicial)
         {
             this.stopCalc = stopCalc;
+            stopAtual = stopInicial;
         }
 
-        public float CalcStop(ativos.Candle candle)
+        public float CalcStopCandle(ativos.Candle candle)
         {
             if (stopCalc == null) return stopInicial;
-            float v = candle.GetValor(stopCalc) ;
+            float v = candle.GetValor(stopCalc);
             v = CalcValorStop(v, sentido, tradeSystem.stopGapPerc);
+            return v;
+        }
+
+            public float CalcStop(ativos.Candle candle)
+        {
+            if (stopCalc == null) return stopInicial;
+            float v = CalcStopCandle(candle);
             //	System.out.println("StopInicial: "+stopInicial+" stopMovel:"+v+" "+(v>stopInicial));
             //Caso o valor da formula seja maior que o stopInicial então retorna o valor
             if (sentido > 0)

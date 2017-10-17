@@ -21,6 +21,7 @@ namespace Backtester.controller
         private IReferView frmPrincipal;
         private ConfigController configController;
         public BTGPRunner gpRunner;
+        
 
         static GeneticProgrammingController singleton; 
 

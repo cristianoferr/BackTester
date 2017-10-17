@@ -277,7 +277,7 @@ namespace Backtester.controller
 
 
 
-                DataGridViewRowCollection Rows = frmPrincipal.GetRows("dataGridOperacoes");
+            DataGridViewRowCollection Rows = frmPrincipal.GetRows("dataGridOperacoes");
             for (int i = 0; i < mc.operacoes.Count; i++)
             {
                 Operacao oper = mc.operacoes[i];
@@ -286,6 +286,7 @@ namespace Backtester.controller
                 int rowLine = Rows.Count - 1;
                 Rows.Add();
                 int colIndex = 0;
+                Rows[rowLine].Cells[colIndex++].Value = oper;
                 Rows[rowLine].Cells[colIndex++].Value = contaOperacao;
                 Rows[rowLine].Cells[colIndex++].Value = posicao.idPosicao;
                 string ativoName = posicao.ativo.name;
@@ -315,6 +316,7 @@ namespace Backtester.controller
                 capital += oper.GetDif() - 2 * config.custoOperacao;
                 Rows[rowLine].Cells[colIndex++].Value = capital;
                 Rows[rowLine].Cells[colIndex++].Value = oper.capitalOnClose;
+                
                 //  oper.
             }
         }

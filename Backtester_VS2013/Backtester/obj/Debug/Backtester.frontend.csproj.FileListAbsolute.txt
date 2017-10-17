@@ -61,3 +61,6 @@ G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester\obj\Debug\Ba
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester\obj\Debug\Backtester.frontend.csproj.GenerateResource.Cache
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester\obj\Debug\Backtester.exe
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester\obj\Debug\Backtester.pdb
+F:\Java\repositorios\BackTester\Backtester_VS2013\Backtester\bin\Debug\Microsoft.VisualBasic.PowerPacks.dll
+F:\Java\repositorios\BackTester\Backtester_VS2013\Backtester\bin\Debug\Microsoft.VisualBasic.PowerPacks.xml
+F:\Java\repositorios\BackTester\Backtester_VS2013\Backtester\obj\Debug\Backtester.FrmGraph.resources

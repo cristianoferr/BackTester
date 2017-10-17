@@ -4,6 +4,7 @@ using Backtester.interfaces;
 using System.Windows.Forms;
 using System;
 using Backtester.backend.model.ativos;
+using Backtester.backend.model.system.condicoes;
 
 namespace Backtester
 {
@@ -12,6 +13,7 @@ namespace Backtester
         ConfigController configController;
         TradeSystemController tsController;
         GeneticProgrammingController gpController;
+        GraphController graphController;
 
         ReferView referView;
 
@@ -22,7 +24,9 @@ namespace Backtester
             configController = new ConfigController(this);
             tsController = new TradeSystemController(this, configController);
             gpController = new GeneticProgrammingController(this, configController);
-            
+            graphController = new GraphController(this);
+
+
         }
 
         private void RegisterElements()
@@ -317,6 +321,18 @@ namespace Backtester
             ativo.DrawIn(panelGrafico.CreateGraphics());
         }
 
-       
+        private void dataGridOperacoes_RowEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dataGridOperacoes.SelectedCells.Count > 0)
+            {
+                Operacao oper = dataGridOperacoes.SelectedCells[0].OwningRow.Cells[0].Value as Operacao;
+                graphController.ShowGraph(oper);
+            }
+        }
+
+        private void dataGridOperacoes_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }
