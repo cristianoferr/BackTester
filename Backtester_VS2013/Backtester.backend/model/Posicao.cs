@@ -110,6 +110,13 @@ namespace Backtester.backend.model
                     //	System.out.println("Stop atingido em "+ativo.getName()+" no dia "+candle.getPeriodo()+" no valor de "+vlr);
                     oper.stopado = true;
                     carteira.FechaOperacao(this, candle, oper, vlr);
+                } else
+                {
+                    vlr = oper.AtingiuAlvo(candle);
+                    if (vlr > 0)
+                    {
+                        carteira.FechaOperacao(this, candle, oper, vlr);
+                    }
                 }
             }
 

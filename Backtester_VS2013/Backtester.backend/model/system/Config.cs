@@ -114,7 +114,6 @@ namespace Backtester.backend.model.system
         //TODO: separar a configuração dos papeis daqui: muito embolado
         private void InitDefaultPapeisFinal()
         {
-            AddPapel(NOME_LISTA_FINAL,0,"BOV", "ABEV3");
             AddPapel(NOME_LISTA_FINAL , 0, "BOV", "BBAS3");
             AddPapel(NOME_LISTA_FINAL , 0, "BOV", "BBDC4");
             AddPapel(NOME_LISTA_FINAL , 0, "BOV", "BRAP4");
@@ -226,14 +225,12 @@ namespace Backtester.backend.model.system
             AddPapel(NOME_LISTA_GERACAO , 0, "NY", "TECK");
             AddPapel(NOME_LISTA_GERACAO , 0, "NY", "TEVA");
             AddPapel(NOME_LISTA_GERACAO , 0, "NY", "WLL");
-            AddPapel(NOME_LISTA_GERACAO , 0, "NY", "AUY");
             AddPapel(NOME_LISTA_GERACAO , 0, "NY", "NOK");
             AddPapel(NOME_LISTA_GERACAO , 0, "NY", "HPE");
             AddPapel(NOME_LISTA_GERACAO , 0, "NY", "COL");
             AddPapel(NOME_LISTA_GERACAO , 0, "NY", "UTX");
             AddPapel(NOME_LISTA_GERACAO , 0, "NY", "JPM");
 
-            AddPapel(NOME_LISTA_GERACAO ,1,"BOV", "ABEV3");
             AddPapel(NOME_LISTA_GERACAO ,1, "BOV", "BBAS3");
             AddPapel(NOME_LISTA_GERACAO ,1, "BOV", "BBDC4");
             AddPapel(NOME_LISTA_GERACAO ,1, "BOV", "BBSE3");

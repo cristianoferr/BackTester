@@ -20,6 +20,8 @@ namespace Backtester.GeneticProgramming
         public const string PROP_COND_ENTRADA_C = "COND_ENTRADA_C";
         public const string PROP_COND_ENTRADA_V = "COND_ENTRADA_V";
         public const string PROP_COND_SAIDA_C = "COND_SAIDA_C";
+        public const string PROP_COND_TARGET_SAIDA = "COND_TARGET_SAIDA";
+        
         public const string PROP_COND_SAIDA_V = "COND_SAIDA_V";
         public const string PROP_COND_STOP_MOVEL_C = "STOP_MOVEL_C";
         public const string PROP_COND_STOP_MOVEL_V = "STOP_MOVEL_V";
@@ -56,11 +58,12 @@ namespace Backtester.GeneticProgramming
             SemanticaList listaNumerosPercentuais = definitions.GetListByName(GPConsts.LISTA_NUMEROS_PERCENTUAIS);
             //   template.AddProperty(PROP_COND_ENTRADA_C,)
 
+            listFormulas.Add(PROP_COND_TARGET_SAIDA);
+            template.AddProperty(PROP_COND_TARGET_SAIDA, listaFormula);
             if (config.flagCompra)
             {
                 listFormulas.Add(PROP_COND_ENTRADA_C);
                 listFormulas.Add(PROP_SIZING_C);
-
                 listFormulas.Add(PROP_COND_SAIDA_C);
                 listFormulas.Add(PROP_COND_STOP_MOVEL_C);
                 listFormulas.Add(PROP_COND_STOP_INICIAL_C);
@@ -183,6 +186,7 @@ namespace Backtester.GeneticProgramming
                     ts.vm.SetVariavel(var, solution.GetValueAsNumber(var));
                 }
             }
+            ts.targetSaida = solution.GetValueAsString(PROP_COND_TARGET_SAIDA);
             if (config.flagCompra)
             {
                 ts.condicaoEntradaC = solution.GetValueAsString(PROP_COND_ENTRADA_C);

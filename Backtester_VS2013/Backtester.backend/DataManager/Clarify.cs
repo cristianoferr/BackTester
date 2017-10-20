@@ -120,6 +120,7 @@ namespace Backtester.backend.DataManager
 
         public string ClarificaFormula(string original)
         {
+            if (original == "") return "";
             ClarifyNode node = new ClarifyNode(this, original);
             string result= node.ToString();
             if (result[0] == '(')
@@ -234,6 +235,7 @@ namespace Backtester.backend.DataManager
                 AddTitle(txt, "CONDIÇÕES COMPRA");
                 AddText(txt, "Cond.Entrada", ClarificaFormula(ts.condicaoEntradaC));
                 AddText(txt, "Cond.Saida", ClarificaFormula(ts.condicaoSaidaC));
+                AddText(txt, "Target Saida", ClarificaFormula(ts.targetSaida));
                 AddText(txt, "Sizing Compra", ClarificaFormula(ts.sizingCompra));
                 AddText(txt, "Stop Inicial Compra", ClarificaFormula(ts.stopInicialC));
                 if (ts.usaStopMovel)
@@ -246,6 +248,7 @@ namespace Backtester.backend.DataManager
                 AddTitle(txt, "CONDIÇÕES VENDA");
                 AddText(txt, "Cond.Entrada", ClarificaFormula(ts.condicaoEntradaV));
                 AddText(txt, "Cond.Saida", ClarificaFormula(ts.condicaoSaidaV));
+                AddText(txt, "Target Saida", ClarificaFormula(ts.targetSaida));
                 AddText(txt, "Sizing Venda", ClarificaFormula(ts.sizingCompra));
                 AddText(txt, "Stop Inicial Venda", ClarificaFormula(ts.stopInicialV));
                 if (ts.usaStopMovel)

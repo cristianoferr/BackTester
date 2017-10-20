@@ -14,6 +14,7 @@ namespace Backtester.backend.model.system.condicoes
             this.carteira = carteira;
             this.candleInicial = candle;
             stopado = false;
+            atingiuAlvo = 0;
             this.vlrEntrada = vlrEntrada;
             if (formulaStop == "" || formulaStop == null)
                 stop = new Stop(carteira.tradeSystem, direcao, vlrStop);
@@ -59,6 +60,41 @@ namespace Backtester.backend.model.system.condicoes
             }
             return risco;
         }
+
+        internal float AtingiuAlvo(Candle candle)
+        {
+            if (carteira.tradeSystem.targetSaida == null || carteira.tradeSystem.targetSaida == "") return 0;
+            float vlrAlvo = CalcAlvo(candle);
+            if (vlrAlvo <= 0) return 0;
+            float vlrMaximo = candle.GetValor(FormulaManager.HIGH);
+            float vlrOpen = candle.GetValor(FormulaManager.OPEN);
+            //float vlrLOW= candle.GetValor(FormulaManager.OPEN);
+            //float difPercAtual = vlrEntrada / vlrMaximo;
+            if (vlrMaximo > vlrAlvo)
+            {
+                if (vlrOpen > vlrAlvo)
+                {
+                    atingiuAlvo = vlrOpen;
+                }
+                else
+                {
+                    atingiuAlvo = vlrAlvo;
+                }
+                return atingiuAlvo;
+            }
+            
+            return 0;
+
+        }
+
+        public float CalcAlvo(Candle candle)
+        {
+            float percTarget = candle.GetValor(carteira.tradeSystem.targetSaida);
+            float vlrAlvo = vlrEntrada + vlrEntrada * percTarget / 100;
+            if (vlrAlvo <= 0) return 0;
+            return vlrAlvo;
+        }
+
 
         /*
          * Essa função verifica se atingiu o stop definido, tanto na compra quanto na venda
@@ -118,6 +154,8 @@ namespace Backtester.backend.model.system.condicoes
 
         public float capitalOnClose { get; set; }
 
+       
+
         public float vlrSaida { get; set; }
 
         public Candle candleFinal { get; set; }
@@ -125,6 +163,8 @@ namespace Backtester.backend.model.system.condicoes
         public float vlrEntrada { get; set; }
 
         public bool stopado { get; set; }
+        public float atingiuAlvo { get; set; }
+        
 
 
         public Candle candleInicial { get; set; }

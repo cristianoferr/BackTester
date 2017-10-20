@@ -97,7 +97,7 @@ namespace Backtester.backend
                 return dh.GetPeriodo(data.ToShortDateString());
             } else if (tipoPeriodo == Consts.PERIODO_ACAO.SEMANAL){
                 int v = (int)data.DayOfWeek;
-                data = data.AddDays(-v);
+                data = data.AddDays(-v+1);
                 return dh.GetPeriodo(data.ToShortDateString());
             } else {
                 throw new Exception("Periodo não implementado:"+tipoPeriodo);

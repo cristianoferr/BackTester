@@ -112,7 +112,9 @@ namespace GeneticProgramming.solution
 
         public string GetValueAsString(string var)
         {
-            return GetValue(var).ToString();
+            GPAbstractNode node = GetValue(var);
+            if (node == null) return "";
+            return node.ToString();
         }
 
         public void Mutate(int chance)

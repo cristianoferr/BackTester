@@ -33,6 +33,7 @@ namespace Backtester.controller
 
         internal void ShowGraph(Operacao oper)
         {
+            if (oper == null) return;
             if (frmGraph == null || frmGraph.IsDisposed)
             {
                 frmGraph = new FrmGraph();
@@ -59,21 +60,48 @@ namespace Backtester.controller
                 if (candle.GetValor(FormulaManager.LOW) < minValue) minValue = candle.GetValor(FormulaManager.LOW);
                 candle = candle.proximoCandle;
             }
-            maxValue *= 1.1f;
-            minValue *= 0.9f;
+            maxValue *= 1.2f;
+            minValue *= 0.8f;
+            maxPeriodos += 10;
 
 
             contaPers = 0;
             candle = oper.candleInicial;
+
+            //Periodo anterior
             oper.stop.stopAtual = oper.stop.stopInicial;
+            candle = oper.candleInicial.candleAnterior;
+            for (int i = 0; i < 5; i++)
+            {
+                contaPers++;
+                if (candle != null)
+                {
+                    DrawCandle(oper, oper.carteira.tradeSystem, candle, false);
+                    candle = candle.candleAnterior;
+                }
+            }
+            candle = oper.candleInicial;
+
+
             while (candle.candleAnterior != oper.candleFinal && candle != candle.proximoCandle)
             {
                 contaPers++;
-                DrawCandle(oper,oper.carteira.tradeSystem,candle);
+                DrawCandle(oper,oper.carteira.tradeSystem,candle,true);
                 candle = candle.proximoCandle;
             }
 
-            
+            //Periodo posterior
+            for (int i = 0; i < 5; i++)
+            {
+                contaPers++;
+                if (candle != null)
+                {
+                    DrawCandle(oper, oper.carteira.tradeSystem, candle, false);
+                    candle = candle.proximoCandle;
+                }
+            }
+
+
         }
         int maxPeriodos = 0;
         float maxValue = 0;
@@ -82,7 +110,7 @@ namespace Backtester.controller
         int border = 20;
         //int candleWidth
 
-        private void DrawCandle(Operacao oper, TradeSystem tradeSystem, Candle candle)
+        private void DrawCandle(Operacao oper, TradeSystem tradeSystem, Candle candle,bool atual)
         {
             float cw = candleWidth() * 0.8f;
             float x = GetWidthForPeriodo(contaPers)-cw/2;
@@ -90,15 +118,19 @@ namespace Backtester.controller
             float y = GetYPosition(candle.GetValor(FormulaManager.OPEN));
             float w =  cw;
             float h= GetHeightValueAbs(dif);
-            Color cor=Color.Green;
+            Color cor= atual ? Color.Green : Color.White;
             if (candle.GetValor(FormulaManager.OPEN) < candle.GetValor(FormulaManager.CLOSE))
             {
-                cor = Color.Red;
+                cor = atual ? Color.Red : Color.Black;
                 y -= h;
             }
+            //stop
             float vlrStop = oper.stop.CalcStop(candle);
             DrawLine(x, GetYPosition(vlrStop), x + cw, GetYPosition(vlrStop), Color.Red);
 
+            //target
+            float vlrTarget = oper.CalcAlvo(candle);
+            DrawLine(x, GetYPosition(vlrTarget), x + cw, GetYPosition(vlrTarget), Color.Green);
 
 
             RectangleShape corpo = new RectangleShape((int)x, (int)y, (int)w, (int)h);

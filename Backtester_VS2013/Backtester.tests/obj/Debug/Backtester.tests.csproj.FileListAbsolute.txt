@@ -85,3 +85,5 @@ G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester.tests\obj\De
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester.tests\obj\Debug\Backtester.tests.pdb
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester.tests\bin\Debug\Microsoft.VisualBasic.PowerPacks.dll
 G:\java\repositorios\gitHub\BackTester\Backtester_VS2013\Backtester.tests\bin\Debug\Microsoft.VisualBasic.PowerPacks.xml
+F:\Java\repositorios\BackTester\Backtester_VS2013\Backtester.tests\bin\Debug\Microsoft.VisualBasic.PowerPacks.dll
+F:\Java\repositorios\BackTester\Backtester_VS2013\Backtester.tests\bin\Debug\Microsoft.VisualBasic.PowerPacks.xml

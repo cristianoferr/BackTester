@@ -77,20 +77,20 @@ namespace Backtester.controller
             ts.condicaoEntradaC=frmPrincipal.Text("txtCondEntrC");
             //ts.condicaoEntradaC.descricao = frmPrincipal.txtCondEntrCDesc.Text;
 
-            ts.condicaoSaidaC=frmPrincipal.Text("txtCondSaidaC.Text");
+            ts.condicaoSaidaC=frmPrincipal.Text("txtCondSaidaC");
             //ts.condicaoSaidaC.descricao = frmPrincipal.txtCondSaidaCDesc.Text;
 
 
-            ts.condicaoEntradaV=frmPrincipal.Text("txtCondEntrV.Text");
+            ts.condicaoEntradaV=frmPrincipal.Text("txtCondEntrV");
            // ts.condicaoEntradaV.descricao = frmPrincipal.txtCondEntrVDesc.Text;
 
-            ts.condicaoSaidaV=frmPrincipal.Text("txtCondSaidaV.Text");
+            ts.condicaoSaidaV=frmPrincipal.Text("txtCondSaidaV");
             //ts.condicaoSaidaV.descricao = frmPrincipal.txtCondSaidaVDesc.Text;
 
-            ts.stopMovelC = frmPrincipal.Text("txtStopMovelCompra.Text");
-            ts.stopMovelV = frmPrincipal.Text("txtStopMovelVenda.Text");
-            ts.stopInicialC= frmPrincipal.Text("txtStopInicialCompra.Text");
-            ts.stopInicialV = frmPrincipal.Text("txtStopInicialVenda.Text");
+            ts.stopMovelC = frmPrincipal.Text("txtStopMovelCompra");
+            ts.stopMovelV = frmPrincipal.Text("txtStopMovelVenda");
+            ts.stopInicialC= frmPrincipal.Text("txtStopInicialCompra");
+            ts.stopInicialV = frmPrincipal.Text("txtStopInicialVenda");
 
 
             vc.ChangeSelectedVariavel(0);

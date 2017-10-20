@@ -59,8 +59,12 @@ namespace Backtester.backend.DataManager
                 }
                 if (data.CompareTo(minDate)>=0)
                 {
+                    if (ativo.name.Contains("USIM5") && data.Month == 3 && data.Year == 2016 && data.Day>27)
+                    {
+                        Console.WriteLine("beep");
+                    }
 
-                    if (periodoAcao == Consts.PERIODO_ACAO.DIARIO)
+                        if (periodoAcao == Consts.PERIODO_ACAO.DIARIO)
                     {
                         ProcessaPeriodoDiario(ativo, item, ref candleAnterior, ref periodoAnterior, i, data);
                     }
@@ -112,7 +116,7 @@ namespace Backtester.backend.DataManager
         private void ProcessaCandle(Ativo ativo, ref Candle candleAnterior, ref Periodo periodoAnterior, Candle candle)
         {
             candle.candleAnterior = candleAnterior;
-            LimitaCandle(candle, 50);
+            //LimitaCandle(candle, 50);
             candle.periodo.AddCandle(candle);
             if (candle.periodo.periodoAnterior == null && periodoAnterior != null)
             {

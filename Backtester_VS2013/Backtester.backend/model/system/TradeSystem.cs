@@ -55,6 +55,10 @@ E caso o valor do stopMovel seja menor que o stopInicial então o valor retornad
             condicaoEntradaV = saida;
             condicaoSaidaV = entrada;
 
+            //target de saida
+            targetSaida = "-1";
+                
+
         }
 
         #region propriedades
@@ -64,6 +68,9 @@ E caso o valor do stopMovel seja menor que o stopInicial então o valor retornad
 
         [DataMember]
         public string name { get; set; }
+
+        [DataMember]
+        public string targetSaida { get; set; }
 
         [DataMember]
         public string stopInicialC { get; set; }
