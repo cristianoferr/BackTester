@@ -55,11 +55,11 @@ namespace Backtester.GeneticProgramming
             SemanticaList listaNumeros = definitions.GetListByName(GPConsts.LISTA_NUMEROS);
             SemanticaList listaBooleanos = definitions.GetListByName(GPConsts.LISTA_NUMEROS_BOOLEANOS);
             SemanticaList listaNumerosGrandes = definitions.GetListByName(GPConsts.LISTA_NUMEROS_GRANDES);
-            SemanticaList listaNumerosPercentuais = definitions.GetListByName(GPConsts.LISTA_NUMEROS_PERCENTUAIS);
+            SemanticaList listaNumerosPercentuais = definitions.GetListByName(GPConsts.LISTA_NUMEROS_PERCENTUAIS);// 0 a 100
             //   template.AddProperty(PROP_COND_ENTRADA_C,)
 
             listFormulas.Add(PROP_COND_TARGET_SAIDA);
-            template.AddProperty(PROP_COND_TARGET_SAIDA, listaFormula);
+            template.AddProperty(PROP_COND_TARGET_SAIDA, listaNumerosPercentuais);
             if (config.flagCompra)
             {
                 listFormulas.Add(PROP_COND_ENTRADA_C);

@@ -82,6 +82,22 @@
             this.Avg_dias = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panelRunsBottom = new System.Windows.Forms.Panel();
             this.dataGridOperacoes = new System.Windows.Forms.DataGridView();
+            this.operObject = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.number = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.posicao = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ativo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.periodoInicial = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.periodoFinal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.sentido = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.quantidade = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.vlr_entrada = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.vlr_saida = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.stopInicial = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Stopado = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.vlr_oper = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Dif = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Capital = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.capitalOnClose = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel7 = new System.Windows.Forms.Panel();
             this.labelAvgDif = new System.Windows.Forms.Label();
             this.txtVarsDebug = new System.Windows.Forms.TextBox();
@@ -201,22 +217,6 @@
             this.btnGeraMockGrafico = new System.Windows.Forms.Button();
             this.txtSeed = new System.Windows.Forms.TextBox();
             this.label26 = new System.Windows.Forms.Label();
-            this.operObject = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.number = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.posicao = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ativo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.periodoInicial = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.periodoFinal = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sentido = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.quantidade = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.vlr_entrada = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.vlr_saida = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.stopInicial = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Stopado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.vlr_oper = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Dif = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Capital = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.capitalOnClose = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.mainTab.SuspendLayout();
             this.tabBackTester.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -606,6 +606,118 @@
             this.dataGridOperacoes.TabIndex = 5;
             this.dataGridOperacoes.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridOperacoes_CellContentClick);
             this.dataGridOperacoes.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridOperacoes_RowEnter);
+            // 
+            // operObject
+            // 
+            this.operObject.HeaderText = "operObject";
+            this.operObject.Name = "operObject";
+            this.operObject.Visible = false;
+            // 
+            // number
+            // 
+            this.number.HeaderText = "#";
+            this.number.Name = "number";
+            this.number.Width = 30;
+            // 
+            // posicao
+            // 
+            this.posicao.HeaderText = "Pos#";
+            this.posicao.Name = "posicao";
+            this.posicao.Width = 30;
+            // 
+            // ativo
+            // 
+            this.ativo.HeaderText = "Papel";
+            this.ativo.Name = "ativo";
+            this.ativo.Width = 60;
+            // 
+            // periodoInicial
+            // 
+            this.periodoInicial.HeaderText = "Per.Inicial";
+            this.periodoInicial.Name = "periodoInicial";
+            this.periodoInicial.Width = 75;
+            // 
+            // periodoFinal
+            // 
+            this.periodoFinal.HeaderText = "Per.Final";
+            this.periodoFinal.Name = "periodoFinal";
+            this.periodoFinal.Width = 75;
+            // 
+            // sentido
+            // 
+            this.sentido.HeaderText = "Sentido";
+            this.sentido.Name = "sentido";
+            this.sentido.Width = 50;
+            // 
+            // quantidade
+            // 
+            this.quantidade.HeaderText = "Qtd.";
+            this.quantidade.Name = "quantidade";
+            this.quantidade.Width = 50;
+            // 
+            // vlr_entrada
+            // 
+            this.vlr_entrada.HeaderText = "Vlr.Entrada";
+            this.vlr_entrada.Name = "vlr_entrada";
+            this.vlr_entrada.Width = 50;
+            // 
+            // vlr_saida
+            // 
+            this.vlr_saida.HeaderText = "Vlr.Saida";
+            this.vlr_saida.Name = "vlr_saida";
+            this.vlr_saida.Width = 50;
+            // 
+            // stopInicial
+            // 
+            this.stopInicial.HeaderText = "StopInicial";
+            this.stopInicial.Name = "stopInicial";
+            this.stopInicial.Width = 50;
+            // 
+            // Stopado
+            // 
+            this.Stopado.HeaderText = "Stopado?";
+            this.Stopado.Name = "Stopado";
+            this.Stopado.Width = 50;
+            // 
+            // vlr_oper
+            // 
+            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle19.Format = "N2";
+            dataGridViewCellStyle19.NullValue = null;
+            this.vlr_oper.DefaultCellStyle = dataGridViewCellStyle19;
+            this.vlr_oper.HeaderText = "Vlr.Oper";
+            this.vlr_oper.Name = "vlr_oper";
+            this.vlr_oper.Width = 70;
+            // 
+            // Dif
+            // 
+            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle20.Format = "N2";
+            dataGridViewCellStyle20.NullValue = null;
+            this.Dif.DefaultCellStyle = dataGridViewCellStyle20;
+            this.Dif.HeaderText = "Dif";
+            this.Dif.Name = "Dif";
+            this.Dif.Width = 65;
+            // 
+            // Capital
+            // 
+            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle21.Format = "N2";
+            dataGridViewCellStyle21.NullValue = null;
+            this.Capital.DefaultCellStyle = dataGridViewCellStyle21;
+            this.Capital.HeaderText = "Capital";
+            this.Capital.Name = "Capital";
+            this.Capital.Width = 80;
+            // 
+            // capitalOnClose
+            // 
+            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle22.Format = "N2";
+            dataGridViewCellStyle22.NullValue = null;
+            this.capitalOnClose.DefaultCellStyle = dataGridViewCellStyle22;
+            this.capitalOnClose.HeaderText = "Cap. Oper";
+            this.capitalOnClose.Name = "capitalOnClose";
+            this.capitalOnClose.Width = 80;
             // 
             // panel7
             // 
@@ -1795,118 +1907,6 @@
             this.label26.Size = new System.Drawing.Size(32, 13);
             this.label26.TabIndex = 0;
             this.label26.Text = "Seed";
-            // 
-            // operObject
-            // 
-            this.operObject.HeaderText = "operObject";
-            this.operObject.Name = "operObject";
-            this.operObject.Visible = false;
-            // 
-            // number
-            // 
-            this.number.HeaderText = "#";
-            this.number.Name = "number";
-            this.number.Width = 30;
-            // 
-            // posicao
-            // 
-            this.posicao.HeaderText = "Pos#";
-            this.posicao.Name = "posicao";
-            this.posicao.Width = 30;
-            // 
-            // ativo
-            // 
-            this.ativo.HeaderText = "Papel";
-            this.ativo.Name = "ativo";
-            this.ativo.Width = 60;
-            // 
-            // periodoInicial
-            // 
-            this.periodoInicial.HeaderText = "Per.Inicial";
-            this.periodoInicial.Name = "periodoInicial";
-            this.periodoInicial.Width = 75;
-            // 
-            // periodoFinal
-            // 
-            this.periodoFinal.HeaderText = "Per.Final";
-            this.periodoFinal.Name = "periodoFinal";
-            this.periodoFinal.Width = 75;
-            // 
-            // sentido
-            // 
-            this.sentido.HeaderText = "Sentido";
-            this.sentido.Name = "sentido";
-            this.sentido.Width = 50;
-            // 
-            // quantidade
-            // 
-            this.quantidade.HeaderText = "Qtd.";
-            this.quantidade.Name = "quantidade";
-            this.quantidade.Width = 50;
-            // 
-            // vlr_entrada
-            // 
-            this.vlr_entrada.HeaderText = "Vlr.Entrada";
-            this.vlr_entrada.Name = "vlr_entrada";
-            this.vlr_entrada.Width = 50;
-            // 
-            // vlr_saida
-            // 
-            this.vlr_saida.HeaderText = "Vlr.Saida";
-            this.vlr_saida.Name = "vlr_saida";
-            this.vlr_saida.Width = 50;
-            // 
-            // stopInicial
-            // 
-            this.stopInicial.HeaderText = "StopInicial";
-            this.stopInicial.Name = "stopInicial";
-            this.stopInicial.Width = 50;
-            // 
-            // Stopado
-            // 
-            this.Stopado.HeaderText = "Stopado?";
-            this.Stopado.Name = "Stopado";
-            this.Stopado.Width = 50;
-            // 
-            // vlr_oper
-            // 
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle19.Format = "N2";
-            dataGridViewCellStyle19.NullValue = null;
-            this.vlr_oper.DefaultCellStyle = dataGridViewCellStyle19;
-            this.vlr_oper.HeaderText = "Vlr.Oper";
-            this.vlr_oper.Name = "vlr_oper";
-            this.vlr_oper.Width = 70;
-            // 
-            // Dif
-            // 
-            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle20.Format = "N2";
-            dataGridViewCellStyle20.NullValue = null;
-            this.Dif.DefaultCellStyle = dataGridViewCellStyle20;
-            this.Dif.HeaderText = "Dif";
-            this.Dif.Name = "Dif";
-            this.Dif.Width = 65;
-            // 
-            // Capital
-            // 
-            dataGridViewCellStyle21.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle21.Format = "N2";
-            dataGridViewCellStyle21.NullValue = null;
-            this.Capital.DefaultCellStyle = dataGridViewCellStyle21;
-            this.Capital.HeaderText = "Capital";
-            this.Capital.Name = "Capital";
-            this.Capital.Width = 80;
-            // 
-            // capitalOnClose
-            // 
-            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle22.Format = "N2";
-            dataGridViewCellStyle22.NullValue = null;
-            this.capitalOnClose.DefaultCellStyle = dataGridViewCellStyle22;
-            this.capitalOnClose.HeaderText = "Cap. Oper";
-            this.capitalOnClose.Name = "capitalOnClose";
-            this.capitalOnClose.Width = 80;
             // 
             // FrmPrincipal
             // 

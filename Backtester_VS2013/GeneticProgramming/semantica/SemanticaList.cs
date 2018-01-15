@@ -38,7 +38,7 @@ namespace GeneticProgramming.semantica
             do
             {
                 ret = InternalCreateRandomNode(config, flagTerminal, parent, countLevel);
-                if (ret.SizeLevel() > maxLevels )//|| ret.SizeLevel() < minLevels)
+                if (ret.SizeLevel() > maxLevels || ret.SizeLevel() < minLevels)
                 {
                     ret = null;
                 }
@@ -59,7 +59,7 @@ namespace GeneticProgramming.semantica
 
             for (int i = 0; i < rndVal; i++)
             {
-                GPAbstractNode nodeParam = InternalCreateRandomNode(config, countLevel  > config.minLevels, parent, countLevel + 1);
+                GPAbstractNode nodeParam = InternalCreateRandomNode(config, countLevel  >= config.minLevels, parent, countLevel + 1);
                 if (!node.CanAddNode(nodeParam))
                 {
                     throw new Exception("Node não permite adicionar nodeParam!");
