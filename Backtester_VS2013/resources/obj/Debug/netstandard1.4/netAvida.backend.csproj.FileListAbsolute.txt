@@ -1,0 +1,3 @@
+F:\Java\repositorios\jAvida_github\netAvida\netAvida.backend\bin\Debug\netstandard1.4\netAvida.backend.deps.json
+F:\Java\repositorios\jAvida_github\netAvida\netAvida.backend\obj\Debug\netstandard1.4\netAvida.backend.csprojResolveAssemblyReference.cache
+F:\Java\repositorios\jAvida_github\netAvida\netAvida.backend\obj\Debug\netstandard1.4\netAvida.backend.AssemblyInfo.cs
