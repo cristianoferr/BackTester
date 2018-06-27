@@ -9,3 +9,5 @@ Backtester_VS2013/Backtester/bin/Debug/to_check/
 *.pdb
 *.exe
 *.cache
+debug/
+obj/

@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FundSpider", "FundSpider.csproj", "{A25AD6E3-BFB6-46C2-B44F-88B6A5704FE1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FundSpider.Backend", "FundSpider.Backend\FundSpider.Backend.csproj", "{C037322E-A6B7-42E2-AF68-EC71D110F516}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utils", "Utils\Utils.csproj", "{FD048335-CB33-4030-8AB7-8D8E4368F7C7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FundSpiders.tests", "FundSpiders.tests\FundSpiders.tests.csproj", "{DE8FB7DF-E992-4BD5-AF2C-61DDDC56362F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A25AD6E3-BFB6-46C2-B44F-88B6A5704FE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A25AD6E3-BFB6-46C2-B44F-88B6A5704FE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A25AD6E3-BFB6-46C2-B44F-88B6A5704FE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A25AD6E3-BFB6-46C2-B44F-88B6A5704FE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C037322E-A6B7-42E2-AF68-EC71D110F516}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C037322E-A6B7-42E2-AF68-EC71D110F516}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C037322E-A6B7-42E2-AF68-EC71D110F516}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C037322E-A6B7-42E2-AF68-EC71D110F516}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD048335-CB33-4030-8AB7-8D8E4368F7C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD048335-CB33-4030-8AB7-8D8E4368F7C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD048335-CB33-4030-8AB7-8D8E4368F7C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD048335-CB33-4030-8AB7-8D8E4368F7C7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DE8FB7DF-E992-4BD5-AF2C-61DDDC56362F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DE8FB7DF-E992-4BD5-AF2C-61DDDC56362F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DE8FB7DF-E992-4BD5-AF2C-61DDDC56362F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DE8FB7DF-E992-4BD5-AF2C-61DDDC56362F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
